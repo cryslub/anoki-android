@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
         //서버에 인증요청
         Response response = Util.rest("auth/log", "POST", phone, Response.class);
 
-        if("0".equals(response.result)){
+        if(response != null && "0".equals(response.result)){
             Global.apiKey = response.apiKey;
         }
 

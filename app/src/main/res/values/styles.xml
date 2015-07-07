@@ -3,7 +3,14 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">#FFFFFF</item>
     </style>
+
+    <style name="AnokiActionBar"
+        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#33b5e5</item>
+    </style>
+
     <style name="Header" >
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
@@ -12,6 +19,7 @@
         <item name="android:gravity">center</item>
 
     </style>
+
 
     <style name="MainMessage" >
         <item name="android:layout_width">match_parent</item>

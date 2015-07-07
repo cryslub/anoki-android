@@ -11,4 +11,12 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_set_name">SetNameActivity</string>
     <string name="title_activity_recent">RecentActivity</string>
+    <string name="title_activity_alaram_list">AlaramListActivity</string>
+    <string name="title_activity_message_list">MessageListActivity</string>
+    <string name="title_activity_write">WriteActivity</string>
+    <string name="title_activity_recent_tab">RecentTabActivity</string>
+    <string name="title_activity_my_tab">MyTabActivity</string>
+    <string name="title_activity_friends_tab">FriendsTabActivity</string>
+    <string name="title_activity_group_tab">GroupTabActivity</string>
+    <string name="title_activity_more_tab">MoreTabActivity</string>
 </resources>
