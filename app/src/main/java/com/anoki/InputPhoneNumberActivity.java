@@ -3,6 +3,7 @@ package com.anoki;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -17,7 +18,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import com.anoki.Singleton.Util;
 import com.anoki.pojo.Country;
+import com.anoki.pojo.Phone;
+import com.anoki.pojo.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,6 +36,10 @@ public class InputPhoneNumberActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_phone_number);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
 
         ArrayList<Country> list  = loadCountryData();
 
@@ -50,8 +58,8 @@ public class InputPhoneNumberActivity extends Activity {
 
         TelephonyManager tMgr = (TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
         String mPhoneNumber = tMgr.getLine1Number();
-       // EditText editText = (EditText)findViewById(R.id.phone_number);
-       // editText.setText(mPhoneNumber, TextView.BufferType.EDITABLE);
+        EditText editText = (EditText)findViewById(R.id.calc_txt_Prise);
+        editText.setText(mPhoneNumber, TextView.BufferType.EDITABLE);
 
     }
 
@@ -112,13 +120,26 @@ public class InputPhoneNumberActivity extends Activity {
     public void next(View view){
 
         Spinner spinner =   (Spinner) findViewById(R.id.country_spinner);
-       // EditText editText = (EditText)findViewById(R.id.phone_number);
+        EditText editText = (EditText)findViewById(R.id.calc_txt_Prise);
 
         Country country = (Country) spinner.getSelectedItem();
 
+        Phone phone = new Phone();
+        phone.number = editText.getText().toString();
+        phone.country = country.getCountryCode()+"";
 
-        Intent intent = new Intent(this, InputAuthCodeActivity.class);
-     //   intent.putExtra("phone","+"+country.getCountryCode()+"-"+editText.getText());
-        startActivity(intent);
+
+        //서버에 인증요청
+        Response response = Util.rest("auth/request","POST", phone,Response.class);
+
+        if("0".equals(response.result)){
+            Intent intent = new Intent(this, InputAuthCodeActivity.class);
+            intent.putExtra("phone",phone);
+
+            startActivity(intent);
+        }else{
+
+        }
+
     }
 }

@@ -1,17 +1,32 @@
 package com.anoki;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.anoki.Singleton.Util;
+import com.anoki.pojo.Phone;
+import com.anoki.pojo.Response;
 
 public class InputAuthCodeActivity extends Activity {
+
+    private Phone phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_auth_code);
+
+        Intent intent = new Intent(this.getIntent());
+
+        phone = (Phone) intent.getSerializableExtra("phone");
+        TextView phoneNumber = (TextView) findViewById(R.id.phone_number);
+        phoneNumber.setText("+"+phone.country+"-"+phone.number+"로 전송받은 4자리 인증번호를 입력해주세요.");
     }
 
     @Override
@@ -34,5 +49,25 @@ public class InputAuthCodeActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void back(View view){
+        onBackPressed();
+    }
+
+    public void confirm(View view){
+        //서버에 인증번호 전송
+
+        Response response = Util.rest("auth/send/number", "POST", phone, Response.class);
+
+        if("0".equals(response.result)){
+
+        }
+        //성공시 다음 화면으로
+
+    }
+
+    public void resend(View view){
+
     }
 }

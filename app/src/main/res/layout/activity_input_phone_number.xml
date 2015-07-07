@@ -7,30 +7,27 @@
     tools:context="com.anoki.InputPhoneNumberActivity"
     android:orientation="vertical">
 
-    <TextView android:text="전화번호 입력" android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#0000FF"
-        android:textColor="#FFFFFF"
-        android:gravity="center"
-        android:textSize="25sp"/>
+    <TextView android:text="전화번호 입력"
+        style="@style/Header"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+    <TextView style="@style/MainMessage"
         android:text="본인 휴대전화번호를 입력해주세요" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/country_spinner" />
+        android:id="@+id/country_spinner"
+        android:layout_marginTop="10dp"
+        />
 
 
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="com.anoki.EditTextFragment"
-        android:id="@+id/fragment" />
+        android:id="@+id/fragment"
+        android:inputType="phone"
+        android:maxLength="11"/>
 
 
     <Button

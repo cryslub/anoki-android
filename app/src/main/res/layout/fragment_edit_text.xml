@@ -22,6 +22,6 @@ android:padding="5dp">
     android:layout_gravity="right|center_vertical"
     android:src="@drawable/ic_clear_black_18dp"
     android:background="@android:color/transparent"
-    android:onClick="clear"/>
+    />
 
 </FrameLayout>
