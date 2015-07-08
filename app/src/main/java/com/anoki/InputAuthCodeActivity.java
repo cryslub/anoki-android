@@ -2,14 +2,13 @@ package com.anoki;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.anoki.Singleton.Util;
+import com.anoki.singleton.Util;
 import com.anoki.pojo.Phone;
 import com.anoki.pojo.Response;
 

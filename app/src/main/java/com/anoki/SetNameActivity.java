@@ -1,17 +1,17 @@
 package com.anoki;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.anoki.Singleton.Util;
+import com.anoki.singleton.Util;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.User;
 
@@ -75,6 +75,9 @@ public class SetNameActivity extends Activity {
 
         }
 
+    }
 
+    public void changeImage(View view){
+        Log.v("setName","changeImage");
     }
 }

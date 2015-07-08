@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -13,9 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 
-public class RecentActivity extends AppCompatActivity {
+public class RecentActivity extends TabActivity {
 
     public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
         private Fragment mFragment;
@@ -65,7 +67,17 @@ public class RecentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recent);
 
+        TabHost mTabHost = getTabHost();
 
+        mTabHost.addTab(mTabHost.newTabSpec("최근").setIndicator("최근").setContent(new Intent(this  ,RecentTabActivity.class )));
+        mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#222222"));
+        TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title); //Unselected Tabs
+        tv.setTextColor(Color.parseColor("#ffffff"));
+    //    mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this , MeTabActivity.class )));
+//        mTabHost.setCurrentTab(0);
+
+
+/*
         ActionBar actionBar = getSupportActionBar();
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -100,45 +112,10 @@ public class RecentActivity extends AppCompatActivity {
                 .setTabListener(new TabListener<MoreFragment>(
                         this, "더보기", MoreFragment.class));
         actionBar.addTab(tab5);
+*/
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_recent, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void alarm(MenuItem item){
-        Intent intent = new Intent(this, AlaramListActivity.class);
-        startActivity(intent);
-    }
-
-    public void message(MenuItem item){
-        Intent intent = new Intent(this, MessageListActivity.class);
-        startActivity(intent);
-
-    }
-
-    public void write(MenuItem item){
-        Intent intent = new Intent(this, WriteActivity.class);
-        startActivity(intent);
-
-    }
 }

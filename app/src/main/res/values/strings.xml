@@ -19,4 +19,5 @@
     <string name="title_activity_friends_tab">FriendsTabActivity</string>
     <string name="title_activity_group_tab">GroupTabActivity</string>
     <string name="title_activity_more_tab">MoreTabActivity</string>
+    <string name="title_activity_me_tab">MeTabActivity</string>
 </resources>

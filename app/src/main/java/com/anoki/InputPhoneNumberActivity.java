@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
-import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
-import com.anoki.Singleton.Util;
+import com.anoki.singleton.Util;
 import com.anoki.pojo.Country;
 import com.anoki.pojo.Phone;
 import com.anoki.pojo.Response;

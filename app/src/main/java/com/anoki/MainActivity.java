@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.anoki.Singleton.Global;
-import com.anoki.Singleton.Util;
+import com.anoki.singleton.Global;
+import com.anoki.singleton.Util;
 import com.anoki.pojo.Account;
 import com.anoki.pojo.Phone;
 import com.anoki.pojo.Response;
@@ -39,7 +36,7 @@ public class MainActivity extends Activity {
             Global.apiKey = response.apiKey;
         }
 
-        Intent intent = new Intent(this, RecentActivity.class);
+        Intent intent = new Intent(this, SetNameActivity.class);
         startActivity(intent);
     }
 
