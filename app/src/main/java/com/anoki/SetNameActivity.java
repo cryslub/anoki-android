@@ -1,6 +1,14 @@
 package com.anoki;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,11 +17,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.anoki.singleton.Util;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.User;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SetNameActivity extends Activity {
 
@@ -36,6 +66,9 @@ public class SetNameActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
+        ImageButton  button = (ImageButton) findViewById(R.id.profileImage);
+        Bitmap bmp = fetchImage("http://anoki.co.kr/anoki/images/10");
+        button.setImageBitmap(bmp);
     }
 
     @Override
@@ -78,6 +111,121 @@ public class SetNameActivity extends Activity {
     }
 
     public void changeImage(View view){
-        Log.v("setName","changeImage");
+       // Log.v("setName","changeImage");
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, 100);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode) {
+            case 100:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = data.getData();
+                    InputStream imageStream = null;
+                    try {
+                        imageStream = getContentResolver().openInputStream(selectedImage);
+                        Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+                        String id = executeMultipartPost(yourSelectedImage);
+                        if(!"-1".equals(id)){
+                            ImageButton  button = (ImageButton) findViewById(R.id.profileImage);
+                            Bitmap bmp = fetchImage("http://anoki.co.kr/anoki/images/"+id);
+                            button.setImageBitmap(bmp);
+                        }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+        }
+    }
+
+    public String executeMultipartPost(Bitmap bm)  {
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, 75, bos);
+            byte[] data = bos.toByteArray();
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost postRequest = new HttpPost(
+                    "http://anoki.co.kr/anoki/rest/prayer/upload");
+            ByteArrayBody bab = new ByteArrayBody(data, "profile.jpg");
+            // File file= new File("/mnt/sdcard/forest.png");
+            // FileBody bin = new FileBody(file);
+            MultipartEntity reqEntity = new MultipartEntity(
+                    HttpMultipartMode.BROWSER_COMPATIBLE);
+            reqEntity.addPart("uploaded", bab);
+            reqEntity.addPart("photoCaption", new StringBody("profile"));
+            postRequest.setEntity(reqEntity);
+            HttpResponse response = httpClient.execute(postRequest);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    response.getEntity().getContent(), "UTF-8"));
+            String sResponse;
+            StringBuilder s = new StringBuilder();
+
+            while ((sResponse = reader.readLine()) != null) {
+                s = s.append(sResponse);
+            }
+            System.out.println("Response: " + s);
+            return s.toString();
+        } catch (Exception e) {
+            // handle exception here
+            Log.e(e.getClass().getName(), e.getMessage());
+        }
+
+        return null;
+    }
+
+    public Object fetch(String address) throws MalformedURLException,IOException {
+
+        URL url = new URL(address);
+        Object content = url.getContent();
+        return content;
+    }
+
+    private Drawable ImageOperations(Context ctx, String url, String saveFilename) {
+        try {
+            InputStream is = (InputStream) this.fetch(url);
+            Drawable d = Drawable.createFromStream(is, saveFilename);
+            return d;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Bitmap fetchImage( String urlstr )
+    {
+        try
+        {
+            URL url;
+            url = new URL( urlstr );
+
+            HttpURLConnection c = ( HttpURLConnection ) url.openConnection();
+            c.setDoInput( true );
+            c.connect();
+            InputStream is = c.getInputStream();
+            Bitmap img;
+            img = BitmapFactory.decodeStream( is );
+            return img;
+        }
+        catch ( MalformedURLException e )
+        {
+            Log.d( "RemoteImageHandler", "fetchImage passed invalid URL: " + urlstr );
+        }
+        catch ( IOException e )
+        {
+            Log.d( "RemoteImageHandler", "fetchImage IO exception: " + e );
+        }
+        return null;
     }
 }
