@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.os.Bundle;
 
+import com.anoki.pojo.User;
 import com.anoki.singleton.Global;
 import com.anoki.singleton.Util;
 import com.anoki.pojo.Account;
@@ -24,19 +25,18 @@ public class MainActivity extends Activity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        Phone phone = new Phone();
-        phone.number = "01012345678";
-        phone.country = "82";
-        phone.device="12345678";
+        User user = new User();
+        user.account = "account@somewhere.com";
+        user.pass = "1234";
 
         //서버에 인증요청
-        Response response = Util.rest("auth/log", "POST", phone, Response.class);
+        Response response = Util.rest("user/log", "POST", user, Response.class);
 
         if(response != null && "0".equals(response.result)){
             Global.apiKey = response.apiKey;
         }
 
-        Intent intent = new Intent(this, SetNameActivity.class);
+        Intent intent = new Intent(this, RecentActivity.class);
         startActivity(intent);
     }
 

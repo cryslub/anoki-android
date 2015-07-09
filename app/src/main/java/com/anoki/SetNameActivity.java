@@ -66,9 +66,6 @@ public class SetNameActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
-        ImageButton  button = (ImageButton) findViewById(R.id.profileImage);
-        Bitmap bmp = fetchImage("http://anoki.co.kr/anoki/images/10");
-        button.setImageBitmap(bmp);
     }
 
     @Override
@@ -136,7 +133,7 @@ public class SetNameActivity extends Activity {
                         String id = executeMultipartPost(yourSelectedImage);
                         if(!"-1".equals(id)){
                             ImageButton  button = (ImageButton) findViewById(R.id.profileImage);
-                            Bitmap bmp = fetchImage("http://anoki.co.kr/anoki/images/"+id);
+                            Bitmap bmp = Util.fetchImage(id);
                             button.setImageBitmap(bmp);
                         }
                     } catch (FileNotFoundException e) {
@@ -203,29 +200,4 @@ public class SetNameActivity extends Activity {
         }
     }
 
-    private Bitmap fetchImage( String urlstr )
-    {
-        try
-        {
-            URL url;
-            url = new URL( urlstr );
-
-            HttpURLConnection c = ( HttpURLConnection ) url.openConnection();
-            c.setDoInput( true );
-            c.connect();
-            InputStream is = c.getInputStream();
-            Bitmap img;
-            img = BitmapFactory.decodeStream( is );
-            return img;
-        }
-        catch ( MalformedURLException e )
-        {
-            Log.d( "RemoteImageHandler", "fetchImage passed invalid URL: " + urlstr );
-        }
-        catch ( IOException e )
-        {
-            Log.d( "RemoteImageHandler", "fetchImage IO exception: " + e );
-        }
-        return null;
-    }
 }
