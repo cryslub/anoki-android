@@ -1,13 +1,16 @@
 package com.anoki;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -78,6 +81,17 @@ public class RecentTabActivity extends TabActivityBase {
         TextView name;
         TextView date;
         TextView text;
+        ViewPager media;
+
+        TextView pray;
+        TextView reply;
+        TextView scrap;
+
+        TextView more;
+
+        LinearLayout media_container;
+
+        View itemLayoutView;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -86,7 +100,17 @@ public class RecentTabActivity extends TabActivityBase {
             name = (TextView) itemLayoutView.findViewById(R.id.name);
             date = (TextView) itemLayoutView.findViewById(R.id.date);
             text = (TextView) itemLayoutView.findViewById(R.id.text);
+            media = (ViewPager) itemLayoutView.findViewById(R.id.media);
 
+            pray = (TextView) itemLayoutView.findViewById(R.id.pray);
+            reply = (TextView) itemLayoutView.findViewById(R.id.reply);
+            scrap = (TextView) itemLayoutView.findViewById(R.id.scrap);
+
+            more = (TextView) itemLayoutView.findViewById(R.id.more);
+
+            media_container = (LinearLayout) itemLayoutView.findViewById(R.id.media_container);
+
+            this.itemLayoutView = itemLayoutView;
 //            txtViewTitle = (TextView) itemLayoutView.findViewById(R.id.item_title);
  //           imgViewIcon = (ImageView) itemLayoutView.findViewById(R.id.item_icon);
         }
@@ -121,24 +145,67 @@ public class RecentTabActivity extends TabActivityBase {
             // - get data from your itemsData at this position
             // - replace the contents of the view with that itemsData
 
-            Prayer prayer = itemsData.get(position);
+            final Prayer prayer = itemsData.get(position);
 
             viewHolder.profile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RecentTabActivity.this, UserProfileActivity.class);
+                    intent.putExtra("userId",prayer.userId);
+                    startActivity(intent);
+                }
+            });
+
+            viewHolder.more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
+                    intent.putExtra("prayerId",prayer.id);
+                    startActivity(intent);
+
+                }
+            });
+
+            viewHolder.pray.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
 
-            if(!"null".equals(prayer.userPicture)) {
+
+            viewHolder.reply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+
+            viewHolder.scrap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+
+
+            if(!"null".equals(prayer.userPicture) && prayer.userPicture!=null) {
                 Bitmap bmp = Util.fetchImage(prayer.userPicture);
                 viewHolder.picture.setImageBitmap(bmp);
             }
 
             viewHolder.name.setText(itemsData.get(position).userName);
             viewHolder.date.setText(itemsData.get(position).time);
-            viewHolder.text.setText(itemsData.get(position).back+ "\r\n\n"+prayer.text);
+            viewHolder.text.setText(itemsData.get(position).back+ "\r\n\r\n"+prayer.text);
 
+            if(prayer.media.size() == 0){
+                viewHolder.media_container.setVisibility(View.INVISIBLE);
+                viewHolder.media_container.removeView(viewHolder.media);
+//                viewHolder.media_container.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+//                ((ViewManager)viewHolder.media.getParent()).removeView(viewHolder.media);
+            }
  //           viewHolder.imgViewIcon.setImageResource(itemsData[position].getImageUrl());
 
 
@@ -148,6 +215,7 @@ public class RecentTabActivity extends TabActivityBase {
         // Return the size of your itemsData (invoked by the layout manager)
         @Override
         public int getItemCount() {
+
             return itemsData.size();
         }
     }

@@ -77,6 +77,14 @@
             android:name=".RecentTabActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".UserProfileActivity"
+            android:label="@string/title_activity_user_profile" >
+        </activity>
+        <activity
+            android:name=".PrayerDetailActivity"
+            android:label="@string/title_activity_prayer_detail" >
+        </activity>
     </application>
 
 </manifest>

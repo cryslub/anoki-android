@@ -46,35 +46,59 @@
         android:text="더보기"
         android:textSize="10sp"
         android:gravity="right"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:id="@+id/more"/>
 
-    <android.support.v4.view.ViewPager
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="wrap_content"
+        android:id="@+id/media_container">
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/media">
 
-    </android.support.v4.view.ViewPager>
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right">
-        <Button
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="40dp"
             android:layout_height="35dp"
             android:text="기도"
             android:textSize="10sp"
-            />
-        <Button
-            android:layout_width="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/pray"/>
+        <TextView
+            android:layout_width="40dp"
             android:layout_height="35dp"
             android:textSize="10sp"
 
-            android:text="댓글"/>
-        <Button
-            android:layout_width="wrap_content"
+            android:text="댓글"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/reply"/>
+        <TextView
+            android:layout_width="40dp"
             android:layout_height="35dp"
             android:textSize="10sp"
 
-            android:text="담기"/>
+            android:text="담기"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/scrap"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:background="#aaaaaa"/>
+
+
 </LinearLayout>
