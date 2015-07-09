@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.anoki.singleton.Util;
+import com.anoki.common.Util;
 import com.anoki.pojo.Phone;
 import com.anoki.pojo.Response;
 

@@ -8,10 +8,9 @@ import android.os.StrictMode;
 import android.os.Bundle;
 
 import com.anoki.pojo.User;
-import com.anoki.singleton.Global;
-import com.anoki.singleton.Util;
+import com.anoki.common.Global;
+import com.anoki.common.Util;
 import com.anoki.pojo.Account;
-import com.anoki.pojo.Phone;
 import com.anoki.pojo.Response;
 
 public class MainActivity extends Activity {
