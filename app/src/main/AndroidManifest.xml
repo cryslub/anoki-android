@@ -85,6 +85,10 @@
             android:name=".PrayerDetailActivity"
             android:label="@string/title_activity_prayer_detail" >
         </activity>
+        <activity
+            android:name=".GalleryActivity"
+            android:label="미디어 선택" >
+        </activity>
     </application>
 
 </manifest>

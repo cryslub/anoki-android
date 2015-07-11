@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.anoki.common.CallBack;
 import com.anoki.common.Util;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.User;
@@ -43,6 +44,7 @@ import java.net.URL;
 public class SetNameActivity extends Activity {
 
     private TextView tv;
+    private String pictureId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +54,17 @@ public class SetNameActivity extends Activity {
         tv = (TextView)findViewById(R.id.text_length);
 
         EditText textMessage = (EditText)findViewById(R.id.name);
-        textMessage.addTextChangedListener(new TextWatcher(){
+        textMessage.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
 
-                tv.setText(s.length()+"");
+                tv.setText(s.length() + "");
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
     }
@@ -92,6 +98,8 @@ public class SetNameActivity extends Activity {
 
         EditText name = (EditText) findViewById(R.id.name);
         user.name = name.getText().toString();
+        if(pictureId != null)
+           user.picture = Integer.parseInt(pictureId);
 
         Response response = Util.rest("user", "PUT", user, Response.class);
 
@@ -120,59 +128,20 @@ public class SetNameActivity extends Activity {
         switch(requestCode) {
             case 100:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = data.getData();
-                    InputStream imageStream = null;
-                    try {
-                        imageStream = getContentResolver().openInputStream(selectedImage);
-                        Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
-                        String id = executeMultipartPost(yourSelectedImage);
-                        if(!"-1".equals(id)){
+                    pictureId = Util.uploadSelectedPhoto(data, getContentResolver(), new CallBack() {
+                        @Override
+                        public void success(String id) {
                             ImageButton  button = (ImageButton) findViewById(R.id.profileImage);
                             Bitmap bmp = Util.fetchImage(id);
                             button.setImageBitmap(bmp);
                         }
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    });
+
 
                 }
         }
     }
 
-    public String executeMultipartPost(Bitmap bm)  {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.JPEG, 75, bos);
-            byte[] data = bos.toByteArray();
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpPost postRequest = new HttpPost(
-                    "http://anoki.co.kr/anoki/rest/prayer/upload");
-            ByteArrayBody bab = new ByteArrayBody(data, "profile.jpg");
-            // File file= new File("/mnt/sdcard/forest.png");
-            // FileBody bin = new FileBody(file);
-            MultipartEntity reqEntity = new MultipartEntity(
-                    HttpMultipartMode.BROWSER_COMPATIBLE);
-            reqEntity.addPart("uploaded", bab);
-            reqEntity.addPart("photoCaption", new StringBody("profile"));
-            postRequest.setEntity(reqEntity);
-            HttpResponse response = httpClient.execute(postRequest);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    response.getEntity().getContent(), "UTF-8"));
-            String sResponse;
-            StringBuilder s = new StringBuilder();
-
-            while ((sResponse = reader.readLine()) != null) {
-                s = s.append(sResponse);
-            }
-            System.out.println("Response: " + s);
-            return s.toString();
-        } catch (Exception e) {
-            // handle exception here
-            Log.e(e.getClass().getName(), e.getMessage());
-        }
-
-        return null;
-    }
 
     public Object fetch(String address) throws MalformedURLException,IOException {
 

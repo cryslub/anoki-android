@@ -42,5 +42,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.google.code.gson:gson:2.2.4'
     compile "org.apache.httpcomponents:httpmime:4.2.3"
-    compile 'com.android.support:recyclerview-v7:21.0.+'
+    compile 'com.android.support:recyclerview-v7:22.0.+'
+    compile 'org.apmem.tools:layouts:1.9@aar'
 }

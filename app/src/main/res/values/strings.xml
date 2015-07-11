@@ -22,4 +22,5 @@
     <string name="title_activity_me_tab">MeTabActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="title_activity_prayer_detail">PrayerDetailActivity</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
 </resources>

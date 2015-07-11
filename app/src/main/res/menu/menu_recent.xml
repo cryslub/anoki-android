@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.anoki.RecentActivity">
 
     <item android:id="@+id/action_alarm"
-        android:icon="@drawable/ic_alarm_white_24dp"
+        android:icon="@drawable/ic_announcement_white_24dp"
         android:title="알림"
         app:showAsAction="always"
         android:onClick="alarm"/>
 
     <item android:id="@+id/action_message"
-        android:icon="@drawable/ic_mail_white_24dp"
+        android:icon="@drawable/ic_forum_white_24dp"
         android:title="쪽지"
         app:showAsAction="always"
         android:onClick="message"/>
