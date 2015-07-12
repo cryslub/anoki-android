@@ -12,7 +12,8 @@
         android:inputType="textMultiLine"
         android:hint="기도 배경을 알려주세요"
         android:minHeight="140dp"
-        android:gravity="top"/>
+        android:gravity="top"
+        android:id="@+id/back"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -20,7 +21,8 @@
         android:inputType="textMultiLine"
         android:hint="기도 제목을 알려주세요"
         android:minHeight="120dp"
-        android:gravity="top"/>
+        android:gravity="top"
+        android:id="@+id/text"/>
     <org.apmem.tools.layouts.FlowLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +52,10 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전체공개"/>
+                android:text="전체공개"
+                android:onClick="pub"
+                android:checked="true"
+                android:id="@+id/pub"></CheckBox>
         </LinearLayout>
 
     </LinearLayout>

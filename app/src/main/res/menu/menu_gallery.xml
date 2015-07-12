@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.anoki.GalleryActivity">
 
-    <item android:id="@+id/action_confirm"
-        android:icon="@drawable/ic_done_white_24dp"
+    <item android:id="@+id/action_done"
+        android:icon="@drawable/ic_clear_white_24dp"
         android:title="확인"
         app:showAsAction="always"
-        android:onClick="confirm"/>
+        android:onClick="done"/>
 </menu>

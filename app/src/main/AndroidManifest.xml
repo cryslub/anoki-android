@@ -89,6 +89,10 @@
             android:name=".GalleryActivity"
             android:label="미디어 선택" >
         </activity>
+        <activity
+            android:name=".ChooseFriendsActivity"
+            android:label="@string/title_activity_choose_friends" >
+        </activity>
     </application>
 
 </manifest>

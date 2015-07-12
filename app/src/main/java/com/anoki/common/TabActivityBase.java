@@ -16,7 +16,11 @@ import com.anoki.WriteActivity;
 /**
  * Created by Administrator on 2015-07-08.
  */
-public class TabActivityBase extends AppCompatActivity {
+public abstract  class TabActivityBase extends AppCompatActivity {
+
+    private final int WRITE = 100;
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -38,7 +42,19 @@ public class TabActivityBase extends AppCompatActivity {
 
     public void write(MenuItem item){
         Intent intent = new Intent(this, WriteActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,WRITE);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == WRITE) {
+            if (resultCode == RESULT_OK) {
+                //refresh
+                refresh();
+            }
+        }
+    }
+
+    protected abstract void refresh();
 }

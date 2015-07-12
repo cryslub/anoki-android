@@ -2,56 +2,134 @@ package com.anoki;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.anoki.common.CallBack;
+import com.anoki.common.DoneState;
+import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
+import com.anoki.pojo.Prayer;
 
 import org.apmem.tools.layouts.FlowLayout;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 public class WriteActivity extends SubActivityBase {
 
+
+
+    private MenuItem doneMenu;
+
     private final int PHOTO = 100;
-    private final int VIDEO = 200;
-    private final int CAMERA = 300;
+
+
+
+    private DoneState doneState = DoneState.CLEAR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
 
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                doneStateCheck();
+            }
+        };
+
+        EditText back = (EditText) findViewById(R.id.back);
+        back.addTextChangedListener(textWatcher);
+
+        EditText text = (EditText) findViewById(R.id.text);
+        text.addTextChangedListener(textWatcher);
+
+
+    }
+
+    public void doneStateCheck(){
+        EditText back = (EditText) findViewById(R.id.back);
+        EditText text = (EditText) findViewById(R.id.text);
+
+        if(back.getText().length() == 0 && text.getText().length() == 0){
+            doneMenu.setIcon(R.drawable.ic_clear_white_24dp);
+            doneState = DoneState.CLEAR;
+        }else{
+            CheckBox pub = (CheckBox) findViewById(R.id.pub);
+            if(pub.isChecked()){
+                doneMenu.setIcon(R.drawable.ic_done_white_24dp);
+                doneState = DoneState.DONE;
+
+            }else{
+                doneMenu.setIcon(R.drawable.ic_arrow_forward_white_24dp);
+                doneState = DoneState.NEXT;
+
+            }
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_write, menu);
+
+        doneMenu = menu.findItem(R.id.action_done);
+
         return true;
     }
 
-    public void next(MenuItem item){
+    public void done(MenuItem item){
 
+        EditText back = (EditText) findViewById(R.id.back);
+        EditText text = (EditText) findViewById(R.id.text);
+        CheckBox pub = (CheckBox) findViewById(R.id.pub);
+
+        Prayer prayer = new Prayer();
+        prayer.back = back.getText().toString();
+        prayer.text = text.getText().toString();
+        prayer.pub = pub.isChecked()?"Y" : "N";
+
+        switch (doneState){
+            case CLEAR:
+                onBackPressed();
+                break;
+            case DONE:
+            {
+                RestService.makePrayer(prayer);
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                onBackPressed();
+            }
+                break;
+            case NEXT:
+                Intent intent = new Intent(this,ChooseFriendsActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    public void pub(View view){
+        doneStateCheck();
     }
 
     public void showSelectSource(View view){

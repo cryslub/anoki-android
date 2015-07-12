@@ -28,6 +28,9 @@ import java.util.List;
 
 public class RecentTabActivity extends TabActivityBase {
 
+    private RecentAdapter recentAdapter;
+    private  List<Prayer> recentList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,20 @@ public class RecentTabActivity extends TabActivityBase {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
 
+        setRecentList();
+
+
+        // 2. set layoutManger
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // 3. create an adapter
+        recentAdapter = new RecentAdapter(recentList);
+        // 4. set adapter
+        recyclerView.setAdapter(recentAdapter);
+
+
+    }
+
+    private void setRecentList(){
         Type listType = new TypeToken<ArrayList<Prayer>>() {}.getType();
 
         Search search = new Search();
@@ -44,19 +61,9 @@ public class RecentTabActivity extends TabActivityBase {
         search.page = 0;
         search.size = 100;
 
-        List<Prayer> rowDataList = Util.rest("prayer/recent", "POST", search, listType);
-
-
-        // 2. set layoutManger
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // 3. create an adapter
-        RecentAdapter mAdapter = new RecentAdapter(rowDataList);
-        // 4. set adapter
-        recyclerView.setAdapter(mAdapter);
-
+        recentList = Util.rest("prayer/recent", "POST", search, listType);
 
     }
-
 
 
     @Override
@@ -72,6 +79,13 @@ public class RecentTabActivity extends TabActivityBase {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void refresh() {
+        System.out.print("refresh");
+        setRecentList();
+        recentAdapter.updateList(recentList);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -124,6 +138,10 @@ public class RecentTabActivity extends TabActivityBase {
             this.itemsData = itemsData;
         }
 
+        public void updateList(List<Prayer> itemsData){
+            this.itemsData = itemsData;
+            notifyDataSetChanged();
+        }
         // Create new views (invoked by the layout manager)
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent,
@@ -218,6 +236,7 @@ public class RecentTabActivity extends TabActivityBase {
 
             return itemsData.size();
         }
+
     }
 
 }

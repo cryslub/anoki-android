@@ -23,4 +23,6 @@
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="title_activity_prayer_detail">PrayerDetailActivity</string>
     <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_activity_choose_friends">ChooseFriendsActivity</string>
+    <string name="pls_wait_txt">로딩중</string>
 </resources>

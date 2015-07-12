@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.anoki.WriteActivity">
 
-    <item android:id="@+id/action_next"
-        android:icon="@drawable/ic_arrow_forward_white_24dp"
+    <item android:id="@+id/action_done"
+        android:icon="@drawable/ic_clear_white_24dp"
         android:title="다음"
         app:showAsAction="always"
-        android:onClick="next"/>
+        android:onClick="done"/>
 </menu>
