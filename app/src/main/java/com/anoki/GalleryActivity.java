@@ -1,5 +1,8 @@
 package com.anoki;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +28,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anoki.common.DoneState;
@@ -33,7 +37,7 @@ import com.anoki.common.Util;
 
 import org.apmem.tools.layouts.FlowLayout;
 
-public class GalleryActivity extends SubActivityBase {
+public class GalleryActivity extends SubActivityBase{
 
     private MenuItem doneMenu;
     private DoneState doneState = DoneState.CLEAR;
@@ -86,9 +90,25 @@ public class GalleryActivity extends SubActivityBase {
                 int size = Util.dpToPixel(getApplicationContext(),100);
                 int margin = Util.dpToPixel(getApplicationContext(),5);
                 FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
-                layoutParams.setMargins(margin, margin, margin, margin);
+               layoutParams.setMargins(margin, margin, margin, margin);
 
-                gridview.addView(imageView,layoutParams);
+                LinearLayout rowLayout = new LinearLayout(GalleryActivity.this);
+
+                FragmentManager fragMan = getFragmentManager();
+                FragmentTransaction fragTransaction = fragMan.beginTransaction();
+
+                rowLayout.setId(i);
+
+// add rowLayout to the root layout somewhere here
+
+                ImageFragment imageFragment = new ImageFragment();
+                imageFragment.setBmp(bmp);
+                fragTransaction.add(rowLayout.getId(), imageFragment , "fragment" + i);
+                fragTransaction.commit();
+
+                gridview.addView(rowLayout);
+
+                //               gridview.addView(imageView,layoutParams);
             }
 
 
@@ -136,4 +156,6 @@ public class GalleryActivity extends SubActivityBase {
 
         return output;
     }
+
+
 }
