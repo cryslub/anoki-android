@@ -141,9 +141,8 @@ public class Util {
         return null;
     }
 
-    public static String uploadSelectedPhoto(Intent data, ContentResolver contentResolver,CallBack callBack){
+    public static String uploadSelectedPhoto(Uri selectedImage , ContentResolver contentResolver,CallBack callBack){
         String id = null;
-        Uri selectedImage = data.getData();
         InputStream imageStream = null;
         try {
             imageStream = contentResolver.openInputStream(selectedImage);

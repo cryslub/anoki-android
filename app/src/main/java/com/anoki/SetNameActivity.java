@@ -128,7 +128,7 @@ public class SetNameActivity extends Activity {
         switch(requestCode) {
             case 100:
                 if(resultCode == RESULT_OK){
-                    pictureId = Util.uploadSelectedPhoto(data, getContentResolver(), new CallBack() {
+                    pictureId = Util.uploadSelectedPhoto(data.getData(), getContentResolver(), new CallBack() {
                         @Override
                         public void success(String id) {
                             ImageButton  button = (ImageButton) findViewById(R.id.profileImage);

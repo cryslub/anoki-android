@@ -32,10 +32,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anoki.common.DoneState;
+import com.anoki.common.Global;
+import com.anoki.common.ParentListener;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 
 import org.apmem.tools.layouts.FlowLayout;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GalleryActivity extends SubActivityBase{
 
@@ -49,15 +56,30 @@ public class GalleryActivity extends SubActivityBase{
     private Cursor cc = null;
     private Button btnMoreInfo = null;
     private ProgressDialog myProgressDialog = null;
+    private Map<Integer,Integer> selectionMap = new HashMap<Integer,Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        cc = this.getContentResolver().query(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null,
-                null);
+
+        Intent intent = getIntent();
+        int requestCode = intent.getIntExtra("requestCode",-1);
+
+        switch (requestCode){
+            case Global.PHOTO:
+                cc = this.getContentResolver().query(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null,
+                        null);
+                break;
+            case Global.VIDEO:
+                String[] projection = { MediaStore.Video.Media._ID};
+                cc = this.getContentResolver().query(
+                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection, null, null,
+                        null);
+                break;
+        }
 
         if (cc != null) {
 
@@ -81,11 +103,7 @@ public class GalleryActivity extends SubActivityBase{
                 //BitmapFactory.decodeFile(mUrls[position].getPath());
 
 
-                ImageView imageView = new ImageView(GalleryActivity.this);
-                imageView.setImageBitmap(bmp);
 
-//                            imageView.setLayoutParams(layoutParams);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                 int size = Util.dpToPixel(getApplicationContext(),100);
                 int margin = Util.dpToPixel(getApplicationContext(),5);
@@ -103,8 +121,23 @@ public class GalleryActivity extends SubActivityBase{
 
                 ImageFragment imageFragment = new ImageFragment();
                 imageFragment.setBmp(bmp);
-                fragTransaction.add(rowLayout.getId(), imageFragment , "fragment" + i);
+                fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + i);
                 fragTransaction.commit();
+
+//                rowLayout
+                rowLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(selectionMap.get(v.getId()) == null){
+                            selectionMap.put(v.getId(),1);
+                            v.setBackgroundResource(R.drawable.border);
+                        }else{
+                            selectionMap.remove(v.getId());
+                            v.setBackgroundResource(0);
+                        }
+                        doneStateCheck();
+                    }
+                });
 
                 gridview.addView(rowLayout);
 
@@ -112,6 +145,16 @@ public class GalleryActivity extends SubActivityBase{
             }
 
 
+        }
+    }
+
+    public void doneStateCheck(){
+        if(selectionMap.size() == 0){
+            doneMenu.setIcon(R.drawable.ic_clear_white_24dp);
+            doneState = DoneState.CLEAR;
+        }else{
+            doneMenu.setIcon(R.drawable.ic_done_white_24dp);
+            doneState = DoneState.DONE;
         }
     }
 
@@ -126,7 +169,22 @@ public class GalleryActivity extends SubActivityBase{
     }
 
     public void done(MenuItem item){
-
+        switch (doneState) {
+            case CLEAR:
+                onBackPressed();
+                break;
+            case DONE:
+                Intent intent = new Intent();
+                ArrayList<Uri> uriList = new ArrayList<Uri>();
+                for (Map.Entry<Integer, Integer> entry : selectionMap.entrySet())
+                {
+                    uriList.add(mUrls[entry.getKey()]);
+                }
+                intent.putExtra("uriList",uriList);
+                setResult(RESULT_OK, intent);
+                onBackPressed();
+                break;
+        }
     }
 
 

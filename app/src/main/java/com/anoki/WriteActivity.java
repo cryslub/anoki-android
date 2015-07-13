@@ -2,6 +2,7 @@ package com.anoki;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.anoki.common.CallBack;
 import com.anoki.common.DoneState;
+import com.anoki.common.Global;
 import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
@@ -24,13 +26,14 @@ import com.anoki.pojo.Prayer;
 
 import org.apmem.tools.layouts.FlowLayout;
 
+import java.util.List;
+
 public class WriteActivity extends SubActivityBase {
 
 
 
     private MenuItem doneMenu;
 
-    private final int PHOTO = 100;
 
 
 
@@ -109,6 +112,7 @@ public class WriteActivity extends SubActivityBase {
         prayer.text = text.getText().toString();
         prayer.pub = pub.isChecked()?"Y" : "N";
 
+
         switch (doneState){
             case CLEAR:
                 onBackPressed();
@@ -144,8 +148,8 @@ public class WriteActivity extends SubActivityBase {
     public void photo(View view){
         if(checkContents()) {
             Intent intent = new Intent(this,GalleryActivity.class);
-            startActivity(intent);
-
+            intent.putExtra("requestCode", Global.PHOTO);
+            startActivityForResult(intent, Global.PHOTO);
 //            Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
  //           photoPickerIntent.setType("image/*");
  //           photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -154,6 +158,11 @@ public class WriteActivity extends SubActivityBase {
     }
 
     public void video(View view){
+        if(checkContents()) {
+            Intent intent = new Intent(this,GalleryActivity.class);
+            intent.putExtra("requestCode", Global.VIDEO);
+            startActivityForResult(intent, Global.VIDEO);
+        }
 
     }
 
@@ -184,31 +193,37 @@ public class WriteActivity extends SubActivityBase {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch(requestCode) {
-            case PHOTO:
+            case Global.PHOTO:
                 if(resultCode == RESULT_OK){
-                    Util.uploadSelectedPhoto(data, getContentResolver(), new CallBack() {
-                        @Override
-                        public void success(String id) {
-                            //media list 에 추가
-                            ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
+                    List<Uri> uriList = (List<Uri>) data.getSerializableExtra("uriList");
 
-                            ImageView imageView = new ImageView(WriteActivity.this);
-                            Bitmap bmp = Util.fetchImage(id);
-                            imageView.setImageBitmap(bmp);
+                    for(Uri uri : uriList){
+                        Uri fullUri = Uri.parse("file://"+uri);
+                        Util.uploadSelectedPhoto(fullUri, getContentResolver(), new CallBack() {
+                            @Override
+                            public void success(String id) {
+                                //media list 에 추가
+                                ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
 
-                            int size = Util.dpToPixel(getApplicationContext(),60);
-                            int margin = Util.dpToPixel(getApplicationContext(),5);
-                            FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
-                            layoutParams.setMargins(margin, margin, margin, margin);
+                                ImageView imageView = new ImageView(WriteActivity.this);
+                                Bitmap bmp = Util.fetchImage(id);
+                                imageView.setImageBitmap(bmp);
+
+                                int size = Util.dpToPixel(getApplicationContext(),60);
+                                int margin = Util.dpToPixel(getApplicationContext(),5);
+                                FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
+                                layoutParams.setMargins(margin, margin, margin, margin);
 
 //                            imageView.setLayoutParams(layoutParams);
-                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
-                            flowLayout.addView(imageView,layoutParams);
+                                flowLayout.addView(imageView,layoutParams);
 
-                        }
-                    });
+                            }
+                        });
+                    }
+
 
 
                 }

@@ -22,5 +22,5 @@ public class Prayer {
 	public String scrapd;
 	public String responseCount;
 	public List<Reply> reply; //미디어 list
-	public Integer team;
+	public int team = -1;
 }

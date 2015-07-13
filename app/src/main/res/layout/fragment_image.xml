@@ -3,8 +3,10 @@
     android:layout_width="100dp"
     android:layout_height="100dp"
     android:layout_margin="5dp"
-    android:background="@drawable/border"
-    tools:context="com.anoki.ImageFragment">
+
+    tools:context="com.anoki.ImageFragment"
+    android:id="@+id/image_fragment">
+
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView

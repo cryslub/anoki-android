@@ -93,6 +93,10 @@
             android:name=".ChooseFriendsActivity"
             android:label="@string/title_activity_choose_friends" >
         </activity>
+        <activity
+            android:name=".ZoomInActivity"
+            android:label="@string/title_activity_zoom_in" >
+        </activity>
     </application>
 
 </manifest>
