@@ -58,28 +58,81 @@ public class GalleryActivity extends SubActivityBase{
     private ProgressDialog myProgressDialog = null;
     private Map<Integer,Integer> selectionMap = new HashMap<Integer,Integer>();
 
+    private int size;
+    private int margin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
+        gridview = (ViewGroup) findViewById(R.id.media_list);
+
+        size = Util.dpToPixel(getApplicationContext(),100);
+        margin = Util.dpToPixel(getApplicationContext(),5);
 
         Intent intent = getIntent();
-        int requestCode = intent.getIntExtra("requestCode",-1);
+        int requestCode = intent.getIntExtra("requestCode", -1);
 
-        switch (requestCode){
+        switch (requestCode) {
             case Global.PHOTO:
-                cc = this.getContentResolver().query(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null,
-                        null);
+                loadImages();
                 break;
             case Global.VIDEO:
-                String[] projection = { MediaStore.Video.Media._ID};
-                cc = this.getContentResolver().query(
-                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection, null, null,
-                        null);
+                loadVideos();
                 break;
         }
+
+    }
+
+    private void loadVideos(){
+        // Set up an array of the Thumbnail Image ID column we want
+        String[] projection = {MediaStore.Images.Thumbnails._ID};
+        // Create the cursor pointing to the SDCard
+        cc = managedQuery( MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI,
+                projection, // Which columns to return
+                null,       // Return all rows
+                null,
+                MediaStore.Images.Thumbnails.IMAGE_ID);
+        // Get the column index of the Thumbnails Image ID
+        int columnIndex = cc.getColumnIndexOrThrow(MediaStore.Images.Thumbnails._ID);
+        // Move cursor to current position
+        cc.moveToFirst();
+
+
+        for (int i = 0; i < cc.getCount(); i++) {
+
+
+            ImageView picturesView;
+            picturesView = new ImageView(this);
+
+
+            cc.moveToPosition(i);
+
+            // Get the current value for the requested column
+            int imageID = cc.getInt(columnIndex);
+            // Set the content of the image based on the provided URI
+            picturesView.setImageURI(Uri.withAppendedPath(
+                    MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, "" + imageID));
+
+
+            FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
+            layoutParams.setMargins(margin, margin, margin, margin);
+
+            picturesView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+
+            gridview.addView(picturesView, layoutParams);
+        }
+
+
+    }
+
+    private void loadImages(){
+
+        cc = this.getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null,
+                null);
 
         if (cc != null) {
 
@@ -96,7 +149,7 @@ public class GalleryActivity extends SubActivityBase{
                 //Log.e("mNames[i]",mNames[i]+":"+cc.getColumnCount()+ " : " +cc.getString(3));
             }
 
-            gridview = (ViewGroup) findViewById(R.id.media_list);
+
 
             for (int i = 0; i < cc.getCount(); i++) {
                 Bitmap bmp = decodeURI(mUrls[i].getPath());
@@ -105,8 +158,7 @@ public class GalleryActivity extends SubActivityBase{
 
 
 
-                int size = Util.dpToPixel(getApplicationContext(),100);
-                int margin = Util.dpToPixel(getApplicationContext(),5);
+
                 FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
                layoutParams.setMargins(margin, margin, margin, margin);
 

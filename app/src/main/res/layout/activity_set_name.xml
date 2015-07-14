@@ -28,14 +28,15 @@
             android:layout_height="120dp"
             android:onClick="changeImage"
             android:scaleType="centerCrop"
-            android:background="@android:color/transparent"/>
+            android:src="@drawable/ic_person_black_48dp"
+            android:background="@android:color/transparent"
+            android:alpha=".3"/>
 
         <TextView
             android:id="@+id/myImageViewText"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_alignLeft="@+id/profileImage"
-
             android:layout_alignRight="@+id/profileImage"
             android:layout_alignBottom="@+id/profileImage"
             android:layout_margin="4dp"
