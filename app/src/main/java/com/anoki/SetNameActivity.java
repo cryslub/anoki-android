@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,21 +20,8 @@ import com.anoki.common.Util;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.User;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -128,12 +112,13 @@ public class SetNameActivity extends Activity {
         switch(requestCode) {
             case 100:
                 if(resultCode == RESULT_OK){
-                    pictureId = Util.uploadSelectedPhoto(data.getData(), getContentResolver(), new CallBack() {
+                    pictureId = Util.upload(data.getData(), getContentResolver(), new CallBack() {
                         @Override
                         public void success(String id) {
-                            ImageButton  button = (ImageButton) findViewById(R.id.profileImage);
+                            ImageButton button = (ImageButton) findViewById(R.id.profileImage);
                             Bitmap bmp = Util.fetchImage(id);
                             button.setImageBitmap(bmp);
+                            button.setAlpha(1.0f);
                         }
                     });
 

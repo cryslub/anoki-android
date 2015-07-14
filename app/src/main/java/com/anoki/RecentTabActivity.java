@@ -212,6 +212,7 @@ public class RecentTabActivity extends TabActivityBase {
             if(!"null".equals(prayer.userPicture) && prayer.userPicture!=null) {
                 Bitmap bmp = Util.fetchImage(prayer.userPicture);
                 viewHolder.picture.setImageBitmap(bmp);
+                viewHolder.picture.setAlpha(1.0f);
             }
 
             viewHolder.name.setText(itemsData.get(position).userName);

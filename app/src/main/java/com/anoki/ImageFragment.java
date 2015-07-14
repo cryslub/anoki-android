@@ -21,6 +21,7 @@ public class ImageFragment extends Fragment{
 
     private Bitmap bmp;
     private boolean selected= false;
+    private Uri uri;
 
     public ImageFragment(){
 
@@ -28,6 +29,10 @@ public class ImageFragment extends Fragment{
 
     public void setBmp(Bitmap bmp) {
         this.bmp = bmp;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 
     @Override
@@ -52,7 +57,7 @@ public class ImageFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),ZoomInActivity.class);
-                intent.putExtra("bmp",bmp);
+                intent.putExtra("uri",uri);
                 startActivity(intent);
             }
         });

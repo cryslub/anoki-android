@@ -5,11 +5,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -30,6 +33,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.anoki.common.DoneState;
 import com.anoki.common.Global;
@@ -61,6 +66,23 @@ public class GalleryActivity extends SubActivityBase{
     private int size;
     private int margin;
 
+    Cursor cursor;
+    private ArrayList<VideoViewInfo> _videoRows;
+
+    private View.OnClickListener thumbNailClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(selectionMap.get(v.getId()) == null){
+                selectionMap.put(v.getId(),1);
+                v.setBackgroundResource(R.drawable.border);
+            }else{
+                selectionMap.remove(v.getId());
+                v.setBackgroundResource(0);
+            }
+            doneStateCheck();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,48 +107,92 @@ public class GalleryActivity extends SubActivityBase{
 
     }
 
+    class VideoViewInfo {
+        String filePath;
+        String mimeType;
+        String thumbPath;
+        String title;
+    }
+
     private void loadVideos(){
-        // Set up an array of the Thumbnail Image ID column we want
-        String[] projection = {MediaStore.Images.Thumbnails._ID};
-        // Create the cursor pointing to the SDCard
-        cc = managedQuery( MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI,
-                projection, // Which columns to return
-                null,       // Return all rows
-                null,
-                MediaStore.Images.Thumbnails.IMAGE_ID);
-        // Get the column index of the Thumbnails Image ID
-        int columnIndex = cc.getColumnIndexOrThrow(MediaStore.Images.Thumbnails._ID);
-        // Move cursor to current position
-        cc.moveToFirst();
 
 
-        for (int i = 0; i < cc.getCount(); i++) {
+        String targetPath = Environment.getExternalStorageDirectory()
+                .getAbsolutePath();
 
+        Toast.makeText(getApplicationContext(), targetPath, Toast.LENGTH_LONG)
+                .show();
+        String[] thumbColumns = { MediaStore.Video.Thumbnails.DATA,
+                MediaStore.Video.Thumbnails.VIDEO_ID };
 
-            ImageView picturesView;
-            picturesView = new ImageView(this);
+        String[] mediaColumns = { MediaStore.Video.Media._ID,
+                MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE,
+                MediaStore.Video.Media.MIME_TYPE };
 
+        cursor = managedQuery(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                mediaColumns, null, null, null);
 
-            cc.moveToPosition(i);
+        ArrayList<VideoViewInfo> videoRows = new ArrayList<VideoViewInfo>();
+        if (cursor.moveToFirst()) {
+            do {
 
-            // Get the current value for the requested column
-            int imageID = cc.getInt(columnIndex);
-            // Set the content of the image based on the provided URI
-            picturesView.setImageURI(Uri.withAppendedPath(
-                    MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, "" + imageID));
+                VideoViewInfo newVVI = new VideoViewInfo();
+                int id = cursor.getInt(cursor
+                        .getColumnIndex(MediaStore.Video.Media._ID));
+                Cursor thumbCursor = managedQuery(
+                        MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI,
+                        thumbColumns, MediaStore.Video.Thumbnails.VIDEO_ID
+                                + "=" + id, null, null);
+                if (thumbCursor.moveToFirst()) {
+                    newVVI.thumbPath = thumbCursor.getString(thumbCursor
+                            .getColumnIndex(MediaStore.Video.Thumbnails.DATA));
+                    Log.v("", newVVI.thumbPath);
+                }
 
-
-            FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
-            layoutParams.setMargins(margin, margin, margin, margin);
-
-            picturesView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-
-            gridview.addView(picturesView, layoutParams);
+                newVVI.filePath = cursor.getString(cursor
+                        .getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+                newVVI.title = cursor.getString(cursor
+                        .getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
+                Log.v("", newVVI.title);
+                newVVI.mimeType = cursor
+                        .getString(cursor
+                                .getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE));
+                Log.v("", newVVI.mimeType);
+                videoRows.add(newVVI);
+            } while (cursor.moveToNext());
         }
+        _videoRows = videoRows;
+        insertPhoto(videoRows);
 
 
     }
+    void insertPhoto(ArrayList<VideoViewInfo> videoRows) {
+        FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
+        layoutParams.setMargins(margin, margin, margin, margin);
+
+        for (int i = 0; i < videoRows.size(); i++) {
+
+            Bitmap bmThumbnail;
+
+            bmThumbnail = ThumbnailUtils.createVideoThumbnail(
+                    videoRows.get(i).filePath, MediaStore.Video.Thumbnails.MICRO_KIND);
+
+            ImageView imageView = new ImageView(getApplicationContext());
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            // imageView.setBackgroundResource(R.drawable.canada);
+            imageView.setImageBitmap(bmThumbnail);
+            imageView.setPadding(20, 40, 20, 40);
+            imageView.setTag(videoRows.get(i).filePath);
+
+            imageView.setId(i);
+            imageView.setOnClickListener(thumbNailClickListener);
+
+            gridview.addView(imageView, layoutParams);
+
+        }
+
+    }
+
 
     private void loadImages(){
 
@@ -173,23 +239,12 @@ public class GalleryActivity extends SubActivityBase{
 
                 ImageFragment imageFragment = new ImageFragment();
                 imageFragment.setBmp(bmp);
+                imageFragment.setUri(mUrls[i]);
                 fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + i);
                 fragTransaction.commit();
 
 //                rowLayout
-                rowLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(selectionMap.get(v.getId()) == null){
-                            selectionMap.put(v.getId(),1);
-                            v.setBackgroundResource(R.drawable.border);
-                        }else{
-                            selectionMap.remove(v.getId());
-                            v.setBackgroundResource(0);
-                        }
-                        doneStateCheck();
-                    }
-                });
+                rowLayout.setOnClickListener(thumbNailClickListener);
 
                 gridview.addView(rowLayout);
 
@@ -252,8 +307,8 @@ public class GalleryActivity extends SubActivityBase{
         if(options.outHeight * options.outWidth * 2 >= 16384){
             // Load, scaling to smallest power of 2 that'll get it <= desired dimensions
             double sampleSize = scaleByHeight
-                    ? options.outHeight / 100
-                    : options.outWidth / 100;
+                    ? options.outHeight / 200
+                    : options.outWidth / 200;
             options.inSampleSize =
                     (int)Math.pow(2d, Math.floor(
                             Math.log(sampleSize)/Math.log(2d)));

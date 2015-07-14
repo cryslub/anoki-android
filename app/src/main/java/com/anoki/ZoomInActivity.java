@@ -2,6 +2,8 @@ package com.anoki;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,7 +20,8 @@ public class ZoomInActivity extends SubActivityBase {
         setContentView(R.layout.activity_zoom_in);
 
         Intent intent = new Intent(this.getIntent());
-        Bitmap bmp = intent.getParcelableExtra("bmp");
+        Uri uri = intent.getParcelableExtra("uri");
+        Bitmap bmp = decodeURI(uri.getPath());
         final ImageView imageView = (ImageView) findViewById(R.id.image);
         imageView.setImageBitmap(bmp);
 
@@ -41,4 +44,24 @@ public class ZoomInActivity extends SubActivityBase {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public Bitmap decodeURI(String filePath){
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+
+        // Only scale if we need to
+        // (16384 buffer for img processing)
+        Boolean scaleByHeight = Math.abs(options.outHeight - 100) >= Math.abs(options.outWidth - 100);
+
+        // Do the actual decoding
+        options.inJustDecodeBounds = false;
+        options.inTempStorage = new byte[512];
+        Bitmap output = BitmapFactory.decodeFile(filePath, options);
+
+        return output;
+    }
+
 }

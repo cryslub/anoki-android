@@ -141,7 +141,7 @@ public class Util {
         return null;
     }
 
-    public static String uploadSelectedPhoto(Uri selectedImage , ContentResolver contentResolver,CallBack callBack){
+    public static String upload(Uri selectedImage, ContentResolver contentResolver, CallBack callBack){
         String id = null;
         InputStream imageStream = null;
         try {

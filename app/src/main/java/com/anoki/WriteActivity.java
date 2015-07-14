@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -167,7 +168,9 @@ public class WriteActivity extends SubActivityBase {
     }
 
     public void camera(View view){
-
+        Intent intent = new Intent();
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, Global.CAMERA);
     }
 
     private boolean checkContents(){
@@ -192,41 +195,59 @@ public class WriteActivity extends SubActivityBase {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch(requestCode) {
-            case Global.PHOTO:
-                if(resultCode == RESULT_OK){
-                    List<Uri> uriList = (List<Uri>) data.getSerializableExtra("uriList");
+        if(resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Global.PHOTO:
+                    photoResult( data);
+                    break;
+                case Global.VIDEO:
+                    break;
+                case Global.CAMERA:
+                    break;
 
-                    for(Uri uri : uriList){
-                        Uri fullUri = Uri.parse("file://"+uri);
-                        Util.uploadSelectedPhoto(fullUri, getContentResolver(), new CallBack() {
-                            @Override
-                            public void success(String id) {
-                                //media list 에 추가
-                                ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
+            }
+        }
+    }
 
-                                ImageView imageView = new ImageView(WriteActivity.this);
-                                Bitmap bmp = Util.fetchImage(id);
-                                imageView.setImageBitmap(bmp);
+    private void cameraResult(int resultCode, Intent data) {
+        Uri currImageURI = data.getData();
+    //    tv.setText("CAMERA : " + getRealPathFromURI(currImageURI));
+        Util.upload(currImageURI, getContentResolver(), new CallBack() {
+            @Override
+            public void success(String id) {
 
-                                int size = Util.dpToPixel(getApplicationContext(),60);
-                                int margin = Util.dpToPixel(getApplicationContext(),5);
-                                FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
-                                layoutParams.setMargins(margin, margin, margin, margin);
+            }
+        });
+    }
+
+    private void photoResult(Intent data){
+        List<Uri> uriList = (List<Uri>) data.getSerializableExtra("uriList");
+
+        for(Uri uri : uriList) {
+            Uri fullUri = Uri.parse("file://" + uri);
+            Util.upload(fullUri, getContentResolver(), new CallBack() {
+                @Override
+                public void success(String id) {
+                    //media list 에 추가
+                    ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
+
+                    ImageView imageView = new ImageView(WriteActivity.this);
+                    Bitmap bmp = Util.fetchImage(id);
+                    imageView.setImageBitmap(bmp);
+
+                    int size = Util.dpToPixel(getApplicationContext(), 60);
+                    int margin = Util.dpToPixel(getApplicationContext(), 5);
+                    FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size, size);
+                    layoutParams.setMargins(margin, margin, margin, margin);
 
 //                            imageView.setLayoutParams(layoutParams);
-                                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
-                                flowLayout.addView(imageView,layoutParams);
-
-                            }
-                        });
-                    }
-
-
+                    flowLayout.addView(imageView, layoutParams);
 
                 }
+            });
         }
     }
 
