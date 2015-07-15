@@ -51,7 +51,6 @@ import java.util.Map;
 
 public class GalleryActivity extends SubActivityBase{
 
-    private MenuItem doneMenu;
     private DoneState doneState = DoneState.CLEAR;
 
     private static Uri[] mUrls = null;
@@ -265,15 +264,6 @@ public class GalleryActivity extends SubActivityBase{
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_gallery, menu);
-
-        doneMenu = menu.findItem(R.id.action_done);
-
-        return true;
-    }
 
     public void done(MenuItem item){
         switch (doneState) {

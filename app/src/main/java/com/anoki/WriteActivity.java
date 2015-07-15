@@ -33,12 +33,8 @@ public class WriteActivity extends SubActivityBase {
 
 
 
-    private MenuItem doneMenu;
 
 
-
-
-    private DoneState doneState = DoneState.CLEAR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,15 +88,6 @@ public class WriteActivity extends SubActivityBase {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_write, menu);
-
-        doneMenu = menu.findItem(R.id.action_done);
-
-        return true;
-    }
 
     public void done(MenuItem item){
 
@@ -151,6 +138,7 @@ public class WriteActivity extends SubActivityBase {
             Intent intent = new Intent(this,GalleryActivity.class);
             intent.putExtra("requestCode", Global.PHOTO);
             startActivityForResult(intent, Global.PHOTO);
+
 //            Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
  //           photoPickerIntent.setType("image/*");
  //           photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
