@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.anoki.R;
 import com.google.gson.Gson;
@@ -203,5 +204,13 @@ public class Util {
                 r.getDisplayMetrics()
         );
 
+    }
+
+    public static void setPicture(String picture,ImageView view){
+        if(!"null".equals(picture) && picture!=null && !"0".equals(picture) ) {
+            Bitmap bmp = Util.fetchImage(picture+"");
+            view.setImageBitmap(bmp);
+            view.setAlpha(1.0f);
+        }
     }
 }

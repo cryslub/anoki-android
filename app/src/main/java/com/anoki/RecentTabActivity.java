@@ -208,12 +208,7 @@ public class RecentTabActivity extends TabActivityBase {
             });
 
 
-
-            if(!"null".equals(prayer.userPicture) && prayer.userPicture!=null) {
-                Bitmap bmp = Util.fetchImage(prayer.userPicture);
-                viewHolder.picture.setImageBitmap(bmp);
-                viewHolder.picture.setAlpha(1.0f);
-            }
+            Util.setPicture(prayer.userPicture, viewHolder.picture);
 
             viewHolder.name.setText(itemsData.get(position).userName);
             viewHolder.date.setText(itemsData.get(position).time);

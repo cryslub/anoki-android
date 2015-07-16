@@ -23,7 +23,9 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TabWidget>
+                android:layout_height="wrap_content">
+
+            </TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -31,18 +33,16 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/친구"
+                    android:id="@+id/friend"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            >
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
@@ -55,7 +55,9 @@
                                 <EditText
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="이름(초성), 전화번호 검색"/>
+                                    android:hint="이름(초성), 전화번호 검색"
+                                    android:textSize="15sp"
+                                    android:id="@+id/search_friend"/>
 
                             </LinearLayout>
 
@@ -69,22 +71,19 @@
                                 android:id="@+id/friend_list">
                             </android.support.v7.widget.RecyclerView>
                         </LinearLayout>
-                    </ScrollView>
                 </LinearLayout>
 
 
                 <LinearLayout
-                    android:id="@+id/초대하기"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    android:orientation="vertical"
+                    android:id="@+id/contact">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            >
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
@@ -97,21 +96,24 @@
                                 <EditText
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="연락처를 검색하거나, 직접 입력할 수 있어요"/>
+                                    android:hint="연락처를 검색하거나, 직접 입력할 수 있어요"
+                                    android:textSize="15sp"
+                                    android:id="@+id/search_contact"/>
 
                             </LinearLayout>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="초대한 친구의 연락처는 친구가 그룹에 가입하는 과정에서 사용되며, 아노키 이용기간 동안 보관됩니다. 동의 시, 친구를 초대해 주세요."/>
+                                android:text="초대한 친구의 연락처는 친구가 그룹에 가입하는 과정에서 사용되며, 아노키 이용기간 동안 보관됩니다. 동의 시, 친구를 초대해 주세요."
+                                android:textSize="11sp"
+                                android:textColor="#000000"/>
                             <android.support.v7.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:id="@+id/contact_list">
                             </android.support.v7.widget.RecyclerView>
                         </LinearLayout>
-                    </ScrollView>
                 </LinearLayout>
 
             </FrameLayout>
