@@ -208,7 +208,7 @@ public class RecentTabActivity extends TabActivityBase {
             });
 
 
-            Util.setPicture(prayer.userPicture, viewHolder.picture);
+            Util.setPicture(prayer.userPicture, viewHolder.picture,getDrawable(R.drawable.ic_person_black_48dp));
 
             viewHolder.name.setText(itemsData.get(position).userName);
             viewHolder.date.setText(itemsData.get(position).time);

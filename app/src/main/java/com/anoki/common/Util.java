@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
 import android.util.TypedValue;
@@ -206,11 +207,14 @@ public class Util {
 
     }
 
-    public static void setPicture(String picture,ImageView view){
+    public static void setPicture(String picture,ImageView view,Drawable def){
         if(!"null".equals(picture) && picture!=null && !"0".equals(picture) ) {
             Bitmap bmp = Util.fetchImage(picture+"");
             view.setImageBitmap(bmp);
             view.setAlpha(1.0f);
+        }else{
+            view.setImageDrawable(def);
+            view.setAlpha(.5f);
         }
     }
 }

@@ -29,7 +29,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="최호식"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:id="@+id/name"
@@ -38,7 +37,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="01012345678"
                 android:id="@+id/phone"/>
         </LinearLayout>
         <CheckBox

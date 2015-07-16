@@ -49,7 +49,7 @@ import java.util.Map;
 public class ChooseFriendsActivity extends SubActivityBase {
 
     private Map<Integer,Integer> selectionMap = new HashMap<Integer,Integer>();
-    private Map<Integer,Integer> contactSelectionMap = new HashMap<Integer,Integer>();
+    private Map<String,Integer> contactSelectionMap = new HashMap<String,Integer>();
 
     private TabHost myTabHost;
 
@@ -224,8 +224,8 @@ public class ChooseFriendsActivity extends SubActivityBase {
     }
 
     private class FriendsAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private List<Friend> visibleObjects;
-        private List<Friend> allObjects;
+        protected List<Friend> visibleObjects;
+        protected List<Friend> allObjects;
 
         public FriendsAdapter(List<Friend> itemsData)
         {
@@ -279,7 +279,7 @@ public class ChooseFriendsActivity extends SubActivityBase {
             final Friend friend = visibleObjects.get(position);
 
 
-            Util.setPicture(friend.picture,viewHolder.picture);
+            Util.setPicture(friend.picture,viewHolder.picture,getDrawable(R.drawable.ic_person_black_36dp));
 
 
             viewHolder.name.setText(visibleObjects.get(position).name);
@@ -312,13 +312,24 @@ public class ChooseFriendsActivity extends SubActivityBase {
 
 
     private class ContactsAdapter extends FriendsAdapter {
-        private List<Friend> visibleObjects;
-        private List<Friend> allObjects;
 
         public ContactsAdapter(List<Friend> itemsData) {
             super(itemsData);
         }
 
+        // Create new views (invoked by the layout manager)
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent,
+                                             int viewType) {
+            // create a new view
+            View itemLayoutView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout_contact_row, null);
+
+            // create ViewHolder
+
+            ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+            return viewHolder;
+        }
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
@@ -334,10 +345,10 @@ public class ChooseFriendsActivity extends SubActivityBase {
             viewHolder.choose.setOnClickListener(new CheckBox.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (selectionMap.get(friend.friend) == null) {
-                        selectionMap.put(friend.friend, 1);
+                    if (contactSelectionMap.get(friend.phone) == null) {
+                        contactSelectionMap.put(friend.phone, 1);
                     } else {
-                        selectionMap.remove(friend.friend);
+                        contactSelectionMap.remove(friend.phone);
                     }
                     doneStateCheck();
                 }
@@ -347,10 +358,15 @@ public class ChooseFriendsActivity extends SubActivityBase {
 
             viewHolder.phone.setText(friend.phone);
 
-
-            Bitmap bmp = fetchThumbnail(Integer.parseInt(friend.picture));
-            viewHolder.picture.setImageBitmap(bmp);
-            viewHolder.picture.setAlpha(1.0f);
+            System.out.println(friend.picture);
+            if(!"null".equals(friend.picture) &&!"0".equals(friend.picture)) {
+                Bitmap bmp = fetchThumbnail(Integer.parseInt(friend.picture));
+                viewHolder.picture.setImageBitmap(bmp);
+                viewHolder.picture.setAlpha(1.0f);
+            }else{
+                viewHolder.picture.setImageDrawable(getDrawable(R.drawable.ic_person_black_36dp));
+                viewHolder.picture.setAlpha(.5f);
+            }
         }
 
 

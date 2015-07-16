@@ -1,5 +1,7 @@
 package com.anoki;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -29,10 +31,11 @@ import org.apmem.tools.layouts.FlowLayout;
 
 import java.util.List;
 
-public class WriteActivity extends SubActivityBase {
+public class WriteActivity extends SubActivityBase implements PrayerImageFragment.OnFragmentInteractionListener {
 
 
 
+    Prayer prayer = new Prayer();
 
 
 
@@ -95,7 +98,6 @@ public class WriteActivity extends SubActivityBase {
         EditText text = (EditText) findViewById(R.id.text);
         CheckBox pub = (CheckBox) findViewById(R.id.pub);
 
-        Prayer prayer = new Prayer();
         prayer.back = back.getText().toString();
         prayer.text = text.getText().toString();
         prayer.pub = pub.isChecked()?"Y" : "N";
@@ -217,26 +219,56 @@ public class WriteActivity extends SubActivityBase {
                 @Override
                 public void success(String id) {
                     //media list 에 추가
+
                     ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
 
                     ImageView imageView = new ImageView(WriteActivity.this);
                     Bitmap bmp = Util.fetchImage(id);
                     imageView.setImageBitmap(bmp);
 
-                    int size = Util.dpToPixel(getApplicationContext(), 60);
+
+                    int size = Util.dpToPixel(getApplicationContext(), 80);
                     int margin = Util.dpToPixel(getApplicationContext(), 5);
-                    FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size, size);
-                    layoutParams.setMargins(margin, margin, margin, margin);
+//                    FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size, size);
+//                    layoutParams.setMargins(margin, margin, margin, margin);
 
 //                            imageView.setLayoutParams(layoutParams);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
-                    flowLayout.addView(imageView, layoutParams);
+  //                  flowLayout.addView(imageView, layoutParams);
+
+
+
+
+                    FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
+                    layoutParams.setMargins(margin, margin, margin, margin);
+
+                    LinearLayout rowLayout = new LinearLayout(WriteActivity.this);
+
+                    FragmentManager fragMan = getFragmentManager();
+                    FragmentTransaction fragTransaction = fragMan.beginTransaction();
+
+                    rowLayout.setId(Integer.parseInt(id));
+
+// add rowLayout to the root layout somewhere here
+
+                    PrayerImageFragment imageFragment = new PrayerImageFragment();
+                    imageFragment.setBmp(bmp);
+//                    imageFragment.setUri(mUrls[i]);
+                    fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + id);
+                    fragTransaction.commit();
+
+
+                    flowLayout.addView(rowLayout,layoutParams);
 
                 }
             });
         }
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

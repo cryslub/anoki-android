@@ -119,8 +119,8 @@ public class GalleryActivity extends SubActivityBase{
         String targetPath = Environment.getExternalStorageDirectory()
                 .getAbsolutePath();
 
-        Toast.makeText(getApplicationContext(), targetPath, Toast.LENGTH_LONG)
-                .show();
+//        Toast.makeText(getApplicationContext(), targetPath, Toast.LENGTH_LONG)
+  //              .show();
         String[] thumbColumns = { MediaStore.Video.Thumbnails.DATA,
                 MediaStore.Video.Thumbnails.VIDEO_ID };
 
