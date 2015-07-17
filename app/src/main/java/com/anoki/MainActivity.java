@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.os.Bundle;
 
+import com.anoki.pojo.Search;
 import com.anoki.pojo.User;
 import com.anoki.common.Global;
 import com.anoki.common.Util;
@@ -32,7 +33,14 @@ public class MainActivity extends Activity {
         Response response = Util.rest("user/log", "POST", user, Response.class);
 
         if(response != null && "0".equals(response.result)){
+
             Global.apiKey = response.apiKey;
+
+            Search search = new Search();
+            search.id = response.id;
+
+            Global.me = Util.rest("user/detail", "POST", search, User.class);
+
         }
 
         Intent intent = new Intent(this, RecentActivity.class);

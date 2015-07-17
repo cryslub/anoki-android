@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="true"
@@ -96,6 +97,18 @@
         <activity
             android:name=".ZoomInActivity"
             android:label="@string/title_activity_zoom_in" >
+        </activity>
+        <activity
+            android:name=".BillingActivity"
+            android:label="@string/title_activity_billing" >
+        </activity>
+        <activity
+            android:name=".MyProfileActivity"
+            android:label="@string/title_activity_my_profile" >
+        </activity>
+        <activity
+            android:name=".PrayerActivity"
+            android:label="@string/title_activity_prayer" >
         </activity>
     </application>
 

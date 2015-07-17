@@ -26,4 +26,7 @@
     <string name="title_activity_choose_friends">함께 기도하기</string>
     <string name="pls_wait_txt">로딩중</string>
     <string name="title_activity_zoom_in">크게보기</string>
+    <string name="title_activity_billing">결제</string>
+    <string name="title_activity_my_profile">내 프로필 설정</string>
+    <string name="title_activity_prayer">PrayerActivity</string>
 </resources>

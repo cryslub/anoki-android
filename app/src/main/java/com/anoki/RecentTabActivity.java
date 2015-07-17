@@ -107,6 +107,9 @@ public class RecentTabActivity extends TabActivityBase {
 
         View itemLayoutView;
 
+        TextView prayCount;
+        TextView replyCount;
+
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             profile = (LinearLayout) itemLayoutView.findViewById(R.id.profile);
@@ -123,6 +126,10 @@ public class RecentTabActivity extends TabActivityBase {
             more = (TextView) itemLayoutView.findViewById(R.id.more);
 
             media_container = (LinearLayout) itemLayoutView.findViewById(R.id.media_container);
+
+            prayCount = (TextView) itemLayoutView.findViewById(R.id.pray_count);
+            replyCount = (TextView) itemLayoutView.findViewById(R.id.reply_count);
+
 
             this.itemLayoutView = itemLayoutView;
 //            txtViewTitle = (TextView) itemLayoutView.findViewById(R.id.item_title);
@@ -168,9 +175,14 @@ public class RecentTabActivity extends TabActivityBase {
             viewHolder.profile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(RecentTabActivity.this, UserProfileActivity.class);
-                    intent.putExtra("userId",prayer.userId);
-                    startActivity(intent);
+                    if(prayer.userId != Global.me.id) {
+                        Intent intent = new Intent(RecentTabActivity.this, UserProfileActivity.class);
+                        intent.putExtra("userId", prayer.userId);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(RecentTabActivity.this, MyProfileActivity.class);
+                        startActivity(intent);
+                    }
                 }
             });
 
@@ -208,11 +220,17 @@ public class RecentTabActivity extends TabActivityBase {
             });
 
 
-            Util.setPicture(prayer.userPicture, viewHolder.picture,getDrawable(R.drawable.ic_person_black_48dp));
+            Util.setPicture(prayer.userPicture, viewHolder.picture, getDrawable(R.drawable.ic_person_black_48dp));
 
             viewHolder.name.setText(itemsData.get(position).userName);
             viewHolder.date.setText(itemsData.get(position).time);
             viewHolder.text.setText(itemsData.get(position).back+ "\r\n\r\n"+prayer.text);
+
+            viewHolder.prayCount.setText("기도 " + prayer.prayCount);
+            viewHolder.replyCount.setText("댓글 "+prayer.replyCount);
+
+
+
 
             if(prayer.media.size() == 0){
                 viewHolder.media_container.setVisibility(View.INVISIBLE);

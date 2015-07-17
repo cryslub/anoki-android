@@ -1,5 +1,6 @@
 package com.anoki.common;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -45,5 +46,12 @@ public class SubActivityBase extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    protected void succeed(){
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        onBackPressed();
     }
 }

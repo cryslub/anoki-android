@@ -2,6 +2,7 @@ package com.anoki;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,6 +57,8 @@ public class ChooseFriendsActivity extends SubActivityBase {
 
     private  ContentResolver contentResolver;
 
+    private Prayer prayer ;
+
     private static final String[] PHOTO_BITMAP_PROJECTION = new String[] {
             ContactsContract.CommonDataKinds.Photo.PHOTO
     };
@@ -63,6 +67,9 @@ public class ChooseFriendsActivity extends SubActivityBase {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_friends);
+
+        Intent intent = getIntent();
+        prayer = (Prayer) intent.getSerializableExtra("prayer");
 
         setTab();
 
@@ -91,7 +98,7 @@ public class ChooseFriendsActivity extends SubActivityBase {
         search.apiKey = Global.apiKey;
         search.searchKey = "A";
 
-        List<Friend> friendList = Util.rest("friend/list","POST",search,listType);
+        List<Friend> friendList = Util.rest("friend/list", "POST", search, listType);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.friend_list);
         // 2. set layoutManger
@@ -193,19 +200,59 @@ public class ChooseFriendsActivity extends SubActivityBase {
 
     public void done(MenuItem item){
 
+        prayer.friends = new ArrayList<Integer>();
+        prayer.friends.addAll(selectionMap.keySet());
+
+        prayer.phone = new ArrayList<String>();
+        prayer.phone.addAll(contactSelectionMap.keySet());
+
+
         switch (doneState){
             case CLEAR:
                 onBackPressed();
                 break;
             case DONE:
             {
-                onBackPressed();
+                if(selectionMap.size() + contactSelectionMap.size() > Global.FREE_FRIENDS_COUNT){
+                    int total = selectionMap.size() + contactSelectionMap.size();
+                    int ex = total -Global.FREE_FRIENDS_COUNT;
+                    new AlertDialog.Builder(this)
+                            .setIcon(R.drawable.ic_info_black_24dp)
+                            .setTitle("결제")
+                            .setMessage("함께 기도하는 친구가 10명초과로 비용이 발생합니다.\r\n (아노키는 수익이 아닌 스팸방지를 위해 과금을 합니다.) \r\n초과친구 "+ex+"명/ 결제금액 "+ex*100+"원 결제하시겠습니까?")
+                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(ChooseFriendsActivity.this,BillingActivity.class);
+                                    intent.putExtra("prayer", prayer);
+                                    startActivityForResult(intent, Global.PAY);
+                                }
+
+                            })
+                            .setNegativeButton("아니오", null)
+                            .show();
+                }else {
+                    RestService.makePrayer(prayer);
+                    succeed();
+                }
             }
             break;
 
         }
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            succeed();
+        }
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 

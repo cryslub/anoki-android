@@ -110,17 +110,17 @@ public class WriteActivity extends SubActivityBase implements PrayerImageFragmen
             case DONE:
             {
                 RestService.makePrayer(prayer);
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                onBackPressed();
+                succeed();
             }
                 break;
             case NEXT:
                 Intent intent = new Intent(this,ChooseFriendsActivity.class);
-                startActivity(intent);
+                intent.putExtra("prayer",prayer);
+                startActivityForResult(intent, Global.FRIENDS);
                 break;
         }
     }
+
 
     public void pub(View view){
         doneStateCheck();
@@ -193,6 +193,9 @@ public class WriteActivity extends SubActivityBase implements PrayerImageFragmen
                 case Global.VIDEO:
                     break;
                 case Global.CAMERA:
+                    break;
+                case Global.FRIENDS:
+                    succeed();
                     break;
 
             }
