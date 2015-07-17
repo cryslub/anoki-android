@@ -21,7 +21,7 @@ public class Prayer implements Serializable{
 	public List<Integer> friends;
 	public List<String> phone;
 	public String scrapd;
-	public String responseCount;
+	public int responseCount;
 	public List<Reply> reply; //미디어 list
 	public int team = -1;
 }

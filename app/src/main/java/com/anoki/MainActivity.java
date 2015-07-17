@@ -36,10 +36,8 @@ public class MainActivity extends Activity {
 
             Global.apiKey = response.apiKey;
 
-            Search search = new Search();
-            search.id = response.id;
-
-            Global.me = Util.rest("user/detail", "POST", search, User.class);
+            user.id = response.id;
+            Global.me = Util.rest("user/detail", "POST", user, User.class);
 
         }
 

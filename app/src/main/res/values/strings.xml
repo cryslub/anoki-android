@@ -21,12 +21,12 @@
     <string name="title_activity_more_tab">MoreTabActivity</string>
     <string name="title_activity_me_tab">MeTabActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
-    <string name="title_activity_prayer_detail">PrayerDetailActivity</string>
+    <string name="title_activity_prayer_detail">기도</string>
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_activity_choose_friends">함께 기도하기</string>
     <string name="pls_wait_txt">로딩중</string>
     <string name="title_activity_zoom_in">크게보기</string>
     <string name="title_activity_billing">결제</string>
     <string name="title_activity_my_profile">내 프로필 설정</string>
-    <string name="title_activity_prayer">PrayerActivity</string>
+    <string name="title_activity_prayer">기도</string>
 </resources>

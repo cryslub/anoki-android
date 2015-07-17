@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.anoki.R;
 
@@ -53,5 +54,10 @@ public class SubActivityBase extends ActionBarActivity {
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         onBackPressed();
+    }
+
+    protected void setText(int id,String text){
+        TextView name = (TextView) findViewById(id);
+        name.setText(text);
     }
 }

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.anoki.R;
 import com.google.gson.Gson;
@@ -217,4 +218,7 @@ public class Util {
             view.setAlpha(.5f);
         }
     }
+
+
+
 }
