@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
 
             user.id = response.id;
             Global.me = Util.rest("user/detail", "POST", user, User.class);
+            Global.me.apiKey = Global.apiKey;
 
         }
 

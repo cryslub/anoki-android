@@ -48,11 +48,9 @@ public abstract  class TabActivityBase extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == WRITE) {
-            if (resultCode == RESULT_OK) {
-                //refresh
-                refresh();
-            }
+        if (resultCode == RESULT_OK) {
+            //refresh
+            refresh();
         }
     }
 

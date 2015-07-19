@@ -4,9 +4,11 @@ package com.anoki;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ public class EditTextFragment extends Fragment implements View.OnClickListener{
 
     private int inputType;
     private int maxLength;
+    private EditTextFragment.OnFragmentInteractionListener mListener;
 
     public EditTextFragment() {
         // Required empty public constructor
@@ -48,6 +51,23 @@ public class EditTextFragment extends Fragment implements View.OnClickListener{
             fArray[0] = new InputFilter.LengthFilter(maxLength);
             editText.setFilters(fArray);
         }
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mListener.textChanged(s);
+            }
+        });
 
         return view;
     }
@@ -75,5 +95,20 @@ public class EditTextFragment extends Fragment implements View.OnClickListener{
 
         this.maxLength = a.getInt(R.styleable.EditTextFragment_android_maxLength, -1);
 
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (EditTextFragment.OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    public interface OnFragmentInteractionListener{
+        public void textChanged(Editable s);
     }
 }

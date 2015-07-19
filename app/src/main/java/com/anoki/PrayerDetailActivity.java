@@ -1,6 +1,11 @@
 package com.anoki;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,12 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.anoki.common.CallBack;
 import com.anoki.common.Global;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
@@ -25,6 +33,7 @@ import com.anoki.pojo.Reply;
 import com.anoki.pojo.Search;
 import com.google.gson.reflect.TypeToken;
 
+import org.apmem.tools.layouts.FlowLayout;
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
@@ -35,7 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class PrayerDetailActivity extends SubActivityBase {
+public class PrayerDetailActivity extends SubActivityBase implements PrayerImageFragment.OnFragmentInteractionListener {
 
     Prayer prayer;
     int prayerId;
@@ -49,25 +58,15 @@ public class PrayerDetailActivity extends SubActivityBase {
         prayerId = (Integer) intent.getIntExtra("prayerId",-1);
 
 
-        refresh();
+        load();
         prayer.apiKey = Global.apiKey;
 
         ImageView picture = (ImageView) findViewById(R.id.picture);
-        Util.setPicture(prayer.userPicture,picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
+        Util.setPicture(prayer.userPicture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
 
         setText(R.id.name, prayer.userName);
         setText(R.id.text,prayer.back+"\r\n\r\n"+prayer.text);
-        setText(R.id.date,prayer.time);
-
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.reply_list);
-        // 2. set layoutManger
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // 3. create an adapter
-
-        final ReplyAdapter friendsAdapter = new ReplyAdapter(prayer.reply);
-        // 4. set adapter
-        recyclerView.setAdapter(friendsAdapter);
+        setText(R.id.date, prayer.time);
 
 
         if(prayer.responseCount == 0){
@@ -110,32 +109,79 @@ public class PrayerDetailActivity extends SubActivityBase {
 
 
                     Util.rest("prayer/reply", "POST", reply, Prayer.class);
+
+                    refresh();
                 }
             }
         });
+
+
+        if(intent.getBooleanExtra("reply", false)){
+            EditText replyText = (EditText) findViewById(R.id.reply_text);
+            replyText.requestFocus();
+        }
 
 
     }
 
 
     private void refresh(){
+        LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
+        replyList.removeAllViews();
+
+        load();
+    }
+
+    private void load(){
         final Search search = new Search();
         search.searchId = prayerId;
 
         prayer = Util.rest("prayer/detail", "POST", search, Prayer.class);
 
-        setText(R.id.pray_count,"기도 "+ prayer.prayCount);
-        setText(R.id.reply_count,"댓글 "+ prayer.replyCount);
+        setText(R.id.pray_count, "기도 " + prayer.prayCount);
+        setText(R.id.reply_count, "댓글 " + prayer.replyCount);
 
-        if(prayer.scrapd != null){
+        if(prayer.scrapd != null || prayer.userId == Global.me.id){
             LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.button_container);
             TextView scrap = (TextView) findViewById(R.id.scrap);
             buttonContainer.removeView(scrap);
         }
 
+        if(prayer.reply.size() > 0) {
+            LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
+            int i = 0;
+            addReply(prayer.reply.get(0), i++);
+
+            for (Reply reply : prayer.reply) {
+
+                addReply(reply, i++);
+            }
+        }
 
     }
 
+    private void addReply(Reply reply,int index){
+        LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
+
+        LinearLayout rowLayout = new LinearLayout(PrayerDetailActivity.this);
+
+        FragmentManager fragMan = getFragmentManager();
+        FragmentTransaction fragTransaction = fragMan.beginTransaction();
+
+        rowLayout.setId(index);
+
+// add rowLayout to the root layout somewhere here
+
+        ReplyFragment replyFragment = new ReplyFragment();
+        replyFragment.setReply(reply);
+
+//                    imageFragment.setUri(mUrls[i]);
+        fragTransaction.add(rowLayout.getId(), replyFragment, "fragment" + index);
+        fragTransaction.commit();
+
+        replyList.addView(rowLayout);
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -177,71 +223,73 @@ public class PrayerDetailActivity extends SubActivityBase {
     }
 
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        ImageView picture;
-        TextView name;
-        TextView text;
 
-        public ViewHolder(View itemLayoutView) {
-            super(itemLayoutView);
-            picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
-            name = (TextView) itemLayoutView.findViewById(R.id.name);
-            text = (TextView) itemLayoutView.findViewById(R.id.text);
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Global.PHOTO:
+                    Util.upload(data.getData(), getContentResolver(), new CallBack() {
+                        @Override
+                        public void success(String id) {
+                            //media list 에 추가
+
+                            ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
+
+                            ImageView imageView = new ImageView(PrayerDetailActivity.this);
+                            Bitmap bmp = Util.fetchImage(id);
+                            imageView.setImageBitmap(bmp);
+
+
+                            int size = Util.dpToPixel(getApplicationContext(), 80);
+                            int margin = Util.dpToPixel(getApplicationContext(), 5);
+//                    FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size, size);
+//                    layoutParams.setMargins(margin, margin, margin, margin);
+
+//                            imageView.setLayoutParams(layoutParams);
+                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
+                            //                  flowLayout.addView(imageView, layoutParams);
+
+
+
+
+                            FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
+                            layoutParams.setMargins(margin, margin, margin, margin);
+
+                            LinearLayout rowLayout = new LinearLayout(PrayerDetailActivity.this);
+
+                            FragmentManager fragMan = getFragmentManager();
+                            FragmentTransaction fragTransaction = fragMan.beginTransaction();
+
+                            rowLayout.setId(Integer.parseInt(id));
+
+// add rowLayout to the root layout somewhere here
+
+                            PrayerImageFragment imageFragment = new PrayerImageFragment();
+                            imageFragment.setBmp(bmp);
+//                    imageFragment.setUri(mUrls[i]);
+                            fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + id);
+                            fragTransaction.commit();
+
+
+                            flowLayout.addView(rowLayout,layoutParams);
+
+                        }
+                    });
+                    break;
+            }
         }
     }
 
-
-    private class ReplyAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private List<Reply> itemsData;
-
-        public ReplyAdapter(List<Reply> itemsData) {
-            this.itemsData = itemsData;
-        }
-
-        public void updateList(List<Reply> itemsData){
-            this.itemsData = itemsData;
-            notifyDataSetChanged();
-        }
-        // Create new views (invoked by the layout manager)
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                             int viewType) {
-            // create a new view
-            View itemLayoutView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_recent_row, null);
-
-            // create ViewHolder
-
-            ViewHolder viewHolder = new ViewHolder(itemLayoutView);
-            return viewHolder;
-        }
-
-        // Replace the contents of a view (invoked by the layout manager)
-        @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int position) {
-
-            // - get data from your itemsData at this position
-            // - replace the contents of the view with that itemsData
-
-            final Reply reply = itemsData.get(position);
-
-            Util.setPicture(reply.picture,viewHolder.picture,getDrawable(R.drawable.ic_person_black_36dp));
-
-
-            viewHolder.name.setText(reply.name);
-            viewHolder.text.setText(reply.text);
-
-        }
-
-
-        // Return the size of your itemsData (invoked by the layout manager)
-        @Override
-        public int getItemCount() {
-
-            return itemsData.size();
-        }
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
+
 
 }

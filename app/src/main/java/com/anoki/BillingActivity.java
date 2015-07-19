@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.anoki.common.Global;
+import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.pojo.Prayer;
 
@@ -21,33 +22,18 @@ import com.anoki.pojo.Prayer;
 
 public class BillingActivity extends SubActivityBase {
 
-    IInAppBillingService mService;
+    private Prayer prayer;
 
 
-    ServiceConnection mServiceConn = new ServiceConnection() {
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mService = null;
-        }
-
-        @Override
-        public void onServiceConnected(ComponentName name,
-                                       IBinder service) {
-            mService = IInAppBillingService.Stub.asInterface(service);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing);
 
-        Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
-        serviceIntent.setPackage("com.android.vending");
-        bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 
         Intent intent = getIntent();
-        Prayer prayer = (Prayer) intent.getSerializableExtra("prayer");
+        prayer = (Prayer) intent.getSerializableExtra("prayer");
         int total = prayer.friends.size() + prayer.phone.size();
         int ex = total - Global.FREE_FRIENDS_COUNT;
 
@@ -74,14 +60,13 @@ public class BillingActivity extends SubActivityBase {
     }
 
     public void pay(View view){
+        int total = prayer.friends.size() + prayer.phone.size();
+        int ex = total - Global.FREE_FRIENDS_COUNT;
+
+        prayer.dalant = ex *100;
+        RestService.makePrayer(prayer);
+
         succeed();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mService != null) {
-            unbindService(mServiceConn);
-        }
-    }
 }

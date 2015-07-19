@@ -23,85 +23,63 @@
         android:minHeight="120dp"
         android:gravity="top"
         android:id="@+id/text"/>
-    <org.apmem.tools.layouts.FlowLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/media_list">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </org.apmem.tools.layouts.FlowLayout>
+        android:id="@+id/media_list"
+        android:columnCount="5">
+    </GridLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageButton
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_library_add_black_24dp"
+            android:src="@drawable/ic_photo_black_24dp"
             android:background="@android:color/transparent"
             android:alpha="0.5"
-            android:layout_margin="5dp"
-            android:onClick="showSelectSource"
-           />
+            android:onClick="photo"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_videocam_black_24dp"
+            android:background="@android:color/transparent"
+            android:alpha="0.5"
+            android:onClick="video"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical" />
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_camera_alt_black_24dp"
+            android:background="@android:color/transparent"
+            android:alpha="0.5"
+            android:onClick="camera"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical" />
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:gravity="right">
             <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전체공개"
-                android:onClick="pub"
-                android:checked="true"
-                android:id="@+id/pub"></CheckBox>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체공개"
+                    android:onClick="pub"
+                    android:checked="true"
+                    android:id="@+id/pub">
+
+                </CheckBox>
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:id="@+id/select_source"
-        android:background="#bbbbbb"
-        android:layout_marginTop="10dp">
-
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_weight=".33"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_photo_black_36dp"
-            android:background="@android:color/transparent"
-            android:alpha="0.5"
-            android:layout_margin="10dp"
-            android:onClick="photo"/>
-
-        <ImageButton
-            android:layout_width="0dp"
-
-            android:layout_weight=".33"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_videocam_black_36dp"
-            android:background="@android:color/transparent"
-            android:alpha="0.5"
-            android:layout_margin="10dp"
-            android:onClick="video"
-            />
-
-
-        <ImageButton
-            android:layout_width="0dp"
-
-            android:layout_weight=".33"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_camera_alt_black_36dp"
-            android:background="@android:color/transparent"
-            android:alpha="0.5"
-            android:layout_margin="10dp"
-            android:onClick="camera"/>
-
     </LinearLayout>
 
 </LinearLayout>

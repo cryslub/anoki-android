@@ -12,6 +12,6 @@ public class User {
 	public Integer picture;
 	public String country;
 	public String phone;
-	
+	public int dalant;
 	
 }

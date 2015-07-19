@@ -60,4 +60,10 @@ public class SubActivityBase extends ActionBarActivity {
         TextView name = (TextView) findViewById(id);
         name.setText(text);
     }
+
+    protected void reload() {
+        finish();
+        startActivity(getIntent());
+    }
+
 }

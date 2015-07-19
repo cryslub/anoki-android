@@ -110,6 +110,26 @@
             android:name=".PrayerActivity"
             android:label="@string/title_activity_prayer" >
         </activity>
+        <activity
+            android:name=".UserPrayerListActivity"
+            android:label="@string/title_activity_user_prayer_list" >
+        </activity>
+        <activity
+            android:name=".ChargeActivity"
+            android:label="@string/title_activity_charge" >
+        </activity>
+        <activity
+            android:name=".ChangeNameActivity"
+            android:label="@string/title_activity_change_name" >
+        </activity>
+        <activity
+            android:name=".ChangeStateActivity"
+            android:label="@string/title_activity_change_state" >
+        </activity>
+        <activity
+            android:name=".AccountActivity"
+            android:label="@string/title_activity_account" >
+        </activity>
     </application>
 
 </manifest>

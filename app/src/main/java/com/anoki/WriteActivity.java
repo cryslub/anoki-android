@@ -126,14 +126,6 @@ public class WriteActivity extends SubActivityBase implements PrayerImageFragmen
         doneStateCheck();
     }
 
-    public void showSelectSource(View view){
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.select_source);
-        if(linearLayout.getVisibility() == View.VISIBLE){
-            linearLayout.setVisibility(View.INVISIBLE);
-        }else{
-            linearLayout.setVisibility(View.VISIBLE);
-        }
-    }
 
     public void photo(View view){
         if(checkContents()) {

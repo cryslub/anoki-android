@@ -215,7 +215,7 @@ public class ChooseFriendsActivity extends SubActivityBase {
             {
                 if(selectionMap.size() + contactSelectionMap.size() > Global.FREE_FRIENDS_COUNT){
                     int total = selectionMap.size() + contactSelectionMap.size();
-                    int ex = total -Global.FREE_FRIENDS_COUNT;
+                    final int ex = total -Global.FREE_FRIENDS_COUNT;
                     new AlertDialog.Builder(this)
                             .setIcon(R.drawable.ic_info_black_24dp)
                             .setTitle("결제")
@@ -224,9 +224,7 @@ public class ChooseFriendsActivity extends SubActivityBase {
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(ChooseFriendsActivity.this,BillingActivity.class);
-                                    intent.putExtra("prayer", prayer);
-                                    startActivityForResult(intent, Global.PAY);
+                                    bill(ex);
                                 }
 
                             })
@@ -242,6 +240,36 @@ public class ChooseFriendsActivity extends SubActivityBase {
         }
     }
 
+
+    private  void bill(int ex){
+
+        if(ex*100 > Global.me.dalant){
+
+            new AlertDialog.Builder(this)
+                    .setIcon(R.drawable.ic_info_black_24dp)
+                    .setTitle("결제")
+                    .setMessage("충전된 금액이 부족합니다. 결재를 진행하시겠습니까?\r\n (아노키는 수익이 아닌 스팸방지를 위해 과금을 합니다.) \r\n초과친구 "+ex+"명/ 결제금액 "+ex*100+"원 결제하시겠습니까?")
+                    .setPositiveButton("예", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(ChooseFriendsActivity.this, ChargeActivity.class);
+                            intent.putExtra("prayer", prayer);
+                            startActivityForResult(intent, Global.PAY);
+                        }
+
+                    })
+                    .setNegativeButton("아니오", null)
+                    .show();
+        }else {
+
+            Intent intent = new Intent(ChooseFriendsActivity.this, BillingActivity.class);
+            intent.putExtra("prayer", prayer);
+            startActivityForResult(intent, Global.PAY);
+
+        }
+
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

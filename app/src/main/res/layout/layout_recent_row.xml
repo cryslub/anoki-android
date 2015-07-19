@@ -20,7 +20,8 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center_vertical|center_horizontal"
@@ -30,14 +31,54 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:text="최영범"
                 android:id="@+id/name"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#888888"
                 android:textSize="10sp"
                 android:gravity="center"
+                android:text="2015-7-15"
                 android:id="@+id/date"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="10dp"
+            android:id="@+id/friend_function"
+            android:layout_gravity="center_vertical">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_forum_black_24dp"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:background="@android:color/transparent"
+                android:alpha=".5"
+                android:id="@+id/send_message"
+                />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_person_black_24dp"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:background="@android:color/transparent"
+                android:alpha=".5"
+                android:id="@+id/view_profile"
+                />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_send_black_24dp"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:background="@android:color/transparent"
+                android:alpha=".5"
+                android:id="@+id/view_prayer_list"
+                />
         </LinearLayout>
     </LinearLayout>
     <TextView
@@ -103,7 +144,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right">
+        android:gravity="right"
+        android:id="@+id/button_container">
         <TextView
             android:layout_width="40dp"
             android:layout_height="15dp"

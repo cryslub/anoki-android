@@ -24,4 +24,9 @@ public class Prayer implements Serializable{
 	public int responseCount;
 	public List<Reply> reply; //미디어 list
 	public int team = -1;
+	public int dalant;
+
+	public int getTotal(){
+		return friends.size() + phone.size();
+	}
 }

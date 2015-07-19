@@ -29,4 +29,10 @@
     <string name="title_activity_billing">결제</string>
     <string name="title_activity_my_profile">내 프로필 설정</string>
     <string name="title_activity_prayer">기도</string>
+    <string name="title_activity_user_prayer_list">UserPrayerListActivity</string>
+    <string name="title_activity_bill_select">BillSelectActivity</string>
+    <string name="title_activity_charge">충전하기</string>
+    <string name="title_activity_change_name">프로필 편집</string>
+    <string name="title_activity_change_state">프로필 편집</string>
+    <string name="title_activity_account">아노키 계정</string>
 </resources>

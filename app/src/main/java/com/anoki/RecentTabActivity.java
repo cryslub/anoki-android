@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -84,8 +85,12 @@ public class RecentTabActivity extends TabActivityBase {
     @Override
     protected void refresh() {
         System.out.print("refresh");
-        setRecentList();
-        recentAdapter.updateList(recentList);
+
+        finish();
+        startActivity(getIntent());
+
+//        setRecentList();
+ //       recentAdapter.updateList(recentList);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -103,12 +108,20 @@ public class RecentTabActivity extends TabActivityBase {
 
         TextView more;
 
-        LinearLayout media_container;
+        LinearLayout mediaContainer;
 
         View itemLayoutView;
 
         TextView prayCount;
         TextView replyCount;
+
+        LinearLayout buttonContainer;
+
+        LinearLayout friendFunction;
+
+        ImageButton sendMessage;
+        ImageButton viewProfile;
+        ImageButton viewPrayerList;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -125,15 +138,55 @@ public class RecentTabActivity extends TabActivityBase {
 
             more = (TextView) itemLayoutView.findViewById(R.id.more);
 
-            media_container = (LinearLayout) itemLayoutView.findViewById(R.id.media_container);
+            mediaContainer = (LinearLayout) itemLayoutView.findViewById(R.id.media_container);
 
             prayCount = (TextView) itemLayoutView.findViewById(R.id.pray_count);
             replyCount = (TextView) itemLayoutView.findViewById(R.id.reply_count);
 
+            buttonContainer = (LinearLayout) itemLayoutView.findViewById(R.id.button_container);
+            friendFunction = (LinearLayout) itemLayoutView.findViewById(R.id.friend_function);
+
+
+            sendMessage = (ImageButton) itemLayoutView.findViewById(R.id.send_message);
+            viewProfile = (ImageButton) itemLayoutView.findViewById(R.id.view_profile);
+            viewPrayerList = (ImageButton) itemLayoutView.findViewById(R.id.view_prayer_list);
 
             this.itemLayoutView = itemLayoutView;
 //            txtViewTitle = (TextView) itemLayoutView.findViewById(R.id.item_title);
  //           imgViewIcon = (ImageView) itemLayoutView.findViewById(R.id.item_icon);
+        }
+
+        public void bind(Prayer prayer){
+            if(prayer.userId == Global.me.id) {
+                friendFunction.setVisibility(View.INVISIBLE);
+                buttonContainer.removeView(scrap);
+
+            }else{
+                friendFunction.setVisibility(View.VISIBLE);
+
+                sendMessage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+                viewProfile.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+                viewPrayerList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+
+            }
         }
     }
 
@@ -172,16 +225,15 @@ public class RecentTabActivity extends TabActivityBase {
 
             final Prayer prayer = itemsData.get(position);
 
+            viewHolder.bind(prayer);
+
             viewHolder.profile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(prayer.userId != Global.me.id) {
-                        Intent intent = new Intent(RecentTabActivity.this, UserProfileActivity.class);
-                        intent.putExtra("userId", prayer.userId);
-                        startActivity(intent);
-                    }else{
+                    System.out.println(prayer.userId+","+Global.me.id);
+                    if(prayer.userId == Global.me.id) {
                         Intent intent = new Intent(RecentTabActivity.this, MyProfileActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent,Global.PROFILE);
                     }
                 }
             });
@@ -191,15 +243,15 @@ public class RecentTabActivity extends TabActivityBase {
                 public void onClick(View v) {
                     Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
                     intent.putExtra("prayerId",prayer.id);
-                    startActivity(intent);
-
+                    startActivityForResult(intent, Global.PRAYER);
                 }
             });
 
             viewHolder.pray.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Util.rest("prayer/pray", "POST",prayer, Prayer.class);
+                    refresh();
                 }
             });
 
@@ -207,18 +259,27 @@ public class RecentTabActivity extends TabActivityBase {
             viewHolder.reply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
+                    intent.putExtra("prayerId",prayer.id);
+                    intent.putExtra("reply",true);
+                    startActivityForResult(intent, Global.PRAYER);
                 }
             });
 
 
-            viewHolder.scrap.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                }
-            });
-
+            if(prayer.scrapd != null){
+                viewHolder.buttonContainer.removeView(viewHolder.scrap);
+            }else{
+                viewHolder.scrap.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        prayer.apiKey = Global.apiKey;
+                        Util.rest("prayer/scrap", "POST",prayer, Prayer.class);
+                        refresh();
+                    }
+                });
+            }
 
             Util.setPicture(prayer.userPicture, viewHolder.picture, getDrawable(R.drawable.ic_person_black_48dp));
 
@@ -233,8 +294,8 @@ public class RecentTabActivity extends TabActivityBase {
 
 
             if(prayer.media.size() == 0){
-                viewHolder.media_container.setVisibility(View.INVISIBLE);
-                viewHolder.media_container.removeView(viewHolder.media);
+                viewHolder.mediaContainer.setVisibility(View.INVISIBLE);
+                viewHolder.mediaContainer.removeView(viewHolder.media);
 //                viewHolder.media_container.setLayoutParams(new LinearLayout.LayoutParams(0,0));
 //                ((ViewManager)viewHolder.media.getParent()).removeView(viewHolder.media);
             }
