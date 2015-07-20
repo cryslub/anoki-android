@@ -35,4 +35,7 @@
     <string name="title_activity_change_name">프로필 편집</string>
     <string name="title_activity_change_state">프로필 편집</string>
     <string name="title_activity_account">아노키 계정</string>
+    <string name="title_activity_change_pass">비밀번호 재설정</string>
+    <string name="title_activity_restore">비밀번호 찾기</string>
+    <string name="title_activity_response">ResponseActivity</string>
 </resources>

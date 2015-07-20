@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anoki.common.Util;
 import com.anoki.pojo.Reply;
+
+import org.w3c.dom.Text;
 
 
 /**
@@ -47,6 +50,14 @@ public class ReplyFragment extends Fragment {
 
         name.setText(reply.name);
         text.setText(reply.text);
+
+        if(!"R".equals(reply.type)) {
+            LinearLayout con = (LinearLayout) itemLayoutView.findViewById(R.id.container);
+            TextView response = (TextView) itemLayoutView.findViewById(R.id.response);
+
+            con.removeView(response);
+        }
+
 
 
         return itemLayoutView;

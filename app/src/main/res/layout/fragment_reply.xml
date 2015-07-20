@@ -19,21 +19,45 @@
             android:alpha=".5"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:id="@+id/name"
-            android:layout_marginLeft="5dp"
-            android:text="최영범"/>
-
-        <TextView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="댓글"
-            android:layout_marginLeft="5dp"
+            android:orientation="vertical"
+            android:id="@+id/container">
 
-            android:id="@+id/text"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="기도응답"
+                android:gravity="center"
+                android:background="@android:color/holo_red_dark"
+                android:textColor="@android:color/white"
+                android:layout_margin="5dp"
+                android:id="@+id/response"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:id="@+id/name"
+                    android:layout_marginLeft="5dp"
+                    android:text="최영범"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="댓글"
+                    android:layout_marginLeft="5dp"
+
+                    android:id="@+id/text"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
         StrictMode.setThreadPolicy(policy);
 
         User user = new User();
-        user.account = "account@somewhere.com";
+        user.account = "cryslub@gmail.com";
         user.pass = "1234";
 
         //서버에 인증요청

@@ -136,6 +136,31 @@
                     android:layout_margin="5dp"
                     android:onClick="scrap"/>
 
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="15dp"
+                    android:textSize="10sp"
+
+                    android:text="기도응답"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:id="@+id/response"
+                    android:background="#dddddd"
+                    android:layout_margin="5dp"
+                    android:onClick="response"/>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="15dp"
+                    android:textSize="10sp"
+
+                    android:text="기도완료"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:id="@+id/complete"
+                    android:background="#dddddd"
+                    android:layout_margin="5dp"
+                    android:onClick="complete"/>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -152,7 +177,7 @@
                     android:background="#444444"
                     android:layout_margin="5dp"
                     android:textColor="@android:color/white"
-                    android:id="@+id/response"/>
+                    android:id="@+id/response_count"/>
 
             </LinearLayout>
 
@@ -161,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/reply_list"
-
+                android:visibility="invisible"
                 ></LinearLayout>
 
 
@@ -169,7 +194,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="invisible"
+                android:id="@+id/reply">
 
                 <com.anoki.common.CircleImageView
                     android:layout_width="40dp"

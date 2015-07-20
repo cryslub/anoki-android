@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anoki.common.RestService;
 import com.anoki.common.TabActivityBase;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
@@ -89,11 +90,11 @@ public class RecentTabActivity extends TabActivityBase {
         finish();
         startActivity(getIntent());
 
-//        setRecentList();
- //       recentAdapter.updateList(recentList);
+        setRecentList();
+        recentAdapter.updateList(recentList);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    private class ViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout profile;
         ImageView picture;
@@ -156,7 +157,7 @@ public class RecentTabActivity extends TabActivityBase {
  //           imgViewIcon = (ImageView) itemLayoutView.findViewById(R.id.item_icon);
         }
 
-        public void bind(Prayer prayer){
+        public void bind(final Prayer prayer){
             if(prayer.userId == Global.me.id) {
                 friendFunction.setVisibility(View.INVISIBLE);
                 buttonContainer.removeView(scrap);
@@ -174,13 +175,18 @@ public class RecentTabActivity extends TabActivityBase {
                 viewProfile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(RecentTabActivity.this,UserProfileActivity.class);
+                        intent.putExtra("userId",prayer.userId);
+                        startActivity(intent);
                     }
                 });
 
                 viewPrayerList.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Intent intent = new Intent(RecentTabActivity.this,UserPrayerListActivity.class);
+                        intent.putExtra("userId",prayer.userId);
+                        startActivity(intent);
 
                     }
                 });
@@ -250,8 +256,8 @@ public class RecentTabActivity extends TabActivityBase {
             viewHolder.pray.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Util.rest("prayer/pray", "POST",prayer, Prayer.class);
-                    refresh();
+                    if(RestService.pray(prayer)) refresh();
+
                 }
             });
 

@@ -1,5 +1,7 @@
 package com.anoki.pojo;
 
+import com.anoki.common.Global;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -25,6 +27,12 @@ public class Prayer implements Serializable{
 	public List<Reply> reply; //미디어 list
 	public int team = -1;
 	public int dalant;
+	public String completed;
+
+
+	public Prayer(){
+		apiKey = Global.apiKey;
+	}
 
 	public int getTotal(){
 		return friends.size() + phone.size();

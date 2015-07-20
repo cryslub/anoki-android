@@ -19,12 +19,19 @@ import com.google.android.gms.games.Notifications;
 
 public class ChangeNameActivity extends SubActivityBase implements EditTextFragment.OnFragmentInteractionListener{
 
+    EditText editText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_name);
 
+        EditTextFragment editTextFragment = (EditTextFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+        View view=editTextFragment.getView();
 
+        editText = (EditText) view.findViewById(R.id.calc_txt_Prise);
+
+        editText.setText(Global.me.name);
     }
 
     public void done(MenuItem item) {
@@ -33,9 +40,6 @@ public class ChangeNameActivity extends SubActivityBase implements EditTextFragm
                 onBackPressed();
                 break;
             case DONE: {
-                EditTextFragment editTextFragment = (EditTextFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-                View view=editTextFragment.getView();
-                EditText editText = (EditText) view.findViewById(R.id.calc_txt_Prise);
                 Global.me.name =editText.getText().toString();
 
                 Util.rest("user","PUT",Global.me,Response.class);
@@ -55,6 +59,8 @@ public class ChangeNameActivity extends SubActivityBase implements EditTextFragm
     }
 
     public void doneStateCheck(){
+        if(doneMenu == null) return;
+
         TextView  tv = (TextView)findViewById(R.id.text_length);
 
         if("0".equals(tv.getText().toString())){

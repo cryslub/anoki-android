@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.anoki.common.CallBack;
 import com.anoki.common.Global;
+import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 import com.anoki.pojo.Friend;
@@ -74,7 +75,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
             LinearLayout container = (LinearLayout)findViewById(R.id.container);
             container.removeView(bar);
         }else{
-            TextView response = (TextView) findViewById(R.id.response);
+            TextView response = (TextView) findViewById(R.id.response_count);
             response.setText("기도응답이 "+prayer.responseCount+"건 있습니다.");
         }
 
@@ -117,10 +118,18 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
 
         if(intent.getBooleanExtra("reply", false)){
+
             EditText replyText = (EditText) findViewById(R.id.reply_text);
             replyText.requestFocus();
-        }
 
+            LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
+            replyList.setVisibility(View.VISIBLE);
+
+            LinearLayout reply = (LinearLayout) findViewById(R.id.reply);
+            reply.setVisibility(View.VISIBLE);
+
+
+        }
 
     }
 
@@ -140,6 +149,18 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         setText(R.id.pray_count, "기도 " + prayer.prayCount);
         setText(R.id.reply_count, "댓글 " + prayer.replyCount);
+
+
+        if(prayer.userId != Global.me.id){
+            LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.button_container);
+
+            TextView response = (TextView) findViewById(R.id.response);
+            buttonContainer.removeView(response);
+
+            TextView complete = (TextView) findViewById(R.id.complete);
+            buttonContainer.removeView(complete);
+
+        }
 
         if(prayer.scrapd != null || prayer.userId == Global.me.id){
             LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.button_container);
@@ -192,27 +213,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
     public void pray(View view){
 
-
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
-
-        try {
-            Calendar date = Calendar.getInstance();
-            date.setTime(format.parse(prayer.lastPrayed));
-            Calendar now = Calendar.getInstance();
-
-            double diff = now.getTimeInMillis() - date.getTimeInMillis();
-            if(diff > 60*60*1000){
-
-
-                Util.rest("prayer/pray", "POST",prayer, Prayer.class);
-                refresh();
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        if(RestService.pray(prayer)) refresh();
 
     }
 
@@ -222,6 +223,13 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
     }
 
+    public void response(View view){
+        
+    }
+
+    public void complete(View view){
+
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

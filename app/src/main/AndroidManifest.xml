@@ -130,6 +130,18 @@
             android:name=".AccountActivity"
             android:label="@string/title_activity_account" >
         </activity>
+        <activity
+            android:name=".ChangePassActivity"
+            android:label="@string/title_activity_change_pass" >
+        </activity>
+        <activity
+            android:name=".RestoreActivity"
+            android:label="@string/title_activity_restore" >
+        </activity>
+        <activity
+            android:name=".ResponseActivity"
+            android:label="@string/title_activity_response" >
+        </activity>
     </application>
 
 </manifest>

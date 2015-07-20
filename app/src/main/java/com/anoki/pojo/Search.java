@@ -10,8 +10,8 @@ public class Search {
 	public String searchKey;
 	public String searchType;
 	public int searchId;
-	public int page;
-	public int size;
+	public int page = 0;
+	public int size = 100;
 
 	public Search(){
 		this.apiKey = Global.apiKey;
