@@ -60,13 +60,16 @@ public class InputAuthCodeActivity extends Activity {
         Response response = Util.rest("auth/send/number", "POST", phone, Response.class);
 
         if("0".equals(response.result)){
+            //성공시 다음 화면으로
 
+            Intent intent = new Intent(InputAuthCodeActivity.this,SetNameActivity.class);
+            intent.putExtra("phone",phone);
+            startActivity(intent);
         }
-        //성공시 다음 화면으로
 
     }
 
     public void resend(View view){
-
+        Response response = Util.rest("auth/request","POST", phone,Response.class);
     }
 }

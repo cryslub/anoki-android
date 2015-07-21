@@ -1,30 +1,52 @@
 package com.anoki;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.anoki.pojo.Account;
 
 /**
  * Created by Administrator on 2015-07-03.
  */
 public class DBManager  extends SQLiteOpenHelper {
 
+    SQLiteDatabase db;
 
     public DBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+
+        db = getReadableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE ACCOUNT(EMAIL TEXT, PASS TEXT,NUMBER TEXT, COUNTRY TEXT);");
-        db.execSQL("CREATE TABLE CONTACT(_id INTEGER PRIMARY KEY AUTOINCREMENT, COUNTRY TEXT, NUMBER TEXT);");
-        db.execSQL("CREATE TABLE TEAM_ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,TEAM INTEGER, ON INTEGER, LEVEL INTEGER);");
-        db.execSQL("CREATE TABLE ALARM(ON INTEGER, LEVEL INTEGER, PREVIEW INTEGER, SOUND INTEGER, VIBE INTEGER);");
+        db.execSQL("CREATE TABLE ACCOUNT(EMAIL TEXT, PASS TEXT,PHONE TEXT, COUNTRY TEXT);");
+        db.execSQL("CREATE TABLE CONTACT(_id INTEGER PRIMARY KEY AUTOINCREMENT, COUNTRY TEXT, PHONE TEXT);");
+        db.execSQL("CREATE TABLE TEAM_ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,TEAM INTEGER, ONOFF INTEGER, LEVEL INTEGER);");
+        db.execSQL("CREATE TABLE ALARM(ONOFF INTEGER, LEVEL INTEGER, PREVIEW INTEGER, SOUND INTEGER, VIBE INTEGER);");
         db.execSQL("CREATE TABLE PASS(PASS TEXT);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public Account getAccount() {
+        String str = "";
+
+        Cursor cursor = db.rawQuery("SELECT EMAIL,PASS FROM ACCOUNT", null);
+        if(cursor.moveToNext()) {
+
+            Account account = new Account();
+            account.email = cursor.getString(0);
+            account.pass = cursor.getString(1);
+
+            return account;
+        }else{
+            return null;
+        }
     }
 }

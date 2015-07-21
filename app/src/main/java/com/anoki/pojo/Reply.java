@@ -1,5 +1,7 @@
 package com.anoki.pojo;
 
+import com.anoki.common.Global;
+
 public class Reply {
 	
 	public String apiKey;
@@ -11,5 +13,9 @@ public class Reply {
 	public String pub;
 	public int prayer;
 	public int userId;
+
+	public Reply(){
+		apiKey = Global.apiKey;
+	}
 	
 }

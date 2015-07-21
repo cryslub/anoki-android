@@ -142,6 +142,10 @@
             android:name=".ResponseActivity"
             android:label="@string/title_activity_response" >
         </activity>
+        <activity
+            android:name=".CreateAccountActivity"
+            android:label="@string/title_activity_create_account" >
+        </activity>
     </application>
 
 </manifest>

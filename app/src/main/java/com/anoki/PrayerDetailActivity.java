@@ -134,6 +134,18 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     }
 
 
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                succeed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void refresh(){
         LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
         replyList.removeAllViews();
@@ -224,11 +236,13 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     }
 
     public void response(View view){
-        
+        Intent intent = new Intent(PrayerDetailActivity.this, ResponseActivity.class);
+        intent.putExtra("prayer",prayer);
+        startActivityForResult(intent,Global.RESPONSE);
     }
 
     public void complete(View view){
-
+        Util.rest("prayer/complete", "POST",prayer, Prayer.class);
     }
 
     @Override
@@ -289,6 +303,10 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
                         }
                     });
+                    break;
+
+                case Global.RESPONSE:
+                    reload();
                     break;
             }
         }

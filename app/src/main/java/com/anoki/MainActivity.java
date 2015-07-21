@@ -25,6 +25,11 @@ public class MainActivity extends Activity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        init();
+    }
+
+    private void temp(){
+
         User user = new User();
         user.account = "cryslub@gmail.com";
         user.pass = "1234";
@@ -51,11 +56,12 @@ public class MainActivity extends Activity {
         final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
 
         //sqlite의 로그인 정보 확인
-        Account account = getAccount(dbManager);
+        Account account = dbManager.getAccount();
 
         if(account == null){
-            //로그인 정보가 없으면 로그인 화면으로
-            
+            //로그인 정보가 없으면 핸드폰인증 화면으로
+            Intent intent = new Intent(MainActivity.this, InputPhoneNumberActivity.class);
+            startActivity(intent);
         }else {
 
             //로그인 정보가 있으면 로그인
@@ -66,20 +72,5 @@ public class MainActivity extends Activity {
     }
 
 
-    private Account getAccount(DBManager dbManager) {
-        SQLiteDatabase db = dbManager.getReadableDatabase();
-        String str = "";
 
-        Cursor cursor = db.rawQuery("select EMAIL,PASS from ACCOUNT", null);
-        if(cursor.moveToNext()) {
-
-            Account account = new Account();
-            account.email = cursor.getString(0);
-            account.pass = cursor.getString(1);
-
-            return account;
-        }else{
-            return null;
-        }
-    }
 }
