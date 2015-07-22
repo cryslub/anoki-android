@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.anoki.common.CallBack;
+import com.anoki.common.Global;
 import com.anoki.common.Util;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.User;
@@ -29,11 +30,15 @@ public class SetNameActivity extends Activity {
 
     private TextView tv;
     private String pictureId;
+    private  User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_name);
+
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user");
 
         tv = (TextView)findViewById(R.id.text_length);
 
@@ -78,18 +83,28 @@ public class SetNameActivity extends Activity {
     public void start(View view){
         //서버에 이름및 사진 변경 요청
 
-        User user = new User();
-
         EditText name = (EditText) findViewById(R.id.name);
         user.name = name.getText().toString();
         if(pictureId != null)
            user.picture = Integer.parseInt(pictureId);
 
-        Response response = Util.rest("user", "PUT", user, Response.class);
+        Response response = Util.rest("user", "POST", user, Response.class);
 
         if("0".equals(response.result)) {
-            //최근 화면으로
 
+            Global.me = user;
+            Global.apiKey = response.apiKey;
+            Global.me.apiKey = response.apiKey;
+
+            //DB에 계정정보 저장
+            final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
+            dbManager.setAccount(user.account,user.pass);
+
+            //최근 화면으로
+            Intent intent = new Intent(SetNameActivity.this, RecentActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         }
 
     }
@@ -115,7 +130,7 @@ public class SetNameActivity extends Activity {
                     pictureId = Util.upload(data.getData(), getContentResolver(), new CallBack() {
                         @Override
                         public void success(String id) {
-                            ImageButton button = (ImageButton) findViewById(R.id.profileImage);
+                            ImageButton button = (ImageButton) findViewById(R.id.profile_image);
                             Bitmap bmp = Util.fetchImage(id);
                             button.setImageBitmap(bmp);
                             button.setAlpha(1.0f);

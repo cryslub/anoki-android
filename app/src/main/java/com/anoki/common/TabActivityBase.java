@@ -18,7 +18,6 @@ import com.anoki.WriteActivity;
  */
 public abstract  class TabActivityBase extends AppCompatActivity {
 
-    private final int WRITE = 100;
 
 
     @Override
@@ -42,7 +41,7 @@ public abstract  class TabActivityBase extends AppCompatActivity {
 
     public void write(MenuItem item){
         Intent intent = new Intent(this, WriteActivity.class);
-        startActivityForResult(intent,WRITE);
+        startActivityForResult(intent,Global.WRITE);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

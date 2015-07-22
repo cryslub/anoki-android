@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.StrictMode;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.view.Menu;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class InputPhoneNumberActivity extends Activity implements EditTextFragment.OnFragmentInteractionListener{
+public class InputPhoneNumberActivity extends FragmentActivity implements EditTextFragment.OnFragmentInteractionListener{
 
 
     @Override

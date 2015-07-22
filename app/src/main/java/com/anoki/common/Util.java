@@ -1,5 +1,6 @@
 package com.anoki.common;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,17 +9,23 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anoki.R;
 import com.anoki.pojo.Prayer;
+import com.anoki.pojo.Search;
+import com.anoki.pojo.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -42,6 +49,7 @@ import java.net.MalformedURLException;
 import java.net.PortUnreachableException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015-07-07.
@@ -249,4 +257,40 @@ public class Util {
     }
 
 
+    public static User setPrayerListPage(Activity activity, int id){
+
+        User user = new User();
+
+        user.id = id;
+
+        user = Util.rest("user/detail", "POST", user, User.class);
+
+        ImageView profileImage = (ImageView) activity.findViewById(R.id.picture);
+        Util.setPicture(user.picture + "", profileImage, activity.getResources().getDrawable(R.drawable.ic_person_black_48dp));
+
+
+
+        EditText name = (EditText) activity.findViewById(R.id.name);
+        name.setText(user.name);
+
+
+
+        Type listType = new TypeToken<ArrayList<Prayer>>() {}.getType();
+
+
+        final Search search = new Search();
+        search.searchId = user.id;
+
+        List<Prayer> prayerList = Util.rest("user/prayer", "POST", search, listType);
+
+        RecyclerView recyclerView = (RecyclerView) activity.findViewById(R.id.prayer_list);
+        // 2. set layoutManger
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        // 3. create an adapter
+        final PrayerAdapter prayerAdapter = new PrayerAdapter(prayerList,activity);
+        // 4. set adapter
+        recyclerView.setAdapter(prayerAdapter);
+
+        return user;
+    }
 }

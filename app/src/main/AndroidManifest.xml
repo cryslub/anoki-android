@@ -146,6 +146,14 @@
             android:name=".CreateAccountActivity"
             android:label="@string/title_activity_create_account" >
         </activity>
+        <activity
+            android:name=".Activity"
+            android:label="@string/title_activity_" >
+        </activity>
+        <activity
+            android:name=".FriendTabActivity"
+            android:label="@string/title_activity_friend_tab" >
+        </activity>
     </application>
 
 </manifest>

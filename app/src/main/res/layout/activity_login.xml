@@ -15,11 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="아노키계정(이메일)"
+        android:id="@+id/account"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="비밀번호"
+        android:id="@+id/pass"
+
         android:inputType="textPassword"/>
     <Button
         android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.anoki.pojo.Account;
+import com.anoki.pojo.User;
 
 /**
  * Created by Administrator on 2015-07-03.
@@ -48,5 +49,9 @@ public class DBManager  extends SQLiteOpenHelper {
         }else{
             return null;
         }
+    }
+
+    public void setAccount(String email, String pass){
+        db.execSQL("INSERT INTO ACCOUNT (EMAIL,PASS) VALUES('"+email+"','"+pass+"')");
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anoki.common.Util;
@@ -57,12 +58,15 @@ public class InputAuthCodeActivity extends Activity {
     public void confirm(View view){
         //서버에 인증번호 전송
 
+        EditText authCode = (EditText) findViewById(R.id.auth_code);
+
+        phone.auth = authCode.getText().toString();
         Response response = Util.rest("auth/send/number", "POST", phone, Response.class);
 
         if("0".equals(response.result)){
             //성공시 다음 화면으로
 
-            Intent intent = new Intent(InputAuthCodeActivity.this,SetNameActivity.class);
+            Intent intent = new Intent(InputAuthCodeActivity.this,CreateAccountActivity.class);
             intent.putExtra("phone",phone);
             startActivity(intent);
         }

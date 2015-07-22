@@ -69,11 +69,17 @@ public class RecentActivity extends TabActivity {
 
         TabHost mTabHost = getTabHost();
 
-        mTabHost.addTab(mTabHost.newTabSpec("최근").setIndicator("최근").setContent(new Intent(this  ,RecentTabActivity.class )));
+        mTabHost.addTab(mTabHost.newTabSpec("최근").setIndicator("최근").setContent(new Intent(this, RecentTabActivity.class)));
         mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#222222"));
         TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title); //Unselected Tabs
         tv.setTextColor(Color.parseColor("#ffffff"));
-    //    mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this , MeTabActivity.class )));
+
+        mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this, MeTabActivity.class)));
+        mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#222222"));
+        tv = (TextView) mTabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title); //Unselected Tabs
+        tv.setTextColor(Color.parseColor("#ffffff"));
+
+        //    mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this , MeTabActivity.class )));
 //        mTabHost.setCurrentTab(0);
 
 

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.os.Bundle;
 
+import com.anoki.common.RestService;
 import com.anoki.pojo.Search;
 import com.anoki.pojo.User;
 import com.anoki.common.Global;
@@ -28,29 +29,6 @@ public class MainActivity extends Activity {
         init();
     }
 
-    private void temp(){
-
-        User user = new User();
-        user.account = "cryslub@gmail.com";
-        user.pass = "1234";
-
-        //서버에 인증요청
-        Response response = Util.rest("user/log", "POST", user, Response.class);
-
-        if(response != null && "0".equals(response.result)){
-
-            Global.apiKey = response.apiKey;
-
-            user.id = response.id;
-            Global.me = Util.rest("user/detail", "POST", user, User.class);
-            Global.me.apiKey = Global.apiKey;
-
-        }
-
-        Intent intent = new Intent(this, RecentActivity.class);
-        startActivity(intent);
-    }
-
     private void init(){
 
         final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
@@ -59,15 +37,21 @@ public class MainActivity extends Activity {
         Account account = dbManager.getAccount();
 
         if(account == null){
-            //로그인 정보가 없으면 핸드폰인증 화면으로
-            Intent intent = new Intent(MainActivity.this, InputPhoneNumberActivity.class);
+            //로그인 정보가 없으면 로그인 화면으로
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }else {
 
-            //로그인 정보가 있으면 로그인
             //SQLITE의 암호 확인
             //암호가 있으면 암호 화면으로
+
             //암호가 없으면 최근 화면으로
+            Response response = RestService.log(account.email, account.pass);
+            if("0".equals(response.result)){
+                Intent intent = new Intent(this, RecentActivity.class);
+                startActivity(intent);
+            }
+
         }
     }
 

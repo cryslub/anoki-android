@@ -1,7 +1,11 @@
 package com.anoki.common;
 
+import android.content.Intent;
+
+import com.anoki.RecentActivity;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
+import com.anoki.pojo.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,4 +47,29 @@ public class RestService {
 
         return false;
     }
+
+
+    public static Response log(String account, String pass){
+
+        User user = new User();
+        user.account = account;
+        user.pass = pass;
+
+        //서버에 인증요청
+        Response response = Util.rest("user/log", "POST", user, Response.class);
+
+        if(response != null && "0".equals(response.result)){
+
+            Global.apiKey = response.apiKey;
+
+            user.id = response.id;
+            Global.me = Util.rest("user/detail", "POST", user, User.class);
+            Global.me.apiKey = Global.apiKey;
+
+        }
+
+        return response;
+
+    }
+
 }
