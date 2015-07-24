@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.anoki.common.Global;
+import com.anoki.common.PrayerAdapter;
 import com.anoki.common.TabActivityBase;
 import com.anoki.common.Util;
 import com.anoki.pojo.User;
@@ -16,7 +17,7 @@ import com.anoki.pojo.User;
 import org.w3c.dom.Text;
 
 
-public class MeTabActivity extends TabActivityBase {
+public class MeTabActivity extends TabActivityBase implements PrayerAdapter.OnPrayListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,6 @@ public class MeTabActivity extends TabActivityBase {
         System.out.println("onStart");
 
         load();
-
-
     }
 
     public void load(){
@@ -60,5 +59,15 @@ public class MeTabActivity extends TabActivityBase {
     }
 
     protected void refresh(){
+    }
+
+    @Override
+    public void onPray() {
+        load();
+    }
+
+    @Override
+    public boolean showPicture() {
+        return false;
     }
 }

@@ -68,4 +68,9 @@ public class UserPrayerListActivity extends SubActivityBase implements PrayerAda
     public void onPray() {
         reload();
     }
+
+    @Override
+    public boolean showPicture() {
+        return false;
+    }
 }

@@ -31,20 +31,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FriendTabActivity extends TabActivityBase {
+public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.OnPrayListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_tab);
 
-        setScrapedList();
-        setRequestList();
+        load();
     }
 
 
+    private void load(){
+        setScrapedList();
+        setRequestList();
+
+    }
+
     private void setScrapedList(){
-        Type listType = new TypeToken<ArrayList<Friend>>() {}.getType();
+        Type listType = new TypeToken<ArrayList<Prayer>>() {}.getType();
 
 
         final Search search = new Search();
@@ -77,7 +82,7 @@ public class FriendTabActivity extends TabActivityBase {
 
 
     private void setRequestList(){
-        Type listType = new TypeToken<ArrayList<Friend>>() {}.getType();
+        Type listType = new TypeToken<ArrayList<Prayer>>() {}.getType();
 
 
         final Search search = new Search();
@@ -96,4 +101,13 @@ public class FriendTabActivity extends TabActivityBase {
     }
 
 
+    @Override
+    public void onPray() {
+        load();
+    }
+
+    @Override
+    public boolean showPicture() {
+        return true;
+    }
 }

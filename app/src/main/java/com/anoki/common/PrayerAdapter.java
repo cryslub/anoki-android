@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anoki.R;
@@ -28,6 +29,7 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView picture;
         TextView text;
         TextView date;
 
@@ -44,6 +46,8 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
             prayCount = (TextView) itemLayoutView.findViewById(R.id.pray_count);
             replyCount = (TextView) itemLayoutView.findViewById(R.id.reply_count);
             pray = (Button) itemLayoutView.findViewById(R.id.pray);
+
+            picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
 
         }
 
@@ -62,6 +66,10 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
                     }
                 }
             });
+
+            if(((OnPrayListener) parentActivity).showPicture()){
+                Util.setPicture(prayer.userPicture, picture, parentActivity.getResources().getDrawable(R.drawable.ic_person_black_48dp));
+            }
 
         }
     }
@@ -123,6 +131,7 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
 
     public interface OnPrayListener{
         public void onPray();
+        public boolean showPicture();
     }
 
 }
