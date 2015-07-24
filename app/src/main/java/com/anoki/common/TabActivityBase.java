@@ -53,5 +53,6 @@ public abstract  class TabActivityBase extends AppCompatActivity {
         }
     }
 
-    protected abstract void refresh();
+    abstract  protected void refresh();
+
 }

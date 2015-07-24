@@ -23,6 +23,9 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
     protected List<Prayer> allObjects;
     private Activity parentActivity;
 
+    public void setFilter(String s) {
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView text;

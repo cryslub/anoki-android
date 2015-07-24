@@ -14,6 +14,7 @@ import android.view.ViewManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.anoki.common.RestService;
@@ -71,10 +72,6 @@ public class RecentTabActivity extends TabActivityBase {
 
     @Override
     protected void refresh() {
-        System.out.print("refresh");
-
-        finish();
-        startActivity(getIntent());
 
         setRecentList();
         recentAdapter.updateList(recentList);
@@ -106,7 +103,7 @@ public class RecentTabActivity extends TabActivityBase {
 
         LinearLayout friendFunction;
 
-        ImageButton sendMessage;
+        ImageButton popup = null;
         ImageButton viewProfile;
         ImageButton viewPrayerList;
 
@@ -134,9 +131,7 @@ public class RecentTabActivity extends TabActivityBase {
             friendFunction = (LinearLayout) itemLayoutView.findViewById(R.id.friend_function);
 
 
-            sendMessage = (ImageButton) itemLayoutView.findViewById(R.id.send_message);
-            viewProfile = (ImageButton) itemLayoutView.findViewById(R.id.view_profile);
-            viewPrayerList = (ImageButton) itemLayoutView.findViewById(R.id.view_prayer_list);
+            popup = (ImageButton) itemLayoutView.findViewById(R.id.popup);
 
             this.itemLayoutView = itemLayoutView;
 //            txtViewTitle = (TextView) itemLayoutView.findViewById(R.id.item_title);
@@ -151,14 +146,45 @@ public class RecentTabActivity extends TabActivityBase {
             }else{
                 friendFunction.setVisibility(View.VISIBLE);
 
-                sendMessage.setOnClickListener(new View.OnClickListener() {
+
+                popup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        System.out.println("popup");
+                        PopupMenu popupMenu = new PopupMenu(RecentTabActivity.this, popup);
+                        //Inflating the Popup using xml file
+                        popupMenu.getMenuInflater()
+                                .inflate(R.menu.menu_popup, popupMenu.getMenu());
 
+
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.message:
+                                        break;
+                                    case R.id.profile: {
+                                        Intent intent = new Intent(RecentTabActivity.this, UserProfileActivity.class);
+                                        intent.putExtra("userId", prayer.userId);
+                                        startActivity(intent);
+                                    }
+                                    break;
+                                    case R.id.prayer: {
+                                        Intent intent = new Intent(RecentTabActivity.this, UserPrayerListActivity.class);
+                                        intent.putExtra("userId", prayer.userId);
+                                        startActivity(intent);
+                                    }
+                                    break;
+
+                                }
+                                return true;
+                            }
+                        });
+
+                        popupMenu.show();
                     }
                 });
 
-                viewProfile.setOnClickListener(new View.OnClickListener() {
+/*                viewProfile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(RecentTabActivity.this,UserProfileActivity.class);
@@ -175,10 +201,10 @@ public class RecentTabActivity extends TabActivityBase {
                         startActivity(intent);
 
                     }
-                });
-
-
+                });*/
             }
+
+
         }
     }
 

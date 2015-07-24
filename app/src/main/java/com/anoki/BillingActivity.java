@@ -16,6 +16,7 @@ import com.android.vending.billing.IInAppBillingService;
 import com.anoki.common.Global;
 import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
+import com.anoki.common.Util;
 import com.anoki.pojo.Prayer;
 
 
@@ -64,9 +65,27 @@ public class BillingActivity extends SubActivityBase {
         int ex = total - Global.FREE_FRIENDS_COUNT;
 
         prayer.dalant = ex *100;
-        RestService.makePrayer(prayer);
 
-        succeed();
+        Intent intent = Util.inviteIntent(prayer);
+        startActivityForResult(intent, Global.SMS);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode){
+                case Global.SMS:
+
+                    RestService.makePrayer(prayer);
+                    break;
+            }
+            succeed();
+        }
     }
 
 }

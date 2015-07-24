@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/message"
+        android:title="쪽지보내기"/>
+
+    <item
+        android:id="@+id/profile"
+        android:title="프로필정보"/>
+
+    <item
+        android:id="@+id/prayer"
+        android:title="기도리스트"/>
+
+</menu>

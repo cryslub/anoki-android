@@ -79,6 +79,12 @@ public class RecentActivity extends TabActivity {
         tv = (TextView) mTabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title); //Unselected Tabs
         tv.setTextColor(Color.parseColor("#ffffff"));
 
+
+        mTabHost.addTab(mTabHost.newTabSpec("친구").setIndicator("친구").setContent(new Intent(this, FriendTabActivity.class)));
+        mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#222222"));
+        tv = (TextView) mTabHost.getTabWidget().getChildAt(2).findViewById(android.R.id.title); //Unselected Tabs
+        tv.setTextColor(Color.parseColor("#ffffff"));
+
         //    mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this , MeTabActivity.class )));
 //        mTabHost.setCurrentTab(0);
 

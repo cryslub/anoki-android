@@ -18,6 +18,7 @@ public class Global {
     public static final int PROFILE = 900;
     public static final int RESPONSE = 1000;
     public static final int WRITE = 1100;
+    public static final int SMS = 1200;
 
 
     public static final int FREE_FRIENDS_COUNT  = 1;

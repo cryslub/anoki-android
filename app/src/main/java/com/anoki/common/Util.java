@@ -270,7 +270,7 @@ public class Util {
 
 
 
-        EditText name = (EditText) activity.findViewById(R.id.name);
+        TextView name = (TextView) activity.findViewById(R.id.name);
         name.setText(user.name);
 
 
@@ -283,14 +283,36 @@ public class Util {
 
         List<Prayer> prayerList = Util.rest("user/prayer", "POST", search, listType);
 
-        RecyclerView recyclerView = (RecyclerView) activity.findViewById(R.id.prayer_list);
+        setPrayerView(activity,R.id.prayer_list,prayerList);
+
+        return user;
+    }
+
+    public static PrayerAdapter setPrayerView(Activity activity, int id,List<Prayer> prayerList){
+
+        RecyclerView recyclerView = (RecyclerView) activity.findViewById(id);
         // 2. set layoutManger
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         // 3. create an adapter
-        final PrayerAdapter prayerAdapter = new PrayerAdapter(prayerList,activity);
+        PrayerAdapter prayerAdapter = new PrayerAdapter(prayerList,activity);
         // 4. set adapter
         recyclerView.setAdapter(prayerAdapter);
 
-        return user;
+        return prayerAdapter;
+
+    }
+
+    public static Intent inviteIntent(Prayer prayer){
+
+        String list="";
+        for(String phone : prayer.phone){
+            list+=phone+";";
+        }
+        list = list.substring(0,list.length()-1);
+
+        Intent intentsms = new Intent( Intent.ACTION_VIEW, Uri.parse("smsto:"+list) );
+        intentsms.putExtra( "sms_body", Global.me.name+"님이 기도어플 아노키로 초대하셨습니다. 아래를 누르시면 "+Global.me.name +"님과 친구가 됩니다. \n\n http://anoki.co.kr/anoki/invite.jsp");
+
+        return intentsms;
     }
 }

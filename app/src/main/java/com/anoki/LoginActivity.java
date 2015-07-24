@@ -48,4 +48,13 @@ public class LoginActivity extends Activity {
             finish();
         }
     }
+
+    public void forgot(View view){
+
+    }
+
+    public void signUp(View view){
+        Intent intent = new Intent(LoginActivity.this, InputPhoneNumberActivity.class);
+        startActivity(intent);
+    }
 }

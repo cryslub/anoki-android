@@ -56,7 +56,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="검색할 사람/기도제목을 입력해주세요."
                                 android:textSize="15sp"
-                                android:id="@+id/search_friend"/>
+                                android:id="@+id/search_scraped"/>
 
                         </LinearLayout>
 
@@ -85,7 +85,7 @@
                         <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:id="@+id/prayer_list">
+                            android:id="@+id/scraped_list">
                         </android.support.v7.widget.RecyclerView>
                     </LinearLayout>
                 </LinearLayout>
@@ -95,42 +95,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:id="@+id/contact">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                    android:id="@+id/request">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/ic_search_black_24dp"
-                                android:alpha=".5"/>
-                            <EditText
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="연락처를 검색하거나, 직접 입력할 수 있어요"
-                                android:textSize="15sp"
-                                android:id="@+id/search_contact"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="초대한 친구의 연락처는 친구가 그룹에 가입하는 과정에서 사용되며, 아노키 이용기간 동안 보관됩니다. 동의 시, 친구를 초대해 주세요."
-                            android:textSize="11sp"
-                            android:textColor="#000000"/>
                         <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="fill_parent"
-                            android:id="@+id/contact_list">
+                            android:id="@+id/request_list">
                         </android.support.v7.widget.RecyclerView>
-                    </LinearLayout>
                 </LinearLayout>
 
             </FrameLayout>

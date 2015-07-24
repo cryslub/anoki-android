@@ -231,8 +231,10 @@ public class ChooseFriendsActivity extends SubActivityBase {
                             .setNegativeButton("아니오", null)
                             .show();
                 }else {
-                    RestService.makePrayer(prayer);
-                    succeed();
+
+                    Intent intent = Util.inviteIntent(prayer);
+                    startActivityForResult(intent, Global.SMS);
+
                 }
             }
             break;
@@ -278,6 +280,12 @@ public class ChooseFriendsActivity extends SubActivityBase {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
+            switch (requestCode){
+                case Global.SMS:
+
+                    RestService.makePrayer(prayer);
+                    break;
+            }
             succeed();
         }
     }
