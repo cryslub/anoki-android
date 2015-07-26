@@ -19,6 +19,9 @@ public class Global {
     public static final int RESPONSE = 1000;
     public static final int WRITE = 1100;
     public static final int SMS = 1200;
+    public static final int RESTORE = 1300;
+    public static final int PASS = 1400;
+    public static final int AUTH = 1500;
 
 
     public static final int FREE_FRIENDS_COUNT  = 1;

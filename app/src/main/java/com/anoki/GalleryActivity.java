@@ -41,6 +41,7 @@ import com.anoki.common.Global;
 import com.anoki.common.ParentListener;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
+import com.anoki.common.WriteActivityBase;
 
 import org.apmem.tools.layouts.FlowLayout;
 
@@ -49,7 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GalleryActivity extends SubActivityBase{
+public class GalleryActivity extends WriteActivityBase {
 
     private DoneState doneState = DoneState.CLEAR;
 

@@ -42,4 +42,7 @@
     <string name="title_activity_">Activity</string>
     <string name="title_activity_friend_tab">Anoki</string>
     <string name="title_activity_forgot">계정/비밀번호 찾기</string>
+    <string name="title_activity_forgot_pass">비밀번호 찾기</string>
+    <string name="title_activity_forgot_account">계정 찾기</string>
+    <string name="title_activity_box">기도함</string>
 </resources>

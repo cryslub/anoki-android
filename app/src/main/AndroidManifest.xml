@@ -156,6 +156,18 @@
             android:name=".ForgotActivity"
             android:label="@string/title_activity_forgot" >
         </activity>
+        <activity
+            android:name=".ForgotPassActivity"
+            android:label="@string/title_activity_forgot_pass" >
+        </activity>
+        <activity
+            android:name=".ForgotAccountActivity"
+            android:label="@string/title_activity_forgot_account" >
+        </activity>
+        <activity
+            android:name=".BoxActivity"
+            android:label="@string/title_activity_box" >
+        </activity>
     </application>
 
 </manifest>

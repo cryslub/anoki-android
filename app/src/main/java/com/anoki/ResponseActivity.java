@@ -16,12 +16,13 @@ import com.anoki.common.Global;
 import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
+import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Reply;
 import com.anoki.pojo.Response;
 
 
-public class ResponseActivity extends SubActivityBase {
+public class ResponseActivity extends WriteActivityBase {
 
     private Prayer prayer;
 

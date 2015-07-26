@@ -27,16 +27,14 @@ public class SubActivityBase extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_write, menu);
-
-        doneMenu = menu.findItem(R.id.action_done);
-
+        getMenuInflater().inflate(R.menu.menu_none, menu);
         return true;
     }
+
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -65,5 +63,13 @@ public class SubActivityBase extends ActionBarActivity {
         finish();
         startActivity(getIntent());
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK) {
+            succeed();
+        }
+    }
 }

@@ -53,12 +53,6 @@ public class BillingActivity extends SubActivityBase {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_billing, menu);
-        return true;
-    }
 
     public void pay(View view){
         int total = prayer.friends.size() + prayer.phone.size();

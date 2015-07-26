@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:hint="아노키계정(이메일)"
         android:id="@+id/account"
+        android:inputType="textEmailAddress"
         />
     <EditText
         android:layout_width="match_parent"
@@ -36,6 +37,7 @@
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:text="계정/비밀번호 찾기"
+        android:id="@+id/forgot"
         android:onClick="forgot"/>
 
     <Button

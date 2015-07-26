@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.anoki.common.Global;
@@ -38,7 +39,14 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_tab);
 
+        TabHost myTabHost=(TabHost) findViewById(R.id.tabHost); // Before adding tabs, it is imperative to call the method setup()
+        myTabHost.setup(); // Adding tabs // tab1 settings
+        myTabHost.addTab(myTabHost.newTabSpec("tab_creation").setIndicator("친구기도").setContent(R.id.scraped));
+        myTabHost.addTab(myTabHost.newTabSpec("tab_creation").setIndicator("기도요청").setContent(R.id.request));
+
         load();
+
+
     }
 
 

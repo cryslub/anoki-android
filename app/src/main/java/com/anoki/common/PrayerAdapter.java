@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anoki.R;
+import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 
 import java.util.ArrayList;
@@ -24,12 +26,20 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
     protected List<Prayer> allObjects;
     private Activity parentActivity;
 
-    public void setFilter(String s) {
+    public void setFilter(String queryText) {
+        visibleObjects = new ArrayList<>();
+        for (Prayer item: allObjects) {
+            if(item.text.contains(queryText) || item.userName.contains(queryText))
+                visibleObjects.add(item);
+        }
+        notifyDataSetChanged();
+
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView picture;
+        TextView name;
         TextView text;
         TextView date;
 
@@ -38,9 +48,14 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
 
         Button pray;
 
+        LinearLayout container;
+
+
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
+
+            name = (TextView) itemLayoutView.findViewById(R.id.name);
             text = (TextView) itemLayoutView.findViewById(R.id.text);
             date = (TextView) itemLayoutView.findViewById(R.id.date);
             prayCount = (TextView) itemLayoutView.findViewById(R.id.pray_count);
@@ -48,6 +63,8 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
             pray = (Button) itemLayoutView.findViewById(R.id.pray);
 
             picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
+
+            container = (LinearLayout) itemLayoutView.findViewById(R.id.container);
 
         }
 
@@ -68,7 +85,10 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
             });
 
             if(((OnPrayListener) parentActivity).showPicture()){
+                name.setText(prayer.userName);
                 Util.setPicture(prayer.userPicture, picture, parentActivity.getResources().getDrawable(R.drawable.ic_person_black_48dp));
+            }else{
+                container.removeView(name);
             }
 
         }
@@ -133,5 +153,6 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
         public void onPray();
         public boolean showPicture();
     }
+
 
 }

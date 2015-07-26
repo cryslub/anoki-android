@@ -25,13 +25,14 @@ import com.anoki.common.Global;
 import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
+import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.Prayer;
 
 import org.apmem.tools.layouts.FlowLayout;
 
 import java.util.List;
 
-public class WriteActivity extends SubActivityBase implements PrayerImageFragment.OnFragmentInteractionListener {
+public class WriteActivity extends WriteActivityBase implements PrayerImageFragment.OnFragmentInteractionListener {
 
 
 
@@ -69,6 +70,7 @@ public class WriteActivity extends SubActivityBase implements PrayerImageFragmen
 
 
     }
+
 
     public void doneStateCheck(){
         EditText back = (EditText) findViewById(R.id.back);

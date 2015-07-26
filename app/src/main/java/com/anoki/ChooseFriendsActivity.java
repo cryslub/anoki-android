@@ -35,6 +35,7 @@ import com.anoki.common.Global;
 import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
+import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
@@ -48,7 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChooseFriendsActivity extends SubActivityBase {
+public class ChooseFriendsActivity extends WriteActivityBase {
 
     private Map<Integer,Integer> selectionMap = new HashMap<Integer,Integer>();
     private Map<String,Integer> contactSelectionMap = new HashMap<String,Integer>();

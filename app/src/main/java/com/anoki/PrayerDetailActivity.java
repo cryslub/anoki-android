@@ -31,6 +31,7 @@ import com.anoki.common.Util;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Reply;
+import com.anoki.pojo.Response;
 import com.anoki.pojo.Search;
 import com.google.gson.reflect.TypeToken;
 
@@ -242,7 +243,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     }
 
     public void complete(View view){
-        Util.rest("prayer/complete", "POST",prayer, Prayer.class);
+        Util.rest("prayer/complete", "POST",prayer, Response.class);
     }
 
     @Override

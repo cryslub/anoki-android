@@ -50,7 +50,8 @@ public class MeTabActivity extends TabActivityBase implements PrayerAdapter.OnPr
 
 
     public void box(View view){
-
+        Intent intent = new Intent(MeTabActivity.this, BoxActivity.class);
+        startActivity(intent);
     }
 
 
