@@ -1,5 +1,7 @@
 package com.anoki;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,9 +31,12 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class BoxActivity extends SubActivityBase {
+
+    static final int DATE_DIALOG_ID = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +117,59 @@ public class BoxActivity extends SubActivityBase {
         }
 
     }
+
+    public void start(View view){
+        showDialog(DATE_DIALOG_ID);
+    }
+
+    public void end(View view){
+
+    }
+
+    public void friendStart(View view){
+
+    }
+
+    public void friendEnd(View view){
+
+    }
+
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_DIALOG_ID:
+                // set date picker as current date
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                return new DatePickerDialog(this, datePickerListener,
+                        year, month,day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener datePickerListener
+            = new DatePickerDialog.OnDateSetListener() {
+
+        // when dialog box is closed, below method will be called.
+        public void onDateSet(DatePicker view, int selectedYear,
+                              int selectedMonth, int selectedDay) {
+
+
+            // set selected date into textview
+            EditText start = (EditText) findViewById(R.id.start);
+            start.setText(new StringBuilder().append(selectedMonth + 1)
+                    .append("-").append(selectedDay).append("-").append(selectedYear)
+                    .append(" "));
+
+
+
+        }
+    };
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 

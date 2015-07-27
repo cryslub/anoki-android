@@ -99,13 +99,16 @@
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:inputType="date"
+                                android:id="@+id/start"
                                />
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_today_black_36dp"
                                 android:alpha=".5"
+                                android:onClick="start"
                                 />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -116,12 +119,15 @@
 
                                 android:layout_height="wrap_content"
                                 android:inputType="date"
+                                android:id="@+id/end"
+
                                 />
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_today_black_36dp"
                                 android:alpha=".5"
+                                android:onClick="end"
                                 />
                         </LinearLayout>
 
@@ -204,12 +210,15 @@
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:inputType="date"
+                                android:id="@+id/friend_start"
+
                                 />
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_today_black_36dp"
                                 android:alpha=".5"
+                                android:onClick="friendStart"
                                 />
                             <TextView
                                 android:layout_width="wrap_content"
@@ -221,12 +230,15 @@
 
                                 android:layout_height="wrap_content"
                                 android:inputType="date"
+                                android:id="@+id/friend_end"
+
                                 />
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_today_black_36dp"
                                 android:alpha=".5"
+                                android:onClick="friendEnd"
                                 />
                         </LinearLayout>
 

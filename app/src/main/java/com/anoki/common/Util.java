@@ -87,7 +87,7 @@ public class Util {
             //add reuqest header
             con.setRequestMethod(method);
             con.setRequestProperty("User-Agent", USER_AGENT);
-            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+            con.setRequestProperty("Accept-Language", "utf-8");
             con.setRequestProperty("Content-Type", "application/json");
 
 

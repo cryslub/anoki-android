@@ -243,7 +243,10 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     }
 
     public void complete(View view){
-        Util.rest("prayer/complete", "POST",prayer, Response.class);
+
+        Prayer p = new Prayer();
+        p.id = prayer.id;
+        Util.rest("prayer/complete", "POST",p, Response.class);
     }
 
     @Override
