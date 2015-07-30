@@ -30,8 +30,11 @@ import com.anoki.pojo.Search;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class BoxActivity extends SubActivityBase {
@@ -46,6 +49,30 @@ public class BoxActivity extends SubActivityBase {
         setTab();
         setMeList();
         setFriendList();
+
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+
+        TextView end = (TextView) findViewById(R.id.end);
+        TextView friendEnd = (TextView) findViewById(R.id.friend_end);
+
+        end.setText(year + "-" + month + "-" + day);
+        friendEnd.setText(year+"-"+month+"-"+day);
+
+        c.add(Calendar.MONTH, -1);
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+
+
+        TextView start = (TextView) findViewById(R.id.start);
+        TextView friendStart = (TextView) findViewById(R.id.friend_start);
+
+        start.setText(year + "-" + month + "-" + day);
+        friendStart.setText(year+"-"+month+"-"+day);
+
     }
 
 
@@ -140,13 +167,25 @@ public class BoxActivity extends SubActivityBase {
         switch (id) {
             case DATE_DIALOG_ID:
                 // set date picker as current date
-                Calendar c = Calendar.getInstance();
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
 
-                return new DatePickerDialog(this, datePickerListener,
-                        year, month,day);
+                TextView start = (TextView) findViewById(R.id.start);
+
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-MM");
+                try {
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    cal.setTime(sdf.parse(start.getText().toString()));// all done
+
+
+                    Date date = format.parse(start.getText().toString());
+                    return new DatePickerDialog(this, datePickerListener,
+                            cal.get(Calendar.YEAR), date.getMonth(),date.getDay());
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
         }
         return null;
     }
@@ -160,9 +199,9 @@ public class BoxActivity extends SubActivityBase {
 
 
             // set selected date into textview
-            EditText start = (EditText) findViewById(R.id.start);
-            start.setText(new StringBuilder().append(selectedMonth + 1)
-                    .append("-").append(selectedDay).append("-").append(selectedYear)
+            TextView start = (TextView) findViewById(R.id.start);
+            start.setText(new StringBuilder().append(selectedYear )
+                    .append("-").append(selectedMonth+1).append("-").append(selectedDay)
                     .append(" "));
 
 

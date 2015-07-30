@@ -94,12 +94,15 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-                            <EditText
+                            <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:inputType="date"
                                 android:id="@+id/start"
+                                android:editable="false"
+                                android:text="2015-5-30"
+                                android:gravity="center"
                                />
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -113,13 +116,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="~"/>
-                            <EditText
+                            <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
 
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:inputType="date"
                                 android:id="@+id/end"
+                                android:editable="false"
+                                android:gravity="center"
 
                                 />
                             <ImageView
@@ -205,12 +210,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-                            <EditText
+                            <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:inputType="date"
                                 android:id="@+id/friend_start"
+                                android:editable="false"
+                                android:gravity="center"
 
                                 />
                             <ImageView
@@ -224,13 +231,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="~"/>
-                            <EditText
+                            <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
 
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:inputType="date"
                                 android:id="@+id/friend_end"
+                                android:editable="false"
+                                android:gravity="center"
 
                                 />
                             <ImageView
@@ -239,6 +248,7 @@
                                 android:src="@drawable/ic_today_black_36dp"
                                 android:alpha=".5"
                                 android:onClick="friendEnd"
+
                                 />
                         </LinearLayout>
 
