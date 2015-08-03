@@ -39,7 +39,14 @@ import java.util.List;
 
 public class BoxActivity extends SubActivityBase {
 
-    static final int DATE_DIALOG_ID = 999;
+    static final int START_DIALOG_ID = 1000;
+    static final int END_DIALOG_ID = 1001;
+    static final int FRIEND_START_DIALOG_ID = 1002;
+    static final int FRIEND_END_DIALOG_ID = 1003;
+
+
+    private BoxAdapter meAdapter;
+    private BoxAdapter friendAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +66,7 @@ public class BoxActivity extends SubActivityBase {
         TextView end = (TextView) findViewById(R.id.end);
         TextView friendEnd = (TextView) findViewById(R.id.friend_end);
 
-        end.setText(year + "-" + month + "-" + day);
+        end.setText(year + "-" + (month+1) + "-" + day);
         friendEnd.setText(year+"-"+month+"-"+day);
 
         c.add(Calendar.MONTH, -1);
@@ -70,7 +77,7 @@ public class BoxActivity extends SubActivityBase {
         TextView start = (TextView) findViewById(R.id.start);
         TextView friendStart = (TextView) findViewById(R.id.friend_start);
 
-        start.setText(year + "-" + month + "-" + day);
+        start.setText(year + "-" + (month+1) + "-" + day);
         friendStart.setText(year+"-"+month+"-"+day);
 
     }
@@ -99,9 +106,9 @@ public class BoxActivity extends SubActivityBase {
         // 2. set layoutManger
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         // 3. create an adapter
-        final BoxAdapter boxAdapter = new BoxAdapter(prayerList);
+        meAdapter = new BoxAdapter(prayerList);
         // 4. set adapter
-        recyclerView.setAdapter(boxAdapter);
+        recyclerView.setAdapter(meAdapter);
 
     }
 
@@ -118,9 +125,9 @@ public class BoxActivity extends SubActivityBase {
         // 2. set layoutManger
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         // 3. create an adapter
-        final BoxAdapter boxAdapter = new BoxAdapter(prayerList);
+        friendAdapter = new BoxAdapter(prayerList);
         // 4. set adapter
-        recyclerView.setAdapter(boxAdapter);
+        recyclerView.setAdapter(friendAdapter);
 
     }
 
@@ -146,69 +153,104 @@ public class BoxActivity extends SubActivityBase {
     }
 
     public void start(View view){
-        showDialog(DATE_DIALOG_ID);
+        showDialog(START_DIALOG_ID);
     }
 
     public void end(View view){
-
+        showDialog(END_DIALOG_ID);
     }
 
     public void friendStart(View view){
-
+        showDialog(FRIEND_START_DIALOG_ID);
     }
 
     public void friendEnd(View view){
-
+        showDialog(FRIEND_END_DIALOG_ID);
     }
 
 
     @Override
     protected Dialog onCreateDialog(int id) {
+
         switch (id) {
-            case DATE_DIALOG_ID:
+           case START_DIALOG_ID:
+            // set date picker as current date
+               return makeDateDialog(R.id.start) ;
+            case END_DIALOG_ID:
                 // set date picker as current date
+                return makeDateDialog(R.id.end) ;
+            case FRIEND_START_DIALOG_ID:
+                // set date picker as current date
+                return  makeDateDialog(R.id.friend_start) ;
+            case FRIEND_END_DIALOG_ID:
+                // set date picker as current date
+                return makeDateDialog(R.id.friend_end) ;
+        }
 
-                TextView start = (TextView) findViewById(R.id.start);
+        return null;
+    }
+
+    private Dialog makeDateDialog(final int id){
+
+        final TextView dateText = (TextView) findViewById(id);
 
 
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-MM");
-                try {
-                    Calendar cal = Calendar.getInstance();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    cal.setTime(sdf.parse(start.getText().toString()));// all done
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(sdf.parse(dateText.getText().toString()));// all done
+            return new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            // set selected date into textview
+                            dateText.setText(new StringBuilder().append(year)
+                                    .append("-").append(monthOfYear + 1).append("-").append(dayOfMonth)
+                                    .append(" "));
 
-                    Date date = format.parse(start.getText().toString());
-                    return new DatePickerDialog(this, datePickerListener,
-                            cal.get(Calendar.YEAR), date.getMonth(),date.getDay());
+                            setFilter();
 
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
+                        }
+                    },
+                    cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    private DatePickerDialog.OnDateSetListener datePickerListener
-            = new DatePickerDialog.OnDateSetListener() {
 
-        // when dialog box is closed, below method will be called.
-        public void onDateSet(DatePicker view, int selectedYear,
-                              int selectedMonth, int selectedDay) {
+    private Calendar idToCalendar(int id) {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        TextView dateText = (TextView) findViewById(id);
 
-            // set selected date into textview
-            TextView start = (TextView) findViewById(R.id.start);
-            start.setText(new StringBuilder().append(selectedYear )
-                    .append("-").append(selectedMonth+1).append("-").append(selectedDay)
-                    .append(" "));
+        Calendar calendar = Calendar.getInstance();
 
+        try {
 
+            calendar.setTime(sdf.parse(dateText.getText().toString()));// all done
 
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-    };
 
+        return calendar;
+    }
+
+    private void setFilter(){
+
+
+        Calendar start = idToCalendar(R.id.start);
+        Calendar end = idToCalendar(R.id.end);
+        Calendar friendStart = idToCalendar(R.id.friend_start);
+        Calendar friendEnd = idToCalendar(R.id.friend_end);
+
+        meAdapter.setFilter(start, end);
+        friendAdapter.setFilter(friendStart,friendEnd);
+
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -246,8 +288,32 @@ public class BoxActivity extends SubActivityBase {
             notifyDataSetChanged();
         }
 
-        public void setFilter(String queryText) {
+        public void setFilter(Calendar start, Calendar end) {
 
+            long s = start.getTimeInMillis();
+            long e = end.getTimeInMillis();
+
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            visibleObjects=new ArrayList<>();
+            for(Prayer prayer : allObjects){
+                String date  = prayer.raw_time.substring(0,10);
+                Calendar cal = Calendar.getInstance();
+                try {
+                    cal.setTime(sdf.parse(date));// all done
+                    long c = cal.getTimeInMillis();
+                    if(s <= c && c <= e){
+                        visibleObjects.add(prayer);
+                    }
+
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+
+            notifyDataSetChanged();
 
         }
 
