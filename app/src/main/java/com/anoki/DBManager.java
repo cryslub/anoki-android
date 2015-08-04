@@ -6,7 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.anoki.pojo.Account;
+import com.anoki.pojo.Phone;
 import com.anoki.pojo.User;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2015-07-03.
@@ -53,5 +57,20 @@ public class DBManager  extends SQLiteOpenHelper {
 
     public void setAccount(String email, String pass){
         db.execSQL("INSERT INTO ACCOUNT (EMAIL,PASS) VALUES('"+email+"','"+pass+"')");
+    }
+
+    public Map<String,String> getContactMap() {
+
+        Map<String,String> contactMap  = new HashMap<String, String>();
+        Cursor cursor = db.rawQuery("SELECT PHONE FROM CONTACT", null);
+        while (cursor.moveToNext()) {
+            contactMap.put(cursor.getString(0), cursor.getString(0));
+        }
+
+        return contactMap;
+    }
+
+    public void insertContactInfo(Phone phone){
+        db.execSQL("INSERT INTO CONTACT (PHONE) VALUES('"+phone.number+"')");
     }
 }

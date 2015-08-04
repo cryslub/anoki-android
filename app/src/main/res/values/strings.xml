@@ -18,7 +18,7 @@
     <string name="title_activity_my_tab">MyTabActivity</string>
     <string name="title_activity_friends_tab">FriendsTabActivity</string>
     <string name="title_activity_group_tab">GroupTabActivity</string>
-    <string name="title_activity_more_tab">MoreTabActivity</string>
+    <string name="title_activity_more_tab">Anoki</string>
     <string name="title_activity_me_tab">MeTabActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="title_activity_prayer_detail">기도</string>

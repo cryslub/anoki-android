@@ -168,6 +168,10 @@
             android:name=".BoxActivity"
             android:label="@string/title_activity_box" >
         </activity>
+        <activity
+            android:name=".MoreTabActivity"
+            android:label="@string/title_activity_more_tab" >
+        </activity>
     </application>
 
 </manifest>
