@@ -315,4 +315,10 @@ public class Util {
 
         return intentsms;
     }
+
+    public static String makePhoneNumber(String country, String number){
+
+
+        return "+"+country+" "+number.substring(0,3)+"-"+number.substring(3,7)+"-"+number.substring(7,11);
+    }
 }

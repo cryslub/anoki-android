@@ -73,11 +73,12 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         if(prayer.responseCount == 0){
             LinearLayout bar = (LinearLayout)findViewById(R.id.response_bar);
-            LinearLayout container = (LinearLayout)findViewById(R.id.container);
-            container.removeView(bar);
+ //           LinearLayout container = (LinearLayout)findViewById(R.id.container);
+//            container.removeView(bar);
+            bar.setVisibility(View.GONE);
         }else{
             TextView response = (TextView) findViewById(R.id.response_count);
-            response.setText("기도응답이 "+prayer.responseCount+"건 있습니다.");
+            response.setText(prayer.responseCount+"건");
         }
 
         ImageView myPicture = (ImageView) findViewById(R.id.my_picture);
@@ -165,20 +166,24 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
 
         if(prayer.userId != Global.me.id){
-            LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.button_container);
+  //          LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.button_container);
 
             TextView response = (TextView) findViewById(R.id.response);
-            buttonContainer.removeView(response);
+            response.setVisibility(View.GONE);
+//            buttonContainer.removeView(response);
 
             TextView complete = (TextView) findViewById(R.id.complete);
-            buttonContainer.removeView(complete);
+            complete.setVisibility(View.GONE);
+
+//            buttonContainer.removeView(complete);
 
         }
 
         if(prayer.scrapd != null || prayer.userId == Global.me.id){
-            LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.button_container);
+       //     LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.button_container);
             TextView scrap = (TextView) findViewById(R.id.scrap);
-            buttonContainer.removeView(scrap);
+            scrap.setVisibility(View.GONE);
+        //    buttonContainer.removeView(scrap);
         }
 
         if(prayer.reply.size() > 0) {
@@ -238,15 +243,26 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
     public void response(View view){
         Intent intent = new Intent(PrayerDetailActivity.this, ResponseActivity.class);
-        intent.putExtra("prayer",prayer);
-        startActivityForResult(intent,Global.RESPONSE);
+        intent.putExtra("prayer", prayer);
+        startActivityForResult(intent, Global.RESPONSE);
     }
 
     public void complete(View view){
 
         Prayer p = new Prayer();
         p.id = prayer.id;
-        Util.rest("prayer/complete", "POST",p, Response.class);
+        Util.rest("prayer/complete", "POST", p, Response.class);
+    }
+
+    public void showReplyContainer(View view){
+
+
+        LinearLayout showButton = (LinearLayout) findViewById(R.id.show_reply);
+        showButton.setVisibility(View.GONE);
+
+        LinearLayout container = (LinearLayout) findViewById(R.id.reply_container);
+        container.setVisibility(View.VISIBLE);
+
     }
 
     @Override

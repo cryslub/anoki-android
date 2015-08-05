@@ -40,22 +40,25 @@ public class ReplyFragment extends Fragment {
         ImageView picture;
         TextView name;
         TextView text;
+        TextView time;
 
         picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
         name = (TextView) itemLayoutView.findViewById(R.id.name);
         text = (TextView) itemLayoutView.findViewById(R.id.text);
+        time = (TextView) itemLayoutView.findViewById(R.id.time);
 
         Util.setPicture(reply.picture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
 
 
         name.setText(reply.name);
         text.setText(reply.text);
+        time.setText(reply.time);
 
         if(!"R".equals(reply.type)) {
-            LinearLayout con = (LinearLayout) itemLayoutView.findViewById(R.id.container);
+            //LinearLayout con = (LinearLayout) itemLayoutView.findViewById(R.id.container);
             TextView response = (TextView) itemLayoutView.findViewById(R.id.response);
-
-            con.removeView(response);
+            response.setVisibility(View.GONE);
+            //con.removeView(response);
         }
 
 

@@ -67,31 +67,9 @@ public class RecentActivity extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recent);
 
-        TabHost mTabHost = getTabHost();
-
-        mTabHost.addTab(mTabHost.newTabSpec("최근").setIndicator("최근").setContent(new Intent(this, RecentTabActivity.class)));
-        mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#222222"));
-        TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title); //Unselected Tabs
-        tv.setTextColor(Color.parseColor("#ffffff"));
-
-        mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this, MeTabActivity.class)));
-        mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#222222"));
-        tv = (TextView) mTabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title); //Unselected Tabs
-        tv.setTextColor(Color.parseColor("#ffffff"));
+        setTabHost();
 
 
-        mTabHost.addTab(mTabHost.newTabSpec("친구").setIndicator("친구").setContent(new Intent(this, FriendTabActivity.class)));
-        mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#222222"));
-        tv = (TextView) mTabHost.getTabWidget().getChildAt(2).findViewById(android.R.id.title); //Unselected Tabs
-        tv.setTextColor(Color.parseColor("#ffffff"));
-
-
-
-
-        mTabHost.addTab(mTabHost.newTabSpec("더보기").setIndicator("더보기").setContent(new Intent(this, MoreTabActivity.class)));
-        mTabHost.getTabWidget().getChildAt(3).setBackgroundColor(Color.parseColor("#222222"));
-        tv = (TextView) mTabHost.getTabWidget().getChildAt(3).findViewById(android.R.id.title); //Unselected Tabs
-        tv.setTextColor(Color.parseColor("#ffffff"));
 
         //    mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this , MeTabActivity.class )));
 //        mTabHost.setCurrentTab(0);
@@ -136,6 +114,47 @@ public class RecentActivity extends TabActivity {
 
     }
 
+
+    private void setTabHost(){
+
+        final TabHost mTabHost = getTabHost();
+
+        mTabHost.addTab(mTabHost.newTabSpec("최근").setIndicator("최근").setContent(new Intent(this, RecentTabActivity.class)));
+        mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this, MeTabActivity.class)));
+        mTabHost.addTab(mTabHost.newTabSpec("친구").setIndicator("친구").setContent(new Intent(this, FriendTabActivity.class)));
+        mTabHost.addTab(mTabHost.newTabSpec("더보기").setIndicator("더보기").setContent(new Intent(this, MoreTabActivity.class)));
+
+
+        for(int index = 0 ;index < mTabHost.getTabWidget().getChildCount() ; index++) {
+            mTabHost.getTabWidget().getChildAt(index).setBackgroundColor(getResources().getColor(R.color.baltic_sea));
+            TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(index).findViewById(android.R.id.title); //Unselected Tabs
+            tv.setTextColor(Color.parseColor("#aaaaaa"));
+            tv.setTextSize(18);
+        }
+
+        TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab()).findViewById(android.R.id.title); //Unselected Tabs
+        tv.setTextColor(Color.WHITE);
+
+
+        mTabHost.getTabWidget().setDividerDrawable(null);
+
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener(){
+
+            @Override
+            public void onTabChanged(String tabId) {
+
+                for(int index = 0 ;index < mTabHost.getTabWidget().getChildCount() ; index++) {
+                    TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(index).findViewById(android.R.id.title); //Unselected Tabs
+                    tv.setTextColor(Color.parseColor("#aaaaaa"));
+                }
+
+
+                TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab()).findViewById(android.R.id.title); //Unselected Tabs
+                tv.setTextColor(Color.WHITE);
+            }
+        });
+
+    }
 
 
 }

@@ -1,19 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="com.anoki.MeTabActivity"
+    android:layout_height="match_parent"
+    tools:context="com.anoki.MeTabActivity"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:id="@+id/profile"
-        android:onClick="profile">
+        android:onClick="profile"
+        android:background="#393c42"
+        android:padding="10dp">
 
         <com.anoki.common.CircleImageView
             android:layout_width="60dp"
@@ -24,27 +23,35 @@
             android:alpha=".5"
             />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:id="@+id/name"
-                android:layout_marginLeft="10dp"
-                android:text="최영범"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:id="@+id/text"
-                android:text="행복은 가까이"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"/>
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"
+                    android:id="@+id/name"
+                    android:text="최영범"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text"
+                    android:textColor="@color/week"
+                    android:text="행복은 가까이"
+                    android:textSize="10sp"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="35dp"
                 android:text="기도함"
                 android:textSize="12sp"
@@ -53,25 +60,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:background="#444444"
+        android:layout_height="23dp"
+        android:background="@android:color/darker_gray"
         android:gravity="center"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_margin="0dp">
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="기도제목"
-            android:background="#444444"
-            android:layout_margin="5dp"
-            android:textColor="@android:color/white"/>
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="11sp"/>
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="32dp"
             android:text="편집"
-            android:textSize="12sp"
-            android:onClick="edit"/>
+            android:textSize="9sp"
+            android:onClick="edit"
+            android:layout_marginRight="10dp" />
 
     </LinearLayout>
 
