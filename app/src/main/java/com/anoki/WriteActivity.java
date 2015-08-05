@@ -173,6 +173,11 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
     }
 
+    public void showOptions(View view){
+        LinearLayout options = (LinearLayout) findViewById(R.id.options);
+        options.setVisibility(View.VISIBLE);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 

@@ -8,6 +8,10 @@
         <item name="actionBarStyle">@style/AnokiActionBar</item>
         <item name="android:windowContentOverlay" tools:ignore="NewApi">@null</item>
 
+        <item name="colorControlNormal">@color/medium_turquoise</item>
+        <item name="colorControlActivated">@color/medium_turquoise</item>
+        <item name="colorControlHighlight">@color/medium_turquoise</item>
+
     </style>
 
     <style name="AnokiActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
@@ -74,5 +78,6 @@
     <color name="white_smoke">#f2f3f3</color>
     <color name="yellow">#FFFF00</color>
     <color name="week">#aaaaaa</color>
+    <color name="mine_shaft">#393c42</color>
 
 </resources>

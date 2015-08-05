@@ -257,7 +257,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:alpha=".5"
+                        android:alpha=".8"
                         >
 
                         <CheckBox
@@ -265,8 +265,9 @@
                             android:layout_height="20dp"
                             android:text="주인만 보기"
                             android:id="@+id/pub"
-                            android:scaleX="0.70"
-                            android:scaleY="0.70"
+                            android:scaleX="0.80"
+                            android:scaleY="0.80"
+                            android:layout_marginLeft="-10dp"
                             />
 
                         <LinearLayout

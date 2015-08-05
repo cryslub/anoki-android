@@ -2,7 +2,9 @@ package com.anoki.pojo;
 
 import com.anoki.common.Global;
 
-public class Reply {
+import java.io.Serializable;
+
+public class Reply implements Serializable {
 	
 	public String apiKey;
 	public String name;
