@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@android:color/white"
+    >
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_width="15dp"
+        android:layout_height="3dp"
+        android:background="@color/medium_turquoise"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="#dddddd"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text"
-        android:layout_margin="10dp"
-        android:background="@android:color/darker_gray"/>
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:text="2015.06.01"
+            android:textColor="@color/week"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text"
+            android:text="기도제목"
+            android:textColor="@color/strong"
+            android:textSize="16sp"/>
+    </LinearLayout>
 </LinearLayout>

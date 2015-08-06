@@ -57,29 +57,8 @@ public class BoxActivity extends SubActivityBase {
         setMeList();
         setFriendList();
 
-        Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-
-        TextView end = (TextView) findViewById(R.id.end);
-        TextView friendEnd = (TextView) findViewById(R.id.friend_end);
-
-        end.setText(year + "-" + (month+1) + "-" + day);
-        friendEnd.setText(year+"-"+month+"-"+day);
-
-        c.add(Calendar.MONTH, -1);
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-
-
-        TextView start = (TextView) findViewById(R.id.start);
-        TextView friendStart = (TextView) findViewById(R.id.friend_start);
-
-        start.setText(year + "-" + (month+1) + "-" + day);
-        friendStart.setText(year+"-"+month+"-"+day);
-
+        oneMonth(null);
+        friendOneMonth(null);
     }
 
 
@@ -88,6 +67,9 @@ public class BoxActivity extends SubActivityBase {
         myTabHost.setup(); // Adding tabs // tab1 settings
         myTabHost.addTab(myTabHost.newTabSpec("tab_creation").setIndicator("나").setContent(R.id.me));
         myTabHost.addTab(myTabHost.newTabSpec("tab_creation").setIndicator("친구").setContent(R.id.friend));
+
+        Util.styleTab(getApplicationContext(), myTabHost);
+
 
     }
 
@@ -149,6 +131,97 @@ public class BoxActivity extends SubActivityBase {
         }else {
             period.setVisibility(View.VISIBLE);
         }
+
+    }
+
+    public void oneMonth(View view){
+        setPeriod(-1);
+    }
+
+
+    public void threeMonth(View view){
+        setPeriod(-3);
+
+    }
+
+    public void sixMonth(View view){
+        setPeriod(-6);
+
+    }
+
+    public void oneYear(View view){
+        setPeriod(-12);
+
+    }
+
+
+    public void friendOneMonth(View view){
+        setFriendPeriod(-1);
+    }
+
+
+    public void friendThreeMonth(View view){
+        setFriendPeriod(-3);
+
+    }
+
+    public void friendSixMonth(View view){
+        setFriendPeriod(-6);
+
+    }
+
+    public void friendOneYear(View view){
+        setFriendPeriod(-12);
+
+    }
+
+    private void setPeriod(int monthDiff){
+
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+
+        TextView end = (TextView) findViewById(R.id.end);
+
+        end.setText(year + "-" + (month + 1) + "-" + day);
+
+        c.add(Calendar.MONTH, monthDiff);
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+
+
+        TextView start = (TextView) findViewById(R.id.start);
+
+        start.setText(year + "-" + (month+1) + "-" + day);
+
+        setFilter();
+    }
+
+
+    private void setFriendPeriod(int monthDiff){
+
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+
+        TextView friendEnd = (TextView) findViewById(R.id.friend_end);
+
+        friendEnd.setText(year+"-"+(month+1)+"-"+day);
+
+        c.add(Calendar.MONTH, monthDiff);
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+
+
+        TextView friendStart = (TextView) findViewById(R.id.friend_start);
+
+        friendStart.setText(year+"-"+(month+1)+"-"+day);
+
+        setFilter();
 
     }
 
@@ -254,16 +327,23 @@ public class BoxActivity extends SubActivityBase {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        TextView time;
         TextView text;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             text = (TextView) itemLayoutView.findViewById(R.id.text);
+            time = (TextView) itemLayoutView.findViewById(R.id.time);
 
         }
 
         public void bind(Prayer prayer) {
-            text.setText(prayer.text);
+
+            if(prayer.text.length() > 0)
+                text.setText(prayer.text);
+            else     text.setText(prayer.back);
+
+            time.setText(prayer.long_time);
         }
     }
 

@@ -78,6 +78,7 @@
     <style name="ColorButton" >
         <item name="android:stateListAnimator">@null</item>
         <item name="android:backgroundTint">@color/medium_turquoise</item>
+        <item name="android:buttonTint">@color/medium_turquoise</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_margin">5dp</item>
@@ -88,6 +89,8 @@
     <color name="white_smoke">#f2f3f3</color>
     <color name="yellow">#FFFF00</color>
     <color name="week">#aaaaaa</color>
+    <color name="strong">#666666</color>
+
     <color name="mine_shaft">#393c42</color>
     <color name="flamingo">#e15940</color>
 

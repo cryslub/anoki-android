@@ -1,9 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="com.anoki.BoxActivity"
+    android:layout_height="match_parent"
+    tools:context="com.anoki.BoxActivity"
     android:orientation="vertical">
 
     <TabHost
@@ -34,33 +32,30 @@
                     android:id="@+id/me"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="나는 믿는다"
-                        android:gravity="center"/>
+                    android:orientation="vertical"
+                    android:padding="5dp">
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:gravity="center"
                         android:background="@android:color/darker_gray"
-                        android:onClick="showPeriod">
+                        android:onClick="showPeriod"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                            />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
                             android:text="기간설정"
                             android:gravity="center"
-                            android:layout_margin="3dp"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                            android:alpha=".5"
-                            android:layout_gravity="top"
-                            android:layout_marginTop="3dp"
-                        />
+                            android:layout_margin="3dp"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -70,30 +65,64 @@
                         android:visibility="gone">
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="30dp"
+                            android:background="@drawable/gray_border">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:text="1개월"
+                                android:gravity="center"
+                                android:onClick="oneMonth"
+                                />
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="#aaaaaa"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:text="3개월"
+                                android:gravity="center"
+                                android:onClick="threeMonth"
+
+                                />
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="#aaaaaa"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:text="6개월"
+                                android:gravity="center"
+                                android:onClick="sixMonth"
+
+                                />
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="#aaaaaa"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:text="1년"
+                                android:gravity="center"
+                                android:onClick="oneYear"
+
+                                />
 
 
 
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1개월"/>
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="3개월"/>
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="6개월"/>
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1년"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -103,6 +132,7 @@
                                 android:editable="false"
                                 android:text="2015-5-30"
                                 android:gravity="center"
+                                android:background="@android:color/white"
                                />
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -115,7 +145,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="~"/>
+                                android:text="~"
+                                android:layout_margin="10dp"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -125,6 +156,8 @@
                                 android:id="@+id/end"
                                 android:editable="false"
                                 android:gravity="center"
+                                android:background="@android:color/white"
+                                android:layout_marginLeft="5dp"
 
                                 />
                             <ImageView
@@ -135,6 +168,13 @@
                                 android:onClick="end"
                                 />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#aaaaaa"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp" />
 
                         </LinearLayout>
 
@@ -150,33 +190,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:id="@+id/friend">
+                    android:id="@+id/friend"
+                    android:padding="5dp">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="나는 믿는다"
-                        android:gravity="center"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:gravity="center"
                         android:background="@android:color/darker_gray"
-                        android:onClick="showFriendPeriod">
+                        android:onClick="showFriendPeriod"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                            />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
                             android:text="기간설정"
                             android:gravity="center"
-                            android:layout_margin="3dp"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                            android:alpha=".5"
-                            android:layout_gravity="top"
-                            android:layout_marginTop="3dp"
-                            />
+                            android:layout_margin="3dp"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -186,30 +224,61 @@
                         android:visibility="gone">
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="30dp"
+                            android:background="@drawable/gray_border">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:text="1개월"
+                                android:gravity="center"
+                                android:onClick="friendOneMonth"
+                                />
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="#aaaaaa"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:text="3개월"
+                                android:gravity="center"
+                                android:onClick="friendThreeMonth"
+                                />
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="#aaaaaa"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:text="6개월"
+                                android:gravity="center"
+                                android:onClick="friendSixMonth"
+                                />
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="#aaaaaa"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:text="1년"
+                                android:gravity="center"
+                                android:onClick="friendOneYear"
+                                />
 
 
 
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1개월"/>
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="3개월"/>
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="6개월"/>
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1년"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -218,7 +287,7 @@
                                 android:id="@+id/friend_start"
                                 android:editable="false"
                                 android:gravity="center"
-
+                                android:background="@android:color/white"
                                 />
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -230,6 +299,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
                                 android:text="~"/>
                             <TextView
                                 android:layout_width="0dp"
@@ -240,7 +310,8 @@
                                 android:id="@+id/friend_end"
                                 android:editable="false"
                                 android:gravity="center"
-
+                                android:background="@android:color/white"
+                                android:layout_marginLeft="5dp"
                                 />
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -251,6 +322,14 @@
 
                                 />
                         </LinearLayout>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#aaaaaa"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp" />
 
                     </LinearLayout>
 

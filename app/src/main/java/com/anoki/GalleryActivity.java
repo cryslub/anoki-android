@@ -32,6 +32,8 @@ import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -57,7 +59,7 @@ public class GalleryActivity extends WriteActivityBase {
     private static Uri[] mUrls = null;
     private static String[] strUrls = null;
     private String[] mNames = null;
-    private ViewGroup gridview = null;
+    private TableLayout gridview = null;
     private Cursor cc = null;
     private Button btnMoreInfo = null;
     private ProgressDialog myProgressDialog = null;
@@ -73,11 +75,20 @@ public class GalleryActivity extends WriteActivityBase {
         @Override
         public void onClick(View v) {
             if(selectionMap.get(v.getId()) == null){
-                selectionMap.put(v.getId(),1);
-                v.setBackgroundResource(R.drawable.border);
+                selectionMap.put(v.getId(), 1);
+
+                v.findViewById(R.id.overlay).setVisibility(View.VISIBLE);
+                TextView number = (TextView) v.findViewById(R.id.number);
+                number.setText(selectionMap.size()+"");
+                number.setVisibility(View.VISIBLE);
+
+//                v.setBackgroundResource(R.drawable.border);
             }else{
                 selectionMap.remove(v.getId());
-                v.setBackgroundResource(0);
+                v.findViewById(R.id.overlay).setVisibility(View.GONE);
+                v.findViewById(R.id.number).setVisibility(View.GONE);
+
+//                v.setBackgroundResource(0);
             }
             doneStateCheck();
         }
@@ -88,7 +99,7 @@ public class GalleryActivity extends WriteActivityBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        gridview = (ViewGroup) findViewById(R.id.media_list);
+        gridview = (TableLayout) findViewById(R.id.media_list);
 
         size = Util.dpToPixel(getApplicationContext(),100);
         margin = Util.dpToPixel(getApplicationContext(),5);
@@ -167,7 +178,7 @@ public class GalleryActivity extends WriteActivityBase {
 
     }
     void insertPhoto(ArrayList<VideoViewInfo> videoRows) {
-        FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
+        TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(size,size);
         layoutParams.setMargins(margin, margin, margin, margin);
 
         for (int i = 0; i < videoRows.size(); i++) {
@@ -184,10 +195,10 @@ public class GalleryActivity extends WriteActivityBase {
             imageView.setPadding(20, 40, 20, 40);
             imageView.setTag(videoRows.get(i).filePath);
 
-            imageView.setId(i);
+            imageView.setId(i+1000);
             imageView.setOnClickListener(thumbNailClickListener);
 
-            gridview.addView(imageView, layoutParams);
+            add(imageView, layoutParams);
 
         }
 
@@ -233,7 +244,7 @@ public class GalleryActivity extends WriteActivityBase {
                 FragmentManager fragMan = getFragmentManager();
                 FragmentTransaction fragTransaction = fragMan.beginTransaction();
 
-                rowLayout.setId(i);
+                rowLayout.setId(i+1000);
 
 // add rowLayout to the root layout somewhere here
 
@@ -246,14 +257,54 @@ public class GalleryActivity extends WriteActivityBase {
 //                rowLayout
                 rowLayout.setOnClickListener(thumbNailClickListener);
 
-                gridview.addView(rowLayout);
-
+                add(rowLayout);
                 //               gridview.addView(imageView,layoutParams);
             }
 
 
         }
     }
+
+
+    private void add(LinearLayout rowLayout){
+        TableRow tableRow = null;
+        if(gridview.getChildCount() > 0) {
+            tableRow = (TableRow) gridview.getChildAt(gridview.getChildCount() - 1);
+            if(tableRow.getChildCount()>=3){
+                tableRow = new TableRow(this);
+                tableRow.addView(rowLayout);
+                gridview.addView(tableRow);
+            }else{
+
+                tableRow.addView(rowLayout);
+            }
+        }else{
+            tableRow = new TableRow(this);
+            tableRow.addView(rowLayout);
+            gridview.addView(tableRow);
+        }
+    }
+
+    private void add(View view,TableLayout.LayoutParams layoutParams){
+        TableRow tableRow = null;
+        if(gridview.getChildCount() > 0) {
+            tableRow = (TableRow) gridview.getChildAt(gridview.getChildCount() - 1);
+            if(tableRow.getChildCount()>=3){
+                tableRow = new TableRow(this);
+                tableRow.addView(view,layoutParams);
+                gridview.addView(tableRow);
+            }else{
+
+                tableRow.addView(view,layoutParams);
+            }
+        }else{
+            tableRow = new TableRow(this);
+            tableRow.addView(view,layoutParams);
+            gridview.addView(tableRow);
+        }
+    }
+
+
 
     public void doneStateCheck(){
         if(selectionMap.size() == 0){

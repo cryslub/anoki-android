@@ -15,10 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <View
-            android:layout_width="15dp"
-            android:layout_height="3dp"
-            android:background="@color/medium_turquoise"/>
-        <View
             android:layout_width="fill_parent"
             android:layout_height="3dp"
             android:background="#dddddd"/>
@@ -233,10 +229,6 @@
         android:layout_height="wrap_content"
         android:text="충전하기"
         android:onClick="charge"
-        android:stateListAnimator="@null"
-        android:backgroundTint="@color/medium_turquoise"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"/>
+        style="@style/ColorButton"/>
 
 </LinearLayout>

@@ -176,6 +176,16 @@ public class Util {
         return id;
     }
 
+    public static String uploadBitmap(Bitmap yourSelectedImage, CallBack callBack){
+        String id = null;
+        id = executeMultipartPost(yourSelectedImage);
+        if(!"-1".equals(id)){
+            callBack.success(id);
+        }
+
+        return id;
+    }
+
 
     public static String executeMultipartPost(Bitmap bm)  {
         try {

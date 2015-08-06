@@ -14,6 +14,7 @@ import com.anoki.R;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
+import com.google.android.gms.games.Notifications;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,12 +73,16 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
         }
 
         public void bind(final Prayer prayer){
-            text.setText(prayer.text);
+
+            if(prayer.text.length() > 0)
+                text.setText(prayer.text);
+            else     text.setText(prayer.back);
+
             date.setText(prayer.long_time);
             prayCount.setText(prayer.prayCount);
             replyCount.setText(prayer.replyCount);
 
-            if("null".equals(prayer.scrapd) || prayer.scrapd == null){
+            if((prayer.userId != Global.me.id) && ("null".equals(prayer.scrapd) || prayer.scrapd == null)){
                 pray.setVisibility(View.GONE);
             }else{
                 scrap.setVisibility(View.GONE);

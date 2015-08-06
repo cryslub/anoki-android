@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:padding="8dp"
-    tools:context="com.anoki.GalleryActivity">
+    tools:context="com.anoki.GalleryActivity"
+    android:background="#222222">
 
 
     <ScrollView
@@ -9,12 +10,16 @@
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
         >
-        <org.apmem.tools.layouts.FlowLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/media_list">
 
-        </org.apmem.tools.layouts.FlowLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:stretchColumns="*"
+            android:id="@+id/media_list"
+            >
+            </TableLayout>
 
     </ScrollView>
 

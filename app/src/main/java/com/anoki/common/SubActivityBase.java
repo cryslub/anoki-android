@@ -6,9 +6,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anoki.R;
+import com.anoki.pojo.User;
 
 /**
  * Created by Administrator on 2015-07-10.
@@ -72,4 +74,6 @@ public class SubActivityBase extends ActionBarActivity {
             succeed();
         }
     }
+
+
 }

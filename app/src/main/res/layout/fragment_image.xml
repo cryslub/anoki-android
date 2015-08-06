@@ -1,8 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_margin="5dp"
+    android:layout_width="115dp"
+    android:layout_height="115dp"
+    android:layout_margin="2dp"
 
     tools:context="com.anoki.ImageFragment"
     android:id="@+id/image_fragment">
@@ -15,10 +15,28 @@
         android:id="@+id/image"/>
 
     <ImageView
-        android:background="#cccccc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/border"
+        android:id="@+id/overlay"
+        android:alpha=".5"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:id="@+id/number"
+        android:visibility="gone"
+        android:textStyle="bold"/>
+
+    <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_zoom_in_black_24dp"
-        android:layout_gravity="right|bottom"
+        android:src="@drawable/ic_zoom_in_white_24dp"
+        android:layout_gravity="left|bottom"
         android:id="@+id/zoom"/>
 </FrameLayout>

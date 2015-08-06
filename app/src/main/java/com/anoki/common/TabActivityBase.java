@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.anoki.AlarmListActivity;
 import com.anoki.MessageListActivity;
@@ -41,7 +42,7 @@ public abstract  class TabActivityBase extends AppCompatActivity {
 
     public void write(MenuItem item){
         Intent intent = new Intent(this, WriteActivity.class);
-        startActivityForResult(intent,Global.WRITE);
+        startActivityForResult(intent, Global.WRITE);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -55,4 +56,9 @@ public abstract  class TabActivityBase extends AppCompatActivity {
 
     abstract  protected void refresh();
 
+
+    protected void setText(int id,String text){
+        TextView name = (TextView) findViewById(id);
+        name.setText(text);
+    }
 }
