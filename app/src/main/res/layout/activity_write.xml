@@ -4,30 +4,78 @@
     tools:context="com.anoki.WriteActivity"
     android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:hint="기도 배경을 알려주세요"
-        android:minHeight="140dp"
-        android:gravity="top"
-        android:id="@+id/back"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:hint="기도 제목을 알려주세요"
-        android:minHeight="120dp"
-        android:gravity="top"
-        android:id="@+id/text"/>
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/media_list"
-        android:columnCount="5">
-    </GridLayout>
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="15dp"
+                android:layout_height="3dp"
+                android:background="@color/medium_turquoise"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:background="#dddddd"/>
+
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:hint="기도 배경을 알려주세요"
+            android:minHeight="140dp"
+            android:gravity="top"
+            android:id="@+id/back"
+
+            android:background="@null"
+            android:padding="5dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="15dp"
+                android:layout_height="3dp"
+                android:background="@color/medium_turquoise"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:background="#dddddd"/>
+
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:hint="기도 제목을 알려주세요"
+            android:minHeight="120dp"
+            android:gravity="top"
+            android:id="@+id/text"
+
+            android:background="@null"
+            android:padding="5dp"/>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/media_list"
+            android:columnCount="5">
+        </GridLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="#aaaaaa"/>
+
+    <LinearLayout
+
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
@@ -43,6 +91,7 @@
             android:onClick="showOptions"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical" />
+
 
 
         <LinearLayout
@@ -76,7 +125,8 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginRight="0.5dp">
+            android:layout_marginRight="0.5dp"
+            android:onClick="photo">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -103,6 +153,7 @@
             android:gravity="center"
 
             android:layout_marginRight="0.5dp"
+            android:onClick="video"
             >
 
             <ImageView
@@ -127,7 +178,7 @@
 
             android:orientation="vertical"
             android:gravity="center"
-
+            android:onClick="camera"
             >
 
             <ImageView

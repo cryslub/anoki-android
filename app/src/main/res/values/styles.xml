@@ -51,6 +51,9 @@
         <item name="android:actionBarStyle"   tools:ignore="NewApi">@style/MyActionBar</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
         <item name="android:windowContentOverlay" tools:ignore="NewApi">@null</item>
+        <item name="colorControlNormal">@color/medium_turquoise</item>
+        <item name="colorControlActivated">@color/medium_turquoise</item>
+        <item name="colorControlHighlight">@color/medium_turquoise</item>
 
     </style>
 
@@ -70,7 +73,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_marginTop">10dp</item>
+    </style>
 
+    <style name="ColorButton" >
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:backgroundTint">@color/medium_turquoise</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_margin">5dp</item>
     </style>
 
     <color name="medium_turquoise">#54c9dc</color>
@@ -79,5 +89,6 @@
     <color name="yellow">#FFFF00</color>
     <color name="week">#aaaaaa</color>
     <color name="mine_shaft">#393c42</color>
+    <color name="flamingo">#e15940</color>
 
 </resources>

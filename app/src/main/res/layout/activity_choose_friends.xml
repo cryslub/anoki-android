@@ -1,9 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     tools:context="com.anoki.ChooseFriendsActivity"
     android:orientation="vertical">
 
@@ -23,7 +20,8 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@android:color/white">
 
             </TabWidget>
 
@@ -47,24 +45,39 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search_black_24dp"
-                                    android:alpha=".5"/>
                                 <EditText
                                     android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="35dp"
                                     android:hint="이름(초성), 전화번호 검색"
                                     android:textSize="15sp"
-                                    android:id="@+id/search_friend"/>
+                                    android:id="@+id/search_friend"
+                                    android:background="@null"
+                                    android:drawableLeft="@drawable/ic_search_black_24dp"
+                                    android:paddingLeft="5dp"/>
 
                             </LinearLayout>
+                            <ListView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/selected_list"></ListView>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1px"
+                                android:background="#aaaaaa"/>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="친구"/>
+                                android:text="친구"
+                                android:textSize="9sp"
+                                android:background="@android:color/white"
+                                android:paddingLeft="5dp"/>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1px"
+                                android:background="#aaaaaa" />
                             <android.support.v7.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -88,17 +101,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search_black_24dp"
-                                    android:alpha=".5"/>
                                 <EditText
                                     android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="35dp"
                                     android:hint="연락처를 검색하거나, 직접 입력할 수 있어요"
                                     android:textSize="15sp"
-                                    android:id="@+id/search_contact"/>
+                                    android:id="@+id/search_contact"
+                                    android:background="@null"
+                                    android:drawableLeft="@drawable/ic_search_black_24dp"
+                                    android:paddingLeft="5dp"/>
 
                             </LinearLayout>
 
@@ -107,7 +118,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="초대한 친구의 연락처는 친구가 그룹에 가입하는 과정에서 사용되며, 아노키 이용기간 동안 보관됩니다. 동의 시, 친구를 초대해 주세요."
                                 android:textSize="11sp"
-                                android:textColor="#000000"/>
+                                android:background="@android:color/white"/>
                             <android.support.v7.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"

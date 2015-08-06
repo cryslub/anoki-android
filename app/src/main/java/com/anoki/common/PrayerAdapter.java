@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.anoki.R;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
+import com.anoki.pojo.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
         TextView replyCount;
 
         Button pray;
+        Button scrap;
 
         LinearLayout container;
 
@@ -61,6 +63,7 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
             prayCount = (TextView) itemLayoutView.findViewById(R.id.pray_count);
             replyCount = (TextView) itemLayoutView.findViewById(R.id.reply_count);
             pray = (Button) itemLayoutView.findViewById(R.id.pray);
+            scrap = (Button) itemLayoutView.findViewById(R.id.scrap);
 
             picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
 
@@ -70,17 +73,31 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
 
         public void bind(final Prayer prayer){
             text.setText(prayer.text);
-            date.setText(prayer.time);
+            date.setText(prayer.long_time);
             prayCount.setText(prayer.prayCount);
             replyCount.setText(prayer.replyCount);
+
+            if("null".equals(prayer.scrapd) || prayer.scrapd == null){
+                pray.setVisibility(View.GONE);
+            }else{
+                scrap.setVisibility(View.GONE);
+            }
+
 
             pray.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if(RestService.pray(prayer)){
+                    if (RestService.pray(prayer)) {
                         ((OnPrayListener) parentActivity).onPray();
                     }
+                }
+            });
+
+            scrap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Util.rest("prayer/scrap","POST",prayer,Response.class);
                 }
             });
 

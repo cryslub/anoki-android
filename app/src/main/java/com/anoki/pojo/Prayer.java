@@ -29,6 +29,7 @@ public class Prayer implements Serializable{
 	public int dalant;
 	public String completed;
 	public String raw_time;
+	public String long_time;
 
 	public Prayer(){
 		apiKey = Global.apiKey;

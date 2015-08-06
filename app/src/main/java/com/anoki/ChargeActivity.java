@@ -4,15 +4,19 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Typeface;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.anoki.common.Global;
@@ -75,11 +79,30 @@ public class ChargeActivity extends SubActivityBase {
                 RadioButton radioButton = (RadioButton) v;
                 radioButton.setChecked(false);
             }
+
+            if (v instanceof TextView) {
+                TextView textView = (TextView) v;
+                textView.setTypeface(Typeface.DEFAULT);
+            }
         }
 
         RadioButton radioButton = (RadioButton) view;
         radioButton.setChecked(true);
         selected = view.getId();
+
+
+        ViewGroup row = (ViewGroup) view.getParent();
+        List<View> list  = Util.getAllChildren(row);
+        for(View v : list) {
+            if (v instanceof TextView) {
+                TextView textView = (TextView) v;
+                textView.setTypeface(Typeface.DEFAULT_BOLD);
+            }
+        }
+
+
+
+
     }
 
     public void charge(View view){

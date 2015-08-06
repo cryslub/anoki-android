@@ -1,5 +1,7 @@
 package com.anoki.pojo;
 
+import com.anoki.common.Global;
+
 import java.io.Serializable;
 
 public class User implements Serializable{
@@ -15,5 +17,9 @@ public class User implements Serializable{
 	public String country;
 	public String phone;
 	public int dalant;
+
+	public User(){
+		this.apiKey = Global.apiKey;
+	}
 	
 }

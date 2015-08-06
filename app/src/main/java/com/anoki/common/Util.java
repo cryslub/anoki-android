@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.anoki.R;
@@ -320,5 +322,17 @@ public class Util {
 
 
         return "+"+country+" "+number.substring(0,3)+"-"+number.substring(3,7)+"-"+number.substring(7,11);
+    }
+
+    public static void styleTab(Context context,TabHost myTabHost){
+        int height = Util.dpToPixel(context, 40);
+
+        for(int i = 0;i< myTabHost.getTabWidget().getChildCount();i++) {
+            ((ImageView) ((LinearLayout) myTabHost.getTabWidget().getChildTabViewAt(i)).getChildAt(0)).setMaxHeight(height);
+            myTabHost.getTabWidget().getChildAt(i).getLayoutParams().height = height;
+            TextView tv = (TextView) myTabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
+            tv.setTextSize(18);
+
+        }
     }
 }

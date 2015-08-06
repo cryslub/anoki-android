@@ -44,6 +44,8 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
         myTabHost.addTab(myTabHost.newTabSpec("tab_creation").setIndicator("친구기도").setContent(R.id.scraped));
         myTabHost.addTab(myTabHost.newTabSpec("tab_creation").setIndicator("기도요청").setContent(R.id.request));
 
+        Util.styleTab(getApplicationContext(),myTabHost);
+
         load();
 
 

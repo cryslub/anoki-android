@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
-                android:text="2015.03.10"
+                android:text="3월 14일 오전 11:00"
                 android:textSize="9sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -95,6 +95,16 @@
             android:text="기도"
             android:textColor="@android:color/white"
             android:id="@+id/pray"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:drawableLeft="@drawable/ic_send_white_18dp"
+            android:text="담기"
+            android:textColor="@android:color/white"
+            android:id="@+id/scrap"/>
+
+
     </LinearLayout>
 
     <View

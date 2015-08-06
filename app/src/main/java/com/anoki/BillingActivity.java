@@ -46,10 +46,10 @@ public class BillingActivity extends SubActivityBase {
 
 
         TextView sum = (TextView)findViewById(R.id.sum);
-        sum.setText("총 "+ex+"명 ("+ex+"명 X 100 원)");
+        sum.setText("총 "+ex+"명 ("+ex+"명 X 10 달란트)");
 
         TextView price = (TextView)findViewById(R.id.price);
-        price.setText( (ex*100)+ "원");
+        price.setText( (ex*10)+ "달란트");
 
     }
 
@@ -58,7 +58,7 @@ public class BillingActivity extends SubActivityBase {
         int total = prayer.friends.size() + prayer.phone.size();
         int ex = total - Global.FREE_FRIENDS_COUNT;
 
-        prayer.dalant = ex *100;
+        prayer.dalant = ex *10;
 
         Intent intent = Util.inviteIntent(prayer);
         startActivityForResult(intent, Global.SMS);
