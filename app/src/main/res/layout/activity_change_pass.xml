@@ -10,41 +10,49 @@
     <TextView android:text="새로운 비밀번호를 입력해 주세요" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:layout_margin="10dp"/>
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:hint="비밀번호"
-        android:layout_margin="10dp"
         android:id="@+id/pass"
         android:maxLength="16"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:background="@drawable/gray_border"
+        android:padding="7dp"/>
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:hint="비밀번호 확인"
-        android:layout_margin="10dp"
         android:id="@+id/confirm"
         android:maxLength="16"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:background="@drawable/gray_border"
+        android:layout_marginTop="-1dp"
+        android:padding="7dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="- 비밀번호는 8 ~ 16 자의 영문 대소문자, 숫자, 특수문자를 조합하여 설정해주세요."
-        android:layout_margin="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="- 안전을 위해 자주 사용했거나 쉬운 비밀번호가 아닌 새 비밀번호를 등록하고 주기적으로 변경해주세요."
-        android:layout_margin="10dp"/>
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="확인"
-        android:onClick="confirm"/>
+        android:onClick="confirm"
+        style="@style/ColorButton"/>
 </LinearLayout>

@@ -12,7 +12,9 @@ android:layout_height="wrap_content"
     android:layout_width="fill_parent"
     android:layout_height="35dp"
     android:singleLine="true"
-    android:background="@android:color/white"/>
+    android:background="@drawable/gray_border"
+    android:padding="5dp"
+    />
 
 <ImageButton
     android:id="@+id/calc_clear_txt_Prise"

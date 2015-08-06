@@ -267,8 +267,7 @@
                             android:id="@+id/pub"
                             android:scaleX="0.80"
                             android:scaleY="0.80"
-                            android:layout_marginLeft="-10dp"
-                            />
+                            android:layout_marginLeft="-10dp" />
 
                         <LinearLayout
                             android:layout_width="fill_parent"
@@ -276,11 +275,14 @@
                             <EditText
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:layout_height="wrap_content"
+                                android:layout_height="24dp"
                                 android:hint="댓글을 달아 보세요."
                                 android:textSize="12sp"
                                 android:id="@+id/reply_text"
-                                android:layout_marginLeft="5dp"/>
+                                android:layout_marginLeft="5dp"
+                                android:background="@drawable/gray_border"
+                                android:padding="5dp"
+                                />
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

@@ -81,7 +81,6 @@
         <item name="android:buttonTint">@color/medium_turquoise</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:layout_margin">5dp</item>
     </style>
 
     <color name="medium_turquoise">#54c9dc</color>

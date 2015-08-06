@@ -2,40 +2,50 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.anoki.ResponseActivity"
     android:orientation="vertical"
-    android:padding="5dp">
-
+    >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <View
-        android:layout_width="15dp"
-        android:layout_height="3dp"
-        android:background="@color/medium_turquoise"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="15dp"
             android:layout_height="3dp"
-            android:background="#dddddd"/>
+            android:background="@color/medium_turquoise"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:background="#dddddd"/>
 
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:hint="기도응답은 무엇인가요?"
+            android:minHeight="250dp"
+            android:gravity="top"
+            android:id="@+id/text"
+            android:background="@null"
+            android:padding="5dp"
+            />
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/media_list"
+            android:columnCount="5">
+        </GridLayout>
     </LinearLayout>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:hint="기도응답은 무엇인가요?"
-        android:minHeight="250dp"
-        android:gravity="top"
-        android:id="@+id/text"
-        android:background="@null"
-        android:padding="5dp"
-        />
 
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/media_list"
-        android:columnCount="5">
-    </GridLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="@color/week"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
