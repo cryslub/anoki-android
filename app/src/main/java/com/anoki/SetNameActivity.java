@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.anoki.common.CallBack;
+import com.anoki.common.CircleImageView;
 import com.anoki.common.Global;
 import com.anoki.common.Util;
 import com.anoki.pojo.Response;
@@ -130,7 +131,7 @@ public class SetNameActivity extends Activity {
                     pictureId = Util.upload(data.getData(), getContentResolver(), new CallBack() {
                         @Override
                         public void success(String id) {
-                            ImageButton button = (ImageButton) findViewById(R.id.profile_image);
+                            CircleImageView button = (CircleImageView) findViewById(R.id.profile_image);
                             Bitmap bmp = Util.fetchImage(id);
                             button.setImageBitmap(bmp);
                             button.setAlpha(1.0f);

@@ -35,10 +35,10 @@
                     android:text="기도응답"
                     android:background="@color/medium_turquoise"
                     android:textColor="@android:color/white"
-                    android:textSize="9sp"
-                    android:padding="4dp"
+                    android:textSize="11sp"
+                    android:padding="1dp"
                     android:id="@+id/response"
-                    android:layout_marginTop="-3dp"
+                    android:layout_marginTop="-1dp"
                     android:layout_marginLeft="5dp"
                     />
 

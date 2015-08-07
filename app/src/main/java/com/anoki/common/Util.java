@@ -1,6 +1,8 @@
 package com.anoki.common;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.anoki.PrayerImageFragment;
 import com.anoki.R;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
@@ -37,6 +40,7 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apmem.tools.layouts.FlowLayout;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -176,9 +180,13 @@ public class Util {
         return id;
     }
 
-    public static String uploadBitmap(Bitmap yourSelectedImage, CallBack callBack){
+    public static String uploadBitmap(Bitmap yourSelectedImage, CallBack callBack) {
+        return uploadBitmap(yourSelectedImage, callBack,"I");
+    }
+
+        public static String uploadBitmap(Bitmap yourSelectedImage, CallBack callBack,String type){
         String id = null;
-        id = executeMultipartPost(yourSelectedImage);
+        id = executeMultipartPost(yourSelectedImage,type);
         if(!"-1".equals(id)){
             callBack.success(id);
         }
@@ -186,8 +194,11 @@ public class Util {
         return id;
     }
 
+    public static String executeMultipartPost(Bitmap bm){
+        return executeMultipartPost(bm,"I");
+    }
 
-    public static String executeMultipartPost(Bitmap bm)  {
+    public static String executeMultipartPost(Bitmap bm,String type)  {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             bm.compress(Bitmap.CompressFormat.JPEG, 75, bos);
@@ -201,7 +212,7 @@ public class Util {
             MultipartEntity reqEntity = new MultipartEntity(
                     HttpMultipartMode.BROWSER_COMPATIBLE);
             reqEntity.addPart("uploaded", bab);
-            reqEntity.addPart("photoCaption", new StringBody("profile"));
+            reqEntity.addPart("type", new StringBody(type));
             postRequest.setEntity(reqEntity);
             HttpResponse response = httpClient.execute(postRequest);
             BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -323,7 +334,7 @@ public class Util {
         list = list.substring(0,list.length()-1);
 
         Intent intentsms = new Intent( Intent.ACTION_VIEW, Uri.parse("smsto:"+list) );
-        intentsms.putExtra( "sms_body", Global.me.name+"님이 기도어플 아노키로 초대하셨습니다. 아래를 누르시면 "+Global.me.name +"님과 친구가 됩니다. \n\n http://anoki.co.kr/anoki/invite.jsp");
+        intentsms.putExtra("sms_body", Global.me.name + "님이 기도어플 아노키로 초대하셨습니다. 아래를 누르시면 " + Global.me.name + "님과 친구가 됩니다. \n\n http://anoki.co.kr/anoki/invite.jsp");
 
         return intentsms;
     }
@@ -344,5 +355,51 @@ public class Util {
             tv.setTextSize(18);
 
         }
+    }
+
+    public static void addMedia(Activity activity,String id){
+        ViewGroup flowLayout = (ViewGroup) activity.findViewById(R.id.media_list);
+
+        ImageView imageView = new ImageView(activity);
+        Bitmap bmp = Util.fetchImage(id);
+        imageView.setImageBitmap(bmp);
+
+
+        int size = Util.dpToPixel(activity, 80);
+        int margin = Util.dpToPixel(activity, 5);
+//                    FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size, size);
+//                    layoutParams.setMargins(margin, margin, margin, margin);
+
+//                            imageView.setLayoutParams(layoutParams);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
+        //                  flowLayout.addView(imageView, layoutParams);
+
+
+
+
+        FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
+        layoutParams.setMargins(margin, margin, margin, margin);
+
+        LinearLayout rowLayout = new LinearLayout(activity);
+
+        FragmentManager fragMan = activity.getFragmentManager();
+        FragmentTransaction fragTransaction = fragMan.beginTransaction();
+
+        rowLayout.setId(Integer.parseInt(id));
+
+// add rowLayout to the root layout somewhere here
+
+        PrayerImageFragment imageFragment = new PrayerImageFragment();
+        imageFragment.setBmp(bmp);
+        imageFragment.setId(id);
+//                    imageFragment.setUri(mUrls[i]);
+        fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + id);
+        fragTransaction.commit();
+
+
+        flowLayout.addView(rowLayout, layoutParams);
+
     }
 }

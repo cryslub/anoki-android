@@ -24,7 +24,7 @@ public class LoginActivity extends Activity {
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ForgotPassActivity.class);
                 startActivity(intent);
             }
         });

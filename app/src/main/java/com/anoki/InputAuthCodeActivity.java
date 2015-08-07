@@ -3,6 +3,8 @@ package com.anoki;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +15,7 @@ import com.anoki.common.Util;
 import com.anoki.pojo.Phone;
 import com.anoki.pojo.Response;
 
-public class InputAuthCodeActivity extends Activity {
+public class InputAuthCodeActivity extends FragmentActivity implements EditTextFragment.OnFragmentInteractionListener {
 
     private Phone phone;
 
@@ -58,9 +60,10 @@ public class InputAuthCodeActivity extends Activity {
     public void confirm(View view){
         //서버에 인증번호 전송
 
-        EditText authCode = (EditText) findViewById(R.id.auth_code);
+//        EditText authCode = (EditText) findViewById(R.id.auth_code);
+        EditText editText = (EditText)findViewById(R.id.calc_txt_Prise);
+        phone.auth = editText.getText().toString();
 
-        phone.auth = authCode.getText().toString();
         Response response = Util.rest("auth/send/number", "POST", phone, Response.class);
 
         if("0".equals(response.result)){
@@ -75,5 +78,10 @@ public class InputAuthCodeActivity extends Activity {
 
     public void resend(View view){
         Response response = Util.rest("auth/request","POST", phone,Response.class);
+    }
+
+    @Override
+    public void textChanged(Editable s) {
+
     }
 }

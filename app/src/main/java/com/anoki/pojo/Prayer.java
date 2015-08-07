@@ -14,7 +14,7 @@ public class Prayer implements Serializable{
 	public String time; //시간
 	public String back;//기도 배경
 	public String text;//기도 제목
-	public List<String> media; //미디어 list
+	public List<Media> media; //미디어 list
 	public String prayCount;//중보기도 횟수
 	public String replyCount;//댓글 수
 	public int id;//id

@@ -1,47 +1,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     tools:context="com.anoki.InputAuthCodeActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
     <TextView android:text="인증번호 입력"
         style="@style/Header"/>
 
-        <TextView  style="@style/MainMessage"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/phone_number"/>
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView  style="@style/MainMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/phone_number"
+                android:text="+82-10-9486-6033로 전송받은 4자리 인증번호를 입력해주세요."
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberSigned"
-        android:ems="10"
-        android:maxLength="4"
-        android:id="@+id/auth_code" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="인증확인"
-        android:onClick="confirm"/>
+                <fragment
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    class="com.anoki.EditTextFragment"
+                    android:id="@+id/fragment"
+                    android:inputType="numberSigned"
+                    android:maxLength="4"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:onClick="back"
-            android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+                <Button
+                    android:layout_width="58dp"
+                    android:layout_height="wrap_content"
+                    android:text="다음"
+                    android:onClick="confirm"
+                    style="@style/ColorButton"/>
+
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인증번호 재전송"
+                android:textColor="@color/flamingo"
+                android:onClick="resend"/>
+            <View
+                android:layout_width="100dp"
+                android:layout_height="1dp"
+                android:background="@color/flamingo"/>
+
+        </LinearLayout>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="인증번호 재전송"
-            android:onClick="resend"/>
+            android:onClick="back"
+            android:layout_marginTop="30dp"
+            android:text="처음으로 돌아가기"
+            android:backgroundTint="#eeeeee"
+            android:stateListAnimator="@null"/>
     </LinearLayout>
 </LinearLayout>

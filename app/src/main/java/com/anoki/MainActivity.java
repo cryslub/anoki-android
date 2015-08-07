@@ -46,11 +46,11 @@ public class MainActivity extends Activity {
         //sqlite의 로그인 정보 확인
         Account account = dbManager.getAccount();
 
-        if(account == null){
+//        if(account == null){
             //로그인 정보가 없으면 로그인 화면으로
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
-        }else {
+     /*   }else {
 
             //SQLITE의 암호 확인
             //암호가 있으면 암호 화면으로
@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
 
-        }
+        }*/
     }
 
 

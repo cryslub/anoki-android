@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.anoki.PrayerImageFragment">
+    android:layout_height="match_parent" tools:context="com.anoki.PrayerImageFragment"
+    android:layout_margin="2dp">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
@@ -9,7 +10,6 @@
         android:id="@+id/image"/>
 
     <ImageView
-        android:background="#cccccc"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_cancel_white_24dp"

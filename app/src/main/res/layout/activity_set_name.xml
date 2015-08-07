@@ -1,72 +1,85 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.anoki.SetNameActivity"
+    android:layout_height="match_parent"     tools:context="com.anoki.SetNameActivity"
     android:orientation="vertical"
     android:weightSum="1">
 
     <TextView android:text="이름입력" style="@style/Header"/>
 
-    <TextView android:text="당신을 표현해 보세요" style="@style/MainMessage"
-        android:gravity="center"/>
-
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/relativelayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="20dp">
-
-        <com.anoki.common.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:onClick="changeImage"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_person_black_48dp"
-            android:alpha=".3"/>
-        <com.anoki.common.CircleImageView
-            android:src="@drawable/ic_camera_alt_black_24dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="changeImage"
-            android:layout_centerVertical="true"
-            android:layout_alignEnd="@+id/profile_image"
-            android:layout_alignBottom="@+id/profile_image"
-            />
-
-
-    </RelativeLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_length"
-            android:text="0"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/20"/>
-    </LinearLayout>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/name"
-        android:maxLength="20"/>
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="아노키 시작하기"
-        android:onClick="start"/>
+        <TextView android:text="당신을 표현해 보세요" style="@style/MainMessage"
+            android:gravity="center"/>
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/relativelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+            <com.anoki.common.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:onClick="changeImage"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person_black_48dp"
+                android:alpha=".3"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp" />
+            <com.anoki.common.CircleImageView
+                android:src="@drawable/ic_camera_alt_black_24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:onClick="changeImage"
+                android:layout_centerVertical="true"
+                android:layout_alignEnd="@+id/profile_image"
+                android:layout_alignBottom="@+id/profile_image"
+                />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_length"
+                android:text="0"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/20"/>
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:id="@+id/name"
+            android:maxLength="20"
+            style="@style/EditText"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아노키 시작하기"
+            android:onClick="start"
+            style="@style/ColorButton"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
 </LinearLayout>

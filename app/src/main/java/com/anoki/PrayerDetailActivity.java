@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 
 import com.anoki.common.CallBack;
 import com.anoki.common.Global;
+import com.anoki.common.MediaPagerAdapter;
 import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
@@ -50,6 +53,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
     Prayer prayer;
     int prayerId;
+    String pictureId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +92,12 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                photoPickerIntent.setType("image/*");
-                photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                startActivityForResult(photoPickerIntent, Global.PHOTO);
+
+                Intent photoLibraryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                photoLibraryIntent.setType("image/*");
+                startActivityForResult(photoLibraryIntent, Global.PHOTO);
+
+
             }
         });
 
@@ -99,19 +105,25 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String replyText = ((EditText) findViewById(R.id.reply_text)).getText().toString();
+                EditText replyText = (EditText) findViewById(R.id.reply_text);
                 if(replyText.length() > 0){
                     CheckBox pub = (CheckBox) findViewById(R.id.pub);
 
                     Reply reply = new Reply();
                     reply.apiKey = Global.apiKey;
-                    reply.text = replyText;
+                    reply.text = replyText.getText().toString();
                     reply.prayer = prayerId;
                     reply.type = "S";
                     reply.pub = pub.isChecked()?"N":"Y";
+                    reply.picture = pictureId;
 
 
                     Util.rest("prayer/reply", "POST", reply, Prayer.class);
+
+                    replyText.setText("");
+                    pub.setChecked(false);
+                    ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
+                    flowLayout.removeAllViews();
 
                     refresh();
                 }
@@ -133,9 +145,23 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         }
 
+        setMediaList();
     }
 
 
+
+    private void setMediaList(){
+
+        ViewPager media = (ViewPager) findViewById(R.id.media);
+        if(prayer.media==null|| prayer.media.size() == 0){
+            media.setVisibility(View.GONE);
+        }else{
+            MediaPagerAdapter mCustomPagerAdapter = new MediaPagerAdapter(getApplicationContext(),prayer.media);
+            media.setAdapter(mCustomPagerAdapter);
+        }
+
+
+    }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -236,7 +262,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     }
 
     public void scrap(View view){
-        Util.rest("prayer/scrap", "POST",prayer, Prayer.class);
+        Util.rest("prayer/scrap", "POST", prayer, Prayer.class);
         refresh();
 
     }
@@ -269,7 +295,6 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
@@ -278,6 +303,8 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
                         @Override
                         public void success(String id) {
                             //media list 에 추가
+
+                            pictureId = id;
 
                             ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
 
@@ -318,7 +345,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
                             fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + id);
                             fragTransaction.commit();
 
-
+                            flowLayout.removeAllViews();
                             flowLayout.addView(rowLayout,layoutParams);
 
                         }
@@ -332,10 +359,10 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         }
     }
 
+
+
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onDeleteFragment(String id) {
+        pictureId = null;
     }
-
-
 }

@@ -1,39 +1,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     tools:context="com.anoki.InputPhoneNumberActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
     <TextView android:text="전화번호 입력"
         style="@style/Header"/>
 
-    <TextView style="@style/MainMessage"
-        android:text="본인 휴대전화번호를 입력해주세요" />
-
-    <Spinner
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/country_spinner"
-        android:layout_marginTop="10dp"
-        />
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView style="@style/MainMessage"
+            android:text="본인 휴대전화번호를 입력해주세요"
+            />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/country_spinner"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/gray_border"
+            android:layout_marginRight="4dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="com.anoki.EditTextFragment"
-        android:id="@+id/fragment"
-        android:inputType="phone"
-        android:maxLength="11"/>
+
+            <fragment
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                class="com.anoki.EditTextFragment"
+                android:id="@+id/fragment"
+                android:inputType="phone"
+                android:maxLength="11"/>
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="다음"
-        android:onClick="next"/>
+            <Button
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:text="다음"
+                android:onClick="next"
+                style="@style/ColorButton"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="입력하신 전화번호로 4자리의 인증번호를 보내드립니다."/>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -34,14 +34,28 @@
                 android:textSize="18sp"
                 android:text="최영범"
                 android:id="@+id/name"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#888888"
-                android:textSize="10sp"
+                android:textColor="@color/week"
+                android:textSize="11sp"
                 android:gravity="center"
-                android:text="2015-7-15"
+                android:text="3월 14일"
                 android:id="@+id/date"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/week"
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:text=", 기도응답"
+                    android:id="@+id/response" />
+
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -78,50 +92,61 @@
         android:textColor="#cccccc"/>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/media_container">
+        android:layout_height="wrap_content">
+
         <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="140dp"
             android:id="@+id/media">
 
         </android.support.v4.view.ViewPager>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#dddddd"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5dp"
-        >
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_send_black_18dp"
-            android:alpha=".5"
-            android:layout_marginLeft="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/pray_count"
-            android:text="기도 20"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_chat_bubble_outline_black_18dp"
-            android:alpha=".5"
-            android:layout_marginLeft="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/reply_count"
-            android:text="댓글 3"/>
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@android:color/black"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:alpha=".5"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_send_white_18dp"
+                android:layout_marginLeft="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/pray_count"
+                android:text="기도 20"
+                android:textColor="@android:color/white"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_chat_bubble_outline_white_18dp"
+                android:layout_marginLeft="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/reply_count"
+                android:text="댓글 3"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -161,7 +186,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="0.5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"

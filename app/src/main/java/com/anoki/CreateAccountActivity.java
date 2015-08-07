@@ -20,7 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class CreateAccountActivity extends ActionBarActivity {
+public class CreateAccountActivity extends ActionBarActivity implements EditTextFragment.OnFragmentInteractionListener{
 
     private static final String PASSWORD_PATTERN =
             "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-+=\\\\|/?.,<>]).{8,16})";
@@ -44,9 +44,9 @@ public class CreateAccountActivity extends ActionBarActivity {
 
         final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
 
-        final EditText account = (EditText) findViewById(R.id.account);
+        final EditText editText = (EditText)findViewById(R.id.calc_txt_Prise);
 
-        account.addTextChangedListener(new TextWatcher() {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -60,25 +60,22 @@ public class CreateAccountActivity extends ActionBarActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-                ImageView imageView = (ImageView) findViewById(R.id.account_check);
 
                 if (s.length() > 0) {
 
-                    String accountText = account.getText().toString();
+                    String accountText = editText.getText().toString();
                     if (accountText.contains("@") && accountText.contains(".")) {
                         User user = new User();
                         user.account = accountText;
 
                         Response response = Util.rest("user/check", "POST", user, Response.class);
                         if ("0".equals(response.result)) {
-                            imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_mood_black_24dp));
                             accountOk = true;
                             return;
 
                         }
                     }
                 }
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_mood_bad_black_24dp));
                 accountOk = false;
             }
         });
@@ -99,20 +96,17 @@ public class CreateAccountActivity extends ActionBarActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                ImageView imageView = (ImageView) findViewById(R.id.pass_check);
 
                 String passText = pass.getText().toString();
                 if(passText.length()>=8 && passText.length()<=16){
                     Matcher matcher = pattern.matcher(passText);
                     if(matcher.matches()){
-                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_mood_black_24dp));
                         passOk = true;
                         return;
                     }
 
                 }
 
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_mood_bad_black_24dp));
                 passOk = false;
             }
         });
@@ -121,9 +115,6 @@ public class CreateAccountActivity extends ActionBarActivity {
         final EditText confirm = (EditText) findViewById(R.id.confirm);
 
         confirm.addTextChangedListener(new TextWatcher() {
-
-            ImageView imageView = (ImageView) findViewById(R.id.confirm_check);
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -139,11 +130,9 @@ public class CreateAccountActivity extends ActionBarActivity {
                 String passText = pass.getText().toString();
                 String confirmText = confirm.getText().toString();
                 if(passText.equals(confirmText)){
-                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_mood_black_24dp));
                     confirmOk = true;
                     return;
                 }
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_mood_bad_black_24dp));
                 confirmOk = false;
             }
         });
@@ -177,10 +166,22 @@ public class CreateAccountActivity extends ActionBarActivity {
         if(accountOk && passOk && confirmOk){
 
             Intent intent = new Intent(CreateAccountActivity.this, SetNameActivity.class);
+
+            final EditText editText = (EditText)findViewById(R.id.calc_txt_Prise);
+            final EditText pass = (EditText)findViewById(R.id.pass);
+
+            user.account = editText.getText().toString();
+            user.pass = pass.getText().toString();
+
             intent.putExtra("user",user);
             startActivity(intent);
 
         }
+
+    }
+
+    @Override
+    public void textChanged(Editable s) {
 
     }
 }

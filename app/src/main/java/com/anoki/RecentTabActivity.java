@@ -1,8 +1,10 @@
 package com.anoki;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.anoki.common.MediaPagerAdapter;
 import com.anoki.common.RestService;
 import com.anoki.common.TabActivityBase;
 import com.anoki.pojo.Prayer;
@@ -83,6 +86,8 @@ public class RecentTabActivity extends TabActivityBase {
         ImageView picture;
         TextView name;
         TextView date;
+        TextView response;
+
         TextView text;
         ViewPager media;
 
@@ -113,6 +118,8 @@ public class RecentTabActivity extends TabActivityBase {
             picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
             name = (TextView) itemLayoutView.findViewById(R.id.name);
             date = (TextView) itemLayoutView.findViewById(R.id.date);
+            response = (TextView) itemLayoutView.findViewById(R.id.response);
+
             text = (TextView) itemLayoutView.findViewById(R.id.text);
             media = (ViewPager) itemLayoutView.findViewById(R.id.media);
 
@@ -122,7 +129,6 @@ public class RecentTabActivity extends TabActivityBase {
 
             more = (TextView) itemLayoutView.findViewById(R.id.more);
 
-            mediaContainer = (LinearLayout) itemLayoutView.findViewById(R.id.media_container);
 
             prayCount = (TextView) itemLayoutView.findViewById(R.id.pray_count);
             replyCount = (TextView) itemLayoutView.findViewById(R.id.reply_count);
@@ -143,7 +149,7 @@ public class RecentTabActivity extends TabActivityBase {
                 friendFunction.setVisibility(View.INVISIBLE);
                 buttonContainer.removeView(scrap);
 
-            }else{
+            }else {
                 friendFunction.setVisibility(View.VISIBLE);
 
 
@@ -184,26 +190,95 @@ public class RecentTabActivity extends TabActivityBase {
                     }
                 });
 
-/*                viewProfile.setOnClickListener(new View.OnClickListener() {
+            }
+                if("".equals(prayer.back)){
+                    text.setText(prayer.text);
+                }else  if("".equals(prayer.text)){
+                    text.setText(prayer.back);
+                } else {
+                    text.setText(prayer.back + "\r\n\r\n" + prayer.text);
+                }
+
+
+                profile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(RecentTabActivity.this,UserProfileActivity.class);
-                        intent.putExtra("userId",prayer.userId);
-                        startActivity(intent);
+                        System.out.println(prayer.userId + "," + Global.me.id);
+                        if (prayer.userId == Global.me.id) {
+                            Intent intent = new Intent(RecentTabActivity.this, MyProfileActivity.class);
+                            startActivityForResult(intent,Global.PROFILE);
+                        }
                     }
                 });
 
-                viewPrayerList.setOnClickListener(new View.OnClickListener() {
+                more.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(RecentTabActivity.this,UserPrayerListActivity.class);
-                        intent.putExtra("userId",prayer.userId);
-                        startActivity(intent);
+                        Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
+                        intent.putExtra("prayerId", prayer.id);
+                        startActivityForResult(intent, Global.PRAYER);
+                    }
+                });
+
+                pray.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(RestService.pray(prayer)) refresh();
 
                     }
-                });*/
+                });
+
+
+                reply.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
+                        intent.putExtra("prayerId", prayer.id);
+                        intent.putExtra("reply", true);
+                        startActivityForResult(intent, Global.PRAYER);
+                    }
+                });
+
+
+
+                if(prayer.scrapd != null){
+                    buttonContainer.removeView(scrap);
+                }else{
+                    scrap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            prayer.apiKey = Global.apiKey;
+                            Util.rest("prayer/scrap", "POST",prayer, Prayer.class);
+                            refresh();
+                        }
+                    });
+                }
+
+                Util.setPicture(prayer.userPicture, picture, getDrawable(R.drawable.ic_person_black_48dp));
+
+                name.setText(prayer.userName);
+                date.setText(prayer.time);
+
+
+                prayCount.setText("기도 " + prayer.prayCount);
+                replyCount.setText("댓글 "+prayer.replyCount);
+
+
+            setMedia(prayer);
+
+            if(prayer.responseCount == 0){
+                response.setVisibility(View.GONE);
             }
 
+        }
+
+        private void setMedia(Prayer prayer){
+            if(prayer.media==null|| prayer.media.size() == 0){
+                media.setVisibility(View.GONE);
+            }else{
+                MediaPagerAdapter mCustomPagerAdapter = new MediaPagerAdapter(getApplicationContext(),prayer.media);
+                media.setAdapter(mCustomPagerAdapter);
+            }
 
         }
     }
@@ -245,80 +320,6 @@ public class RecentTabActivity extends TabActivityBase {
 
             viewHolder.bind(prayer);
 
-            viewHolder.profile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    System.out.println(prayer.userId+","+Global.me.id);
-                    if(prayer.userId == Global.me.id) {
-                        Intent intent = new Intent(RecentTabActivity.this, MyProfileActivity.class);
-                        startActivityForResult(intent,Global.PROFILE);
-                    }
-                }
-            });
-
-            viewHolder.more.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
-                    intent.putExtra("prayerId",prayer.id);
-                    startActivityForResult(intent, Global.PRAYER);
-                }
-            });
-
-            viewHolder.pray.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(RestService.pray(prayer)) refresh();
-
-                }
-            });
-
-
-            viewHolder.reply.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
-                    intent.putExtra("prayerId",prayer.id);
-                    intent.putExtra("reply",true);
-                    startActivityForResult(intent, Global.PRAYER);
-                }
-            });
-
-
-
-            if(prayer.scrapd != null){
-                viewHolder.buttonContainer.removeView(viewHolder.scrap);
-            }else{
-                viewHolder.scrap.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        prayer.apiKey = Global.apiKey;
-                        Util.rest("prayer/scrap", "POST",prayer, Prayer.class);
-                        refresh();
-                    }
-                });
-            }
-
-            Util.setPicture(prayer.userPicture, viewHolder.picture, getDrawable(R.drawable.ic_person_black_48dp));
-
-            viewHolder.name.setText(itemsData.get(position).userName);
-            viewHolder.date.setText(itemsData.get(position).time);
-            viewHolder.text.setText(itemsData.get(position).back+ "\r\n\r\n"+prayer.text);
-
-            viewHolder.prayCount.setText("기도 " + prayer.prayCount);
-            viewHolder.replyCount.setText("댓글 "+prayer.replyCount);
-
-
-
-
-            if(prayer.media.size() == 0){
-                viewHolder.mediaContainer.setVisibility(View.INVISIBLE);
-                viewHolder.mediaContainer.removeView(viewHolder.media);
-//                viewHolder.media_container.setLayoutParams(new LinearLayout.LayoutParams(0,0));
-//                ((ViewManager)viewHolder.media.getParent()).removeView(viewHolder.media);
-            }
- //           viewHolder.imgViewIcon.setImageResource(itemsData[position].getImageUrl());
-
 
         }
 
@@ -331,5 +332,6 @@ public class RecentTabActivity extends TabActivityBase {
         }
 
     }
+
 
 }

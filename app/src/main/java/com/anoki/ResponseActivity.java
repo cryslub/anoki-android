@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.anoki.common.CallBack;
 import com.anoki.common.DoneState;
 import com.anoki.common.Global;
 import com.anoki.common.RestService;
@@ -21,10 +22,13 @@ import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Reply;
 import com.anoki.pojo.Response;
 
+import org.apmem.tools.layouts.FlowLayout;
 
-public class ResponseActivity extends WriteActivityBase {
+
+public class ResponseActivity extends WriteActivityBase implements PrayerImageFragment.OnFragmentInteractionListener {
 
     private Prayer prayer;
+    private  String pictureId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +98,36 @@ public class ResponseActivity extends WriteActivityBase {
     }
 
     public void photo(View view){
+        Intent photoLibraryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        photoLibraryIntent.setType("image/*");
+        startActivityForResult(photoLibraryIntent, Global.PHOTO);
 
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
+//        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Global.PHOTO:
+                    Util.upload(data.getData(), getContentResolver(), new CallBack() {
+                        @Override
+                        public void success(String id) {
+                            pictureId = id;
+                            FlowLayout flowLayout = (FlowLayout) findViewById(R.id.media_list);
+                            flowLayout.removeAllViews();
+                            Util.addMedia(ResponseActivity.this, id);
+                        }
+                    });
+                    break;
+
+            }
+        }
+    }
+
+    @Override
+    public void onDeleteFragment(String id) {
+        pictureId = null;
+    }
 }

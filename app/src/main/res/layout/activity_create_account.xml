@@ -17,20 +17,16 @@
         android:layout_margin="10dp"
         android:gravity="center"
         >
-        <EditText
+
+        <fragment
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="이메일"
-            android:id="@+id/account"
+            class="com.anoki.EditTextFragment"
+            android:id="@+id/fragment"
+            android:inputType="textEmailAddress"
             android:maxLength="40"
-            android:inputType="textEmailAddress"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_mood_bad_black_24dp"
-            android:alpha=".5"
-            android:id="@+id/account_check"/>
+            android:hint ="이메일"/>
     </LinearLayout>
 
     <TextView
@@ -40,51 +36,24 @@
         android:layout_margin="10dp"/>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        >
         <EditText
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:hint="비밀번호"
             android:id="@+id/pass"
             android:maxLength="40"
-            android:inputType="textPassword"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_mood_bad_black_24dp"
-            android:alpha=".5"
-            android:id="@+id/pass_check"/>
-    </LinearLayout>
+            android:inputType="textPassword"
+            style="@style/EditText"
+            android:layout_marginTop="20dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        >
         <EditText
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:hint="비밀번호 확인"
             android:id="@+id/confirm"
             android:maxLength="40"
-            android:inputType="textPassword"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_mood_bad_black_24dp"
-            android:alpha=".5"
-            android:id="@+id/confirm_check"/>
-    </LinearLayout>
+            android:inputType="textPassword"
+            style="@style/EditText"/>
 
 
 
@@ -105,5 +74,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="다음"
-        android:onClick="confirm"/>
+        android:onClick="confirm"
+        style="@style/ColorButton"/>
 </LinearLayout>

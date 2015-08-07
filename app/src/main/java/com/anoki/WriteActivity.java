@@ -28,6 +28,7 @@ import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 import com.anoki.common.WriteActivityBase;
+import com.anoki.pojo.Media;
 import com.anoki.pojo.Prayer;
 
 import org.apache.http.HttpEntity;
@@ -44,7 +45,10 @@ import org.apmem.tools.layouts.FlowLayout;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WriteActivity extends WriteActivityBase implements PrayerImageFragment.OnFragmentInteractionListener {
 
@@ -52,6 +56,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
     Prayer prayer = new Prayer();
 
+    Map<String,Media> mediaMap = new HashMap<String,Media>();
 
 
     @Override
@@ -118,6 +123,8 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
         prayer.text = text.getText().toString();
         prayer.pub = pub.isChecked()?"Y" : "N";
 
+
+        prayer.media = new ArrayList<Media>(mediaMap.values());
 
         switch (doneState){
             case CLEAR:
@@ -229,19 +236,20 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
         Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(selectedPath, MediaStore.Video.Thumbnails.MICRO_KIND);
 
 
-        Util.uploadBitmap(bitmap, new CallBack(){
+        Util.uploadBitmap(bitmap, new CallBack() {
 
             @Override
             public void success(String id) {
                 try {
-                    uploadVideo(selectedPath,id);
+                    uploadVideo(selectedPath, id);
+                    addMedia(id);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-        });
+        },"V");
 
     }
 
@@ -362,17 +370,21 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
         PrayerImageFragment imageFragment = new PrayerImageFragment();
         imageFragment.setBmp(bmp);
+        imageFragment.setId(id);
 //                    imageFragment.setUri(mUrls[i]);
         fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + id);
         fragTransaction.commit();
 
 
-        flowLayout.addView(rowLayout,layoutParams);
+        flowLayout.addView(rowLayout, layoutParams);
+
+        mediaMap.put(id,new Media(id));
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
+    @Override
+    public void onDeleteFragment(String id) {
+        mediaMap.remove(id);
     }
 }

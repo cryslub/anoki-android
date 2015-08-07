@@ -27,6 +27,7 @@ public class PrayerImageFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private Bitmap bmp;
+    private String id;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -56,6 +57,10 @@ public class PrayerImageFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public void setId(String id){
+        this.id = id;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,18 +87,14 @@ public class PrayerImageFragment extends Fragment {
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mListener.onDeleteFragment(id);
                 getActivity().getFragmentManager().beginTransaction().remove(self).commit();
             }
         });
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -124,7 +125,7 @@ public class PrayerImageFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onDeleteFragment(String id);
     }
 
     public void setBmp(Bitmap bmp) {

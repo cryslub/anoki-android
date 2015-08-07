@@ -60,10 +60,12 @@
 
     <style name="Header" >
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">40dp</item>
-        <item name="android:background">#0099CC</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:background">@color/baltic_sea</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
 
     </style>
 
@@ -73,6 +75,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/medium_turquoise</item>
+
     </style>
 
     <style name="ColorButton" >
@@ -83,14 +88,20 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="EditText" >
+        <item name="android:background">@drawable/gray_border</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:height">35dp</item>
+    </style>
+
     <color name="medium_turquoise">#54c9dc</color>
     <color name="baltic_sea">#3d3d3d</color>
     <color name="white_smoke">#f2f3f3</color>
     <color name="yellow">#FFFF00</color>
     <color name="week">#aaaaaa</color>
     <color name="strong">#666666</color>
-
     <color name="mine_shaft">#393c42</color>
     <color name="flamingo">#e15940</color>
+    <color name="java">#218d9f</color>
 
 </resources>

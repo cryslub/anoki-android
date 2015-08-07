@@ -67,12 +67,14 @@ public class ContactManage {
 
                 Invite response = Util.rest("friend", "POST", invite, Invite.class);
                 int i = 0;
-                for(Integer friendId : response.friends){
+                if(response.friends != null){
+                    for (Integer friendId : response.friends) {
 
-                    if(friendId != null) {
-                        dbManager.insertContactInfo(response.phone.get(i));
+                        if (friendId != null) {
+                            dbManager.insertContactInfo(response.phone.get(i));
+                        }
+                        i++;
                     }
-                    i++;
                 }
             }
 

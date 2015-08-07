@@ -327,7 +327,7 @@ public class GalleryActivity extends WriteActivityBase {
                 ArrayList<Uri> uriList = new ArrayList<Uri>();
                 for (Map.Entry<Integer, Integer> entry : selectionMap.entrySet())
                 {
-                    uriList.add(mUrls[entry.getKey()]);
+                    uriList.add(mUrls[entry.getKey()-1000]);
                 }
                 intent.putExtra("uriList",uriList);
                 setResult(RESULT_OK, intent);
