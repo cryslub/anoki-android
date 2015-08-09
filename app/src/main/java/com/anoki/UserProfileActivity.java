@@ -31,7 +31,9 @@ public class UserProfileActivity extends SubActivityBase {
         Util.setPicture(user.picture+"",profileImage,getResources().getDrawable(R.drawable.ic_person_black_48dp));
 
 
-        setText(R.id.phone, user.phone);
+        setText(R.id.phone, Util.makePhoneNumber(user.country, user.phone));
+
+
 
         setText(R.id.name, user.name);
         setText(R.id.state, user.text);

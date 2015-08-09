@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.anoki.pojo.Account;
+import com.anoki.pojo.Friend;
 import com.anoki.pojo.Phone;
 import com.anoki.pojo.User;
 
@@ -49,8 +50,14 @@ public class DBManager  extends SQLiteOpenHelper {
             account.email = cursor.getString(0);
             account.pass = cursor.getString(1);
 
+
+            cursor.close();
+
             return account;
         }else{
+
+            cursor.close();
+
             return null;
         }
     }
@@ -67,10 +74,11 @@ public class DBManager  extends SQLiteOpenHelper {
             contactMap.put(cursor.getString(0), cursor.getString(0));
         }
 
+        cursor.close();
         return contactMap;
     }
 
-    public void insertContactInfo(Phone phone){
-        db.execSQL("INSERT INTO CONTACT (PHONE) VALUES('"+phone.number+"')");
+    public void insertContactInfo(Friend friend){
+        db.execSQL("INSERT INTO CONTACT (PHONE) VALUES('"+friend.phone+"')");
     }
 }

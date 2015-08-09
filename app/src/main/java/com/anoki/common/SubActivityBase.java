@@ -15,7 +15,7 @@ import com.anoki.pojo.User;
 /**
  * Created by Administrator on 2015-07-10.
  */
-public class SubActivityBase extends ActionBarActivity {
+public class SubActivityBase extends ActivityBase {
 
     protected MenuItem doneMenu;
     protected DoneState doneState = DoneState.CLEAR;
@@ -27,6 +27,7 @@ public class SubActivityBase extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -51,9 +52,8 @@ public class SubActivityBase extends ActionBarActivity {
 
 
     protected void succeed(){
-        Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
-        onBackPressed();
+        setResult(RESULT_OK, null);
+        finish();
     }
 
     protected void setText(int id,String text){

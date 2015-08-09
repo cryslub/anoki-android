@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.anoki.common.CallBack;
 import com.anoki.common.CircleImageView;
+import com.anoki.common.ContactManage;
 import com.anoki.common.Global;
 import com.anoki.common.Util;
 import com.anoki.pojo.Response;
@@ -93,6 +94,7 @@ public class SetNameActivity extends Activity {
 
         if("0".equals(response.result)) {
 
+            user.id = response.id;
             Global.me = user;
             Global.apiKey = response.apiKey;
             Global.me.apiKey = response.apiKey;
@@ -100,6 +102,8 @@ public class SetNameActivity extends Activity {
             //DB에 계정정보 저장
             final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
             dbManager.setAccount(user.account,user.pass);
+
+            ContactManage.checkContact(getContentResolver(), getApplicationContext());
 
             //최근 화면으로
             Intent intent = new Intent(SetNameActivity.this, RecentActivity.class);

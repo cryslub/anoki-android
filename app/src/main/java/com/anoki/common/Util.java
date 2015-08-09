@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,9 +24,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.anoki.PrayerImageFragment;
 import com.anoki.R;
+import com.anoki.ZoomInActivity;
+import com.anoki.pojo.Media;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
 import com.anoki.pojo.User;
@@ -243,15 +247,23 @@ public class Util {
 
     }
 
-    public static void setPicture(String picture,ImageView view,Drawable def){
+    public static Bitmap setPicture(String picture,ImageView view){
+        return setPicture(picture,view,null);
+    }
+
+    public static Bitmap setPicture(String picture,ImageView view,Drawable def){
         if(!"null".equals(picture) && picture!=null && !"0".equals(picture) ) {
             Bitmap bmp = Util.fetchImage(picture+"");
             view.setImageBitmap(bmp);
             view.setAlpha(1.0f);
+            return bmp;
         }else{
-            view.setImageDrawable(def);
-            view.setAlpha(.5f);
+            if(def != null) {
+                view.setImageDrawable(def);
+                view.setAlpha(.5f);
+            }
         }
+        return null;
     }
 
 
@@ -401,5 +413,51 @@ public class Util {
 
         flowLayout.addView(rowLayout, layoutParams);
 
+    }
+
+
+    public static void setMediaView(View itemView, Media media){
+        ImageView imageView = (ImageView) itemView.findViewById(R.id.image);
+        VideoView videoView = (VideoView) itemView.findViewById(R.id.video);
+
+
+
+        if("I".equals(media.type)){
+            final Bitmap bmp = Util.setPicture(media.id, imageView, null);
+            imageView.setVisibility(View.VISIBLE);
+            videoView.setVisibility(View.GONE);
+
+
+        }else{
+
+            String path = "http://anoki.co.kr/anoki/images/video/"+media.id;
+            Uri uri=Uri.parse(path);
+
+            System.out.println(path);
+
+            videoView.setVideoURI(uri);
+
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    // TODO Auto-generated method stub
+                    mp.setLooping(true);
+                    mp.start();
+                }
+            });
+
+            videoView.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.GONE);
+
+
+        }
+
+    }
+
+    public static  void zoom(Media media,Activity activity){
+        Intent intent = new Intent(activity, ZoomInActivity.class);
+        intent.putExtra("media", media);
+        activity.startActivity(intent);
     }
 }

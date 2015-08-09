@@ -1,11 +1,13 @@
 package com.anoki.common;
 
+import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import com.anoki.DBManager;
+import com.anoki.pojo.Friend;
 import com.anoki.pojo.Invite;
 import com.anoki.pojo.Phone;
 import com.anoki.pojo.Response;
@@ -20,18 +22,17 @@ import java.util.Map;
 public class ContactManage {
 
 
-    public static void checkContact(ContentResolver contentResolver,Context context) {
-
+    public static List<Friend> getUnfriendContact(ContentResolver contentResolver,Context context) {
         final DBManager dbManager = new DBManager(context, "Anoki.db", null, 1);
+        List<Friend> addList = new ArrayList<Friend>();
 
-
-        Map<String,String> contactMap = dbManager.getContactMap();
+        Map<String, String> contactMap = dbManager.getContactMap();
 
         Cursor cur = contentResolver.query(ContactsContract.Contacts.CONTENT_URI,
                 null, null, null, null);
         if (cur.getCount() > 0) {
 
-            List<Phone> addList = new ArrayList<Phone>();
+
 
             while (cur.moveToNext()) {
                 String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
@@ -46,12 +47,14 @@ public class ContactManage {
 
 
                     while (pCur.moveToNext()) {
-                        Phone phone = new Phone();
-                        phone.number = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        Friend friend = new Friend();
+                        friend.phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        friend.name = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                        friend.picture = pCur.getInt(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_ID)) + "";
 
-                        if(contactMap.get(phone.number)==null){
+                        if (contactMap.get(friend.phone) == null) {
 
-                            addList.add(phone);
+                            addList.add(friend);
                         }
 
                     }
@@ -60,25 +63,37 @@ public class ContactManage {
                     pCur.close();
                 }
             }
+        }
 
-            if(addList.size()>0){
-                Invite invite = new Invite();
-                invite.phone = addList;
 
-                Invite response = Util.rest("friend", "POST", invite, Invite.class);
-                int i = 0;
-                if(response.friends != null){
-                    for (Integer friendId : response.friends) {
+        return addList;
+    }
 
-                        if (friendId != null) {
-                            dbManager.insertContactInfo(response.phone.get(i));
-                        }
-                        i++;
+    public static void checkContact(ContentResolver contentResolver,Context context) {
+
+        final DBManager dbManager = new DBManager(context, "Anoki.db", null, 1);
+
+        List<Friend> addList = getUnfriendContact(contentResolver,context);
+
+        System.out.println("add list size - "+addList.size());
+        if(addList.size()>0){
+            Invite invite = new Invite();
+            invite.phone = addList;
+
+            Invite response = Util.rest("friend", "POST", invite, Invite.class);
+            int i = 0;
+            if(response.friends != null){
+                for (Integer friendId : response.friends) {
+
+                    if (friendId != null) {
+                        dbManager.insertContactInfo(response.phone.get(i));
                     }
+                    i++;
                 }
             }
-
         }
+
     }
+
 
 }

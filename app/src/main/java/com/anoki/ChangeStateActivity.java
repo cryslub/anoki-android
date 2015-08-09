@@ -13,9 +13,10 @@ import com.anoki.common.DoneState;
 import com.anoki.common.Global;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
+import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.Response;
 
-public class ChangeStateActivity extends SubActivityBase  implements EditTextFragment.OnFragmentInteractionListener{
+public class ChangeStateActivity extends WriteActivityBase implements EditTextFragment.OnFragmentInteractionListener{
     EditText editText;
 
     @Override

@@ -156,37 +156,7 @@ public class RecentTabActivity extends TabActivityBase {
                 popup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println("popup");
-                        PopupMenu popupMenu = new PopupMenu(RecentTabActivity.this, popup);
-                        //Inflating the Popup using xml file
-                        popupMenu.getMenuInflater()
-                                .inflate(R.menu.menu_popup, popupMenu.getMenu());
-
-
-                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            public boolean onMenuItemClick(MenuItem item) {
-                                switch (item.getItemId()) {
-                                    case R.id.message:
-                                        break;
-                                    case R.id.profile: {
-                                        Intent intent = new Intent(RecentTabActivity.this, UserProfileActivity.class);
-                                        intent.putExtra("userId", prayer.userId);
-                                        startActivity(intent);
-                                    }
-                                    break;
-                                    case R.id.prayer: {
-                                        Intent intent = new Intent(RecentTabActivity.this, UserPrayerListActivity.class);
-                                        intent.putExtra("userId", prayer.userId);
-                                        startActivity(intent);
-                                    }
-                                    break;
-
-                                }
-                                return true;
-                            }
-                        });
-
-                        popupMenu.show();
+                       showPopupMenu(prayer,popup);
                     }
                 });
 
@@ -203,11 +173,7 @@ public class RecentTabActivity extends TabActivityBase {
                 profile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println(prayer.userId + "," + Global.me.id);
-                        if (prayer.userId == Global.me.id) {
-                            Intent intent = new Intent(RecentTabActivity.this, MyProfileActivity.class);
-                            startActivityForResult(intent,Global.PROFILE);
-                        }
+                        myProfile(prayer);
                     }
                 });
 
@@ -268,16 +234,21 @@ public class RecentTabActivity extends TabActivityBase {
 
             if(prayer.responseCount == 0){
                 response.setVisibility(View.GONE);
+            }else{
+                response.setVisibility(View.VISIBLE);
             }
 
         }
 
         private void setMedia(Prayer prayer){
             if(prayer.media==null|| prayer.media.size() == 0){
+
                 media.setVisibility(View.GONE);
             }else{
-                MediaPagerAdapter mCustomPagerAdapter = new MediaPagerAdapter(getApplicationContext(),prayer.media);
+                MediaPagerAdapter mCustomPagerAdapter = new MediaPagerAdapter(RecentTabActivity.this,prayer.media);
+                media.setVisibility(View.VISIBLE);
                 media.setAdapter(mCustomPagerAdapter);
+
             }
 
         }

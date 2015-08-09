@@ -88,6 +88,9 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
         text.addTextChangedListener(textWatcher);
 
 
+        getFragmentManager().beginTransaction().commitAllowingStateLoss();
+
+
     }
 
 
@@ -387,4 +390,10 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
     public void onDeleteFragment(String id) {
         mediaMap.remove(id);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
+    }
+
 }

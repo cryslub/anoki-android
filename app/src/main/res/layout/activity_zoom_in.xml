@@ -9,5 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/image"/>
-
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/video"
+        android:layout_gravity="center"
+        android:gravity="center"/>
 </RelativeLayout>

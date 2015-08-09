@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.anoki.common.ContactManage;
 import com.anoki.common.RestService;
 import com.anoki.pojo.Response;
 
@@ -50,6 +51,8 @@ public class LoginActivity extends Activity {
         if("0".equals(response.result)){
             final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
             dbManager.setAccount(accountText,passText);
+
+            ContactManage.checkContact(getContentResolver(), getApplicationContext());
 
             //최근 화면으로
             Intent intent = new Intent(LoginActivity.this, RecentActivity.class);

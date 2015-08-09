@@ -150,7 +150,7 @@ public class ChargeActivity extends SubActivityBase {
         int total = prayer.getTotal();
         int ex = total - Global.FREE_FRIENDS_COUNT;
 
-        if(Global.me.dalant < ex*100){
+        if(Global.me.dalant < ex*10){
 
         }else {
 

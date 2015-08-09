@@ -20,6 +20,7 @@ import android.view.ViewPropertyAnimator;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,6 +33,7 @@ import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 import com.anoki.pojo.Friend;
+import com.anoki.pojo.Media;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Reply;
 import com.anoki.pojo.Response;
@@ -133,19 +135,11 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         if(intent.getBooleanExtra("reply", false)){
 
-            EditText replyText = (EditText) findViewById(R.id.reply_text);
-            replyText.requestFocus();
-
-            LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
-            replyList.setVisibility(View.VISIBLE);
-
-            LinearLayout reply = (LinearLayout) findViewById(R.id.reply);
-            reply.setVisibility(View.VISIBLE);
-
+            showReplyContainer(null);
 
         }
 
-        setMediaList();
+      //  setMediaList();
     }
 
 
@@ -156,7 +150,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         if(prayer.media==null|| prayer.media.size() == 0){
             media.setVisibility(View.GONE);
         }else{
-            MediaPagerAdapter mCustomPagerAdapter = new MediaPagerAdapter(getApplicationContext(),prayer.media);
+            MediaPagerAdapter mCustomPagerAdapter = new MediaPagerAdapter(PrayerDetailActivity.this,prayer.media);
             media.setAdapter(mCustomPagerAdapter);
         }
 
@@ -201,6 +195,10 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
             TextView complete = (TextView) findViewById(R.id.complete);
             complete.setVisibility(View.GONE);
 
+            ImageButton popup = (ImageButton) findViewById(R.id.popup);
+
+            popup.setVisibility(View.VISIBLE);
+
 //            buttonContainer.removeView(complete);
 
         }
@@ -214,14 +212,48 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         if(prayer.reply.size() > 0) {
             LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
-            int i = 0;
-            addReply(prayer.reply.get(0), i++);
+            int i = 2000;
 
             for (Reply reply : prayer.reply) {
 
                 addReply(reply, i++);
             }
         }
+
+        if(prayer.media != null) {
+            for (Media media : prayer.media) {
+                addMedia(media);
+            }
+        }
+
+        if(Integer.parseInt(prayer.replyCount) == 0){
+            LinearLayout showReply = (LinearLayout) findViewById(R.id.show_reply);
+            showReply.setVisibility(View.GONE);
+        }
+
+    }
+
+
+
+    private void addMedia(final Media media){
+        LinearLayout mediaList = (LinearLayout) findViewById(R.id.media);
+
+
+        LayoutInflater mLayoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View itemView = mLayoutInflater.inflate(R.layout.layout_prayer_image, mediaList);
+        View itemView  = getLayoutInflater().inflate(R.layout.layout_prayer_image, null);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.zoom(media, PrayerDetailActivity.this);
+            }
+        });
+
+        mediaList.addView(itemView);
+
+        Util.setMediaView(itemView,media);
+
+
 
     }
 
@@ -254,6 +286,9 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         return true;
     }
 
+    public void profile(View view){
+        myProfile(prayer);
+    }
 
     public void pray(View view){
 
@@ -289,6 +324,17 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         LinearLayout container = (LinearLayout) findViewById(R.id.reply_container);
         container.setVisibility(View.VISIBLE);
 
+    }
+
+
+    public void friendFunction(View view){
+        showPopupMenu(prayer, view);
+    }
+
+    public void responseList(View view){
+        Intent intent = new Intent(PrayerDetailActivity.this, ResponseListActivity.class);
+        intent.putExtra("prayer",prayer);
+        startActivity(intent);
     }
 
     @Override

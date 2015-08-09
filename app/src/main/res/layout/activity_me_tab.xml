@@ -45,7 +45,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/text"
                     android:textColor="@color/week"
-                    android:text="행복은 가까이"
                     android:textSize="10sp"
                     android:layout_marginLeft="10dp"
                     />

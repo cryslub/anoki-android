@@ -1,77 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.anoki.UserPrayerListActivity"
     android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/profile">
+        android:gravity="center_vertical"
+        android:id="@+id/profile"
+        android:onClick="profile"
+        android:background="@color/mine_shaft"
+        android:padding="10dp">
 
         <com.anoki.common.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:id="@+id/picture"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_person_black_48dp"
             android:alpha=".5"
             />
 
-
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1">
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:textColor="#000000"
-                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
                 android:id="@+id/name"
-                android:text="최영범"/>
+                android:text="최영범"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#888888"
                 android:id="@+id/text"
-                android:text="상태메시지"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#888888"
-                android:id="@+id/phone"
-                android:text="연락처"/>
-
+                android:textColor="@color/week"
+                android:textSize="10sp"
+                android:layout_marginLeft="10dp"
+                />
         </LinearLayout>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_forum_black_24dp"
-            android:layout_gravity="right"
-            android:layout_margin="10dp"
-            android:background="@android:color/transparent"
-            android:alpha=".5"
-            />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#444444"
-        >
+        android:layout_height="23dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:layout_margin="0dp">
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:text="기도제목"
-            android:background="#444444"
-            android:layout_margin="5dp"
-            android:textColor="@android:color/white"/>
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="11sp"/>
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="32dp"
+            android:text="편집"
+            android:textSize="9sp"
+            android:onClick="edit"
+            android:layout_marginRight="10dp" />
 
     </LinearLayout>
 
@@ -83,5 +84,4 @@
         android:layout_height="match_parent"
         tools:context=".UserPrayerListActivity"
         />
-
 </LinearLayout>

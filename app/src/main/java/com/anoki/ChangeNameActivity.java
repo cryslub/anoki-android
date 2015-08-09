@@ -14,10 +14,11 @@ import com.anoki.common.Global;
 import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
+import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.Response;
 import com.google.android.gms.games.Notifications;
 
-public class ChangeNameActivity extends SubActivityBase implements EditTextFragment.OnFragmentInteractionListener{
+public class ChangeNameActivity extends WriteActivityBase implements EditTextFragment.OnFragmentInteractionListener{
 
     EditText editText;
 

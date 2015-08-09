@@ -39,6 +39,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anoki.common.ContactManage;
 import com.anoki.common.DoneState;
 import com.anoki.common.Global;
 import com.anoki.common.RestService;
@@ -46,6 +47,7 @@ import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.Friend;
+import com.anoki.pojo.Phone;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
 import com.google.gson.reflect.TypeToken;
@@ -81,9 +83,19 @@ public class ChooseFriendsActivity extends WriteActivityBase {
     private static final char HANGUL_LAST_UNICODE = 55203; // 힣
     private static final char HANGUL_BASE_UNIT = 588;//각자음 마다 가지는 글자수
 
+    private static final char[] INITIAL_SOUND = { 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'};
+    private static Map<Character,Character> initialSoundMap = new HashMap<Character,Character>();
+
+
     private static final String[] PHOTO_BITMAP_PROJECTION = new String[] {
             ContactsContract.CommonDataKinds.Photo.PHOTO
     };
+
+    static{
+        for(char c : INITIAL_SOUND){
+            initialSoundMap.put(c,c);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +110,7 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
         setFriendList();
         setContactList();
+
 
     }
 
@@ -163,7 +176,7 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
 
         ListView listView = (ListView) findViewById(R.id.selected_list);
-        selectedAdapter = new SelectedAdapter(this, android.R.layout.simple_list_item_1,new ArrayList<Friend>());
+        selectedAdapter = new SelectedAdapter(this, android.R.layout.simple_list_item_1, new ArrayList<Friend>());
         // 4. set adapter
         listView.setAdapter(selectedAdapter);
 
@@ -202,50 +215,39 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
     private List <Object> getContactList(){
 
-        final char[] INITIAL_SOUND = { 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'};
+
+        List<Friend> addList= ContactManage.getUnfriendContact(getContentResolver(), getApplicationContext());
+
+
+        System.out.println("add list size - " + addList.size());
 
         List <Object> contactList = new ArrayList < Object> ();
 
         int initialIndex = -1;
 
+        for(Friend friend : addList){
 
-        contentResolver  = getContentResolver();
-        Cursor cur = contentResolver.query(ContactsContract.Contacts.CONTENT_URI,
-                null, null, null, ContactsContract.Contacts.DISPLAY_NAME + " ASC");
-        if (cur.getCount() > 0) {
-            while (cur.moveToNext()) {
-                String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-                String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                if (Integer.parseInt(cur.getString(
-                        cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                    Cursor pCur = contentResolver.query(
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                            new String[]{id}, null);
-                    while (pCur.moveToNext()) {
-                        Friend friend = new Friend();
-                        friend.phone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        friend.name = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                        friend.picture = pCur.getInt(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_ID)) + "";
 
-                        char first = friend.name.charAt(0);
-                        if(isHangul(first)) {
-                            int index =getInitialSound(first);
-                            if(index >initialIndex){
-                                contactList.add(INITIAL_SOUND[index]+"");
-                                initialIndex = index;
-                            }
-                        }
-
-                        contactList.add(friend);
-                    }
-                    pCur.close();
+            char first = friend.name.charAt(0);
+            if(isHangul(first)) {
+                int index =getInitialSound(first);
+                if(index >initialIndex){
+                    contactList.add(INITIAL_SOUND[index]+"");
+                    initialIndex = index;
                 }
             }
+
+            contactList.add(friend);
         }
+        System.out.println("contactList size - " + contactList.size());
 
         return contactList;
+    }
+
+    private static boolean isInitialSound(char searchar){
+        Character c = initialSoundMap.get(searchar);
+
+        return c!=null;
     }
 
     private static int getInitialSound(char c) {
@@ -307,9 +309,8 @@ public class ChooseFriendsActivity extends WriteActivityBase {
                             .setNegativeButton("아니오", null)
                             .show();*/
                 }else {
-
-                    Intent intent = Util.inviteIntent(prayer);
-                    startActivityForResult(intent, Global.SMS);
+                    RestService.makePrayer(prayer);
+                    succeed();
 
                 }
             }
@@ -390,13 +391,21 @@ public class ChooseFriendsActivity extends WriteActivityBase {
             showDialog(CHARGE_DIALOG);
         }else {
 
-            charge();
+            billing();
         }
 
     }
 
     private void charge(){
         Intent intent = new Intent(ChooseFriendsActivity.this, ChargeActivity.class);
+        intent.putExtra("prayer", prayer);
+        startActivityForResult(intent, Global.PAY);
+    }
+
+
+    private void billing(){
+        Intent intent = new Intent(ChooseFriendsActivity.this, BillingActivity.class);
+
         intent.putExtra("prayer", prayer);
         startActivityForResult(intent, Global.PAY);
     }
@@ -460,14 +469,49 @@ public class ChooseFriendsActivity extends WriteActivityBase {
             notifyDataSetChanged();
         }
 
+        protected char getQueryCharacter(String queryText){
+            char queryCharacter = ' ';
+            if(queryText.length()>0){
+                char c = queryText.charAt(0);
+                if(isInitialSound(queryCharacter)){
+                    queryCharacter = c;
+                }
+            }
+
+            return queryCharacter;
+        }
+
         public void setFilter(String queryText) {
 
-            visibleObjects = new ArrayList<>();
+            char queryCharacter = getQueryCharacter(queryText);
+
+            visibleObjects = new ArrayList<Friend>();
+            boolean isInitial = false;
             for (Friend item: allObjects) {
-                if(item.name.contains(queryText) || item.phone.contains(queryText))
+                if(checkFilter(queryText,queryCharacter,item))
                     visibleObjects.add(item);
+
+
             }
             notifyDataSetChanged();
+        }
+
+
+        protected boolean checkFilter(String queryText,char queryCharacter,Friend item){
+            if(queryCharacter == ' '){
+
+                if (item.name.contains(queryText) || item.phone.contains(queryText)) {
+                    return true;
+                }
+
+            }else {
+                char c = item.name.charAt(0);
+                if(queryCharacter == INITIAL_SOUND[getInitialSound(c)]){
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // Create new views (invoked by the layout manager)
@@ -544,6 +588,33 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
             this.allObjects = itemsData;
             this.visibleObjects = itemsData;
+        }
+
+
+        public void flushFilter(){
+            visibleObjects=new ArrayList<>();
+            visibleObjects.addAll(allObjects);
+            notifyDataSetChanged();
+        }
+
+        public void setFilter(String queryText) {
+
+
+            char queryCharacter = getQueryCharacter(queryText);
+
+
+            visibleObjects = new ArrayList<>();
+            for (Object item: allObjects) {
+                if(item instanceof Friend) {
+                    Friend friend = (Friend) item;
+
+                    if(checkFilter(queryText,queryCharacter,friend))
+                        visibleObjects.add(item);
+
+
+                }
+            }
+            notifyDataSetChanged();
         }
 
         @Override
@@ -637,7 +708,12 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
         }
 
-
+        public int getItemCount() {
+///            System.out.println(visibleObjects.size());
+            if(visibleObjects !=null)
+                return visibleObjects.size();
+            else return  0;
+        }
 
     }
 

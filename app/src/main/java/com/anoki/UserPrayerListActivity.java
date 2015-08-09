@@ -49,7 +49,7 @@ public class UserPrayerListActivity extends SubActivityBase implements PrayerAda
 
         if(user.text != null)
             setText(R.id.text, "상태메시지 " + user.text);
-        setText(R.id.phone, "연락처 " +user.phone);
+       // setText(R.id.phone, "연락처 " +user.phone);
 
         getSupportActionBar().setTitle(user.name);
 

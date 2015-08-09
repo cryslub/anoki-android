@@ -46,10 +46,10 @@ public class BillingActivity extends SubActivityBase {
 
 
         TextView sum = (TextView)findViewById(R.id.sum);
-        sum.setText("총 "+ex+"명 ("+ex+"명 X 10 달란트)");
+        sum.setText("총 "+ex+"명 ("+ex+"명 X "+Global.DALANT_PER_PERSON+" 달란트)");
 
         TextView price = (TextView)findViewById(R.id.price);
-        price.setText( (ex*10)+ "달란트");
+        price.setText( (ex*Global.DALANT_PER_PERSON)+ "달란트");
 
     }
 
@@ -58,28 +58,12 @@ public class BillingActivity extends SubActivityBase {
         int total = prayer.friends.size() + prayer.phone.size();
         int ex = total - Global.FREE_FRIENDS_COUNT;
 
-        prayer.dalant = ex *10;
+        prayer.dalant = ex *Global.DALANT_PER_PERSON;
 
-        Intent intent = Util.inviteIntent(prayer);
-        startActivityForResult(intent, Global.SMS);
+//        Intent intent = Util.inviteIntent(prayer);
+//        startActivityForResult(intent, Global.SMS);
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            switch (requestCode){
-                case Global.SMS:
-
-                    RestService.makePrayer(prayer);
-                    break;
-            }
-            succeed();
-        }
-    }
 
 }

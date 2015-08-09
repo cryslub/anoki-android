@@ -17,7 +17,7 @@ import com.anoki.WriteActivity;
 /**
  * Created by Administrator on 2015-07-08.
  */
-public abstract  class TabActivityBase extends AppCompatActivity {
+public abstract  class TabActivityBase extends ActivityBase {
 
 
 
