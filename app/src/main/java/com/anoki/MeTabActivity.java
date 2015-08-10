@@ -24,13 +24,12 @@ public class MeTabActivity extends TabActivityBase implements PrayerAdapter.OnPr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_me_tab);
 
-
     }
+
 
     @Override
     protected void onStart() {
         super.onStart();
-        System.out.println("onStart");
 
         load();
     }
@@ -70,5 +69,10 @@ public class MeTabActivity extends TabActivityBase implements PrayerAdapter.OnPr
     @Override
     public boolean showPicture() {
         return false;
+    }
+
+    @Override
+    public void onScrap() {
+        load();
     }
 }

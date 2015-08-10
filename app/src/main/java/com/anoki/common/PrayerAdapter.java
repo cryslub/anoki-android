@@ -1,6 +1,7 @@
 package com.anoki.common;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anoki.PrayerDetailActivity;
 import com.anoki.R;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
@@ -27,6 +29,8 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
     protected List<Prayer> visibleObjects;
     protected List<Prayer> allObjects;
     private Activity parentActivity;
+    private int owner;
+
 
     public void setFilter(String queryText) {
         visibleObjects = new ArrayList<>();
@@ -39,6 +43,8 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+
+        View view;
 
         ImageView picture;
         TextView name;
@@ -58,6 +64,7 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
 
+            view = itemLayoutView;
             name = (TextView) itemLayoutView.findViewById(R.id.name);
             text = (TextView) itemLayoutView.findViewById(R.id.text);
             date = (TextView) itemLayoutView.findViewById(R.id.date);
@@ -82,6 +89,7 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
             prayCount.setText(prayer.prayCount);
             replyCount.setText(prayer.replyCount);
 
+
             if((prayer.userId != Global.me.id) && ("null".equals(prayer.scrapd) || prayer.scrapd == null)){
                 pray.setVisibility(View.GONE);
             }else{
@@ -102,7 +110,9 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
             scrap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Util.rest("prayer/scrap","POST",prayer,Response.class);
+                    prayer.apiKey = Global.apiKey;
+                    Util.rest("prayer/scrap", "POST", prayer, Response.class);
+                    ((OnPrayListener) parentActivity).onScrap();
                 }
             });
 
@@ -110,8 +120,18 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
                 name.setText(prayer.userName);
                 Util.setPicture(prayer.userPicture, picture, parentActivity.getResources().getDrawable(R.drawable.ic_person_black_48dp));
             }else{
-                container.removeView(name);
+                name.setVisibility(View.GONE);
+                picture.setVisibility(View.GONE);
             }
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Common.showPrayerDetail(parentActivity, prayer);
+
+                }
+            });
 
         }
     }
@@ -174,6 +194,7 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
     public interface OnPrayListener{
         public void onPray();
         public boolean showPicture();
+        public void onScrap();
     }
 
 

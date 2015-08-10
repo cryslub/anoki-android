@@ -20,7 +20,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:logo="@drawable/logo_white_small">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -57,9 +58,9 @@
         </activity>
         <activity
             android:name=".RecentActivity"
-            android:label="ANOKI"
             android:theme="@style/CustomActionBarTheme"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:icon="@drawable/logo_white_small" >
         </activity>
         <activity
             android:name=".AlarmListActivity"
@@ -74,12 +75,10 @@
             android:label="글쓰기" >
         </activity>
         <activity
-            android:name=".MeTabActivity"
-            android:label="@string/app_name" >
+            android:name=".MeTabActivity" >
         </activity>
         <activity
-            android:name=".RecentTabActivity"
-            android:label="@string/app_name" >
+            android:name=".RecentTabActivity" >
         </activity>
         <activity
             android:name=".UserProfileActivity"
@@ -151,7 +150,7 @@
         </activity>
         <activity
             android:name=".FriendTabActivity"
-            android:label="@string/title_activity_friend_tab" >
+ >
         </activity>
         <activity
             android:name=".ForgotActivity"
@@ -171,7 +170,7 @@
         </activity>
         <activity
             android:name=".MoreTabActivity"
-            android:label="@string/title_activity_more_tab" >
+>
         </activity>
         <activity
             android:name=".ResponseListActivity"

@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -88,6 +89,7 @@ public class ResponseActivity extends WriteActivityBase implements PrayerImageFr
                 reply.type = "R";
                 reply.text = text.getText().toString();
                 reply.pub = pub.isChecked()?"Y" : "N";
+                reply.picture = pictureId;
 
                 Util.rest("prayer/reply","POST",reply,Response.class);
 
@@ -115,7 +117,7 @@ public class ResponseActivity extends WriteActivityBase implements PrayerImageFr
                         @Override
                         public void success(String id) {
                             pictureId = id;
-                            FlowLayout flowLayout = (FlowLayout) findViewById(R.id.media_list);
+                            ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
                             flowLayout.removeAllViews();
                             Util.addMedia(ResponseActivity.this, id);
                         }

@@ -33,6 +33,8 @@ import java.util.List;
 
 public class UserPrayerListActivity extends SubActivityBase implements PrayerAdapter.OnPrayListener{
 
+    private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,18 +43,28 @@ public class UserPrayerListActivity extends SubActivityBase implements PrayerAda
 
         Intent intent = getIntent();
 
-        int id = intent.getIntExtra("userId", -1);
+        id = intent.getIntExtra("userId", -1);
 
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        load();
+    }
+
+    private void load(){
         User user = Util.setPrayerListPage(this,id);
 
 
 
         if(user.text != null)
             setText(R.id.text, "상태메시지 " + user.text);
-       // setText(R.id.phone, "연락처 " +user.phone);
+        // setText(R.id.phone, "연락처 " +user.phone);
 
         getSupportActionBar().setTitle(user.name);
-
 
     }
 
@@ -66,11 +78,25 @@ public class UserPrayerListActivity extends SubActivityBase implements PrayerAda
 
     @Override
     public void onPray() {
-        reload();
+        load();
     }
 
     @Override
     public boolean showPicture() {
         return false;
+    }
+
+    @Override
+    public void onScrap() {
+        load();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if(resultCode == RESULT_OK) {
+            load();
+        }
     }
 }

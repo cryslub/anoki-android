@@ -23,6 +23,14 @@ public class MoreTabActivity extends TabActivityBase {
         setUserInfo(Global.me);
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        setUserInfo(Global.me);
+    }
+
     protected void setUserInfo(User user){
         ImageView profileImage = (ImageView) findViewById(R.id.picture);
         Util.setPicture(user.picture + "", profileImage, getResources().getDrawable(R.drawable.ic_person_black_48dp));
@@ -34,10 +42,7 @@ public class MoreTabActivity extends TabActivityBase {
 
     }
 
-    @Override
-    protected void refresh() {
 
-    }
 
     public void profile(View view){
         Intent intent = new Intent(MoreTabActivity.this, MyProfileActivity.class);

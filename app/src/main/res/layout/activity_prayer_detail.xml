@@ -279,7 +279,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:gravity="center_vertical"
-                    android:visibility="gone"
                     android:id="@+id/reply">
 
                     <com.anoki.common.CircleImageView

@@ -2,6 +2,7 @@ package com.anoki.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -28,6 +29,13 @@ public abstract  class TabActivityBase extends ActivityBase {
         return true;
     }
 
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+
+        setTitle();
+    }
+
     public void alarm(MenuItem item){
         Intent intent = new Intent(this, AlarmListActivity.class);
         startActivity(intent);
@@ -45,20 +53,18 @@ public abstract  class TabActivityBase extends ActivityBase {
         startActivityForResult(intent, Global.WRITE);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            //refresh
-            refresh();
-        }
-    }
 
-    abstract  protected void refresh();
 
 
     protected void setText(int id,String text){
         TextView name = (TextView) findViewById(id);
         name.setText(text);
+    }
+
+    protected void setTitle(){
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(R.layout.actionbar_custom_view_home);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
     }
 }

@@ -39,6 +39,7 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_tab);
 
+
         TabHost myTabHost=(TabHost) findViewById(R.id.tabHost); // Before adding tabs, it is imperative to call the method setup()
         myTabHost.setup(); // Adding tabs // tab1 settings
         myTabHost.addTab(myTabHost.newTabSpec("tab_creation").setIndicator("친구기도").setContent(R.id.scraped));
@@ -49,6 +50,14 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
         load();
 
 
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        load();
     }
 
 
@@ -105,7 +114,6 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
 
     }
 
-    @Override
     protected void refresh() {
 
     }
@@ -119,5 +127,10 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
     @Override
     public boolean showPicture() {
         return true;
+    }
+
+    @Override
+    public void onScrap() {
+        load();
     }
 }

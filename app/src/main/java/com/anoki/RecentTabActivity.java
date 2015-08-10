@@ -1,5 +1,6 @@
 package com.anoki;
 
+import android.support.v7.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.anoki.common.Common;
 import com.anoki.common.MediaPagerAdapter;
 import com.anoki.common.RestService;
 import com.anoki.common.TabActivityBase;
@@ -43,6 +45,7 @@ public class RecentTabActivity extends TabActivityBase {
         setContentView(R.layout.activity_recent_tab);
 
 
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
 
@@ -59,6 +62,14 @@ public class RecentTabActivity extends TabActivityBase {
 
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        refresh();
+    }
+
     private void setRecentList(){
         Type listType = new TypeToken<ArrayList<Prayer>>() {}.getType();
 
@@ -73,7 +84,8 @@ public class RecentTabActivity extends TabActivityBase {
 
 
 
-    @Override
+
+
     protected void refresh() {
 
         setRecentList();
@@ -180,9 +192,7 @@ public class RecentTabActivity extends TabActivityBase {
                 more.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
-                        intent.putExtra("prayerId", prayer.id);
-                        startActivityForResult(intent, Global.PRAYER);
+                        Common.showPrayerDetail(RecentTabActivity.this,prayer);
                     }
                 });
 

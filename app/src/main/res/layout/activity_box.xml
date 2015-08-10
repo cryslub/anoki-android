@@ -69,24 +69,18 @@
                             android:background="@drawable/gray_border">
 
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="match_parent"
                                 android:text="1개월"
-                                android:gravity="center"
                                 android:onClick="oneMonth"
+                                style="@style/Period"
                                 />
                             <View
                                 android:layout_width="0.5dp"
                                 android:layout_height="match_parent"
                                 android:background="#aaaaaa"/>
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="match_parent"
                                 android:text="3개월"
-                                android:gravity="center"
                                 android:onClick="threeMonth"
+                                style="@style/Period"
 
                                 />
                             <View
@@ -94,12 +88,9 @@
                                 android:layout_height="match_parent"
                                 android:background="#aaaaaa"/>
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="match_parent"
                                 android:text="6개월"
-                                android:gravity="center"
                                 android:onClick="sixMonth"
+                                style="@style/Period"
 
                                 />
                             <View
@@ -107,12 +98,9 @@
                                 android:layout_height="match_parent"
                                 android:background="#aaaaaa"/>
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="match_parent"
                                 android:text="1년"
-                                android:gravity="center"
                                 android:onClick="oneYear"
+                                style="@style/Period"
 
                                 />
 
@@ -124,15 +112,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp">
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="35dp"
-                                android:inputType="date"
                                 android:id="@+id/start"
-                                android:editable="false"
                                 android:text="2015-5-30"
-                                android:gravity="center"
-                                android:background="@drawable/gray_border"
+                                style="@style/BoxDate"
                                />
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -159,7 +141,8 @@
                                 android:id="@+id/end"
                                 android:editable="false"
                                 android:gravity="center"
-                                android:background="@drawable/gray_border"
+                                android:background="@color/baltic_sea"
+                                android:textColor="@android:color/white"
                                 android:layout_marginLeft="5dp"
 
                                 />
@@ -231,48 +214,39 @@
                             android:background="@drawable/gray_border">
 
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="match_parent"
                                 android:text="1개월"
-                                android:gravity="center"
                                 android:onClick="friendOneMonth"
+                                style="@style/Period"
+
                                 />
                             <View
                                 android:layout_width="0.5dp"
                                 android:layout_height="match_parent"
                                 android:background="#aaaaaa"/>
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="match_parent"
                                 android:text="3개월"
-                                android:gravity="center"
                                 android:onClick="friendThreeMonth"
+                                style="@style/Period"
+
                                 />
                             <View
                                 android:layout_width="0.5dp"
                                 android:layout_height="match_parent"
                                 android:background="#aaaaaa"/>
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="match_parent"
                                 android:text="6개월"
-                                android:gravity="center"
                                 android:onClick="friendSixMonth"
+                                style="@style/Period"
+
                                 />
                             <View
                                 android:layout_width="0.5dp"
                                 android:layout_height="match_parent"
                                 android:background="#aaaaaa"/>
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="match_parent"
                                 android:text="1년"
-                                android:gravity="center"
                                 android:onClick="friendOneYear"
+                                style="@style/Period"
                                 />
 
 
@@ -283,14 +257,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp">
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="35dp"
-                                android:inputType="date"
                                 android:id="@+id/friend_start"
-                                android:editable="false"
-                                android:gravity="center"
-                                android:background="@drawable/gray_border"
+                                style="@style/BoxDate"
                                 />
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -307,16 +275,9 @@
 
                                 android:text="~"/>
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-
-                                android:layout_height="35dp"
-                                android:inputType="date"
                                 android:id="@+id/friend_end"
-                                android:editable="false"
-                                android:gravity="center"
-                                android:background="@drawable/gray_border"
-                                android:layout_marginLeft="5dp"
+                                style="@style/BoxDate"
+
                                 />
                             <ImageView
                                 android:layout_width="wrap_content"

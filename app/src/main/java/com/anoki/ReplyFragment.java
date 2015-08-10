@@ -1,8 +1,10 @@
 package com.anoki;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anoki.common.Util;
+import com.anoki.common.Global;
 import com.anoki.pojo.Reply;
 
 import org.w3c.dom.Text;
+
 
 
 /**
@@ -38,16 +42,21 @@ public class ReplyFragment extends Fragment {
         View itemLayoutView = inflater.inflate(R.layout.fragment_reply, container, false);
 
         ImageView picture;
+        ImageView image;
+
         TextView name;
         TextView text;
         TextView time;
 
         picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
+        image = (ImageView) itemLayoutView.findViewById(R.id.image);
+
         name = (TextView) itemLayoutView.findViewById(R.id.name);
         text = (TextView) itemLayoutView.findViewById(R.id.text);
         time = (TextView) itemLayoutView.findViewById(R.id.time);
 
-        Util.setPicture(reply.picture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
+        Util.setPicture(reply.userPicture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
+        Util.setPicture(reply.picture, image);
 
 
         name.setText(reply.name);
@@ -62,6 +71,20 @@ public class ReplyFragment extends Fragment {
         }
 
 
+        picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                if(reply.userId == Global.me.id){
+                    intent = new Intent(getActivity(),MyProfileActivity.class);
+                }else{
+                    intent = new Intent(getActivity(),UserProfileActivity.class);
+                    intent.putExtra("userId",reply.userId);
+                }
+                startActivity(intent);
+
+            }
+        });
 
         return itemLayoutView;
     }

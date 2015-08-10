@@ -2,6 +2,7 @@ package com.anoki;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,7 +49,7 @@ public class BoxActivity extends SubActivityBase {
     private BoxAdapter meAdapter;
     private BoxAdapter friendAdapter;
 
-    @Override
+    private List<Integer> colorList;    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box);
@@ -59,6 +60,15 @@ public class BoxActivity extends SubActivityBase {
 
         oneMonth(null);
         friendOneMonth(null);
+
+        final Resources resrouces = getResources();
+        colorList = new ArrayList<Integer>() {{
+            add(resrouces.getColor(R.color.medium_turquoise));
+            add(resrouces.getColor(R.color.java));
+            add(resrouces.getColor(R.color.mine_shaft));
+            add(resrouces.getColor(R.color.cinnabar));
+            add(resrouces.getColor(R.color.golden_yellow));
+        }};
     }
 
 
@@ -325,25 +335,31 @@ public class BoxActivity extends SubActivityBase {
 
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView time;
         TextView text;
+        View view;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             text = (TextView) itemLayoutView.findViewById(R.id.text);
             time = (TextView) itemLayoutView.findViewById(R.id.time);
+            view = itemLayoutView.findViewById(R.id.color);
 
         }
 
-        public void bind(Prayer prayer) {
+        public void bind(Prayer prayer,int position) {
 
             if(prayer.text.length() > 0)
                 text.setText(prayer.text);
             else     text.setText(prayer.back);
 
             time.setText(prayer.long_time);
+
+
+            view.setBackgroundColor(colorList.get(position%colorList.size()));
+
         }
     }
 
@@ -420,7 +436,7 @@ public class BoxActivity extends SubActivityBase {
 
             final Prayer prayer = visibleObjects.get(position);
 
-            viewHolder.bind(prayer);
+            viewHolder.bind(prayer,position);
 
             
 

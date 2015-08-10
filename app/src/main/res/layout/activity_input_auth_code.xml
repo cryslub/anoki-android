@@ -57,12 +57,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="인증번호 재전송"
-                android:textColor="@color/flamingo"
+                android:textColor="@color/cinnabar"
                 android:onClick="resend"/>
             <View
                 android:layout_width="100dp"
                 android:layout_height="1dp"
-                android:background="@color/flamingo"/>
+                android:background="@color/cinnabar"/>
 
         </LinearLayout>
 

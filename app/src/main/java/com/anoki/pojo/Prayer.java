@@ -30,6 +30,7 @@ public class Prayer implements Serializable{
 	public String completed;
 	public String raw_time;
 	public String long_time;
+	public String requestId;
 
 	public Prayer(){
 		apiKey = Global.apiKey;

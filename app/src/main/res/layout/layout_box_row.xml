@@ -12,7 +12,8 @@
     <View
         android:layout_width="15dp"
         android:layout_height="3dp"
-        android:background="@color/medium_turquoise"/>
+        android:background="@color/medium_turquoise"
+        android:id="@+id/color"/>
     <View
         android:layout_width="fill_parent"
         android:layout_height="3dp"

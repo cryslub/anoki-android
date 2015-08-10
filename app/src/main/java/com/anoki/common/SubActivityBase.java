@@ -75,5 +75,19 @@ public class SubActivityBase extends ActivityBase {
         }
     }
 
+    protected void setProfile(User user){
+        ImageView profileImage = (ImageView) findViewById(R.id.profile_image);
+        Util.setPicture(Global.me.picture+"",profileImage,getResources().getDrawable(R.drawable.profile_large));
+
+
+        setText(R.id.phone, Util.makePhoneNumber(user.country,user.phone));
+
+        setText(R.id.name, user.name);
+        setText(R.id.state, user.text);
+        setText(R.id.account, user.account);
+
+
+    }
+
 
 }

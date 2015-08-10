@@ -27,17 +27,8 @@ public class UserProfileActivity extends SubActivityBase {
 
         user = Util.rest("user/detail", "POST",user,User.class);
 
-        ImageView profileImage = (ImageView) findViewById(R.id.profile_image);
-        Util.setPicture(user.picture+"",profileImage,getResources().getDrawable(R.drawable.ic_person_black_48dp));
+        setProfile(user);
 
-
-        setText(R.id.phone, Util.makePhoneNumber(user.country, user.phone));
-
-
-
-        setText(R.id.name, user.name);
-        setText(R.id.state, user.text);
-        setText(R.id.account, user.account);
 
         getSupportActionBar().setTitle(user.name);
 

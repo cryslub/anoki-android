@@ -79,12 +79,12 @@
             android:text="비밀번호가 기억나지 않으세요?"
             android:gravity="center"
             android:onClick="restore"
-            android:textColor="@color/flamingo"/>
+            android:textColor="@color/cinnabar"/>
 
         <View
             android:layout_width="190dp"
             android:layout_height="1dp"
-            android:background="@color/flamingo"/>
+            android:background="@color/cinnabar"/>
     </LinearLayout>
 
 </LinearLayout>

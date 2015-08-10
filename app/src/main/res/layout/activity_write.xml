@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
 
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_photo_black_24dp"
+            android:src="@drawable/ic_gallery"
             android:background="@android:color/transparent"
             android:alpha="0.5"
             android:onClick="showOptions"
@@ -101,6 +101,7 @@
             <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:button="@drawable/custom_drawable_checkbox"
                     android:text="전체공개"
                     android:onClick="pub"
                     android:checked="true"

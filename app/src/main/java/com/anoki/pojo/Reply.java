@@ -15,6 +15,7 @@ public class Reply implements Serializable {
 	public String pub;
 	public int prayer;
 	public int userId;
+	public String userPicture;
 
 	public Reply(){
 		apiKey = Global.apiKey;

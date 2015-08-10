@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="30명"
-            android:textColor="@color/flamingo"
+            android:textColor="@color/cinnabar"
             android:textStyle="bold"
             android:id="@+id/ex"/>
         <TextView
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="200원"
-            android:textColor="@color/flamingo"
+            android:textColor="@color/cinnabar"
             android:textStyle="bold"
             android:id="@+id/amount"/>
 

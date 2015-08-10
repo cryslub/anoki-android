@@ -2,6 +2,7 @@ package com.anoki;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,17 +27,7 @@ public class MyProfileActivity extends SubActivityBase {
         setContentView(R.layout.activity_my_profile);
 
 
-        User me = Global.me;
-        ImageView profileImage = (ImageView) findViewById(R.id.profile_image);
-        Util.setPicture(Global.me.picture+"",profileImage,getResources().getDrawable(R.drawable.ic_person_black_48dp));
-
-
-        setText(R.id.phone, Util.makePhoneNumber(me.country,me.phone));
-
-        setText(R.id.name, me.name);
-        setText(R.id.state, me.text);
-        setText(R.id.account, me.account);
-
+        setProfile(Global.me);
 
     }
 

@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:id="@+id/profile"
-        android:onClick="profile"
         android:background="@color/mine_shaft"
         android:padding="10dp">
 
@@ -19,8 +18,7 @@
             android:layout_height="60dp"
             android:id="@+id/picture"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_person_black_48dp"
-            android:alpha=".5"
+            android:src="@drawable/ic_person_white_48dp"
             />
 
         <LinearLayout

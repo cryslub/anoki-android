@@ -46,6 +46,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apmem.tools.layouts.FlowLayout;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -105,10 +106,11 @@ public class Util {
 
             // Send post request
             con.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.flush();
-            wr.close();
+            BufferedOutputStream bos = new BufferedOutputStream(con.getOutputStream());
+            bos.write(urlParameters.getBytes("UTF-8"));
+            bos.flush();
+            bos.close();
+
 
             int responseCode = con.getResponseCode();
             System.out.println("\nSending "+method+" request to URL : " + url);
@@ -301,7 +303,7 @@ public class Util {
         user = Util.rest("user/detail", "POST", user, User.class);
 
         ImageView profileImage = (ImageView) activity.findViewById(R.id.picture);
-        Util.setPicture(user.picture + "", profileImage, activity.getResources().getDrawable(R.drawable.ic_person_black_48dp));
+        Util.setPicture(user.picture + "", profileImage, activity.getResources().getDrawable(R.drawable.ic_person_white_48dp));
 
 
 

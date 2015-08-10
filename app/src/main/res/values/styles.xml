@@ -34,7 +34,7 @@
         parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor" tools:ignore="NewApi">@android:color/white</item>
         <item name="android:textStyle" tools:ignore="NewApi">normal</item>
-        <item name="android:textSize" tools:ignore="NewApi">25sp</item>
+        <item name="android:textSize" tools:ignore="NewApi">0sp</item>
     </style>
 
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
@@ -94,14 +94,38 @@
         <item name="android:height">35dp</item>
     </style>
 
-    <color name="medium_turquoise">#54c9dc</color>
+
+    <style name="Period" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/java</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+
+    <style name="BoxDate" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/baltic_sea</item>
+    </style>
+
+
+
+    <color name="medium_turquoise">#45c9dc</color>
     <color name="baltic_sea">#3d3d3d</color>
     <color name="white_smoke">#f2f3f3</color>
     <color name="yellow">#FFFF00</color>
     <color name="week">#aaaaaa</color>
     <color name="strong">#666666</color>
     <color name="mine_shaft">#393c42</color>
-    <color name="flamingo">#e15940</color>
-    <color name="java">#218d9f</color>
+    <color name="cinnabar">#e5553a</color>
+    <color name="java">#1D8d9f</color>
+    <color name="golden_yellow">#fadf02</color>
 
 </resources>
