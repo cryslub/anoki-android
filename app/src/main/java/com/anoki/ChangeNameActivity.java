@@ -35,21 +35,15 @@ public class ChangeNameActivity extends WriteActivityBase implements EditTextFra
         editText.setText(Global.me.name);
     }
 
-    public void done(MenuItem item) {
-        switch (doneState) {
-            case CLEAR:
-                onBackPressed();
-                break;
-            case DONE: {
-                Global.me.name =editText.getText().toString();
+    @Override
+    protected void confirm() {
+        Global.me.name =editText.getText().toString();
 
-                Util.rest("user","PUT",Global.me,Response.class);
+        Util.rest("user","PUT",Global.me,Response.class);
 
-                succeed();
-            }
-            break;
-        }
+        succeed();
     }
+
 
     @Override
     public void textChanged(Editable s) {

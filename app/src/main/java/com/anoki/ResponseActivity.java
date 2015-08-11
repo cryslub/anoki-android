@@ -29,7 +29,7 @@ import org.apmem.tools.layouts.FlowLayout;
 public class ResponseActivity extends WriteActivityBase implements PrayerImageFragment.OnFragmentInteractionListener {
 
     private Prayer prayer;
-    private  String pictureId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,60 +73,24 @@ public class ResponseActivity extends WriteActivityBase implements PrayerImageFr
         }
     }
 
-    public void done(MenuItem menuItem){
-        switch (doneState){
-            case CLEAR:
-                onBackPressed();
-                break;
-            case DONE:
-            {
+    @Override
+    protected void confirm() {
+        EditText text = (EditText) findViewById(R.id.text);
+        CheckBox pub = (CheckBox) findViewById(R.id.pub);
 
-                EditText text = (EditText) findViewById(R.id.text);
-                CheckBox pub = (CheckBox) findViewById(R.id.pub);
+        Reply reply = new Reply();
+        reply.prayer = prayer.id;
+        reply.type = "R";
+        reply.text = text.getText().toString();
+        reply.pub = pub.isChecked()?"Y" : "N";
+        reply.picture = pictureId;
 
-                Reply reply = new Reply();
-                reply.prayer = prayer.id;
-                reply.type = "R";
-                reply.text = text.getText().toString();
-                reply.pub = pub.isChecked()?"Y" : "N";
-                reply.picture = pictureId;
+        Util.rest("prayer/reply","POST",reply,Response.class);
 
-                Util.rest("prayer/reply","POST",reply,Response.class);
-
-                succeed();
-            }
-            break;
-        }
+        succeed();
     }
 
-    public void photo(View view){
-        Intent photoLibraryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        photoLibraryIntent.setType("image/*");
-        startActivityForResult(photoLibraryIntent, Global.PHOTO);
 
-    }
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-//        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case Global.PHOTO:
-                    Util.upload(data.getData(), getContentResolver(), new CallBack() {
-                        @Override
-                        public void success(String id) {
-                            pictureId = id;
-                            ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
-                            flowLayout.removeAllViews();
-                            Util.addMedia(ResponseActivity.this, id);
-                        }
-                    });
-                    break;
-
-            }
-        }
-    }
 
     @Override
     public void onDeleteFragment(String id) {

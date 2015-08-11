@@ -114,6 +114,10 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
     }
 
 
+    @Override
+    protected void confirm() {
+    }
+
     public void done(MenuItem item){
 
         EditText back = (EditText) findViewById(R.id.back);
@@ -133,8 +137,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
                 break;
             case DONE:
             {
-                RestService.makePrayer(prayer);
-                succeed();
+
             }
                 break;
             case NEXT:

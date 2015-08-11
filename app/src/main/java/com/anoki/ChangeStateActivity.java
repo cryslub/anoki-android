@@ -32,21 +32,15 @@ public class ChangeStateActivity extends WriteActivityBase implements EditTextFr
         editText.setText(Global.me.text);
     }
 
-    public void done(MenuItem item) {
-        switch (doneState) {
-            case CLEAR:
-                onBackPressed();
-                break;
-            case DONE: {
-                Global.me.text =editText.getText().toString();
+    @Override
+    protected void confirm() {
+        Global.me.text =editText.getText().toString();
 
-                Util.rest("user", "PUT", Global.me, Response.class);
+        Util.rest("user", "PUT", Global.me, Response.class);
 
-                succeed();
-            }
-            break;
-        }
+        succeed();
     }
+
 
     public void textChanged(Editable s) {
         TextView tv = (TextView)findViewById(R.id.text_length);

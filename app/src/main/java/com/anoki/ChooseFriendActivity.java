@@ -80,9 +80,12 @@ public class ChooseFriendActivity extends WriteActivityBase {
     }
 
 
-    public void done(MenuItem menuItem){
-
+    @Override
+    protected void confirm() {
+        Intent intent = new Intent(ChooseFriendActivity.this, MessageActivity.class);
+        startActivity(intent);
     }
+
 
 
 }

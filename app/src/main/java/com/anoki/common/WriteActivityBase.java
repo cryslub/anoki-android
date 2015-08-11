@@ -1,7 +1,11 @@
 package com.anoki.common;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.anoki.R;
 
@@ -10,6 +14,7 @@ import com.anoki.R;
  */
 public abstract class WriteActivityBase extends SubActivityBase {
 
+    protected  String pictureId;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -21,5 +26,65 @@ public abstract class WriteActivityBase extends SubActivityBase {
         return true;
     }
 
-    public abstract  void done(MenuItem menuItem);
+
+    abstract protected void confirm();
+
+    public void done(MenuItem menuItem) {
+        switch (doneState){
+            case DONE:
+                confirm();
+                break;
+            case CLEAR:
+                finish();
+                break;
+        }
+
+    }
+
+    public void photo(View view){
+        Intent photoLibraryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        photoLibraryIntent.setType("image/*");
+        startActivityForResult(photoLibraryIntent, Global.PHOTO);
+
+    }
+
+    protected void setDonState(DoneState doneState){
+
+        this.doneState = doneState;
+
+        switch (doneState){
+            case CLEAR:
+                doneMenu.setIcon(R.drawable.ic_clear_white_24dp);
+                break;
+            case DONE:
+                doneMenu.setIcon(R.drawable.ic_done_white_24dp);
+                break;
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+//        super.onActivityResult(requestCode, resultCode, data);
+
+
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Global.PHOTO:
+                    final Activity self = this;
+                    Util.upload(data.getData(), getContentResolver(), new CallBack() {
+                        @Override
+                        public void success(String id) {
+                            pictureId = id;
+                            ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
+                            flowLayout.removeAllViews();
+                            Util.addMedia(self, id);
+                        }
+                    });
+                    break;
+
+            }
+        }
+    }
 }

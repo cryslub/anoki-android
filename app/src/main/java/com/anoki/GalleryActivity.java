@@ -317,24 +317,19 @@ public class GalleryActivity extends WriteActivityBase {
     }
 
 
-    public void done(MenuItem item){
-        switch (doneState) {
-            case CLEAR:
-                onBackPressed();
-                break;
-            case DONE:
-                Intent intent = new Intent();
-                ArrayList<Uri> uriList = new ArrayList<Uri>();
-                for (Map.Entry<Integer, Integer> entry : selectionMap.entrySet())
-                {
-                    uriList.add(mUrls[entry.getKey()-1000]);
-                }
-                intent.putExtra("uriList",uriList);
-                setResult(RESULT_OK, intent);
-                onBackPressed();
-                break;
+    @Override
+    protected void confirm() {
+        Intent intent = new Intent();
+        ArrayList<Uri> uriList = new ArrayList<Uri>();
+        for (Map.Entry<Integer, Integer> entry : selectionMap.entrySet())
+        {
+            uriList.add(mUrls[entry.getKey()-1000]);
         }
+        intent.putExtra("uriList",uriList);
+        setResult(RESULT_OK, intent);
+        onBackPressed();
     }
+
 
 
     public Bitmap decodeURI(String filePath){
