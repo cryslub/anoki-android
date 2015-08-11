@@ -294,50 +294,6 @@ public class Util {
     }
 
 
-    public static User setPrayerListPage(Activity activity, int id){
-
-        User user = new User();
-
-        user.id = id;
-
-        user = Util.rest("user/detail", "POST", user, User.class);
-
-        ImageView profileImage = (ImageView) activity.findViewById(R.id.picture);
-        Util.setPicture(user.picture + "", profileImage, activity.getResources().getDrawable(R.drawable.ic_person_white_48dp));
-
-
-
-        TextView name = (TextView) activity.findViewById(R.id.name);
-        name.setText(user.name);
-
-
-
-        Type listType = new TypeToken<ArrayList<Prayer>>() {}.getType();
-
-
-        final Search search = new Search();
-        search.searchId = user.id;
-
-        List<Prayer> prayerList = Util.rest("user/prayer", "POST", search, listType);
-
-        setPrayerView(activity,R.id.prayer_list,prayerList);
-
-        return user;
-    }
-
-    public static PrayerAdapter setPrayerView(Activity activity, int id,List<Prayer> prayerList){
-
-        RecyclerView recyclerView = (RecyclerView) activity.findViewById(id);
-        // 2. set layoutManger
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        // 3. create an adapter
-        PrayerAdapter prayerAdapter = new PrayerAdapter(prayerList,activity);
-        // 4. set adapter
-        recyclerView.setAdapter(prayerAdapter);
-
-        return prayerAdapter;
-
-    }
 
     public static Intent inviteIntent(Prayer prayer){
 

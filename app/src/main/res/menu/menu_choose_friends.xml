@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context="com.anoki.ChooseFriendsActivity">
+    xmlns:tools="http://schemas.android.com/tools" tools:context="com.anoki.ChooseContactsActivity">
 
     <item android:id="@+id/action_done"
         android:icon="@drawable/ic_clear_white_24dp"

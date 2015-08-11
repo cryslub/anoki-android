@@ -3,13 +3,19 @@ package com.anoki.common;
 import android.content.Intent;
 
 import com.anoki.RecentActivity;
+import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
+import com.anoki.pojo.Search;
 import com.anoki.pojo.User;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by joon on 2015-07-12.
@@ -27,13 +33,23 @@ public class RestService {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
 
         try {
-            Calendar date = Calendar.getInstance();
-            date.setTime(format.parse(prayer.lastPrayed));
-            Calendar now = Calendar.getInstance();
 
-            double diff = now.getTimeInMillis() - date.getTimeInMillis();
-            if(diff > 60*60*1000){
+            boolean pass =false;
+            if(!"null".equals(prayer.lastPrayed) && prayer.lastPrayed != null) {
+                Calendar date = Calendar.getInstance();
+                date.setTime(format.parse(prayer.lastPrayed));
+                Calendar now = Calendar.getInstance();
 
+                double diff = now.getTimeInMillis() - date.getTimeInMillis();
+                if(diff > 60*60*1000) {
+                    pass = true;
+                }
+            }else{
+                pass = true;
+            }
+
+
+            if(pass){
                 Prayer p = new Prayer();
 
                 p.id = prayer.id;
@@ -72,4 +88,15 @@ public class RestService {
 
     }
 
+
+    public static List<Friend> getFriendList(){
+        Type listType = new TypeToken<ArrayList<Friend>>() {}.getType();
+
+        final Search search = new Search();
+        search.apiKey = Global.apiKey;
+        search.searchKey = "A";
+
+        return  Util.rest("friend/list", "POST", search, listType);
+
+    }
 }

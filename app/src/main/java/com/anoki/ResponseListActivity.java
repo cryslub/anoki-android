@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anoki.common.GeneralRecyclerViewAdapter;
@@ -25,20 +26,18 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 
-class ViewHolder extends ViewHolderBase<Reply>{
+
+class ResponseViewHolder extends ViewHolderBase<Reply>{
 
 
-    TextView text;
-    ImageView image;
-    TextView date;
+    @Bind(R.id.text) TextView text;
+    @Bind(R.id.image) ImageView image;
+    @Bind(R.id.date) TextView date;
 
-    public ViewHolder(View itemView) {
+    public ResponseViewHolder(View itemView) {
         super(itemView);
-
-        text = (TextView) itemView.findViewById(R.id.text);
-        date = (TextView) itemView.findViewById(R.id.date);
-        image = (ImageView) itemView.findViewById(R.id.image);
 
     }
 
@@ -63,6 +62,7 @@ public class ResponseListActivity extends SubActivityBase {
 
         Intent intent = getIntent();
         prayer = (Prayer) intent.getSerializableExtra("prayer");
+        Reply focus = (Reply) intent.getSerializableExtra("reply");
 
 
         ImageView picture = (ImageView) findViewById(R.id.picture);
@@ -76,19 +76,28 @@ public class ResponseListActivity extends SubActivityBase {
 
 
 
+        int position = 0;
         List<Reply> responseList = new ArrayList<Reply>();
+        int i = 0;
         for(Reply reply : prayer.reply){
             if("R".equals(reply.type)){
+
                 responseList.add(reply);
+
+                if(focus!= null && reply.id == focus.id){
+                    position = i;
+                }
+                i++;
             }
         }
 
-        // 2. set layoutManger
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // 3. create an adapter
-        GeneralRecyclerViewAdapter<Reply,ViewHolder> responseAdapter = new  GeneralRecyclerViewAdapter<Reply,ViewHolder> (responseList,R.layout.layout_response_row,ViewHolder.class);
-        // 4. set adapter
-        recyclerView.setAdapter(responseAdapter);
+
+        GeneralRecyclerViewAdapter<Reply,ResponseViewHolder> responseAdapter = new  GeneralRecyclerViewAdapter<Reply,ResponseViewHolder> (responseList,R.layout.layout_response_row,ResponseViewHolder.class);
+        LinearLayoutManager layoutManager = setRecyclerView(recyclerView,responseAdapter);
+
+
+        layoutManager.scrollToPosition(position);
+
     }
 
 

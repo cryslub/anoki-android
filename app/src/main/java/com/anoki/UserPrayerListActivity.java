@@ -48,15 +48,9 @@ public class UserPrayerListActivity extends SubActivityBase implements PrayerAda
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        load();
-    }
-
-    private void load(){
-        User user = Util.setPrayerListPage(this,id);
+    protected void load(){
+        User user = setPrayerListPage(Global.me.id);
 
 
 

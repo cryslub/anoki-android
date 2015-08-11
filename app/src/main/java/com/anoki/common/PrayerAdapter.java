@@ -2,6 +2,7 @@ package com.anoki.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,19 +18,25 @@ import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
 import com.google.android.gms.games.Notifications;
+import com.makeramen.dragsortadapter.DragSortAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 /**
  * Created by Administrator on 2015-07-22.
  */
 
-public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder> {
-    protected List<Prayer> visibleObjects;
+public class PrayerAdapter extends DragSortAdapter<PrayerAdapter.ViewHolder> {
+    public List<Prayer> visibleObjects;
     protected List<Prayer> allObjects;
     private Activity parentActivity;
-    private int owner;
+    public boolean editable = false;
 
 
     public void setFilter(String queryText) {
@@ -42,12 +49,37 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
 
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getPositionForId(long id) {
+        System.out.println("getPositionForId - " + id);
+        for(final Prayer item : visibleObjects){
+            if(item.id == id){
+                return visibleObjects.indexOf(item);
+            }
+        }
+        return 0;
+    }
 
+    @Override
+    public boolean move(int fromPosition, int toPosition) {
+        if (fromPosition < 0 || fromPosition >= visibleObjects.size()) return false;
+        visibleObjects.add(toPosition, visibleObjects.remove(fromPosition));
+        return true;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return visibleObjects.get(position).id;
+    }
+
+
+    class ViewHolder  extends  DragSortAdapter.ViewHolder implements View.OnLongClickListener {
+
+        Prayer prayer;
         View view;
 
-        ImageView picture;
-        TextView name;
+       @Bind(R.id.picture)ImageView picture;
+        @Bind(R.id.name) TextView name;
         TextView text;
         TextView date;
 
@@ -59,13 +91,19 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
 
         LinearLayout container;
 
+        @OnClick(R.id.pray) void pray(){
+            if (RestService.pray(prayer)) {
+                ((OnPrayListener) parentActivity).onPray();
+            }
+        }
 
 
-        public ViewHolder(View itemLayoutView) {
-            super(itemLayoutView);
+        public ViewHolder(DragSortAdapter adapter,View itemLayoutView) {
+            super(adapter, itemLayoutView);
+
+            ButterKnife.bind(this, itemLayoutView);
 
             view = itemLayoutView;
-            name = (TextView) itemLayoutView.findViewById(R.id.name);
             text = (TextView) itemLayoutView.findViewById(R.id.text);
             date = (TextView) itemLayoutView.findViewById(R.id.date);
             prayCount = (TextView) itemLayoutView.findViewById(R.id.pray_count);
@@ -73,13 +111,16 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
             pray = (Button) itemLayoutView.findViewById(R.id.pray);
             scrap = (Button) itemLayoutView.findViewById(R.id.scrap);
 
-            picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
 
             container = (LinearLayout) itemLayoutView.findViewById(R.id.container);
 
         }
 
         public void bind(final Prayer prayer){
+
+            this.prayer = prayer;
+
+            //view.setId(prayer.id);
 
             if(prayer.text.length() > 0)
                 text.setText(prayer.text);
@@ -97,15 +138,6 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
             }
 
 
-            pray.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if (RestService.pray(prayer)) {
-                        ((OnPrayListener) parentActivity).onPray();
-                    }
-                }
-            });
 
             scrap.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -134,10 +166,20 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
             });
 
         }
+
+        @Override
+        public boolean onLongClick(@NonNull View v) {
+
+            if(editable) {
+                startDrag();
+            }
+            return true;
+        }
     }
 
-    public PrayerAdapter(List<Prayer> itemsData,Activity parentActivity)
+    public PrayerAdapter(RecyclerView recyclerView,List<Prayer> itemsData,Activity parentActivity)
     {
+        super(recyclerView);
 
         this.allObjects = itemsData;
         this.visibleObjects = itemsData;
@@ -166,7 +208,9 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
 
         // create ViewHolder
 
-        ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+
+        ViewHolder viewHolder = new ViewHolder(this,itemLayoutView);
+        itemLayoutView.setOnLongClickListener(viewHolder);
         return viewHolder;
     }
 
@@ -179,7 +223,9 @@ public class PrayerAdapter extends RecyclerView.Adapter<PrayerAdapter.ViewHolder
 
         final Prayer prayer = visibleObjects.get(position);
 
-        viewHolder.bind(prayer);
+        System.out.println("getDraggingId -" + getDraggingId());
+
+                viewHolder.bind(prayer);
 
     }
 

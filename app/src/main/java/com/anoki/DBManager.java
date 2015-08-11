@@ -18,21 +18,23 @@ import java.util.Map;
  */
 public class DBManager  extends SQLiteOpenHelper {
 
-    SQLiteDatabase db;
 
     public DBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
 
-        db = getReadableDatabase();
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL("CREATE TABLE ACCOUNT(EMAIL TEXT, PASS TEXT,PHONE TEXT, COUNTRY TEXT);");
         db.execSQL("CREATE TABLE CONTACT(_id INTEGER PRIMARY KEY AUTOINCREMENT, COUNTRY TEXT, PHONE TEXT);");
         db.execSQL("CREATE TABLE TEAM_ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,TEAM INTEGER, ONOFF INTEGER, LEVEL INTEGER);");
         db.execSQL("CREATE TABLE ALARM(ONOFF INTEGER, LEVEL INTEGER, PREVIEW INTEGER, SOUND INTEGER, VIBE INTEGER);");
         db.execSQL("CREATE TABLE PASS(PASS TEXT);");
+
+
     }
 
     @Override
@@ -41,9 +43,13 @@ public class DBManager  extends SQLiteOpenHelper {
     }
 
     public Account getAccount() {
+
+        SQLiteDatabase db = getReadableDatabase();
+
         String str = "";
 
         Cursor cursor = db.rawQuery("SELECT EMAIL,PASS FROM ACCOUNT", null);
+        Account ret = null;
         if(cursor.moveToNext()) {
 
             Account account = new Account();
@@ -51,22 +57,25 @@ public class DBManager  extends SQLiteOpenHelper {
             account.pass = cursor.getString(1);
 
 
-            cursor.close();
-
-            return account;
-        }else{
-
-            cursor.close();
-
-            return null;
+            ret = account;
         }
+
+        cursor.close();
+        db.close();
+        return ret;
+
     }
 
     public void setAccount(String email, String pass){
+        SQLiteDatabase db = getReadableDatabase();
+
         db.execSQL("INSERT INTO ACCOUNT (EMAIL,PASS) VALUES('"+email+"','"+pass+"')");
+
+        db.close();
     }
 
     public Map<String,String> getContactMap() {
+        SQLiteDatabase db = getReadableDatabase();
 
         Map<String,String> contactMap  = new HashMap<String, String>();
         Cursor cursor = db.rawQuery("SELECT PHONE FROM CONTACT", null);
@@ -75,10 +84,14 @@ public class DBManager  extends SQLiteOpenHelper {
         }
 
         cursor.close();
+        db.close();
         return contactMap;
     }
 
     public void insertContactInfo(Friend friend){
+        SQLiteDatabase db = getReadableDatabase();
+
         db.execSQL("INSERT INTO CONTACT (PHONE) VALUES('"+friend.phone+"')");
+        db.close();
     }
 }

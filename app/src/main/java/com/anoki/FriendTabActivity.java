@@ -61,7 +61,7 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
     }
 
 
-    private void load(){
+    protected void load(){
         setScrapedList();
         setRequestList();
 
@@ -76,7 +76,7 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
 
         List<Prayer> prayerList = Util.rest("prayer/scraped", "POST", search, listType);
 
-        final PrayerAdapter prayerAdapter =  Util.setPrayerView(this, R.id.scraped_list, prayerList);
+        final PrayerAdapter prayerAdapter =  setPrayerView(R.id.scraped_list, prayerList);
 
         final EditText searchScraped = (EditText) findViewById(R.id.search_scraped);
         searchScraped.addTextChangedListener(new TextWatcher() {
@@ -109,7 +109,7 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
 
         List<Prayer> prayerList = Util.rest("prayer/request", "POST", search, listType);
 
-        Util.setPrayerView(this, R.id.request_list, prayerList);
+        setPrayerView(R.id.request_list, prayerList);
 
 
     }

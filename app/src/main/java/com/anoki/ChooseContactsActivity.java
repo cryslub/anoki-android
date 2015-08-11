@@ -4,29 +4,22 @@ import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -34,25 +27,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anoki.common.ContactManage;
 import com.anoki.common.DoneState;
+import com.anoki.common.FriendViewHolder;
 import com.anoki.common.Global;
 import com.anoki.common.RestService;
-import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
+import com.anoki.common.ViewHolderBase;
 import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.Friend;
-import com.anoki.pojo.Phone;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
 import com.google.gson.reflect.TypeToken;
-
-import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -60,7 +49,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChooseFriendsActivity extends WriteActivityBase {
+import butterknife.Bind;
+
+public class ChooseContactsActivity extends WriteActivityBase {
 
     private Map<Integer,Friend> selectionMap = new HashMap<Integer,Friend>();
     private Map<String,Integer> contactSelectionMap = new HashMap<String,Integer>();
@@ -100,7 +91,7 @@ public class ChooseFriendsActivity extends WriteActivityBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_friends);
+        setContentView(R.layout.activity_choose_contacts);
 
         Intent intent = getIntent();
         prayer = (Prayer) intent.getSerializableExtra("prayer");
@@ -138,14 +129,8 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
 
     private void setFriendList(){
-        Type listType = new TypeToken<ArrayList<Friend>>() {}.getType();
 
-
-        final Search search = new Search();
-        search.apiKey = Global.apiKey;
-        search.searchKey = "A";
-
-        List<Friend> friendList = Util.rest("friend/list", "POST", search, listType);
+        List<Friend> friendList = RestService.getFriendList();
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.friend_list);
         // 2. set layoutManger
@@ -397,14 +382,14 @@ public class ChooseFriendsActivity extends WriteActivityBase {
     }
 
     private void charge(){
-        Intent intent = new Intent(ChooseFriendsActivity.this, ChargeActivity.class);
+        Intent intent = new Intent(ChooseContactsActivity.this, ChargeActivity.class);
         intent.putExtra("prayer", prayer);
         startActivityForResult(intent, Global.PAY);
     }
 
 
     private void billing(){
-        Intent intent = new Intent(ChooseFriendsActivity.this, BillingActivity.class);
+        Intent intent = new Intent(ChooseContactsActivity.this, BillingActivity.class);
 
         intent.putExtra("prayer", prayer);
         startActivityForResult(intent, Global.PAY);
@@ -427,23 +412,8 @@ public class ChooseFriendsActivity extends WriteActivityBase {
         }
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView picture;
-        TextView name;
-        CheckBox choose;
-        TextView phone;
-
-        public ViewHolder(View itemLayoutView) {
-            super(itemLayoutView);
-            picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
-            name = (TextView) itemLayoutView.findViewById(R.id.name);
-            choose = (CheckBox) itemLayoutView.findViewById(R.id.choose);
-            phone = (TextView) itemLayoutView.findViewById(R.id.phone);
-        }
-    }
-
-    private class FriendsAdapter extends RecyclerView.Adapter<ViewHolder> {
+    private class FriendsAdapter extends RecyclerView.Adapter<FriendViewHolder> {
         protected List<Friend> visibleObjects;
         protected List<Friend> allObjects;
 
@@ -516,7 +486,7 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
         // Create new views (invoked by the layout manager)
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent,
+        public FriendViewHolder onCreateViewHolder(ViewGroup parent,
                                              int viewType) {
             // create a new view
             View itemLayoutView = LayoutInflater.from(parent.getContext())
@@ -524,31 +494,27 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
             // create ViewHolder
 
-            ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+            FriendViewHolder viewHolder = new FriendViewHolder(itemLayoutView);
             return viewHolder;
         }
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(FriendViewHolder viewHolder, int position) {
 
             // - get data from your itemsData at this position
             // - replace the contents of the view with that itemsData
 
             final Friend friend = visibleObjects.get(position);
 
-
-            Util.setPicture(friend.picture,viewHolder.picture,getDrawable(R.drawable.ic_person_black_36dp));
-
-
-            viewHolder.name.setText(visibleObjects.get(position).name);
+            viewHolder.bind(friend);
 
             viewHolder.choose.setOnClickListener(new CheckBox.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(selectionMap.get(friend.friend)==null){
-                        selectionMap.put(friend.friend,friend);
-                    }else{
+                    if (selectionMap.get(friend.friend) == null) {
+                        selectionMap.put(friend.friend, friend);
+                    } else {
                         selectionMap.remove(friend.friend);
                     }
 
@@ -634,7 +600,7 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
         // Create new views (invoked by the layout manager)
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent,
+        public FriendViewHolder onCreateViewHolder(ViewGroup parent,
                                              int viewType) {
             // create a new view
             switch (viewType){
@@ -644,7 +610,7 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
                     // create ViewHolder
 
-                    ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+                    FriendViewHolder viewHolder = new FriendViewHolder(itemLayoutView);
                     return viewHolder;
                 }
                 case SECTION:
@@ -653,7 +619,7 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
                     // create ViewHolder
 
-                    ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+                    FriendViewHolder viewHolder = new FriendViewHolder(itemLayoutView);
                     return viewHolder;
 
             }
@@ -663,7 +629,7 @@ public class ChooseFriendsActivity extends WriteActivityBase {
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(final FriendViewHolder viewHolder, int position) {
 
             // - get data from your itemsData at this position
             // - replace the contents of the view with that itemsData

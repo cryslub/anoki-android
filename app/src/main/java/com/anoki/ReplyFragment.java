@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.Settings;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,8 +87,19 @@ public class ReplyFragment extends Fragment {
             }
         });
 
+        itemLayoutView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if("R".equals(reply.type)){
+                    ((OnFragmentInteractionListener) getActivity()).responseList(reply);
+                }
+
+            }
+        });
         return itemLayoutView;
     }
 
-
+    public interface OnFragmentInteractionListener{
+        public void responseList(Reply reply);
+    }
 }

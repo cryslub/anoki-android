@@ -1,13 +1,14 @@
 package com.anoki.common;
 
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.anoki.R;
 
 /**
  * Created by joon on 2015-07-25.
  */
-public class WriteActivityBase extends SubActivityBase {
+public abstract class WriteActivityBase extends SubActivityBase {
 
 
     @Override
@@ -19,4 +20,6 @@ public class WriteActivityBase extends SubActivityBase {
 
         return true;
     }
+
+    public abstract  void done(MenuItem menuItem);
 }

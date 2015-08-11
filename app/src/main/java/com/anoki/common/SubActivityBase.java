@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anoki.R;
+import com.anoki.pojo.Reply;
 import com.anoki.pojo.User;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2015-07-10.
@@ -77,7 +82,7 @@ public class SubActivityBase extends ActivityBase {
 
     protected void setProfile(User user){
         ImageView profileImage = (ImageView) findViewById(R.id.profile_image);
-        Util.setPicture(Global.me.picture+"",profileImage,getResources().getDrawable(R.drawable.profile_large));
+        Util.setPicture(user.picture+"",profileImage,getResources().getDrawable(R.drawable.profile_large));
 
 
         setText(R.id.phone, Util.makePhoneNumber(user.country,user.phone));
@@ -90,4 +95,12 @@ public class SubActivityBase extends ActivityBase {
     }
 
 
+    protected LinearLayoutManager  setRecyclerView  (RecyclerView recyclerView,RecyclerView.Adapter adapter){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        return layoutManager;
+
+    }
 }

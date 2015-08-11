@@ -77,7 +77,8 @@
             android:text="편집"
             android:textSize="9sp"
             android:onClick="edit"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:id="@+id/edit"/>
 
     </LinearLayout>
 

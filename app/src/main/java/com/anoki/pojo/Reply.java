@@ -5,7 +5,8 @@ import com.anoki.common.Global;
 import java.io.Serializable;
 
 public class Reply implements Serializable {
-	
+
+	public int id;
 	public String apiKey;
 	public String name;
 	public String picture;

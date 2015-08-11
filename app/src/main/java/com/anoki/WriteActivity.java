@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.anoki.common.CallBack;
 import com.anoki.common.DoneState;
 import com.anoki.common.Global;
 import com.anoki.common.RestService;
-import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.Media;
@@ -140,7 +138,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
             }
                 break;
             case NEXT:
-                Intent intent = new Intent(this,ChooseFriendsActivity.class);
+                Intent intent = new Intent(this,ChooseContactsActivity.class);
                 intent.putExtra("prayer",prayer);
                 startActivityForResult(intent, Global.FRIENDS);
                 break;

@@ -51,7 +51,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class PrayerDetailActivity extends SubActivityBase implements PrayerImageFragment.OnFragmentInteractionListener {
+public class PrayerDetailActivity extends SubActivityBase implements PrayerImageFragment.OnFragmentInteractionListener, ReplyFragment.OnFragmentInteractionListener {
 
     Prayer prayer;
     int prayerId;
@@ -175,7 +175,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         load();
     }
 
-    private void load(){
+    protected void load(){
         final Search search = new Search();
         search.searchId = prayerId;
 
@@ -410,5 +410,13 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     @Override
     public void onDeleteFragment(String id) {
         pictureId = null;
+    }
+
+    @Override
+    public void responseList(Reply reply) {
+        Intent intent = new Intent(PrayerDetailActivity.this, ResponseListActivity.class);
+        intent.putExtra("prayer",prayer);
+        intent.putExtra("reply",reply);
+        startActivity(intent);
     }
 }

@@ -46,4 +46,6 @@
     <string name="title_activity_forgot_account">계정 찾기</string>
     <string name="title_activity_box">기도함</string>
     <string name="title_activity_response_list">기도응답</string>
+    <string name="title_activity_message">쪽지보내기</string>
+    <string name="title_activity_choose_friend">친구선택</string>
 </resources>
