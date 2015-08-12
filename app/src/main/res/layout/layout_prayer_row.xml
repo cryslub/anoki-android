@@ -92,22 +92,18 @@
                 android:textSize="9sp"
                 android:textColor="@color/week"/>
         </LinearLayout>
-        <Button
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:drawableLeft="@drawable/ic_send_white_18dp"
-            android:text="기도"
-            android:textColor="@android:color/white"
-            android:id="@+id/pray"/>
-        <Button
+            android:id="@+id/pray"
+            android:src="@drawable/btn_pray_mint"/>
+        <ImageView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:drawableLeft="@drawable/ic_send_white_18dp"
-            android:text="담기"
-            android:textColor="@android:color/white"
-            android:id="@+id/scrap"/>
+            android:id="@+id/scrap"
+            android:src="@drawable/btn_share_gray"
+            />
 
 
     </LinearLayout>

@@ -1,27 +1,23 @@
 package com.anoki;
 
-import android.support.v7.app.ActionBar;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.anoki.common.Common;
 import com.anoki.common.MediaPagerAdapter;
+import com.anoki.common.PrayerAdapter;
+import com.anoki.common.PrayerViewHolderBase;
 import com.anoki.common.RestService;
 import com.anoki.common.TabActivityBase;
 import com.anoki.pojo.Prayer;
@@ -29,15 +25,18 @@ import com.anoki.pojo.Search;
 import com.anoki.common.Global;
 import com.anoki.common.Util;
 import com.google.gson.reflect.TypeToken;
+import com.makeramen.dragsortadapter.DragSortAdapter;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+
 public class RecentTabActivity extends TabActivityBase {
 
     private RecentAdapter recentAdapter;
-    private  List<Prayer> recentList;
+    private  List<Prayer> recentList = new ArrayList<Prayer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +48,11 @@ public class RecentTabActivity extends TabActivityBase {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
 
-        setRecentList();
-
 
         // 2. set layoutManger
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         // 3. create an adapter
-        recentAdapter = new RecentAdapter(recentList);
+        recentAdapter = new RecentAdapter(recyclerView,recentList);
         // 4. set adapter
         recyclerView.setAdapter(recentAdapter);
 
@@ -92,7 +89,7 @@ public class RecentTabActivity extends TabActivityBase {
         recentAdapter.updateList(recentList);
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends PrayerViewHolderBase {
 
         LinearLayout profile;
         ImageView picture;
@@ -103,11 +100,8 @@ public class RecentTabActivity extends TabActivityBase {
         TextView text;
         ViewPager media;
 
-        TextView pray;
-        TextView reply;
-        TextView scrap;
+        @Bind(R.id.reply) ImageView reply;
 
-        TextView more;
 
         LinearLayout mediaContainer;
 
@@ -124,8 +118,9 @@ public class RecentTabActivity extends TabActivityBase {
         ImageButton viewProfile;
         ImageButton viewPrayerList;
 
-        public ViewHolder(View itemLayoutView) {
-            super(itemLayoutView);
+        public ViewHolder(DragSortAdapter adapter, View itemLayoutView) {
+            super(adapter,itemLayoutView);
+
             profile = (LinearLayout) itemLayoutView.findViewById(R.id.profile);
             picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
             name = (TextView) itemLayoutView.findViewById(R.id.name);
@@ -135,11 +130,7 @@ public class RecentTabActivity extends TabActivityBase {
             text = (TextView) itemLayoutView.findViewById(R.id.text);
             media = (ViewPager) itemLayoutView.findViewById(R.id.media);
 
-            pray = (TextView) itemLayoutView.findViewById(R.id.pray);
-            reply = (TextView) itemLayoutView.findViewById(R.id.reply);
-            scrap = (TextView) itemLayoutView.findViewById(R.id.scrap);
 
-            more = (TextView) itemLayoutView.findViewById(R.id.more);
 
 
             prayCount = (TextView) itemLayoutView.findViewById(R.id.pray_count);
@@ -157,6 +148,8 @@ public class RecentTabActivity extends TabActivityBase {
         }
 
         public void bind(final Prayer prayer){
+            super.bind(prayer);
+
             if(prayer.userId == Global.me.id) {
                 friendFunction.setVisibility(View.INVISIBLE);
                 buttonContainer.removeView(scrap);
@@ -189,12 +182,6 @@ public class RecentTabActivity extends TabActivityBase {
                     }
                 });
 
-                more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Common.showPrayerDetail(RecentTabActivity.this,prayer);
-                    }
-                });
 
                 pray.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -232,7 +219,9 @@ public class RecentTabActivity extends TabActivityBase {
 
                 Util.setPicture(prayer.userPicture, picture, getDrawable(R.drawable.ic_person_black_48dp));
 
-                name.setText(prayer.userName);
+            System.out.println("userName - " + prayer.userName);
+
+            name.setText(prayer.userName);
                 date.setText(prayer.time);
 
 
@@ -265,10 +254,11 @@ public class RecentTabActivity extends TabActivityBase {
     }
 
 
-    private class RecentAdapter extends RecyclerView.Adapter<ViewHolder> {
+    private class RecentAdapter extends DragSortAdapter<RecentTabActivity.ViewHolder> {
         private List<Prayer> itemsData;
 
-        public RecentAdapter(List<Prayer> itemsData) {
+        public RecentAdapter(RecyclerView recyclerView,List<Prayer> itemsData) {
+            super(recyclerView);
             this.itemsData = itemsData;
         }
 
@@ -278,26 +268,28 @@ public class RecentTabActivity extends TabActivityBase {
         }
         // Create new views (invoked by the layout manager)
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                       int viewType) {
+        public RecentTabActivity.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                               int viewType) {
             // create a new view
             View itemLayoutView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.layout_recent_row, null);
 
             // create ViewHolder
 
-            ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+            RecentTabActivity.ViewHolder viewHolder = new RecentTabActivity.ViewHolder(this,itemLayoutView);
             return viewHolder;
         }
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(RecentTabActivity.ViewHolder viewHolder, int position) {
 
             // - get data from your itemsData at this position
             // - replace the contents of the view with that itemsData
 
             final Prayer prayer = itemsData.get(position);
+
+            System.out.println("position - " + position);
 
             viewHolder.bind(prayer);
 
@@ -312,6 +304,25 @@ public class RecentTabActivity extends TabActivityBase {
             return itemsData.size();
         }
 
+        @Override
+        public int getPositionForId(long l) {
+
+            return 0;
+        }
+
+        @Override
+        public boolean move(int i, int i1) {
+
+            return false;
+        }
+
+
+
+        @Override
+        public long getItemId(int position) {
+
+            return itemsData.get(position).id;
+        }
     }
 
 

@@ -30,36 +30,11 @@ public class RestService {
     public static boolean pray(Prayer prayer){
 
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
-
-        try {
-
-            boolean pass =false;
-            if(!"null".equals(prayer.lastPrayed) && prayer.lastPrayed != null) {
-                Calendar date = Calendar.getInstance();
-                date.setTime(format.parse(prayer.lastPrayed));
-                Calendar now = Calendar.getInstance();
-
-                double diff = now.getTimeInMillis() - date.getTimeInMillis();
-                if(diff > 60*60*1000) {
-                    pass = true;
-                }
-            }else{
-                pass = true;
-            }
-
-
-            if(pass){
-                Prayer p = new Prayer();
-
-                p.id = prayer.id;
-                Util.rest("prayer/pray", "POST",p, Response.class);
-                return true;
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(prayer.checkPrayable()){
+            Util.rest("prayer/pray", "POST",prayer, Response.class);
+            return true;
         }
+
 
         return false;
     }

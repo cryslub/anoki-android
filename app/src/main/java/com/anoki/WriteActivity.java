@@ -116,6 +116,8 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
     @Override
     protected void confirm() {
+        RestService.makePrayer(prayer);
+        succeed();
     }
 
     public void done(MenuItem item){
@@ -137,7 +139,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
                 break;
             case DONE:
             {
-
+                confirm();
             }
                 break;
             case NEXT:

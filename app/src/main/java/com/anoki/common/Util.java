@@ -59,7 +59,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.PortUnreachableException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -68,29 +71,26 @@ import java.util.List;
 public class Util {
 
 
-
-
-
     private static Gson gson = new Gson();
 
-    public static <T>  T rest(String path, String method, Object in, Class<T> classOfT){
-        return gson.fromJson(rest(path,method,in), classOfT);
+    public static <T> T rest(String path, String method, Object in, Class<T> classOfT) {
+        return gson.fromJson(rest(path, method, in), classOfT);
     }
 
-    public static <T>  T rest(String path, String method, Object in, Type classOfT){
-        return gson.fromJson(rest(path,method,in), classOfT);
+    public static <T> T rest(String path, String method, Object in, Type classOfT) {
+        return gson.fromJson(rest(path, method, in), classOfT);
     }
 
 
-    public static String rest(String path, String method, Object in){
+    public static String rest(String path, String method, Object in) {
 
         final String USER_AGENT = "Mozilla/5.0";
         StringBuffer response = new StringBuffer();
 
 
-        String url = "http://anoki.co.kr/anoki/rest/"+path;
+        String url = "http://anoki.co.kr/anoki/rest/" + path;
         try {
-            URL  obj = new URL(url);
+            URL obj = new URL(url);
 
 
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -113,7 +113,7 @@ public class Util {
 
 
             int responseCode = con.getResponseCode();
-            System.out.println("\nSending "+method+" request to URL : " + url);
+            System.out.println("\nSending " + method + " request to URL : " + url);
             System.out.println("Post parameters : " + urlParameters);
             System.out.println("Response Code : " + responseCode);
 
@@ -142,40 +142,33 @@ public class Util {
     }
 
 
-
-    public static Bitmap fetchImage( String id )
-    {
-        try
-        {
+    public static Bitmap fetchImage(String id) {
+        try {
             URL url;
-            url = new URL( "http://anoki.co.kr/anoki/images/"+id );
+            url = new URL("http://anoki.co.kr/anoki/images/" + id);
 
-            HttpURLConnection c = ( HttpURLConnection ) url.openConnection();
-            c.setDoInput( true );
+            HttpURLConnection c = (HttpURLConnection) url.openConnection();
+            c.setDoInput(true);
             c.connect();
             InputStream is = c.getInputStream();
             Bitmap img;
             img = BitmapFactory.decodeStream(is);
             return img;
-        }
-        catch ( MalformedURLException e )
-        {
-        }
-        catch ( IOException e )
-        {
+        } catch (MalformedURLException e) {
+        } catch (IOException e) {
             Log.d("RemoteImageHandler", "fetchImage IO exception: " + e);
         }
         return null;
     }
 
-    public static String upload(Uri selectedImage, ContentResolver contentResolver, CallBack callBack){
+    public static String upload(Uri selectedImage, ContentResolver contentResolver, CallBack callBack) {
         String id = null;
         InputStream imageStream = null;
         try {
             imageStream = contentResolver.openInputStream(selectedImage);
             Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
             id = executeMultipartPost(yourSelectedImage);
-            if(!"-1".equals(id)){
+            if (!"-1".equals(id)) {
                 callBack.success(id);
             }
         } catch (FileNotFoundException e) {
@@ -187,24 +180,24 @@ public class Util {
     }
 
     public static String uploadBitmap(Bitmap yourSelectedImage, CallBack callBack) {
-        return uploadBitmap(yourSelectedImage, callBack,"I");
+        return uploadBitmap(yourSelectedImage, callBack, "I");
     }
 
-        public static String uploadBitmap(Bitmap yourSelectedImage, CallBack callBack,String type){
+    public static String uploadBitmap(Bitmap yourSelectedImage, CallBack callBack, String type) {
         String id = null;
-        id = executeMultipartPost(yourSelectedImage,type);
-        if(!"-1".equals(id)){
+        id = executeMultipartPost(yourSelectedImage, type);
+        if (!"-1".equals(id)) {
             callBack.success(id);
         }
 
         return id;
     }
 
-    public static String executeMultipartPost(Bitmap bm){
-        return executeMultipartPost(bm,"I");
+    public static String executeMultipartPost(Bitmap bm) {
+        return executeMultipartPost(bm, "I");
     }
 
-    public static String executeMultipartPost(Bitmap bm,String type)  {
+    public static String executeMultipartPost(Bitmap bm, String type) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             bm.compress(Bitmap.CompressFormat.JPEG, 75, bos);
@@ -239,9 +232,9 @@ public class Util {
         return null;
     }
 
-    public static int dpToPixel(Context mContext,int yourdpmeasure){
+    public static int dpToPixel(Context mContext, int yourdpmeasure) {
         Resources r = mContext.getResources();
-        return  (int) TypedValue.applyDimension(
+        return (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 yourdpmeasure,
                 r.getDisplayMetrics()
@@ -249,18 +242,18 @@ public class Util {
 
     }
 
-    public static Bitmap setPicture(String picture,ImageView view){
-        return setPicture(picture,view,null);
+    public static Bitmap setPicture(String picture, ImageView view) {
+        return setPicture(picture, view, null);
     }
 
-    public static Bitmap setPicture(String picture,ImageView view,Drawable def){
-        if(!"null".equals(picture) && picture!=null && !"0".equals(picture) ) {
-            Bitmap bmp = Util.fetchImage(picture+"");
+    public static Bitmap setPicture(String picture, ImageView view, Drawable def) {
+        if (!"null".equals(picture) && picture != null && !"0".equals(picture)) {
+            Bitmap bmp = Util.fetchImage(picture + "");
             view.setImageBitmap(bmp);
             view.setAlpha(1.0f);
             return bmp;
-        }else{
-            if(def != null) {
+        } else {
+            if (def != null) {
                 view.setImageDrawable(def);
                 view.setAlpha(.5f);
             }
@@ -294,31 +287,30 @@ public class Util {
     }
 
 
+    public static Intent inviteIntent(Prayer prayer) {
 
-    public static Intent inviteIntent(Prayer prayer){
-
-        String list="";
-        for(String phone : prayer.phone){
-            list+=phone+";";
+        String list = "";
+        for (String phone : prayer.phone) {
+            list += phone + ";";
         }
-        list = list.substring(0,list.length()-1);
+        list = list.substring(0, list.length() - 1);
 
-        Intent intentsms = new Intent( Intent.ACTION_VIEW, Uri.parse("smsto:"+list) );
+        Intent intentsms = new Intent(Intent.ACTION_VIEW, Uri.parse("smsto:" + list));
         intentsms.putExtra("sms_body", Global.me.name + "님이 기도어플 아노키로 초대하셨습니다. 아래를 누르시면 " + Global.me.name + "님과 친구가 됩니다. \n\n http://anoki.co.kr/anoki/invite.jsp");
 
         return intentsms;
     }
 
-    public static String makePhoneNumber(String country, String number){
+    public static String makePhoneNumber(String country, String number) {
 
 
-        return "+"+country+" "+number.substring(0,3)+"-"+number.substring(3,7)+"-"+number.substring(7,11);
+        return "+" + country + " " + number.substring(0, 3) + "-" + number.substring(3, 7) + "-" + number.substring(7, 11);
     }
 
-    public static void styleTab(Context context,TabHost myTabHost){
+    public static void styleTab(Context context, TabHost myTabHost) {
         int height = Util.dpToPixel(context, 40);
 
-        for(int i = 0;i< myTabHost.getTabWidget().getChildCount();i++) {
+        for (int i = 0; i < myTabHost.getTabWidget().getChildCount(); i++) {
             ((ImageView) ((LinearLayout) myTabHost.getTabWidget().getChildTabViewAt(i)).getChildAt(0)).setMaxHeight(height);
             myTabHost.getTabWidget().getChildAt(i).getLayoutParams().height = height;
             TextView tv = (TextView) myTabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
@@ -327,7 +319,7 @@ public class Util {
         }
     }
 
-    public static void addMedia(Activity activity,String id){
+    public static void addMedia(Activity activity, String id) {
         ViewGroup flowLayout = (ViewGroup) activity.findViewById(R.id.media_list);
 
         ImageView imageView = new ImageView(activity);
@@ -347,9 +339,7 @@ public class Util {
         //                  flowLayout.addView(imageView, layoutParams);
 
 
-
-
-        FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
+        FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size, size);
         layoutParams.setMargins(margin, margin, margin, margin);
 
         LinearLayout rowLayout = new LinearLayout(activity);
@@ -374,22 +364,21 @@ public class Util {
     }
 
 
-    public static void setMediaView(View itemView, Media media){
+    public static void setMediaView(View itemView, Media media) {
         ImageView imageView = (ImageView) itemView.findViewById(R.id.image);
         VideoView videoView = (VideoView) itemView.findViewById(R.id.video);
 
 
-
-        if("I".equals(media.type)){
+        if ("I".equals(media.type)) {
             final Bitmap bmp = Util.setPicture(media.id, imageView, null);
             imageView.setVisibility(View.VISIBLE);
             videoView.setVisibility(View.GONE);
 
 
-        }else{
+        } else {
 
-            String path = "http://anoki.co.kr/anoki/images/video/"+media.id;
-            Uri uri=Uri.parse(path);
+            String path = "http://anoki.co.kr/anoki/images/video/" + media.id;
+            Uri uri = Uri.parse(path);
 
             System.out.println(path);
 
@@ -413,9 +402,10 @@ public class Util {
 
     }
 
-    public static  void zoom(Media media,Activity activity){
+    public static void zoom(Media media, Activity activity) {
         Intent intent = new Intent(activity, ZoomInActivity.class);
         intent.putExtra("media", media);
         activity.startActivity(intent);
     }
+
 }

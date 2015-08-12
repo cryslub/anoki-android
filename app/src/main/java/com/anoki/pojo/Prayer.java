@@ -3,6 +3,9 @@ package com.anoki.pojo;
 import com.anoki.common.Global;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class Prayer implements Serializable{
@@ -39,5 +42,38 @@ public class Prayer implements Serializable{
 
 	public int getTotal(){
 		return friends.size() + phone.size();
+	}
+
+	public String simpleText(){
+		if(text.length() > 0) return text;
+		else  return back;
+	}
+
+
+	public boolean checkPrayable() {
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
+
+		boolean pass = false;
+
+		try {
+			if (!"null".equals(lastPrayed) && lastPrayed != null) {
+				Calendar date = Calendar.getInstance();
+				date.setTime(format.parse(lastPrayed));
+				Calendar now = Calendar.getInstance();
+
+				double diff = now.getTimeInMillis() - date.getTimeInMillis();
+				if (diff > 60 * 60 * 1000) {
+					pass = true;
+				}
+			} else {
+				pass = true;
+			}
+
+		} catch (ParseException e) {
+
+		}
+
+		return pass;
 	}
 }
