@@ -2,6 +2,7 @@ package com.anoki;
 
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.Settings;
@@ -19,6 +20,8 @@ import com.anoki.pojo.Reply;
 
 import org.w3c.dom.Text;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 /**
@@ -26,10 +29,13 @@ import org.w3c.dom.Text;
  */
 public class ReplyFragment extends Fragment {
 
+
+    @Bind(R.id.cover)
+    ImageView cover;
+
     private Reply reply;
 
     public ReplyFragment(){
-
     }
 
     public void setReply(Reply reply) {
@@ -41,6 +47,9 @@ public class ReplyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View itemLayoutView = inflater.inflate(R.layout.fragment_reply, container, false);
+
+        ButterKnife.bind(this, itemLayoutView);
+
 
         ImageView picture;
         ImageView image;
@@ -69,6 +78,7 @@ public class ReplyFragment extends Fragment {
             TextView response = (TextView) itemLayoutView.findViewById(R.id.response);
             response.setVisibility(View.GONE);
             //con.removeView(response);
+            cover.setImageResource(R.drawable.profile_cover_gray_small);
         }
 
 

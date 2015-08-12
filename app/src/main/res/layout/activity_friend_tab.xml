@@ -52,8 +52,8 @@
                                 android:textSize="15sp"
                                 android:background="@null"
                                 android:id="@+id/search_scraped"
-                                android:drawableLeft="@drawable/ic_search_black_24dp"
-                                android:paddingLeft="5dp"/>
+                                android:drawableLeft="@drawable/ic_magnifyingglass_gray"
+                                android:paddingLeft="10dp"/>
 
                         </LinearLayout>
 

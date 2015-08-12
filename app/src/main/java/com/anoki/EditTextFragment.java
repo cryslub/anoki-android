@@ -92,7 +92,6 @@ public class EditTextFragment extends Fragment implements View.OnClickListener{
         TypedArray a = activity.obtainStyledAttributes(attrs,R.styleable.EditTextFragment);
 
         this.inputType = a.getInt(R.styleable.EditTextFragment_android_inputType, -1);
-
         this.maxLength = a.getInt(R.styleable.EditTextFragment_android_maxLength, -1);
 
     }

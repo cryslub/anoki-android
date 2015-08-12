@@ -303,8 +303,12 @@ public class Util {
 
     public static String makePhoneNumber(String country, String number) {
 
+        if(number.length()>=11) {
 
-        return "+" + country + " " + number.substring(0, 3) + "-" + number.substring(3, 7) + "-" + number.substring(7, 11);
+            return "+" + country + " " + number.substring(0, 3) + "-" + number.substring(3, 7) + "-" + number.substring(7, 11);
+        }else{
+            return number;
+        }
     }
 
     public static void styleTab(Context context, TabHost myTabHost) {

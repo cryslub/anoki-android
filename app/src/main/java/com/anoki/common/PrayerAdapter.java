@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anoki.R;
@@ -42,21 +43,19 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
     TextView prayCount;
     TextView replyCount;
 
-    @Bind(R.id.pray) ImageView pray;
-    @Bind(R.id.scrap) ImageView scrap;
 
     LinearLayout container;
-    Activity parentActivity;
+
     PrayerAdapter adapter;
+
+
+    @Bind(R.id.picture_container)
+    RelativeLayout pictureContainer;
 
     @OnClick(R.id.pray) void pray(){
         if (RestService.pray(prayer)) {
             ((PrayerAdapter.OnPrayListener) parentActivity).onPray();
         }
-    }
-
-    @OnClick(R.id.container) void showDetail(){
-        Common.showPrayerDetail(parentActivity, prayer);
     }
 
     @OnClick(R.id.scrap) void scrap(){
@@ -67,8 +66,8 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
 
 
 
-    public PrayerViewHolder(PrayerAdapter adapter, View itemLayoutView) {
-        super(adapter, itemLayoutView);
+    public PrayerViewHolder(PrayerAdapter adapter, View itemLayoutView,Activity parentActivity) {
+        super(adapter, itemLayoutView,parentActivity);
 
         ButterKnife.bind(this, itemLayoutView);
 
@@ -117,7 +116,7 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
             Util.setPicture(prayer.userPicture, picture, parentActivity.getResources().getDrawable(R.drawable.ic_person_black_48dp));
         }else{
             name.setVisibility(View.GONE);
-            picture.setVisibility(View.GONE);
+            pictureContainer.setVisibility(View.GONE);
         }
 
 
@@ -207,7 +206,7 @@ public class PrayerAdapter extends DragSortAdapter<PrayerViewHolder> {
         // create ViewHolder
 
 
-        PrayerViewHolder viewHolder = new PrayerViewHolder(this,itemLayoutView);
+        PrayerViewHolder viewHolder = new PrayerViewHolder(this,itemLayoutView,parentActivity);
         itemLayoutView.setOnLongClickListener(viewHolder);
         return viewHolder;
     }

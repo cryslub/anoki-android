@@ -19,11 +19,14 @@ import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 import com.anoki.pojo.Prayer;
 
+import butterknife.Bind;
 
 
 public class BillingActivity extends SubActivityBase {
 
     private Prayer prayer;
+
+    @Bind(R.id.calc) TextView calc;
 
 
 
@@ -46,7 +49,10 @@ public class BillingActivity extends SubActivityBase {
 
 
         TextView sum = (TextView)findViewById(R.id.sum);
-        sum.setText("총 "+ex+"명 ("+ex+"명 X "+Global.DALANT_PER_PERSON+" 달란트)");
+        sum.setText("총 "+ex+"명");
+
+
+        calc.setText(" ("+ex+"명 X "+Global.DALANT_PER_PERSON+" 달란트)");
 
         TextView price = (TextView)findViewById(R.id.price);
         price.setText( (ex*Global.DALANT_PER_PERSON)+ "달란트");

@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="5dp"
-
+    android:layout_height="match_parent" android:padding="10dp"
     tools:context="com.anoki.BillingActivity"
     android:orientation="vertical">
 
@@ -9,8 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginTop="50dp">
         <View
             android:layout_width="fill_parent"
             android:layout_height="3dp"
@@ -22,18 +20,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:background="@android:color/white">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
-            <TextView android:text="기도를 요청한 친구" android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp">
+            <TextView android:text="기도를 요청한 친구"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                style="@style/MainText"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="30명"
-                android:id="@+id/total"/>
+                android:id="@+id/total"
+                style="@style/MainText"/>
         </LinearLayout>
 
         <LinearLayout
@@ -41,11 +44,13 @@
             android:layout_height="40dp">
             <TextView android:text="무료로 보낼 수 있는 친구" android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                style="@style/MainText"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10명"/>
+                android:text="10명"
+                style="@style/MainText"/>
         </LinearLayout>
 
         <LinearLayout
@@ -53,34 +58,42 @@
             android:layout_height="wrap_content">
             <TextView android:text="부족한 친구 수" android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                style="@style/MainText"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20명"
-                android:id="@+id/ex"/>
+                android:id="@+id/ex"
+                style="@style/MainText"/>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#aaaaaa"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            style="@style/Line"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp">
-            <TextView android:text="총 20명 (20명 X 10 달란트)" android:layout_width="0dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총 20명"
+                style="@style/MainText"
+                android:id="@+id/sum"/>
+            <TextView android:text=" (20명 X 10 달란트)" android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/sum"/>
+                android:id="@+id/calc"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="200 달란트"
-                android:textColor="#ff0000"
+                android:textColor="@color/cinnabar"
                 android:id="@+id/price"
+                android:textSize="18sp"
                 android:textStyle="bold"/>
                 />
         </LinearLayout>

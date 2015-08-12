@@ -41,10 +41,18 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             >
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical">
 
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_magnifyingglass_gray"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="15dp"/>
                                 <EditText
                                     android:layout_width="fill_parent"
                                     android:layout_height="35dp"
@@ -52,10 +60,8 @@
                                     android:textSize="15sp"
                                     android:id="@+id/search_friend"
                                     android:background="@null"
-                                    android:drawableLeft="@drawable/ic_search_black_24dp"
-                                    android:paddingLeft="5dp"/>
-
-                            </LinearLayout>
+                                    android:paddingLeft="45dp"/>
+                            </RelativeLayout>
                             <ListView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -63,8 +69,7 @@
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="1px"
-                                android:background="#aaaaaa"/>
+                                style="@style/Line"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -76,8 +81,7 @@
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="1px"
-                                android:background="#aaaaaa" />
+                                style="@style/Line" />
                             <android.support.v7.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
@@ -108,8 +112,8 @@
                                     android:textSize="15sp"
                                     android:id="@+id/search_contact"
                                     android:background="@null"
-                                    android:drawableLeft="@drawable/ic_search_black_24dp"
-                                    android:paddingLeft="5dp"/>
+                                    android:drawableLeft="@drawable/ic_magnifyingglass_gray"
+                                    android:paddingLeft="10dp"/>
 
                             </LinearLayout>
 

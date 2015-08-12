@@ -1,30 +1,29 @@
 <FrameLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-tools:context="com.anoki.EditTextFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.anoki.EditTextFragment"
     android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-    android:layout_gravity="center"
->
-
-<EditText
-    android:id="@+id/calc_txt_Prise"
-    android:layout_width="fill_parent"
-    android:layout_height="35dp"
-    android:singleLine="true"
-    android:background="@drawable/gray_border"
-    android:padding="5dp"
-    />
-
-<ImageButton
-    android:id="@+id/calc_clear_txt_Prise"
-    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="10dp"
-    android:layout_gravity="right|center_vertical"
-    android:src="@drawable/ic_cancel_black_24dp"
-    android:background="@android:color/transparent"
-    android:alpha=".3"
-    />
+    android:layout_gravity="center">
+
+    <EditText
+        android:id="@+id/calc_txt_Prise"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:singleLine="true"
+        android:background="@drawable/gray_border"
+        android:padding="5dp"
+        />
+
+    <ImageButton
+        android:id="@+id/calc_clear_txt_Prise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="right|center_vertical"
+        android:src="@drawable/ic_cancel_black_24dp"
+        android:background="@android:color/transparent"
+        android:alpha=".3"
+        />
 
 </FrameLayout>

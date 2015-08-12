@@ -51,11 +51,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 public class PrayerDetailActivity extends SubActivityBase implements PrayerImageFragment.OnFragmentInteractionListener, ReplyFragment.OnFragmentInteractionListener {
 
     Prayer prayer;
     int prayerId;
     String pictureId;
+
+    @Bind(R.id.complete) ImageView complete;
+    @Bind(R.id.response) ImageView response;
+    @Bind(R.id.scrap) ImageView scrap;
+    @Bind(R.id.pray) ImageView pray;
+
+    @Bind(R.id.media) LinearLayout mediaList;
+
+    boolean reply;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,79 +80,8 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         prayerId = (Integer) intent.getIntExtra("prayerId",-1);
 
 
-        load();
-        prayer.apiKey = Global.apiKey;
-
-        ImageView picture = (ImageView) findViewById(R.id.picture);
-        Util.setPicture(prayer.userPicture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
-
-        setText(R.id.name, prayer.userName);
-        setText(R.id.text,prayer.back+"\r\n\r\n"+prayer.text);
-        setText(R.id.date, prayer.time);
-
-
-        if(prayer.responseCount == 0){
-            LinearLayout bar = (LinearLayout)findViewById(R.id.response_bar);
- //           LinearLayout container = (LinearLayout)findViewById(R.id.container);
-//            container.removeView(bar);
-            bar.setVisibility(View.GONE);
-        }else{
-            TextView response = (TextView) findViewById(R.id.response_count);
-            response.setText(prayer.responseCount+"건");
-        }
-
-        ImageView myPicture = (ImageView) findViewById(R.id.my_picture);
-        Util.setPicture(Global.me.picture + "", myPicture, getResources().getDrawable(R.drawable.ic_person_black_24dp));
-
-        ImageView photo = (ImageView) findViewById(R.id.photo);
-        photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent photoLibraryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                photoLibraryIntent.setType("image/*");
-                startActivityForResult(photoLibraryIntent, Global.PHOTO);
-
-
-            }
-        });
-
-        ImageView done = (ImageView) findViewById(R.id.done);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText replyText = (EditText) findViewById(R.id.reply_text);
-                if(replyText.length() > 0){
-                    CheckBox pub = (CheckBox) findViewById(R.id.pub);
-
-                    Reply reply = new Reply();
-                    reply.apiKey = Global.apiKey;
-                    reply.text = replyText.getText().toString();
-                    reply.prayer = prayerId;
-                    reply.type = "S";
-                    reply.pub = pub.isChecked()?"N":"Y";
-                    reply.picture = pictureId;
-
-
-                    Util.rest("prayer/reply", "POST", reply, Prayer.class);
-
-                    replyText.setText("");
-                    pub.setChecked(false);
-                    ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
-                    flowLayout.removeAllViews();
-
-                    refresh();
-                }
-            }
-        });
-
-
-        if(intent.getBooleanExtra("reply", false)){
-
-            showReplyContainer(null);
-
-        }
-
+       // load();
+        reply = intent.getBooleanExtra("reply", false);
       //  setMediaList();
     }
 
@@ -188,11 +131,9 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         if(prayer.userId != Global.me.id){
   //          LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.button_container);
 
-            TextView response = (TextView) findViewById(R.id.response);
             response.setVisibility(View.GONE);
 //            buttonContainer.removeView(response);
 
-            TextView complete = (TextView) findViewById(R.id.complete);
             complete.setVisibility(View.GONE);
 
             ImageButton popup = (ImageButton) findViewById(R.id.popup);
@@ -205,7 +146,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         if(prayer.scrapd != null || prayer.userId == Global.me.id){
        //     LinearLayout buttonContainer = (LinearLayout) findViewById(R.id.button_container);
-            TextView scrap = (TextView) findViewById(R.id.scrap);
+
             scrap.setVisibility(View.GONE);
         //    buttonContainer.removeView(scrap);
         }
@@ -221,6 +162,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         }
 
         if(prayer.media != null) {
+            mediaList.removeAllViews();
             for (Media media : prayer.media) {
                 addMedia(media);
             }
@@ -231,12 +173,53 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
             showReply.setVisibility(View.GONE);
         }
 
+        prayer.apiKey = Global.apiKey;
+
+        ImageView picture = (ImageView) findViewById(R.id.picture);
+        Util.setPicture(prayer.userPicture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
+
+        setText(R.id.name, prayer.userName);
+        setText(R.id.text,prayer.back+"\r\n\r\n"+prayer.text);
+        setText(R.id.date, prayer.time);
+
+
+        if(prayer.responseCount == 0){
+            LinearLayout bar = (LinearLayout)findViewById(R.id.response_bar);
+            //           LinearLayout container = (LinearLayout)findViewById(R.id.container);
+//            container.removeView(bar);
+            bar.setVisibility(View.GONE);
+        }else{
+            TextView response = (TextView) findViewById(R.id.response_count);
+            response.setText(prayer.responseCount+"건");
+        }
+
+        ImageView myPicture = (ImageView) findViewById(R.id.my_picture);
+        Util.setPicture(Global.me.picture + "", myPicture, getResources().getDrawable(R.drawable.ic_person_black_24dp));
+
+
+        if(prayer.checkPrayable()){
+            pray.setImageResource(R.drawable.btn_pray_mint);
+        }else{
+            pray.setImageResource(R.drawable.btn_pray_gray);
+        }
+
+        if("Y".equals(prayer.completed)){
+            complete.setVisibility(View.GONE);
+        }
+
+        if(reply){
+
+            showReplyContainer(null);
+
+        }
+
+
     }
 
 
 
     private void addMedia(final Media media){
-        LinearLayout mediaList = (LinearLayout) findViewById(R.id.media);
+
 
 
         LayoutInflater mLayoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -251,7 +234,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         mediaList.addView(itemView);
 
-        Util.setMediaView(itemView,media);
+        Util.setMediaView(itemView, media);
 
 
 
@@ -336,6 +319,42 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         intent.putExtra("prayer",prayer);
         startActivity(intent);
     }
+
+
+    public void photo(View view){
+
+        Intent photoLibraryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        photoLibraryIntent.setType("image/*");
+        startActivityForResult(photoLibraryIntent, Global.PHOTO);
+
+    }
+
+    public void done(View view){
+        EditText replyText = (EditText) findViewById(R.id.reply_text);
+        if(replyText.length() > 0) {
+            CheckBox pub = (CheckBox) findViewById(R.id.pub);
+
+            Reply reply = new Reply();
+            reply.apiKey = Global.apiKey;
+            reply.text = replyText.getText().toString();
+            reply.prayer = prayerId;
+            reply.type = "S";
+            reply.pub = pub.isChecked() ? "N" : "Y";
+            reply.picture = pictureId;
+
+
+            Util.rest("prayer/reply", "POST", reply, Prayer.class);
+
+            replyText.setText("");
+            pub.setChecked(false);
+            ViewGroup flowLayout = (ViewGroup) findViewById(R.id.media_list);
+            flowLayout.removeAllViews();
+
+            refresh();
+        }
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

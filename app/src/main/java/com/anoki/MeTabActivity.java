@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anoki.common.Global;
@@ -26,6 +27,7 @@ public class MeTabActivity extends TabActivityBase implements PrayerAdapter.OnPr
 
     @Bind(R.id.edit)
     Button edit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

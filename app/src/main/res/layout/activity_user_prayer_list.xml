@@ -13,13 +13,11 @@
         android:background="@color/mine_shaft"
         android:padding="10dp">
 
-        <com.anoki.common.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/picture"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_person_white_48dp"
-            />
+       <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/include_profile_picture"
+        />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -64,13 +62,6 @@
             android:textColor="@android:color/white"
             android:textStyle="bold"
             android:textSize="11sp"/>
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="32dp"
-            android:text="편집"
-            android:textSize="9sp"
-            android:onClick="edit"
-            android:layout_marginRight="10dp" />
 
     </LinearLayout>
 

@@ -50,7 +50,7 @@ public class UserPrayerListActivity extends SubActivityBase implements PrayerAda
 
 
     protected void load(){
-        User user = setPrayerListPage(Global.me.id);
+        User user = setPrayerListPage(id);
 
 
 

@@ -52,7 +52,7 @@ public class RecentTabActivity extends TabActivityBase {
         // 2. set layoutManger
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         // 3. create an adapter
-        recentAdapter = new RecentAdapter(recyclerView,recentList);
+        recentAdapter = new RecentAdapter(recyclerView,recentList,this);
         // 4. set adapter
         recyclerView.setAdapter(recentAdapter);
 
@@ -118,8 +118,8 @@ public class RecentTabActivity extends TabActivityBase {
         ImageButton viewProfile;
         ImageButton viewPrayerList;
 
-        public ViewHolder(DragSortAdapter adapter, View itemLayoutView) {
-            super(adapter,itemLayoutView);
+        public ViewHolder(DragSortAdapter adapter, View itemLayoutView,Activity parentActivity) {
+            super(adapter,itemLayoutView,parentActivity);
 
             profile = (LinearLayout) itemLayoutView.findViewById(R.id.profile);
             picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
@@ -255,11 +255,14 @@ public class RecentTabActivity extends TabActivityBase {
 
 
     private class RecentAdapter extends DragSortAdapter<RecentTabActivity.ViewHolder> {
-        private List<Prayer> itemsData;
 
-        public RecentAdapter(RecyclerView recyclerView,List<Prayer> itemsData) {
+        private List<Prayer> itemsData;
+        private Activity parentActivity;
+
+        public RecentAdapter(RecyclerView recyclerView,List<Prayer> itemsData,Activity parentActivity) {
             super(recyclerView);
             this.itemsData = itemsData;
+            this.parentActivity = parentActivity;
         }
 
         public void updateList(List<Prayer> itemsData){
@@ -276,7 +279,7 @@ public class RecentTabActivity extends TabActivityBase {
 
             // create ViewHolder
 
-            RecentTabActivity.ViewHolder viewHolder = new RecentTabActivity.ViewHolder(this,itemLayoutView);
+            RecentTabActivity.ViewHolder viewHolder = new RecentTabActivity.ViewHolder(this,itemLayoutView,parentActivity);
             return viewHolder;
         }
 

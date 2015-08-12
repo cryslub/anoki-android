@@ -8,6 +8,7 @@ import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.Search;
 import com.anoki.pojo.User;
+import com.google.android.gms.games.Notifications;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -31,6 +32,7 @@ public class RestService {
 
 
         if(prayer.checkPrayable()){
+            prayer.apiKey = Global.apiKey;
             Util.rest("prayer/pray", "POST",prayer, Response.class);
             return true;
         }

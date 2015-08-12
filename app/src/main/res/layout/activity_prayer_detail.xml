@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:padding="10dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -43,12 +44,12 @@
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:id="@+id/name"
-                        android:text="최영범"/>
+                        android:text="최영범"
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="#888888"
-                        android:textSize="10sp"
                         android:id="@+id/date"
                         android:text="3월 13일"/>
                 </LinearLayout>
@@ -78,10 +79,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
+                android:textColor="@color/strong"
                 android:id="@+id/text"
                 android:layout_margin="10dp"
-                android:text="기도제목"/>
+                android:text="기도제목"
+                android:textSize="18sp"/>
 
 
 
@@ -105,67 +107,49 @@
             <include
                 android:layout_width="match_parent"
                 android:layout_height="26dp"
-                android:layout_alignParentBottom="false"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="false"
                 layout="@layout/include_pray_reply"
-                android:layout_alignParentEnd="false"
-                android:layout_alignBottom="@+id/media" />
+                android:layout_alignParentEnd="false"/>
 
 
             </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:id="@+id/button_container"
-                android:layout_marginBottom="10dp">
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="15dp"
-                    android:text="기도"
-                    android:textSize="10sp"
-                    android:gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/pray"
-                    android:background="#dddddd"
-                    android:layout_margin="5dp"
+                    android:src="@drawable/btn_pray_mint"
                     android:onClick="pray"/>
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="15dp"
-                    android:textSize="10sp"
+                <ImageView
 
-                    android:text="담기"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:id="@+id/scrap"
-                    android:background="#dddddd"
-                    android:layout_margin="5dp"
-                    android:onClick="scrap"/>
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="15dp"
-                    android:textSize="10sp"
-
-                    android:text="기도응답"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/response"
-                    android:background="#dddddd"
-                    android:layout_margin="5dp"
+                    android:src="@drawable/btn_answer_gray"
+                    android:layout_marginLeft="10dp"
                     android:onClick="response"/>
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="15dp"
-                    android:textSize="10sp"
-
-                    android:text="기도완료"
-                    android:gravity="center_vertical|center_horizontal"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/complete"
-                    android:background="#dddddd"
-                    android:layout_margin="5dp"
+                    android:src="@drawable/btn_completion_gray"
+                    android:layout_marginLeft="10dp"
                     android:onClick="complete"/>
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scrap"
+                    android:src="@drawable/btn_share_gray"
+                    android:layout_marginLeft="10dp"/>
 
             </LinearLayout>
 
@@ -177,18 +161,20 @@
                 android:gravity="center_vertical|center|center_horizontal"
 
                 android:layout_gravity="center_horizontal|right"
-                android:layout_margin="0dp"
-                android:onClick="showReplyContainer">
+                android:layout_marginTop="10dp"
+                android:onClick="showReplyContainer"
+                android:padding="2dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_drop_down_white_24dp"/>
+                    android:src="@drawable/ic_arw_down_yellow_small"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="댓글보기"
                     android:textColor="@android:color/white"
-                    android:layout_margin="1dp" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp" />
 
             </LinearLayout>
 
@@ -201,37 +187,58 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/darker_gray"
-                    android:id="@+id/response_bar"
-                    android:gravity="center_vertical|center|center_horizontal"
+                    android:layout_height="wrap_content">
 
-                    android:layout_gravity="center_horizontal|right"
-                    android:layout_margin="0dp"
-                    android:onClick="responseList">
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="20dp"
+                        android:background="@android:color/darker_gray"
+                        android:id="@+id/response_bar"
+                        android:gravity="center_vertical|center|center_horizontal"
+                        android:layout_gravity="center_horizontal|right"
+                        android:layout_marginTop="10dp"
+                        android:onClick="responseList"
+                        android:paddingLeft="10dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="기도응답이"
+                            android:textColor="@android:color/white"
+                            android:layout_margin="1dp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2건"
+                            android:textColor="@color/golden_yellow"
+                            android:id="@+id/response_count"
+                            android:layout_margin="1dp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="있습니다."
+                            android:textColor="@android:color/white"
+                            android:layout_margin="1dp"
+                            android:textStyle="bold"/>
+
+
+
+                    </LinearLayout>
+
+                    <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="기도응답이"
-                        android:textColor="@android:color/white"
-                        android:layout_margin="1dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2건"
-                        android:textColor="@color/yellow"
-                        android:id="@+id/response_count"
-                        android:layout_margin="1dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="있습니다."
-                        android:textColor="@android:color/white"
-                        android:layout_margin="1dp" />
-
-
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_arw_right_small"
+                        android:background="@android:color/darker_gray"
+                        android:gravity="right"
+                        android:paddingRight="10dp"/>
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -244,24 +251,37 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:gravity="center_vertical"
-                    android:id="@+id/reply">
+                    android:id="@+id/reply"
+                    android:background="@color/white_smoke"
+                    android:paddingTop="5dp">
 
-                    <com.anoki.common.CircleImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:id="@+id/my_picture"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_person_black_36dp"
-                        android:alpha=".5"
-                        />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/profile_cover_gray_small"
+                            android:id="@+id/cover"
+                            />
+                        <com.anoki.common.CircleImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:id="@+id/my_picture"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_person_black_36dp"
+                            android:alpha=".5"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="4dp"
+                            />
+                    </RelativeLayout>
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:alpha=".8"
-                        >
+                        android:alpha=".8">
 
                         <CheckBox
                             android:layout_width="wrap_content"
@@ -270,36 +290,49 @@
                             android:id="@+id/pub"
                             android:scaleX="0.80"
                             android:scaleY="0.80"
-                            android:layout_marginLeft="-10dp" />
+                            android:layout_marginLeft="-4dp" />
 
                         <LinearLayout
                             android:layout_width="fill_parent"
-                            android:layout_height="wrap_content">
-                            <EditText
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp">
+                            <RelativeLayout
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:layout_height="24dp"
-                                android:hint="댓글을 달아 보세요."
-                                android:textSize="12sp"
-                                android:id="@+id/reply_text"
-                                android:layout_marginLeft="5dp"
-                                android:background="@drawable/gray_border"
-                                android:padding="5dp"
-                                />
-                            <ImageView
-                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_photo_black_24dp"
-                                android:layout_gravity="center_vertical"
-                                android:alpha=".5"
-                                android:id="@+id/photo"/>
+                                android:layout_marginBottom="10dp">
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="26dp"
+                                    android:hint="댓글을 달아 보세요."
+                                    android:textSize="15sp"
+                                    android:id="@+id/reply_text"
+                                    android:background="@android:color/white"
+                                    android:padding="5dp" />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_gallery"
+                                    android:layout_gravity="right|center_vertical"
+                                    android:alpha=".5"
+                                    android:id="@+id/photo"
+                                    android:onClick="photo"
+                                    android:layout_alignParentBottom="false"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true" />
+
+                            </RelativeLayout>
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_done_black_24dp"
                                 android:layout_gravity="center_vertical"
                                 android:alpha=".5"
-                                android:id="@+id/done"/>
+                                android:id="@+id/done"
+                                android:onClick="done"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginRight="3dp" />
                         </LinearLayout>
                         <GridLayout
                             android:layout_width="match_parent"

@@ -8,110 +8,130 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        >
-
-        <com.anoki.common.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/picture"
-            android:scaleType="centerCrop"
-            android:alpha=".5"
-            />
-
+        android:orientation="vertical"
+        android:padding="10dp">
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/container"
-            android:layout_marginLeft="10dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/name"
-                android:textColor="@color/medium_turquoise"
-                android:text="최영범"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/date"
-                android:text="3월 14일 오전 11:00"
-                android:textSize="9sp"/>
-            <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/picture_container">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/profile_cover_gray_small"
+                    android:id="@+id/cover"
+                    />
+                <com.anoki.common.CircleImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:id="@+id/picture"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_person_black_36dp"
+                    android:alpha=".5"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/text"
-                android:text="기도제목"
-                android:textColor="@color/strong"
-                android:layout_marginTop="5dp" />
+                android:orientation="vertical"
+                android:id="@+id/container"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name"
+                    android:textColor="@color/medium_turquoise"
+                    android:text="최영범"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/date"
+                    android:text="3월 14일 오전 11:00"
+                    android:textSize="11sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text"
+                    android:text="기도제목"
+                    android:layout_marginTop="5dp"
+                    style="@style/MainText"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical">
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="14dp"
-            android:background="#dddddd"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
             android:gravity="center_vertical">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="14dp"
+                android:background="@color/white_smoke"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_pray"
+                    android:alpha=".3"
+                    android:layout_marginLeft="5dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/pray_count"
+                    android:text="20"
+                    android:textSize="9sp"
+                    android:textColor="@color/week"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_reply"
+                    android:alpha=".3"
+                    android:layout_marginLeft="5dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/reply_count"
+                    android:text="3"
+                    android:textSize="9sp"
+                    android:textColor="@color/week"/>
+            </LinearLayout>
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="10dp"
-                android:src="@drawable/ic_send_black_18dp"
-                android:alpha=".3"
-                android:layout_marginLeft="5dp"/>
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/pray_count"
-                android:text="20"
-                android:textSize="9sp"
-                android:textColor="@color/week"/>
+                android:id="@+id/pray"
+                android:src="@drawable/btn_pray_mint"/>
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="10dp"
-                android:src="@drawable/ic_chat_bubble_outline_black_18dp"
-                android:alpha=".3"
-                android:layout_marginLeft="5dp"/>
-            <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/reply_count"
-                android:text="3"
-                android:textSize="9sp"
-                android:textColor="@color/week"/>
+                android:id="@+id/scrap"
+                android:src="@drawable/btn_share_gray"
+                />
+
+
         </LinearLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pray"
-            android:src="@drawable/btn_pray_mint"/>
-        <ImageView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrap"
-            android:src="@drawable/btn_share_gray"
-            />
-
 
     </LinearLayout>
-
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
         android:layout_marginTop="10dp"
-        android:background="#aaaaaa"/>
+        style="@style/Line"/>
 
 </LinearLayout>

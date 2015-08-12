@@ -25,6 +25,8 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
     Prayer prayer;
     View view;
 
+    protected Activity parentActivity;
+
     @Bind(R.id.picture) protected ImageView picture;
     @Bind(R.id.name)
     protected TextView name;
@@ -38,12 +40,17 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
     @Bind(R.id.pray) protected ImageView pray;
     @Bind(R.id.scrap) protected  ImageView scrap;
 
+
     LinearLayout container;
     PrayerAdapter adapter;
 
 
+    @OnClick(R.id.container) void showDetail(){
+        Common.showPrayerDetail(parentActivity, prayer);
+    }
 
-    public PrayerViewHolderBase(DragSortAdapter adapter, View itemLayoutView) {
+
+    public PrayerViewHolderBase(DragSortAdapter adapter, View itemLayoutView,Activity parentActivity) {
         super(adapter, itemLayoutView);
 
         view = itemLayoutView;
@@ -56,6 +63,7 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
         prayCount = (TextView) itemLayoutView.findViewById(R.id.pray_count);
         replyCount = (TextView) itemLayoutView.findViewById(R.id.reply_count);
 
+        this.parentActivity = parentActivity;
 
 
 
@@ -88,7 +96,6 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
 
             scrap.setVisibility(View.GONE);
         }
-
 
     }
 

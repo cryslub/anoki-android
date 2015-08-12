@@ -117,7 +117,7 @@
         android:layout_height="match_parent"
         android:background="@color/mine_shaft"
         android:id="@+id/options"
-        android:visibility="invisible"
+        android:visibility="visible"
         >
 
         <LinearLayout
@@ -132,7 +132,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_photo_white_48dp"
+                android:src="@drawable/btn_write_gallery"
                 />
 
             <TextView
@@ -140,7 +140,9 @@
                 android:layout_height="wrap_content"
                 android:text="사진"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
@@ -160,7 +162,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_videocam_white_48dp"
+                android:src="@drawable/btn_write_video"
                 />
 
             <TextView
@@ -168,7 +170,9 @@
                 android:layout_height="wrap_content"
                 android:text="영상"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
@@ -185,7 +189,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_camera_alt_white_48dp"
+                android:src="@drawable/btn_write_shooting"
                 />
 
             <TextView
@@ -193,7 +197,9 @@
                 android:layout_height="wrap_content"
                 android:text="촬영"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 

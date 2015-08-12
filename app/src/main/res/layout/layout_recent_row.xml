@@ -34,7 +34,8 @@
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:text="최영범"
-                    android:id="@+id/name"/>
+                    android:id="@+id/name"
+                    android:textStyle="bold"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -42,7 +43,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/week"
-                    android:textSize="12sp"
                     android:gravity="center"
                     android:text="3월 14일"
                     android:id="@+id/date"/>
@@ -51,7 +51,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/week"
-                        android:textSize="12sp"
                         android:gravity="center"
                         android:text=", 기도응답"
                         android:id="@+id/response" />
@@ -82,9 +81,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/text"
             android:maxHeight="120dp"
-            android:textSize="18sp"
             android:text="기도내용"
             android:layout_marginTop="10dp"
+            android:textSize="18sp"
             android:textColor="@color/strong"/>
         <TextView
             android:layout_width="match_parent"
