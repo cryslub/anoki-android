@@ -3,11 +3,13 @@ package com.anoki.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -25,7 +27,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 
 /**
  * Created by joon on 2015-08-09.
@@ -33,6 +37,19 @@ import butterknife.ButterKnife;
 public class ActivityBase extends ActionBarActivity {
 
     protected PrayerAdapter prayerAdapter;
+
+    @Nullable @Bind(R.id.search_key)
+    protected EditText searchKey;
+
+
+    @Nullable @OnTextChanged(R.id.search_key)
+    void search(){
+        setFilter();
+    }
+
+    protected void setFilter(){
+        prayerAdapter.setFilter(searchKey.getText().toString());
+    }
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {

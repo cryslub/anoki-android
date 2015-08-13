@@ -322,7 +322,7 @@ public class BoxActivity extends SubActivityBase {
         return calendar;
     }
 
-    private void setFilter(){
+    protected void setFilter(){
 
 
         Calendar start = idToCalendar(R.id.start);

@@ -31,8 +31,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnTextChanged;
+
 
 public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.OnPrayListener{
+
+
+    protected  PrayerAdapter scrapedAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +54,14 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
 
         Util.styleTab(getApplicationContext(),myTabHost);
 
-        load();
-
 
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        load();
+    protected void setFilter(){
+        scrapedAdapter.setFilter(searchKey.getText().toString());
     }
+
 
 
     protected void load(){
@@ -76,25 +79,9 @@ public class FriendTabActivity extends TabActivityBase implements PrayerAdapter.
 
         List<Prayer> prayerList = Util.rest("prayer/scraped", "POST", search, listType);
 
-        final PrayerAdapter prayerAdapter =  setPrayerView(R.id.scraped_list, prayerList);
+        scrapedAdapter =  setPrayerView(R.id.scraped_list, prayerList);
 
-        final EditText searchScraped = (EditText) findViewById(R.id.search_scraped);
-        searchScraped.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                prayerAdapter.setFilter(searchScraped.getText().toString());
-            }
-        });
 
     }
 

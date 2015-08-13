@@ -142,7 +142,7 @@ public class PrayerAdapter extends DragSortAdapter<PrayerViewHolder> {
     public void setFilter(String queryText) {
         visibleObjects = new ArrayList<>();
         for (Prayer item: allObjects) {
-            if(item.text.contains(queryText) || item.userName.contains(queryText))
+            if(item.simpleText().contains(queryText) || item.userName.contains(queryText))
                 visibleObjects.add(item);
         }
         notifyDataSetChanged();

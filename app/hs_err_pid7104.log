@@ -1,0 +1,119 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 32744 bytes for ChunkPool::allocate
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:273), pid=7104, tid=4928
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_45-b15) (build 1.8.0_45-b15)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.45-b02 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000007702000):  JavaThread "C1 CompilerThread3" daemon [_thread_in_native, id=4928, stack(0x00000000094f0000,0x00000000095f0000)]
+
+Stack: [0x00000000094f0000,0x00000000095f0000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x32b57a]
+
+
+Current CompileTask:
+C1:    659   97       3       sun.nio.cs.UTF_8$Decoder::
+[error occurred during error reporting (printing current compile task), id 0xe0000001]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00000000065df800 JavaThread "Service Thread" daemon [_thread_blocked, id=5944, stack(0x0000000008fe0000,0x00000000090e0000)]
+=>0x0000000007702000 JavaThread "C1 CompilerThread3" daemon [_thread_in_native, id=4928, stack(0x00000000094f0000,0x00000000095f0000)]
+  0x00000000065de800 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=4188, stack(0x00000000092f0000,0x00000000093f0000)]
+  0x00000000065dc000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=2600, stack(0x0000000009100000,0x0000000009200000)]
+  0x00000000076a3000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=5184, stack(0x0000000008ed0000,0x0000000008fd0000)]
+  0x0000000007699000 JavaThread "Attach Listener" daemon [_thread_blocked, id=5176, stack(0x0000000008c40000,0x0000000008d40000)]
+  0x0000000007680000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=4228, stack(0x0000000008660000,0x0000000008760000)]
+  0x00000000065c9000 JavaThread "Finalizer" daemon [_thread_blocked, id=6316, stack(0x0000000008a80000,0x0000000008b80000)]
+  0x0000000007633800 JavaThread "Reference Handler" daemon [_thread_blocked, id=5312, stack(0x0000000008910000,0x0000000008a10000)]
+  0x000000000248e000 JavaThread "main" [_thread_in_Java, id=1816, stack(0x0000000002490000,0x0000000002590000)]
+
+Other Threads:
+  0x0000000007630800 VMThread [stack: 0x0000000008770000,0x0000000008870000] [id=5144]
+  0x000000000770f000 WatcherThread [stack: 0x00000000096c0000,0x00000000097c0000] [id=1376]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap:
+ PSYoungGen      total 38400K, used 3994K [0x00000000eab00000, 0x00000000ed580000, 0x0000000100000000)
+  eden space 33280K, 12% used [0x00000000eab00000,0x00000000eaee68e0,0x00000000ecb80000)
+  from space 5120K, 0% used [0x00000000ed080000,0x00000000ed080000,0x00000000ed580000)
+  to   space 5120K, 0% used [0x00000000ecb80000,0x00000000ecb80000,0x00000000ed080000)
+ ParOldGen       total 87552K, used 0K [0x00000000c0000000, 0x00000000c5580000, 0x00000000eab00000)
+  object space 87552K, 0% used [0x00000000c0000000,0x00000000c0000000,0x00000000c5580000)
+ Metaspace       used 3249K, capacity 4720K, committed 4864K, reserved 1056768K
+  class space    used 348K, capacity 424K, committed 512K, reserved 1048576K
+
+Card table byte_map: [0x0000000002a00000,0x0000000002c10000] byte_map_base: 0x0000000002400000
+
+Marking Bits: (ParMarkBitMap*) 0x000000005b0d4040
+ Begin Bits: [0x00000000039e0000, 0x00000000049e0000)
+ End Bits:   [0x00000000049e0000, 0x00000000059e0000)
+
+Polling page: 0x0000000000330000
+
+CodeCache: size=245760Kb used=1225Kb max_used=1225Kb free=244534Kb
+ bounds [0x000000000f010000, 0x000000000f280000, 0x000000001e010000]
+ total_blobs=326 nmethods=78 adapters=161
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 0.414 Thread 0x0000000007702000 nmethod 72 0x000000000f140c10 code [0x000000000f140d60, 0x000000000f140ed0]
+Event: 0.420 Thread 0x0000000007702000   74       3       sun.nio.cs.ext.DoubleByte$Encoder::encodeChar (21 bytes)
+Event: 0.420 Thread 0x0000000007702000 nmethod 74 0x000000000f140f50 code [0x000000000f1410c0, 0x000000000f141270]
+Event: 0.652 Thread 0x0000000007702000   91       3       sun.util.calendar.ZoneInfo::getTransitionIndex (156 bytes)
+Event: 0.652 Thread 0x0000000007702000 nmethod 91 0x000000000f141790 code [0x000000000f141920, 0x000000000f141df0]
+Event: 0.652 Thread 0x0000000007702000   86       3       sun.util.calendar.Gregorian$Date::getNormalizedYear (5 bytes)
+Event: 0.652 Thread 0x0000000007702000 nmethod 86 0x000000000f142190 code [0x000000000f1422e0, 0x000000000f1424d0]
+Event: 0.652 Thread 0x0000000007702000   87       3       sun.util.calendar.BaseCalendar::isLeapYear (5 bytes)
+Event: 0.653 Thread 0x0000000007702000 nmethod 87 0x000000000f142550 code [0x000000000f1426c0, 0x000000000f1429b0]
+Event: 0.653 Thread 0x0000000007702000   97       3       sun.nio.cs.UTF_8$Decoder::decode (779 bytes)
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (2 events):
+Event: 0.101 Thread 0x000000000248e000 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.defineClass(Ljava/lang/String;[BII)Ljava/lang/Class; name or signature does not match> (0x00000000eab12f70) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u45\3627\hotspot\srﬂ5|ì.∫?
+Event: 0.102 Thread 0x000000000248e000 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.prefetchRead(Ljava/lang/Object;J)V name or signature does not match> (0x00000000eab13200) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u45\3627\hotspot\src\share\vm\prims\j
+
+Events (10 events):
+Event: 0.413 loading class com/android/dx/dex/file/ClassDefsSection
+Event: 0.413 loading class com/android/dx/dex/file/ClassDefsSection done
+Event: 0.414 loading class com/android/dx/cf/direct/ClassPathOpener
+Event: 0.414 loading class com/android/dx/cf/direct/ClassPathOpener done
+Event: 0.415 loading class com/android/dx/cf/direct/ClassPathOpener$1
+Event: 0.415 loading class com/android/dx/cf/direct/ClassPathOpener$1 done
+Event: 0.415 loading class com/android/dx/command/dexer/Main$1
+Event: 0.415 loading class com/android/dx/command/dexer/Main$1 done
+Event: 0.632 loading class java/util/zip/ZipFile$ZipEntryIterator
+Event: 0.632 loading class java/util/zip/ZipFile$ZipEntryIterator done
+
+
+Dynamic libraries:

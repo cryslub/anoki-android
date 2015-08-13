@@ -1,6 +1,7 @@
 package com.anoki;
 
 import android.app.Dialog;
+import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -34,6 +35,7 @@ import com.anoki.common.ContactManage;
 import com.anoki.common.DoneState;
 import com.anoki.common.FriendViewHolder;
 import com.anoki.common.Global;
+import com.anoki.common.Initial;
 import com.anoki.common.RestService;
 import com.anoki.common.Util;
 import com.anoki.common.ViewHolderBase;
@@ -50,6 +52,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import butterknife.OnTextChanged;
 
 public class ChooseContactsActivity extends WriteActivityBase {
 
@@ -62,31 +65,35 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
     private Prayer prayer ;
 
+    FriendsAdapter friendsAdapter;
+    ContactsAdapter contactsAdapter;
+
     SelectedAdapter selectedAdapter;
 
     private Dialog billingDialog;
 
-    private static final int EX_DIALOG = 100;
-    private static final int CHARGE_DIALOG = 110;
+
+    @Bind(R.id.search_key_contact)
+    EditText searchKeyContact;
 
 
-    private static final char HANGUL_BEGIN_UNICODE = 44032; // 가
-    private static final char HANGUL_LAST_UNICODE = 55203; // 힣
-    private static final char HANGUL_BASE_UNIT = 588;//각자음 마다 가지는 글자수
-
-    private static final char[] INITIAL_SOUND = { 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'};
-    private static Map<Character,Character> initialSoundMap = new HashMap<Character,Character>();
+    @Nullable @OnTextChanged(R.id.search_key_contact)
+    void searchContact(){
+        contactsAdapter.setFilter(searchKeyContact.getText().toString());
+    }
 
 
-    private static final String[] PHOTO_BITMAP_PROJECTION = new String[] {
+    protected void setFilter(){
+        friendsAdapter.setFilter(searchKey.getText().toString());
+    }
+
+    public static final int EX_DIALOG = 100;
+    public static final int CHARGE_DIALOG = 110;
+
+
+    public static final String[] PHOTO_BITMAP_PROJECTION = new String[] {
             ContactsContract.CommonDataKinds.Photo.PHOTO
     };
-
-    static{
-        for(char c : INITIAL_SOUND){
-            initialSoundMap.put(c,c);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,28 +143,9 @@ public class ChooseContactsActivity extends WriteActivityBase {
         // 2. set layoutManger
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         // 3. create an adapter
-        final FriendsAdapter friendsAdapter = new FriendsAdapter(friendList);
+        friendsAdapter = new FriendsAdapter(friendList);
         // 4. set adapter
         recyclerView.setAdapter(friendsAdapter);
-
-        final EditText searchFriend = (EditText) findViewById(R.id.search_friend);
-        searchFriend.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                friendsAdapter.setFilter(searchFriend.getText().toString());
-            }
-        });
-
 
 
         ListView listView = (ListView) findViewById(R.id.selected_list);
@@ -175,27 +163,9 @@ public class ChooseContactsActivity extends WriteActivityBase {
         // 2. set layoutManger
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         // 3. create an adapter
-        final ContactsAdapter friendsAdapter = new ContactsAdapter(contactList);
+        contactsAdapter = new ContactsAdapter(contactList);
         // 4. set adapter
-        recyclerView.setAdapter(friendsAdapter);
-
-        final EditText searchFriend = (EditText) findViewById(R.id.search_contact);
-        searchFriend.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                friendsAdapter.setFilter(searchFriend.getText().toString());
-            }
-        });
+        recyclerView.setAdapter(contactsAdapter);
     }
 
     private List <Object> getContactList(){
@@ -214,10 +184,10 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
 
             char first = friend.name.charAt(0);
-            if(isHangul(first)) {
-                int index =getInitialSound(first);
+            if(Initial.isHangul(first)) {
+                int index =Initial.getInitialSound(first);
                 if(index >initialIndex){
-                    contactList.add(INITIAL_SOUND[index]+"");
+                    contactList.add(Initial.INITIAL_SOUND[index]+"");
                     initialIndex = index;
                 }
             }
@@ -227,22 +197,6 @@ public class ChooseContactsActivity extends WriteActivityBase {
         System.out.println("contactList size - " + contactList.size());
 
         return contactList;
-    }
-
-    private static boolean isInitialSound(char searchar){
-        Character c = initialSoundMap.get(searchar);
-
-        return c!=null;
-    }
-
-    private static int getInitialSound(char c) {
-        int hanBegin = (c - HANGUL_BEGIN_UNICODE);
-        int index = hanBegin / HANGUL_BASE_UNIT;
-        return index;
-    }
-
-    private static boolean isHangul(char c) {
-        return HANGUL_BEGIN_UNICODE <= c && c <= HANGUL_LAST_UNICODE;
     }
 
 
@@ -424,7 +378,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
             char queryCharacter = ' ';
             if(queryText.length()>0){
                 char c = queryText.charAt(0);
-                if(isInitialSound(queryCharacter)){
+                if(Initial.isInitialSound(queryCharacter)){
                     queryCharacter = c;
                 }
             }
@@ -457,7 +411,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
             }else {
                 char c = item.name.charAt(0);
-                if(queryCharacter == INITIAL_SOUND[getInitialSound(c)]){
+                if(queryCharacter == Initial.INITIAL_SOUND[Initial.getInitialSound(c)]){
                     return true;
                 }
             }

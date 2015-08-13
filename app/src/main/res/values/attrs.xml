@@ -4,6 +4,14 @@
         <attr name="android:maxLength"/>
         <attr name="android:inputType"/>
     </declare-styleable>
+
+    <attr name="search_id" format="integer"/>
+
+    <declare-styleable name="SearchFragment">
+        <attr name="android:hint"/>
+        <attr name="search_id" />
+    </declare-styleable>
+
     <declare-styleable name="CircleImageView">
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />

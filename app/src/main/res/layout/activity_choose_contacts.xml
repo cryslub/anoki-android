@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.anoki.ChooseContactsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
 
     <TabHost
@@ -41,27 +42,15 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             >
-                            <RelativeLayout
+
+                            <fragment
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical">
+                                android:name="com.anoki.SearchFragment"
+                                android:id="@+id/search"
+                                android:hint="이름(초성), 전화번호 검색"
+                                />
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_magnifyingglass_gray"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginLeft="15dp"/>
-                                <EditText
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="35dp"
-                                    android:hint="이름(초성), 전화번호 검색"
-                                    android:textSize="15sp"
-                                    android:id="@+id/search_friend"
-                                    android:background="@null"
-                                    android:paddingLeft="45dp"/>
-                            </RelativeLayout>
                             <ListView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -101,21 +90,17 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             >
-                            <LinearLayout
+
+                            <fragment
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:name="com.anoki.SearchFragment"
+                                android:id="@+id/search_contact"
+                                android:hint="연락처를 검색하거나, 직접 입력할 수 있어요"
+                                xmlns:anoki="http://schemas.android.com/apk/res-auto"
+                                anoki:search_id="@+id/search_key_contact"
+                                />
 
-                                <EditText
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="35dp"
-                                    android:hint="연락처를 검색하거나, 직접 입력할 수 있어요"
-                                    android:textSize="15sp"
-                                    android:id="@+id/search_contact"
-                                    android:background="@null"
-                                    android:drawableLeft="@drawable/ic_magnifyingglass_gray"
-                                    android:paddingLeft="10dp"/>
-
-                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="match_parent"

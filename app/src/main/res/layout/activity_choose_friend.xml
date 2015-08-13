@@ -8,21 +8,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <LinearLayout
+
+
+        <fragment
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:name="com.anoki.SearchFragment"
+            android:id="@+id/search"
+            android:hint="이름(초성), 전화번호 검색"
+            />
 
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:hint="이름(초성), 전화번호 검색"
-                android:textSize="15sp"
-                android:id="@+id/search_friend"
-                android:background="@null"
-                android:drawableLeft="@drawable/ic_search_black_24dp"
-                android:paddingLeft="5dp"/>
-
-        </LinearLayout>
 
 
         <View
