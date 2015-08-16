@@ -22,10 +22,12 @@ public class Global {
     public static final int RESTORE = 1300;
     public static final int PASS = 1400;
     public static final int AUTH = 1500;
+    public static final int MESSAGE = 1600;
 
     public static final int DALANT_PER_PERSON = 10;
 
     public static final int FREE_FRIENDS_COUNT  = 1;
+
 
     public static String apiKey;
 

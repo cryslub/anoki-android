@@ -61,28 +61,4 @@
         android:columnCount="5">
     </GridLayout>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="3dp"
-        android:background="@color/week"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:background="#dddddd">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_gallery"
-            android:background="@android:color/transparent"
-            android:alpha="0.5"
-            android:onClick="photo"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical" />
-
-
-    </LinearLayout>
-
 </LinearLayout>

@@ -2,7 +2,9 @@ package com.anoki.pojo;
 
 import android.net.Uri;
 
-public class Friend {
+import java.io.Serializable;
+
+public class Friend implements Serializable{
 	
 	public String apiKey;
 	public int user;

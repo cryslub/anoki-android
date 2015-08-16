@@ -42,11 +42,7 @@ public abstract  class TabActivityBase extends ActivityBase {
 
     }
 
-    public void message(MenuItem item){
-        Intent intent = new Intent(this, MessageListActivity.class);
-        startActivity(intent);
 
-    }
 
     public void write(MenuItem item){
         Intent intent = new Intent(this, WriteActivity.class);

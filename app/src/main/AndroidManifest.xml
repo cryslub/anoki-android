@@ -178,6 +178,18 @@
             android:name=".ChooseFriendActivity"
             android:label="@string/title_activity_choose_friend" >
         </activity>
+        <activity
+            android:name=".MessageDetailActivity"
+            android:label="@string/title_activity_message_detail" >
+        </activity>
+        <activity
+            android:name=".NoticeActivity"
+            android:label="@string/title_activity_notice" >
+        </activity>
+        <activity
+            android:name=".DalantActivity"
+            android:label="@string/title_activity_dalant" >
+        </activity>
     </application>
 
 </manifest>

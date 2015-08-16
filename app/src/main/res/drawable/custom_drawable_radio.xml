@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="false" android:drawable="@drawable/ic_chk_gray" />
-    <item android:state_checked="true" android:drawable="@drawable/ic_chk_red" />
-    <item android:drawable="@drawable/ic_chk_gray" /> <!-- default -->
+    <item android:state_checked="false" android:drawable="@drawable/btn_radio_empty" />
+    <item android:state_checked="true" android:drawable="@drawable/btn_radio_checked" />
+    <item android:drawable="@drawable/btn_radio_empty" /> <!-- default -->
 </selector>

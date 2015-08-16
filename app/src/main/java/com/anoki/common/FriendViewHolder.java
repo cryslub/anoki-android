@@ -43,6 +43,5 @@ public class FriendViewHolder extends ViewHolderBase<Friend> {
 
         Util.setPicture(friend.picture, picture, view.getResources().getDrawable(R.drawable.ic_person_black_36dp));
         name.setText(friend.name);
-
     }
 }

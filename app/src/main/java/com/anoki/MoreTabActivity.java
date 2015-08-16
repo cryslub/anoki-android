@@ -53,4 +53,14 @@ public class MoreTabActivity extends TabActivityBase {
         Intent intent = new Intent(MoreTabActivity.this, BoxActivity.class);
         startActivity(intent);
     }
+
+    public void notice(View view){
+        Intent intent = new Intent(MoreTabActivity.this, NoticeActivity.class);
+        startActivity(intent);
+    }
+
+    public void dalant(View view){
+        Intent intent = new Intent(MoreTabActivity.this, DalantActivity.class);
+        startActivity(intent);
+    }
 }

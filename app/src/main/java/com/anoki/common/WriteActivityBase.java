@@ -7,12 +7,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anoki.PrayerImageFragment;
 import com.anoki.R;
 
 /**
  * Created by joon on 2015-07-25.
  */
-public abstract class WriteActivityBase extends SubActivityBase {
+public abstract class WriteActivityBase extends SubActivityBase implements PrayerImageFragment.OnFragmentInteractionListener{
 
     protected  String pictureId;
 
@@ -86,5 +87,12 @@ public abstract class WriteActivityBase extends SubActivityBase {
 
             }
         }
+    }
+
+
+
+    @Override
+    public void onDeleteFragment(String id) {
+        pictureId = null;
     }
 }

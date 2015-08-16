@@ -1,5 +1,6 @@
 package com.anoki;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -57,11 +58,12 @@ class SimpleFriendViewHolder extends FriendViewHolder{
     @OnClick(R.id.container)
     public void next(){
         Intent intent = new Intent(view.getContext(),MessageActivity.class);
-        view.getContext().startActivity(intent);
+        intent.putExtra("friend",friend);
+        ((Activity)view.getContext()).startActivityForResult(intent, Global.MESSAGE);
     }
 }
 
-public class ChooseFriendActivity extends WriteActivityBase {
+public class ChooseFriendActivity extends SubActivityBase {
 
     @Bind(R.id.friend_list) RecyclerView recyclerView;
 
@@ -80,11 +82,6 @@ public class ChooseFriendActivity extends WriteActivityBase {
     }
 
 
-    @Override
-    protected void confirm() {
-        Intent intent = new Intent(ChooseFriendActivity.this, MessageActivity.class);
-        startActivity(intent);
-    }
 
 
 

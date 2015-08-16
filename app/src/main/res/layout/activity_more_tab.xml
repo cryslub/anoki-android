@@ -10,15 +10,12 @@
         android:id="@+id/profile"
         android:background="@android:color/white">
 
-        <com.anoki.common.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/picture"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_person_black_48dp"
-            android:alpha=".5"
-            android:layout_margin="10dp"
-            />
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/include_profile_picture"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp" />
 
 
         <LinearLayout
@@ -26,7 +23,7 @@
             android:layout_height="100dp"
             android:orientation="vertical"
             android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_chevron_right_black_24dp"
-                    android:alpha=".5"
+                    android:alpha=".3"
                     android:onClick="profile"
                     />
 
@@ -100,7 +97,7 @@
         android:layout_height="wrap_content"
         android:columnCount="3"
         android:stretchColumns="*"
-        android:background="@android:color/darker_gray"
+        android:background="#dddddd"
         >
 
         <TableRow android:minHeight="110dp"
@@ -112,12 +109,13 @@
             android:orientation="vertical"
             android:gravity="center"
             android:background="@android:color/white"
-            android:layout_marginRight="0.5dp">
+            android:layout_marginRight="0.5dp"
+            android:onClick="notice">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_notifications_active_black_48dp"
+                android:src="@drawable/ic_bullhorn"
                 />
 
             <TextView
@@ -125,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:text="공지사항"
                 android:textColor="@android:color/black"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
@@ -143,7 +142,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_account_box_black_48dp"
+                android:src="@drawable/ic_folder"
                 />
 
             <TextView
@@ -151,7 +150,8 @@
                 android:layout_height="wrap_content"
                 android:text="기도함"
                 android:textColor="@android:color/black"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
@@ -167,7 +167,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_group_black_48dp"
+                android:src="@drawable/ic_friend"
                 />
 
             <TextView
@@ -175,7 +175,8 @@
                 android:layout_height="wrap_content"
                 android:text="친구정보"
                 android:textColor="@android:color/black"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
@@ -198,7 +199,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_send_black_48dp"
+                android:src="@drawable/ic_paperplane"
                 />
 
             <TextView
@@ -206,7 +207,8 @@
                 android:layout_height="wrap_content"
                 android:text="기도요청"
                 android:textColor="@android:color/black"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
@@ -222,7 +224,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_settings_applications_black_48dp"
+                android:src="@drawable/ic_settings"
                 />
 
             <TextView
@@ -230,7 +232,8 @@
                 android:layout_height="wrap_content"
                 android:text="설정"
                 android:textColor="@android:color/black"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
@@ -240,21 +243,23 @@
         android:orientation="vertical"
             android:gravity="center"
             android:background="@android:color/white"
-
+            android:onClick="dalant"
             >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_history_black_48dp"
+                android:src="@drawable/ic_money_chacoal"
                 />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="66dp"
+                android:layout_height="33dp"
                 android:text="달란트충전/이용내역"
                 android:textColor="@android:color/black"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-20dp" />
 
         </LinearLayout>
 

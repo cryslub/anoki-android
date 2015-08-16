@@ -92,8 +92,4 @@ public class ResponseActivity extends WriteActivityBase implements PrayerImageFr
 
 
 
-    @Override
-    public void onDeleteFragment(String id) {
-        pictureId = null;
-    }
 }

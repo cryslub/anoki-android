@@ -14,10 +14,13 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.anoki.MessageActivity;
+import com.anoki.MessageListActivity;
 import com.anoki.MyProfileActivity;
 import com.anoki.R;
 import com.anoki.UserPrayerListActivity;
 import com.anoki.UserProfileActivity;
+import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
 import com.anoki.pojo.User;
@@ -83,8 +86,16 @@ public class ActivityBase extends ActionBarActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.message:
-                        break;
+                    case R.id.message: {
+                        Intent intent = new Intent(ActivityBase.this, MessageActivity.class);
+                        Friend friend = new Friend();
+                        friend.name = prayer.userName;
+                        friend.picture = prayer.userPicture;
+                        friend.friend = prayer.userId;
+                        intent.putExtra("friend", friend);
+                        startActivityForResult(intent, Global.MESSAGE);
+                    }
+                    break;
                     case R.id.profile: {
                         Intent intent = new Intent(ActivityBase.this, UserProfileActivity.class);
                         intent.putExtra("userId", prayer.userId);
@@ -162,6 +173,25 @@ public class ActivityBase extends ActionBarActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK) {
+            switch (requestCode){
+                case Global.MESSAGE:
+                    message(null);
+                    break;
+            }
+        }
+    }
+
+    public void message(MenuItem item){
+        Intent intent = new Intent(this, MessageListActivity.class);
+        startActivity(intent);
+
+    }
 
     protected  void load(){
 
