@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Anoki</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -48,7 +48,7 @@
     <string name="title_activity_response_list">기도응답</string>
     <string name="title_activity_message">쪽지보내기</string>
     <string name="title_activity_choose_friend">친구선택</string>
-    <string name="title_activity_message_detail">MessageDetailActivity</string>
+    <string name="title_activity_message_detail">쪽지내용</string>
     <string name="title_activity_notice">공지사항</string>
     <string name="title_activity_dalant">달란트 충전/이용 내역</string>
 </resources>

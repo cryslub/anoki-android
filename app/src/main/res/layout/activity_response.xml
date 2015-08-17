@@ -29,7 +29,7 @@
             android:minHeight="250dp"
             android:gravity="top"
             android:id="@+id/text"
-            android:background="@null"
+            android:background="@android:color/white"
             android:padding="5dp"
             />
 

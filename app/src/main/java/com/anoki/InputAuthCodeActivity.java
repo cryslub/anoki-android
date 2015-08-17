@@ -15,6 +15,9 @@ import com.anoki.common.Util;
 import com.anoki.pojo.Phone;
 import com.anoki.pojo.Response;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class InputAuthCodeActivity extends FragmentActivity implements EditTextFragment.OnFragmentInteractionListener {
 
     private Phone phone;
@@ -23,6 +26,8 @@ public class InputAuthCodeActivity extends FragmentActivity implements EditTextF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_auth_code);
+
+        ButterKnife.bind(this);
 
         Intent intent = new Intent(this.getIntent());
 
@@ -54,9 +59,11 @@ public class InputAuthCodeActivity extends FragmentActivity implements EditTextF
     }
 
     public void back(View view){
-        onBackPressed();
+        finish();
     }
 
+
+    @OnClick(R.id.confirm)
     public void confirm(View view){
         //서버에 인증번호 전송
 
@@ -76,6 +83,7 @@ public class InputAuthCodeActivity extends FragmentActivity implements EditTextF
 
     }
 
+    @OnClick(R.id.resend)
     public void resend(View view){
         Response response = Util.rest("auth/request","POST", phone,Response.class);
     }

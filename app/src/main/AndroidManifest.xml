@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.anoki" >
+    package="com.anoki" android:versionCode="1" android:versionName="0.0.1">
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,7 +20,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:logo="@drawable/logo_white_small"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
@@ -32,7 +31,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
-                <data android:scheme="anoki" />
             </intent-filter>
         </activity>
 
@@ -42,37 +40,45 @@
 
         <activity
             android:name=".InputPhoneNumberActivity"
-            android:label="@string/title_activity_input_phone_number" >
+            android:label="@string/title_activity_input_phone_number"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".InputAuthCodeActivity"
-            android:label="@string/title_activity_input_auth_code" >
+            android:label="@string/title_activity_input_auth_code"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".SetNameActivity"
-            android:label="@string/title_activity_set_name" >
+            android:label="@string/title_activity_set_name"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".RecentActivity"
             android:icon="@drawable/logo_white_small"
             android:theme="@style/CustomActionBarTheme"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AlarmListActivity"
-            android:label="최근알림" >
+            android:label="최근알림"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".MessageListActivity"
-            android:label="쪽지" >
+            android:label="쪽지"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".WriteActivity"
-            android:label="글쓰기" >
+            android:label="글쓰기"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".MeTabActivity" >
         </activity>
@@ -80,115 +86,142 @@
         </activity>
         <activity
             android:name=".UserProfileActivity"
-            android:label="@string/title_activity_user_profile" >
+            android:label="@string/title_activity_user_profile"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".PrayerDetailActivity"
-            android:label="@string/title_activity_prayer_detail" >
+            android:label="@string/title_activity_prayer_detail"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".GalleryActivity"
-            android:label="미디어 선택" >
+            android:label="미디어 선택"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ChooseContactsActivity"
-            android:label="@string/title_activity_choose_friends" >
+            android:label="@string/title_activity_choose_friends"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ZoomInActivity"
-            android:label="@string/title_activity_zoom_in" >
+            android:label="@string/title_activity_zoom_in"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".BillingActivity"
-            android:label="@string/title_activity_billing" >
+            android:label="@string/title_activity_billing"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".MyProfileActivity"
-            android:label="@string/title_activity_my_profile" >
+            android:label="@string/title_activity_my_profile"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".PrayerActivity"
-            android:label="@string/title_activity_prayer" >
+            android:label="@string/title_activity_prayer"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".UserPrayerListActivity"
-            android:label="@string/title_activity_user_prayer_list" >
+            android:label="@string/title_activity_user_prayer_list"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ChargeActivity"
-            android:label="@string/title_activity_charge" >
+            android:label="@string/title_activity_charge"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ChangeNameActivity"
-            android:label="@string/title_activity_change_name" >
+            android:label="@string/title_activity_change_name"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ChangeStateActivity"
-            android:label="@string/title_activity_change_state" >
+            android:label="@string/title_activity_change_state"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AccountActivity"
-            android:label="@string/title_activity_account" >
+            android:label="@string/title_activity_account"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ChangePassActivity"
-            android:label="@string/title_activity_change_pass" >
+            android:label="@string/title_activity_change_pass"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".RestoreActivity"
-            android:label="@string/title_activity_restore" >
+            android:label="@string/title_activity_restore"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ResponseActivity"
-            android:label="@string/title_activity_response" >
+            android:label="@string/title_activity_response"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".CreateAccountActivity"
-            android:label="@string/title_activity_create_account" >
+            android:label="@string/title_activity_create_account"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".FriendTabActivity" >
         </activity>
         <activity
             android:name=".ForgotActivity"
-            android:label="@string/title_activity_forgot" >
+            android:label="@string/title_activity_forgot"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ForgotPassActivity"
-            android:label="@string/title_activity_forgot_pass" >
+            android:label="@string/title_activity_forgot_pass"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ForgotAccountActivity"
-            android:label="@string/title_activity_forgot_account" >
+            android:label="@string/title_activity_forgot_account"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".BoxActivity"
-            android:label="@string/title_activity_box" >
+            android:label="@string/title_activity_box"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".MoreTabActivity" >
         </activity>
         <activity
             android:name=".ResponseListActivity"
-            android:label="@string/title_activity_response_list" >
+            android:label="@string/title_activity_response_list"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".MessageActivity"
-            android:label="@string/title_activity_message" >
+            android:label="@string/title_activity_message"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ChooseFriendActivity"
-            android:label="@string/title_activity_choose_friend" >
+            android:label="@string/title_activity_choose_friend"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".MessageDetailActivity"
-            android:label="@string/title_activity_message_detail" >
+            android:label="@string/title_activity_message_detail"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".NoticeActivity"
-            android:label="@string/title_activity_notice" >
+            android:label="@string/title_activity_notice"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".DalantActivity"
-            android:label="@string/title_activity_dalant" >
+            android:label="@string/title_activity_dalant"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"     tools:context="com.anoki.SetNameActivity"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@android:color/white">
 
     <TextView android:text="이름입력" style="@style/Header"/>
 
@@ -73,7 +74,7 @@
 
             />
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="아노키 시작하기"

@@ -31,16 +31,14 @@
         android:background="@drawable/gray_border"
         android:padding="10dp"
         />
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="로그인"
-        android:onClick="login"
-        android:backgroundTint="@color/baltic_sea"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
         android:layout_marginTop="10dp"
-        android:textStyle="bold"/>
+        style="@style/ColorButton"
+        android:background="@drawable/box_chacoal"
+        android:id="@+id/login"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,15 +66,13 @@
         android:layout_height="fill_parent"
         android:gravity="bottom">
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="새로운 아노키 계정 만들기"
-            android:onClick="signUp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/java"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            style="@style/ColorButton"
+            android:background="@drawable/box_darkmint"
+            android:id="@+id/signUp"/>
     </LinearLayout>
 </LinearLayout>

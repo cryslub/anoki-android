@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 
 import com.anoki.common.ContactManage;
 import com.anoki.common.RestService;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

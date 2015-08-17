@@ -27,6 +27,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class InputPhoneNumberActivity extends FragmentActivity implements EditTextFragment.OnFragmentInteractionListener{
 
 
@@ -34,6 +37,8 @@ public class InputPhoneNumberActivity extends FragmentActivity implements EditTe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_phone_number);
+
+        ButterKnife.bind(this);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -115,6 +120,7 @@ public class InputPhoneNumberActivity extends FragmentActivity implements EditTe
     }
 
 
+    @OnClick(R.id.next)
     public void next(View view){
 
         Spinner spinner =   (Spinner) findViewById(R.id.country_spinner);

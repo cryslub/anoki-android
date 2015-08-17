@@ -38,7 +38,7 @@ public class MessageActivity extends WriteActivityBase {
         Intent intent = getIntent();
         friend = (Friend) intent.getSerializableExtra("friend");
 
-        Util.setPicture(friend.picture, picture, getDrawable(R.drawable.ic_person_black_36dp));
+        Util.setPicture(friend.picture, picture);
         name.setText(friend.name);
 
     }

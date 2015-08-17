@@ -217,7 +217,7 @@ public class RecentTabActivity extends TabActivityBase {
                     });
                 }
 
-                Util.setPicture(prayer.userPicture, picture, getDrawable(R.drawable.ic_person_black_48dp));
+                Util.setPicture(prayer.userPicture, picture, null);
 
             System.out.println("userName - " + prayer.userName);
 

@@ -14,12 +14,20 @@ import com.anoki.common.ContactManage;
 import com.anoki.common.RestService;
 import com.anoki.pojo.Response;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class LoginActivity extends Activity {
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        ButterKnife.bind(this);
 
         TextView forgot = (TextView) findViewById(R.id.forgot);
         forgot.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +46,7 @@ public class LoginActivity extends Activity {
         return true;
     }
 
-
+    @OnClick(R.id.login)
     public void login(View view){
         EditText account = (EditText) findViewById(R.id.account);
         EditText pass = (EditText) findViewById(R.id.pass);
@@ -66,6 +74,7 @@ public class LoginActivity extends Activity {
 
     }
 
+    @OnClick(R.id.signUp)
     public void signUp(View view){
         Intent intent = new Intent(LoginActivity.this, InputPhoneNumberActivity.class);
         startActivity(intent);
