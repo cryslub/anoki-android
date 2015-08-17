@@ -3,9 +3,11 @@ package com.anoki;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.anoki.common.Global;
 import com.anoki.common.SubActivityBase;
@@ -13,7 +15,12 @@ import com.anoki.common.Util;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.Search;
 
-public class ForgotPassActivity extends SubActivityBase {
+import butterknife.Bind;
+
+public class ForgotPassActivity extends SubActivityBase implements EditTextFragment.OnFragmentInteractionListener{
+
+    @Bind(R.id.calc_txt_Prise)
+    EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,21 +28,22 @@ public class ForgotPassActivity extends SubActivityBase {
         setContentView(R.layout.activity_forgot_pass);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_forgot_pass, menu);
-        return true;
-    }
 
     public void restore(View view){
         Search search = new Search();
-        Util.rest("auth/restore", "POST", search, Response.class);
+        search.searchKey = editText.getText().toString();
 
-        Intent intent = new Intent(ForgotPassActivity.this, RestoreActivity.class);
-        startActivityForResult(intent, Global.RESTORE);
+        Response response = Util.rest("auth/restore", "POST", search, Response.class);
+
+        if("0".equals(response.result)) {
+            Intent intent = new Intent(ForgotPassActivity.this, RestoreActivity.class);
+            startActivityForResult(intent, Global.RESTORE);
+        }
     }
 
 
+    @Override
+    public void textChanged(Editable s) {
 
+    }
 }
