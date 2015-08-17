@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/name"
-                    android:textColor="@color/medium_turquoise"
+                    android:textColor="@color/java"
                     android:text="최영범"
                     android:textStyle="bold"
                     android:textSize="15sp" />

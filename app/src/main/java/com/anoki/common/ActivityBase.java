@@ -61,9 +61,11 @@ public class ActivityBase extends ActionBarActivity {
         ButterKnife.bind(this);
     }
 
+
+
     @Override
-    protected void onStart(){
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
 
         load();
     }
@@ -147,13 +149,13 @@ public class ActivityBase extends ActionBarActivity {
 
         List<Prayer> prayerList = Util.rest("user/prayer", "POST", search, listType);
 
-        setPrayerView(R.id.prayer_list,prayerList,editable);
+        setPrayerView(R.id.prayer_list, prayerList, editable);
 
         return user;
     }
 
     protected  PrayerAdapter setPrayerView(int id,List<Prayer> prayerList) {
-        return  setPrayerView(id,prayerList,false);
+        return  setPrayerView(id, prayerList, false);
     }
 
     protected  PrayerAdapter setPrayerView(int id,List<Prayer> prayerList,boolean editable){

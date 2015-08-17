@@ -87,11 +87,11 @@ class MessageViewHolder extends ViewHolderBase<Message> {
 
         if(message.user == Global.me.id){
             container.setBackgroundColor(Color.LTGRAY);
-            arrow.setImageResource(R.drawable.ic_arrow_back_black_18dp);
+            arrow.setImageResource(R.drawable.icn_arrow_left);
 
         }else{
             container.setBackgroundColor(Color.WHITE);
-            arrow.setImageResource(R.drawable.ic_arrow_forward_black_18dp);
+            arrow.setImageResource(R.drawable.icn_arrow_right);
 
         }
 

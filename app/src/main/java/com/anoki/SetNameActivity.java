@@ -87,31 +87,34 @@ public class SetNameActivity extends Activity {
 
         EditText name = (EditText) findViewById(R.id.name);
         user.name = name.getText().toString();
-        if(pictureId != null)
-           user.picture = Integer.parseInt(pictureId);
 
-        Response response = Util.rest("user", "POST", user, Response.class);
+        if(user.name.length()>0 ) {
 
-        if("0".equals(response.result)) {
+            if (pictureId != null)
+                user.picture = Integer.parseInt(pictureId);
 
-            user.id = response.id;
-            Global.me = user;
-            Global.apiKey = response.apiKey;
-            Global.me.apiKey = response.apiKey;
+            Response response = Util.rest("user", "POST", user, Response.class);
 
-            //DB에 계정정보 저장
-            final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
-            dbManager.setAccount(user.account,user.pass);
+            if ("0".equals(response.result)) {
 
-            ContactManage.checkContact(getContentResolver(), getApplicationContext());
+                user.id = response.id;
+                Global.me = user;
+                Global.apiKey = response.apiKey;
+                Global.me.apiKey = response.apiKey;
 
-            //최근 화면으로
-            Intent intent = new Intent(SetNameActivity.this, RecentActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
+                //DB에 계정정보 저장
+                final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
+                dbManager.setAccount(user.account, user.pass);
+
+                ContactManage.checkContact(getContentResolver(), getApplicationContext());
+
+                //최근 화면으로
+                Intent intent = new Intent(SetNameActivity.this, RecentActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
         }
-
     }
 
     public void changeImage(View view){

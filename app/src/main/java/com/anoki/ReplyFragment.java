@@ -66,7 +66,10 @@ public class ReplyFragment extends Fragment {
         time = (TextView) itemLayoutView.findViewById(R.id.time);
 
         Util.setPicture(reply.userPicture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
-        Util.setPicture(reply.picture, image);
+
+        if(Util.setPicture(reply.picture, image) == null){
+            image.setVisibility(View.GONE);
+        }
 
 
         name.setText(reply.name);

@@ -110,19 +110,16 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical">
                             <TextView
                                 android:id="@+id/start"
                                 android:text="2015-5-30"
                                 style="@style/BoxDate"
                                />
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_today_black_36dp"
-                                android:alpha=".5"
                                 android:onClick="start"
-                                />
+                                style="@style/Calendar" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -135,23 +132,14 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-
-                                android:layout_height="35dp"
-                                android:inputType="date"
                                 android:id="@+id/end"
-                                android:editable="false"
                                 android:gravity="center"
-                                android:background="@color/baltic_sea"
-                                android:textColor="@android:color/white"
+                                style="@style/BoxDate"
                                 android:layout_marginLeft="5dp"
-
                                 />
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_today_black_36dp"
-                                android:alpha=".5"
                                 android:onClick="end"
+                                style="@style/Calendar"
                                 />
                         </LinearLayout>
 
@@ -261,11 +249,8 @@
                                 style="@style/BoxDate"
                                 />
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_today_black_36dp"
-                                android:alpha=".5"
                                 android:onClick="friendStart"
+                                style="@style/BoxDate"
                                 />
                             <TextView
                                 android:layout_width="wrap_content"
@@ -280,12 +265,8 @@
 
                                 />
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_today_black_36dp"
-                                android:alpha=".5"
                                 android:onClick="friendEnd"
-
+                                style="@style/BoxDate"
                                 />
                         </LinearLayout>
 

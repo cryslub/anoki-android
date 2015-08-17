@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:background="@android:color/white"
+
     >
 
     <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+        >
     <View
         android:layout_width="15dp"
         android:layout_height="3dp"
@@ -24,7 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:background="@android:color/white"
+        android:layout_marginBottom="10dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -47,7 +47,7 @@ class NoticeViewHolder extends ViewHolderBase<Notice> {
 
     @OnClick(R.id.container)
     void widen(){
-        container.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+        text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
     }
 
 

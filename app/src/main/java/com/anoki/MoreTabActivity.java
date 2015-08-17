@@ -1,6 +1,8 @@
 package com.anoki;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -62,5 +64,11 @@ public class MoreTabActivity extends TabActivityBase {
     public void dalant(View view){
         Intent intent = new Intent(MoreTabActivity.this, DalantActivity.class);
         startActivity(intent);
+    }
+
+    public void request(View view){
+        Intent intentsms = new Intent( Intent.ACTION_VIEW, Uri.parse("sms:" + "") );
+        intentsms.putExtra( "sms_body", Global.me.name+"님이 기도SNS 아노키로 중보기도를 요청하였습니다. 아래 링크를 눌러 들어오세요.\n anoki.co.kr/anoki/invite.jsp\nFrom "+ Global.me.name);
+        startActivity(intentsms);
     }
 }

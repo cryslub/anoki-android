@@ -82,6 +82,13 @@
                 android:id="@+id/text"
                 android:textColor="@color/strong"
                 />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/image"/>
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -96,10 +103,6 @@
 
 
     </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/image"/>
 
 
 </LinearLayout>

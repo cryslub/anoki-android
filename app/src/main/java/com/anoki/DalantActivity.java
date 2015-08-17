@@ -18,6 +18,7 @@ import com.anoki.common.Util;
 import com.anoki.common.ViewHolderBase;
 import com.anoki.pojo.Dalant;
 import com.anoki.pojo.Notice;
+import com.anoki.pojo.Search;
 import com.google.gson.reflect.TypeToken;
 
 import org.w3c.dom.Text;
@@ -58,13 +59,14 @@ class DalantViewHolder extends ViewHolderBase<Dalant> {
 
 
         date.setText(dalant.time);
-        text.setText(dalant.text);
 
         DecimalFormat df = new DecimalFormat("#,###");
 
         if("C".equals(dalant.type)){
+            text.setText(df.format(dalant.amount)+" 달란트");
             amount.setText(df.format(dalant.amount)+" 원");
         }else{
+            text.setText(dalant.text);
             amount.setText(df.format(dalant.amount)+" 달란트");
         }
 
@@ -107,10 +109,11 @@ public class DalantActivity extends SubActivityBase {
 
         Type listType = new TypeToken<ArrayList<Dalant>>() {}.getType();
 
-        List<Dalant> list = Util.rest("etc/dalant", "POST", null, listType);
+        List<Dalant> list = Util.rest("etc/dalant", "POST", new Search(), listType);
 
         List<Dalant> charge = new ArrayList<Dalant>();
         List<Dalant> use = new ArrayList<Dalant>();
+
 
         for(Dalant dalant : list){
             if("C".equals(dalant.type)){
@@ -125,13 +128,15 @@ public class DalantActivity extends SubActivityBase {
         setRecyclerView(chargeList, chgargeAdapter);
 
         GeneralRecyclerViewAdapter<Dalant,DalantViewHolder> useAdapter = new  GeneralRecyclerViewAdapter<Dalant,DalantViewHolder> (use,R.layout.layout_dalant_row, DalantViewHolder.class);
-        setRecyclerView(chargeList, useAdapter);
+        setRecyclerView(useList, useAdapter);
 
     }
 
 
     public void charge(View view){
         Intent intent = new Intent(DalantActivity.this, ChargeActivity.class);
+        intent.putExtra("caller","DalantActivity");
+
         startActivity(intent);
     }
 }

@@ -42,15 +42,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:padding="30dp">
+        android:layout_height="200dp"
+        android:padding="30dp"
+        android:background="@drawable/box_memo_write"
+        android:layout_margin="20dp">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/text"
-
             android:gravity="top"
             android:background="@null"
+            android:maxLength="200"
             />
     </LinearLayout>
 

@@ -36,6 +36,7 @@ public class ChargeActivity extends SubActivityBase {
     private Prayer prayer;
     private int selected;
 
+    private String caller;
 
     ServiceConnection mServiceConn = new ServiceConnection() {
         @Override
@@ -61,6 +62,7 @@ public class ChargeActivity extends SubActivityBase {
 
         Intent intent = getIntent();
         prayer = (Prayer) intent.getSerializableExtra("prayer");
+        caller = intent.getStringExtra("caller");
     }
 
     @Override
@@ -147,17 +149,22 @@ public class ChargeActivity extends SubActivityBase {
         Response response = Util.rest("user/charge", "POST", user, Response.class);
         Global.reloadMe();
 
-        int total = prayer.getTotal();
-        int ex = total - Global.FREE_FRIENDS_COUNT;
-
-        if(Global.me.dalant < ex*10){
-
+        if("DalantActivity".equals(caller)){
+            succeed();
         }else {
 
+            int total = prayer.getTotal();
+            int ex = total - Global.FREE_FRIENDS_COUNT;
 
-            Intent intent = new Intent(ChargeActivity.this, BillingActivity.class);
-            intent.putExtra("prayer", prayer);
-            startActivityForResult(intent, Global.PAY);
+            if (Global.me.dalant < ex * 10) {
+
+            } else {
+
+
+                Intent intent = new Intent(ChargeActivity.this, BillingActivity.class);
+                intent.putExtra("prayer", prayer);
+                startActivityForResult(intent, Global.PAY);
+            }
         }
     }
 

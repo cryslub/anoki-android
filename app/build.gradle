@@ -29,18 +29,6 @@ android {
     productFlavors {
     }
 
-
-
-    sourceSets {
-        main {
-            res.srcDirs =
-                    [
-                            'src/main/res/layout/fragment',
-                            'src/main/res/layout',
-                            'src/main/res'
-                    ]
-        }
-    }
 }
 
 repositories {
