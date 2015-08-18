@@ -15,7 +15,7 @@
             android:layout_height="40dp"
             android:id="@+id/picture"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_person_black_36dp"
+            android:src="@drawable/profile_large"
             android:alpha=".5"
             />
 

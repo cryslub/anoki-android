@@ -66,6 +66,13 @@ public class MoreTabActivity extends TabActivityBase {
         startActivity(intent);
     }
 
+    public void friend(View view){
+        Intent intent = new Intent(MoreTabActivity.this, ChooseContactsActivity.class);
+        intent.putExtra("caller","MoreTabActivity");
+        startActivity(intent);
+
+    }
+
     public void request(View view){
         Intent intentsms = new Intent( Intent.ACTION_VIEW, Uri.parse("sms:" + "") );
         intentsms.putExtra( "sms_body", Global.me.name+"님이 기도SNS 아노키로 중보기도를 요청하였습니다. 아래 링크를 눌러 들어오세요.\n anoki.co.kr/anoki/invite.jsp\nFrom "+ Global.me.name);

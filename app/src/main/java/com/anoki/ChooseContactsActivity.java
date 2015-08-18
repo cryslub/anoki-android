@@ -42,6 +42,7 @@ import com.anoki.common.ViewHolderBase;
 import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
+import com.anoki.pojo.Response;
 import com.anoki.pojo.Search;
 import com.google.gson.reflect.TypeToken;
 
@@ -65,6 +66,8 @@ public class ChooseContactsActivity extends WriteActivityBase {
     private  ContentResolver contentResolver;
 
     private Prayer prayer ;
+    private String caller;
+    private int blockId;
 
     FriendsAdapter friendsAdapter;
     ContactsAdapter contactsAdapter;
@@ -90,6 +93,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
     public static final int EX_DIALOG = 100;
     public static final int CHARGE_DIALOG = 110;
+    public static final int BLOCK_DIALOG = 120;
 
 
     public static final String[] PHOTO_BITMAP_PROJECTION = new String[] {
@@ -103,16 +107,20 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
         Intent intent = getIntent();
         prayer = (Prayer) intent.getSerializableExtra("prayer");
+        caller = intent.getStringExtra("caller");
 
         setTab();
 
 
-        setFriendList();
-        setContactList();
-
 
     }
 
+    protected void load(){
+
+        setFriendList();
+        setContactList();
+
+    }
 
 
     private void setTab(){
@@ -214,27 +222,42 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
     @Override
     protected void confirm() {
-        if(selectionMap.size() + contactSelectionMap.size() > Global.FREE_FRIENDS_COUNT){
-            int total = selectionMap.size() + contactSelectionMap.size();
-            final int ex = total -Global.FREE_FRIENDS_COUNT;
+        if("MoreTabActivity".equals(caller)){
+            String smsTo="";
+            for(String contact : contactSelectionMap.keySet()){
+                smsTo+=contact+";";
+            }
 
-
-            showDialog(EX_DIALOG);
+            Intent intentsms = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:"+smsTo));
+            intentsms.putExtra( "sms_body", Global.me.name+"님이 기도SNS 아노키로 중보기도를 요청하였습니다. 아래 링크를 눌러 들어오세요.\n anoki.co.kr/anoki/invite.jsp\nFrom "+ Global.me.name);
+            startActivity(intentsms);
 
         }else {
-            RestService.makePrayer(prayer);
-            succeed();
 
+            prayer.friends = new ArrayList<Integer>();
+            prayer.friends.addAll(selectionMap.keySet());
+
+            prayer.phone = new ArrayList<String>();
+            prayer.phone.addAll(contactSelectionMap.keySet());
+
+
+            if (selectionMap.size() + contactSelectionMap.size() > Global.FREE_FRIENDS_COUNT) {
+
+                int total = selectionMap.size() + contactSelectionMap.size();
+                final int ex = total - Global.FREE_FRIENDS_COUNT;
+
+                showDialog(EX_DIALOG);
+
+            } else {
+                RestService.makePrayer(prayer);
+                succeed();
+
+            }
         }
     }
 
     public void done(MenuItem item){
 
-        prayer.friends = new ArrayList<Integer>();
-        prayer.friends.addAll(selectionMap.keySet());
-
-        prayer.phone = new ArrayList<String>();
-        prayer.phone.addAll(contactSelectionMap.keySet());
 
 
         super.done(item);
@@ -255,6 +278,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
+        TextView title = (TextView)dialog.findViewById(R.id.title);
         TextView text = (TextView)dialog.findViewById(R.id.text);
         TextView yes = (TextView)dialog.findViewById(R.id.yes);
         TextView no = (TextView)dialog.findViewById(R.id.no);
@@ -267,6 +291,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
         switch (id){
             case EX_DIALOG:
+                title.setText("결제");
                 text.setText("함께 기도하는 친구가 10명초과로 비용이 발생합니다");
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -278,6 +303,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
                 break;
             case CHARGE_DIALOG:
+                title.setText("결제");
                 text.setText("충전된 금액이 부족합니다. 결재를 진행하시겠습니까?");
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -286,7 +312,17 @@ public class ChooseContactsActivity extends WriteActivityBase {
                         charge();
                     }
                 });
-
+                break;
+            case BLOCK_DIALOG:
+                title.setText("차단");
+                text.setText("차단하시겠습니까? 차단하면 차단한 친구가 보내는 기도요청을 받을 수 없으며, 친구목록에서 삭제됩니다.\n(차단여부는 상대방이 알수 없습니다.)");
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        block();
+                    }
+                });
                 break;
         }
 
@@ -301,7 +337,6 @@ public class ChooseContactsActivity extends WriteActivityBase {
         return dialog;
     }
 
-    @OnClick(R.id.yes)
     void bill(){
 
         int total = selectionMap.size() + contactSelectionMap.size();
@@ -324,6 +359,14 @@ public class ChooseContactsActivity extends WriteActivityBase {
         startActivityForResult(intent, Global.PAY);
     }
 
+    private void block(){
+        Friend friend = new Friend();
+        friend.id = blockId;
+        friend.state="B";
+        Util.rest("friend","PUT",friend,Response.class);
+
+        load();
+    }
 
     private void billing(){
         Intent intent = new Intent(ChooseContactsActivity.this, BillingActivity.class);
@@ -446,21 +489,37 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
             viewHolder.bind(friend);
 
-            viewHolder.choose.setOnClickListener(new CheckBox.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (selectionMap.get(friend.friend) == null) {
-                        selectionMap.put(friend.friend, friend);
-                    } else {
-                        selectionMap.remove(friend.friend);
+            if("MoreTabActivity".equals(caller)){
+                viewHolder.view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        blockId = friend.id;
+                        showDialog(BLOCK_DIALOG);
+                        return false;
+                    }
+                });
+                viewHolder.choose.setVisibility(View.GONE);
+            }else {
+                viewHolder.choose.setVisibility(View.VISIBLE);
+
+                viewHolder.choose.setOnClickListener(new CheckBox.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (selectionMap.get(friend.friend) == null) {
+                            selectionMap.put(friend.friend, friend);
+                        } else {
+                            selectionMap.remove(friend.friend);
+                        }
+
+                        selectedAdapter.updateList(new ArrayList<Friend>(selectionMap.values()));
+
+                        doneStateCheck();
                     }
 
-                    selectedAdapter.updateList(new ArrayList<Friend>(selectionMap.values()));
+                });
+            }
 
-                    doneStateCheck();
-                }
 
-            });
 
         }
 

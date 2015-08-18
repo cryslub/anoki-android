@@ -14,7 +14,8 @@
         android:textSize="18sp"
         android:gravity="center"
         android:background="#22889b"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:id="@+id/title"/>
 
     <TextView
         android:layout_width="match_parent"
