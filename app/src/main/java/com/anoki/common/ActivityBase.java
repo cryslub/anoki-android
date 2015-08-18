@@ -2,6 +2,7 @@ package com.anoki.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
@@ -25,6 +26,7 @@ import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
 import com.anoki.pojo.User;
 import com.google.gson.reflect.TypeToken;
+import com.nullwire.trace.ExceptionHandler;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -53,6 +55,12 @@ public class ActivityBase extends ActionBarActivity {
     protected void setFilter(){
         prayerAdapter.setFilter(searchKey.getText().toString());
     }
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ExceptionHandler.register(this,"http://anoki.co.kr/anoki/error.jsp");
+    }
+
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {

@@ -169,10 +169,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
             }
         }
 
-        if(Integer.parseInt(prayer.replyCount) == 0){
-            LinearLayout showReply = (LinearLayout) findViewById(R.id.show_reply);
-            showReply.setVisibility(View.GONE);
-        }
+
 
         prayer.apiKey = Global.apiKey;
 

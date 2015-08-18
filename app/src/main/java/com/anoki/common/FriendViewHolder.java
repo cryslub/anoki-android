@@ -20,11 +20,11 @@ public class FriendViewHolder extends ViewHolderBase<Friend> {
 
     public View view;
 
-    @Bind(R.id.picture)
+    @Nullable @Bind(R.id.picture)
     public ImageView picture;
     @Bind(R.id.name)
     public TextView name;
-    @Bind(R.id.choose)
+    @Nullable @Bind(R.id.choose)
     public CheckBox choose;
 
     @Nullable
@@ -41,7 +41,8 @@ public class FriendViewHolder extends ViewHolderBase<Friend> {
     @Override
     public void bind(Friend friend) {
 
-        Util.setPicture(friend.picture, picture);
+        if(picture !=null)
+           Util.setPicture(friend.picture, picture);
         name.setText(friend.name);
     }
 }

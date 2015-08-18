@@ -116,9 +116,9 @@ public class SetNameActivity extends Activity {
 
                 //최근 화면으로
                 Intent intent = new Intent(SetNameActivity.this, RecentActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
+                finishAffinity();
             }
         }
     }

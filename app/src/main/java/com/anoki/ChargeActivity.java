@@ -114,7 +114,7 @@ public class ChargeActivity extends SubActivityBase {
 
 
         String productId;
-        int dalant=0;
+        int dalant=200;
 
         switch (selected){
             case R.id.two_hundred:
