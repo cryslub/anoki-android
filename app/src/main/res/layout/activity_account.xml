@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="확인"
-        android:onClick="changePass"
+        android:id="@+id/changePass"
         style="@style/ColorButton"
         android:layout_margin="16dp"
         />
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:text="비밀번호가 기억나지 않으세요?"
             android:gravity="center"
-            android:onClick="restore"
+            android:id="@+id/restore"
             android:textColor="@color/cinnabar"/>
 
         <View

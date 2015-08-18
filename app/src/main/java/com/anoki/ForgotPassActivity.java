@@ -16,6 +16,7 @@ import com.anoki.pojo.Response;
 import com.anoki.pojo.Search;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class ForgotPassActivity extends SubActivityBase implements EditTextFragment.OnFragmentInteractionListener{
 
@@ -29,6 +30,7 @@ public class ForgotPassActivity extends SubActivityBase implements EditTextFragm
     }
 
 
+    @OnClick(R.id.restore)
     public void restore(View view){
         Search search = new Search();
         search.searchKey = editText.getText().toString();

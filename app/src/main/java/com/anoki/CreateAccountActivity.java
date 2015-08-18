@@ -19,6 +19,9 @@ import com.anoki.pojo.User;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 public class CreateAccountActivity extends ActionBarActivity implements EditTextFragment.OnFragmentInteractionListener{
 
@@ -36,6 +39,7 @@ public class CreateAccountActivity extends ActionBarActivity implements EditText
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         Phone phone = (Phone) intent.getSerializableExtra("phone");
@@ -161,7 +165,8 @@ public class CreateAccountActivity extends ActionBarActivity implements EditText
         return super.onOptionsItemSelected(item);
     }
 
-    public void confirm(View view){
+    @OnClick(R.id.next)
+    public void next(View view){
 
         if(accountOk && passOk && confirmOk){
 

@@ -41,7 +41,7 @@ public class FriendViewHolder extends ViewHolderBase<Friend> {
     @Override
     public void bind(Friend friend) {
 
-        Util.setPicture(friend.picture, picture, view.getResources().getDrawable(R.drawable.ic_person_black_36dp));
+        Util.setPicture(friend.picture, picture);
         name.setText(friend.name);
     }
 }

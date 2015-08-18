@@ -93,7 +93,6 @@
             android:textStyle="bold"
             android:gravity="center"
             android:id="@+id/yes"
-            android:onClick="bill"
             />
 
         <View

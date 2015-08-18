@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="아노키 시작하기"
-            android:onClick="start"
+            android:id="@+id/start"
             style="@style/ColorButton"
             android:layout_marginTop="5dp" />
 

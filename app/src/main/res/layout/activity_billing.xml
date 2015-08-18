@@ -103,6 +103,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="결제하기"
-        android:onClick="pay"
+        android:id="@+id/pay"
         style="@style/ColorButton"/>
 </LinearLayout>

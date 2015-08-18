@@ -12,6 +12,8 @@ import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 import com.anoki.pojo.Response;
 
+import butterknife.OnClick;
+
 
 public class ChangePassActivity extends SubActivityBase {
 
@@ -28,7 +30,8 @@ public class ChangePassActivity extends SubActivityBase {
         return true;
     }
 
-    public void confirm(View view){
+    @OnClick(R.id.ok)
+    public void ok(View view){
         EditText pass = (EditText) findViewById(R.id.pass);
         EditText confirm = (EditText) findViewById(R.id.confirm);
 

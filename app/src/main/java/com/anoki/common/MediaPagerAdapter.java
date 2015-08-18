@@ -49,6 +49,7 @@ public class MediaPagerAdapter extends PagerAdapter {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+
             View itemView = mLayoutInflater.inflate(R.layout.layout_prayer_image_page, container, false);
 
             final Media media =mediaList.get(position);

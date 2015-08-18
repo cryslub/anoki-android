@@ -35,7 +35,7 @@ public class MoreTabActivity extends TabActivityBase {
 
     protected void setUserInfo(User user){
         ImageView profileImage = (ImageView) findViewById(R.id.picture);
-        Util.setPicture(user.picture + "", profileImage, getResources().getDrawable(R.drawable.ic_person_black_48dp));
+        Util.setPicture(user.picture + "", profileImage);
 
 
         setText(R.id.name, user.name);

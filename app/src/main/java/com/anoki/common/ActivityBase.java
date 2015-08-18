@@ -132,7 +132,7 @@ public class ActivityBase extends ActionBarActivity {
         user = Util.rest("user/detail", "POST", user, User.class);
 
         ImageView profileImage = (ImageView) findViewById(R.id.picture);
-        Util.setPicture(user.picture + "", profileImage, getResources().getDrawable(R.drawable.ic_person_white_48dp));
+        Util.setPicture(user.picture + "", profileImage);
 
 
 

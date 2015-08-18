@@ -29,6 +29,8 @@ import com.google.android.gms.games.Notifications;
 
 import java.util.List;
 
+import butterknife.OnClick;
+
 
 public class ChargeActivity extends SubActivityBase {
 
@@ -107,6 +109,7 @@ public class ChargeActivity extends SubActivityBase {
 
     }
 
+    @OnClick(R.id.charge)
     public void charge(View view){
 
 

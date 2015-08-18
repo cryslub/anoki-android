@@ -80,7 +80,7 @@ class MessageViewHolder extends ViewHolderBase<Message> {
 
         this.message = message;
 
-        Util.setPicture(message.userPicture, picture, view.getResources().getDrawable(R.drawable.ic_person_black_36dp));
+        Util.setPicture(message.userPicture, picture);
         name.setText(message.sender);
         date.setText(message.time);
         text.setText(message.text);

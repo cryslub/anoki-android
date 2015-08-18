@@ -82,7 +82,7 @@ public class SubActivityBase extends ActivityBase {
 
     protected void setProfile(User user){
         ImageView profileImage = (ImageView) findViewById(R.id.profile_image);
-        Util.setPicture(user.picture+"",profileImage,getResources().getDrawable(R.drawable.profile_large));
+        Util.setPicture(user.picture+"",profileImage);
 
 
         setText(R.id.phone, Util.makePhoneNumber(user.country,user.phone));

@@ -66,7 +66,7 @@ public class ResponseListActivity extends SubActivityBase {
 
 
         ImageView picture = (ImageView) findViewById(R.id.picture);
-        Util.setPicture(prayer.userPicture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
+        Util.setPicture(prayer.userPicture, picture);
 
         setText(R.id.name, prayer.userName);
 

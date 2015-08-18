@@ -65,10 +65,13 @@ public class ReplyFragment extends Fragment {
         text = (TextView) itemLayoutView.findViewById(R.id.text);
         time = (TextView) itemLayoutView.findViewById(R.id.time);
 
-        Util.setPicture(reply.userPicture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
+        Util.setPicture(reply.userPicture, picture);
 
-        if(Util.setPicture(reply.picture, image) == null){
+        if ("null".equals(reply.picture) || reply.picture == null || "0".equals(reply.picture)) {
             image.setVisibility(View.GONE);
+        }else{
+            Util.setPicture(reply.picture, image);
+
         }
 
 
@@ -103,7 +106,7 @@ public class ReplyFragment extends Fragment {
         itemLayoutView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if("R".equals(reply.type)){
+                if ("R".equals(reply.type)) {
                     ((OnFragmentInteractionListener) getActivity()).responseList(reply);
                 }
 

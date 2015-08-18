@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -242,23 +243,44 @@ public class Util {
 
     }
 
-    public static Bitmap setPicture(String picture, ImageView view) {
-        return setPicture(picture, view, null);
+    public static void setPicture(String picture, ImageView view) {
+        setPicture(picture, view, null);
     }
 
-    public static Bitmap setPicture(String picture, ImageView view, Drawable def) {
+    public static void setPicture(String picture, ImageView view, Drawable def) {
         if (!"null".equals(picture) && picture != null && !"0".equals(picture)) {
             Bitmap bmp = Util.fetchImage(picture + "");
-            view.setImageBitmap(bmp);
-            view.setAlpha(1.0f);
-            return bmp;
+            new DownloadImageTask(view).execute(picture);
         } else {
             if (def != null) {
                 view.setImageDrawable(def);
                 view.setAlpha(.5f);
             }
         }
-        return null;
+    }
+
+    private static class DownloadImageTask extends AsyncTask<String, Void, String> {
+
+
+        private ImageView view;
+        private Bitmap bmp;
+
+        public DownloadImageTask(ImageView view){
+            this.view = view;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            bmp = fetchImage(params[0]);
+            return null;
+        }
+
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            view.setImageBitmap(bmp);
+            view.setAlpha(1.0f);
+        }
     }
 
 
@@ -374,7 +396,7 @@ public class Util {
 
 
         if ("I".equals(media.type)) {
-            final Bitmap bmp = Util.setPicture(media.id, imageView, null);
+            Util.setPicture(media.id, imageView, null);
             imageView.setVisibility(View.VISIBLE);
             videoView.setVisibility(View.GONE);
 

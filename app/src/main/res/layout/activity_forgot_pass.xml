@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:text="확인"
         style="@style/ColorButton"
-        android:onClick="restore"/>
+        android:id="@+id/restore"
+/>
 
 </LinearLayout>

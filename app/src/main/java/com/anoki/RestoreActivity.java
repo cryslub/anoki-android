@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.anoki.common.SubActivityBase;
 
+import butterknife.OnClick;
+
 
 public class RestoreActivity extends SubActivityBase {
 
@@ -36,6 +38,7 @@ public class RestoreActivity extends SubActivityBase {
         }
     }
 
+    @OnClick(R.id.confirm)
     public void confirm(View view){
         succeed();
     }

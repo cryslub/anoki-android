@@ -112,13 +112,14 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     }
 
     private void refresh(){
-        LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
-        replyList.removeAllViews();
 
         load();
     }
 
     protected void load(){
+        LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
+        replyList.removeAllViews();
+
         final Search search = new Search();
         search.searchId = prayerId;
 
@@ -152,7 +153,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         }
 
         if(prayer.reply.size() > 0) {
-            LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
+
             int i = 2000;
 
             for (Reply reply : prayer.reply) {
@@ -176,7 +177,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         prayer.apiKey = Global.apiKey;
 
         ImageView picture = (ImageView) findViewById(R.id.picture);
-        Util.setPicture(prayer.userPicture, picture, getResources().getDrawable(R.drawable.ic_person_black_36dp));
+        Util.setPicture(prayer.userPicture, picture);
 
         setText(R.id.name, prayer.userName);
         setText(R.id.text,prayer.back+"\r\n\r\n"+prayer.text);
@@ -194,7 +195,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         }
 
         ImageView myPicture = (ImageView) findViewById(R.id.my_picture);
-        Util.setPicture(Global.me.picture + "", myPicture, getResources().getDrawable(R.drawable.ic_person_black_24dp));
+        Util.setPicture(Global.me.picture + "", myPicture);
 
 
         if(prayer.checkPrayable()){
@@ -262,6 +263,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         replyList.addView(rowLayout);
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

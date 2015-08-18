@@ -18,6 +18,8 @@ import com.anoki.pojo.User;
 
 import org.w3c.dom.Text;
 
+import butterknife.OnClick;
+
 public class AccountActivity extends SubActivityBase {
 
     @Override
@@ -37,6 +39,7 @@ public class AccountActivity extends SubActivityBase {
         return true;
     }
 
+    @OnClick(R.id.changePass)
     public void changePass(View view){
 
         Search search = new Search();
@@ -52,6 +55,7 @@ public class AccountActivity extends SubActivityBase {
         }
     }
 
+    @OnClick(R.id.restore)
     public void restore(View view){
         Search search = new Search();
         Util.rest("auth/restore","POST",search,Response.class);

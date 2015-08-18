@@ -108,7 +108,7 @@
         android:layout_height="wrap_content"
         style="@style/ColorButton"
         android:text="달란트 충전"
-        android:onClick="charge"
+        android:id="@+id/chargeButton"
         />
 
 </LinearLayout>

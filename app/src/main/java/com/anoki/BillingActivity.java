@@ -20,6 +20,7 @@ import com.anoki.common.Util;
 import com.anoki.pojo.Prayer;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 
 public class BillingActivity extends SubActivityBase {
@@ -60,6 +61,7 @@ public class BillingActivity extends SubActivityBase {
     }
 
 
+    @OnClick(R.id.pay)
     public void pay(View view){
         int total = prayer.friends.size() + prayer.phone.size();
         int ex = total - Global.FREE_FRIENDS_COUNT;

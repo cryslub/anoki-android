@@ -38,6 +38,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.OnClick;
+
 public class BoxActivity extends SubActivityBase {
 
     static final int START_DIALOG_ID = 1000;
@@ -124,6 +126,7 @@ public class BoxActivity extends SubActivityBase {
     }
 
 
+    @OnClick(R.id.showPeriod)
     public void showPeriod(View view){
         LinearLayout period = (LinearLayout) findViewById(R.id.period);
         if(period.isShown()){
@@ -133,7 +136,7 @@ public class BoxActivity extends SubActivityBase {
         }
     }
 
-
+    @OnClick(R.id.showFriendPeriod)
     public void showFriendPeriod(View view){
         LinearLayout period = (LinearLayout) findViewById(R.id.friend_period);
         if(period.isShown()){
@@ -144,42 +147,47 @@ public class BoxActivity extends SubActivityBase {
 
     }
 
+    @OnClick(R.id.oneMonth)
     public void oneMonth(View view){
         setPeriod(-1);
     }
 
-
+    @OnClick(R.id.threeMonth)
     public void threeMonth(View view){
         setPeriod(-3);
 
     }
 
+    @OnClick(R.id.sixMonth)
     public void sixMonth(View view){
         setPeriod(-6);
 
     }
 
+    @OnClick(R.id.oneYear)
     public void oneYear(View view){
         setPeriod(-12);
 
     }
 
-
+    @OnClick(R.id.friendOneMonth)
     public void friendOneMonth(View view){
         setFriendPeriod(-1);
     }
 
-
+    @OnClick(R.id.friendThreeMonth)
     public void friendThreeMonth(View view){
         setFriendPeriod(-3);
 
     }
 
+    @OnClick(R.id.friendSixMonth)
     public void friendSixMonth(View view){
         setFriendPeriod(-6);
 
     }
 
+    @OnClick(R.id.friendOneYear)
     public void friendOneYear(View view){
         setFriendPeriod(-12);
 
@@ -235,18 +243,22 @@ public class BoxActivity extends SubActivityBase {
 
     }
 
+    @OnClick(R.id.calendarStart)
     public void start(View view){
         showDialog(START_DIALOG_ID);
     }
 
+    @OnClick(R.id.calendarEnd)
     public void end(View view){
         showDialog(END_DIALOG_ID);
     }
 
+    @OnClick(R.id.calendarFriendStart)
     public void friendStart(View view){
         showDialog(FRIEND_START_DIALOG_ID);
     }
 
+    @OnClick(R.id.calendarFriendEnd)
     public void friendEnd(View view){
         showDialog(FRIEND_END_DIALOG_ID);
     }

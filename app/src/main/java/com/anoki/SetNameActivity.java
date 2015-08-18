@@ -28,6 +28,9 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class SetNameActivity extends Activity {
 
     private TextView tv;
@@ -38,6 +41,8 @@ public class SetNameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_name);
+
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user");
@@ -82,6 +87,7 @@ public class SetNameActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick(R.id.start)
     public void start(View view){
         //서버에 이름및 사진 변경 요청
 

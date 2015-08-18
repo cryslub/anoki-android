@@ -39,7 +39,7 @@
                         android:layout_height="25dp"
                         android:gravity="center"
                         android:background="@android:color/darker_gray"
-                        android:onClick="showPeriod"
+                        android:id="@+id/showPeriod"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="10dp">
                         <ImageView
@@ -70,7 +70,7 @@
 
                             <TextView
                                 android:text="1개월"
-                                android:onClick="oneMonth"
+                                android:id="@+id/oneMonth"
                                 style="@style/Period"
                                 />
                             <View
@@ -79,7 +79,7 @@
                                 android:background="#aaaaaa"/>
                             <TextView
                                 android:text="3개월"
-                                android:onClick="threeMonth"
+                                android:id="@+id/threeMonth"
                                 style="@style/Period"
 
                                 />
@@ -89,7 +89,7 @@
                                 android:background="#aaaaaa"/>
                             <TextView
                                 android:text="6개월"
-                                android:onClick="sixMonth"
+                                android:id="@+id/sixMonth"
                                 style="@style/Period"
 
                                 />
@@ -99,7 +99,7 @@
                                 android:background="#aaaaaa"/>
                             <TextView
                                 android:text="1년"
-                                android:onClick="oneYear"
+                                android:id="@+id/oneYear"
                                 style="@style/Period"
 
                                 />
@@ -118,7 +118,7 @@
                                 style="@style/BoxDate"
                                />
                             <ImageView
-                                android:onClick="start"
+                                android:id="@+id/calendarStart"
                                 style="@style/Calendar" />
 
                             <TextView
@@ -138,7 +138,7 @@
                                 android:layout_marginLeft="5dp"
                                 />
                             <ImageView
-                                android:onClick="end"
+                                android:id="@+id/calendarEnd"
                                 style="@style/Calendar"
                                 />
                         </LinearLayout>
@@ -172,7 +172,7 @@
                         android:layout_height="25dp"
                         android:gravity="center"
                         android:background="@android:color/darker_gray"
-                        android:onClick="showFriendPeriod"
+                        android:id="@+id/showFriendPeriod"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="10dp">
                         <ImageView
@@ -203,7 +203,7 @@
 
                             <TextView
                                 android:text="1개월"
-                                android:onClick="friendOneMonth"
+                                android:id="@+id/friendOneMonth"
                                 style="@style/Period"
 
                                 />
@@ -213,7 +213,7 @@
                                 android:background="#aaaaaa"/>
                             <TextView
                                 android:text="3개월"
-                                android:onClick="friendThreeMonth"
+                                android:id="@+id/friendThreeMonth"
                                 style="@style/Period"
 
                                 />
@@ -223,7 +223,7 @@
                                 android:background="#aaaaaa"/>
                             <TextView
                                 android:text="6개월"
-                                android:onClick="friendSixMonth"
+                                android:id="@+id/friendSixMonth"
                                 style="@style/Period"
 
                                 />
@@ -233,7 +233,7 @@
                                 android:background="#aaaaaa"/>
                             <TextView
                                 android:text="1년"
-                                android:onClick="friendOneYear"
+                                android:id="@+id/friendOneYear"
                                 style="@style/Period"
                                 />
 
@@ -249,7 +249,7 @@
                                 style="@style/BoxDate"
                                 />
                             <ImageView
-                                android:onClick="friendStart"
+                                android:id="@+id/calendarFriendStart"
                                 style="@style/BoxDate"
                                 />
                             <TextView
@@ -265,7 +265,7 @@
 
                                 />
                             <ImageView
-                                android:onClick="friendEnd"
+                                android:id="@+id/calendarFriendEnd"
                                 style="@style/BoxDate"
                                 />
                         </LinearLayout>

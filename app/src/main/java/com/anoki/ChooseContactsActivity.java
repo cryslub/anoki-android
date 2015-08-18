@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public class ChooseContactsActivity extends WriteActivityBase {
@@ -300,7 +301,8 @@ public class ChooseContactsActivity extends WriteActivityBase {
         return dialog;
     }
 
-    private  void bill(){
+    @OnClick(R.id.yes)
+    void bill(){
 
         int total = selectionMap.size() + contactSelectionMap.size();
         final int ex = total -Global.FREE_FRIENDS_COUNT;
@@ -598,7 +600,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
                     viewHolder.picture.setImageBitmap(bmp);
                     viewHolder.picture.setAlpha(1.0f);
                 }else{
-                    viewHolder.picture.setImageDrawable(getDrawable(R.drawable.ic_person_black_36dp));
+                    viewHolder.picture.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_black_36dp));
                     viewHolder.picture.setAlpha(.5f);
                 }
             }else if(obj instanceof  String){
@@ -691,7 +693,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
             final Friend friend = visibleObjects.get(position);
 
-            Util.setPicture(friend.picture,picture,getDrawable(R.drawable.ic_person_black_36dp));
+            Util.setPicture(friend.picture,picture);
             name.setText(visibleObjects.get(position).name);
 
 

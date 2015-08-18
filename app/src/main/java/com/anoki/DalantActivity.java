@@ -133,6 +133,7 @@ public class DalantActivity extends SubActivityBase {
     }
 
 
+    @OnClick(R.id.chargeButton)
     public void charge(View view){
         Intent intent = new Intent(DalantActivity.this, ChargeActivity.class);
         intent.putExtra("caller","DalantActivity");
