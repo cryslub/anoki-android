@@ -295,6 +295,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         Prayer p = new Prayer();
         p.id = prayer.id;
         Util.rest("prayer/complete", "POST", p, Response.class);
+        load();
     }
 
     public void showReplyContainer(View view){

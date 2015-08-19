@@ -54,7 +54,6 @@ import java.util.Map;
 
 public class GalleryActivity extends WriteActivityBase {
 
-    private DoneState doneState = DoneState.CLEAR;
 
     private static Uri[] mUrls = null;
     private static String[] strUrls = null;
