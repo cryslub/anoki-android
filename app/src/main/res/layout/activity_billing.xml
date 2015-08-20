@@ -104,5 +104,6 @@
         android:layout_height="wrap_content"
         android:text="결제하기"
         android:id="@+id/pay"
-        style="@style/ColorButton"/>
+        style="@style/ColorButton"
+        android:layout_marginTop="15dp"/>
 </LinearLayout>
