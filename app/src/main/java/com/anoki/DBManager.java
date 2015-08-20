@@ -66,6 +66,26 @@ public class DBManager  extends SQLiteOpenHelper {
 
     }
 
+
+    public String getPass() {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String str = "";
+
+        Cursor cursor = db.rawQuery("SELECT PASS FROM PASS", null);
+        String ret = null;
+        if(cursor.moveToNext()) {
+
+            ret = cursor.getString(0);
+        }
+
+        cursor.close();
+        db.close();
+        return ret;
+
+    }
+
     public void setAccount(String email, String pass){
         SQLiteDatabase db = getReadableDatabase();
 

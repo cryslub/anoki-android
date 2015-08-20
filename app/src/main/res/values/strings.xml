@@ -52,4 +52,8 @@
     <string name="title_activity_notice">공지사항</string>
     <string name="title_activity_dalant">달란트 충전/이용 내역</string>
     <string name="title_activity_friend_list">FriendListActivity</string>
+    <string name="title_activity_settings">설정</string>
+    <string name="title_activity_version">버전정보</string>
+    <string name="title_activity_pass">암호잠금</string>
+    <string name="title_activity_alaram_setting">AlaramSettingActivity</string>
 </resources>

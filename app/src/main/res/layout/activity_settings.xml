@@ -1,0 +1,290 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.anoki.SettingsActivity"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="버전정보"
+            style="@style/MainText"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0.1"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/version"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/cinnabar"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_36dp"
+            android:onClick="version"
+            android:alpha=".5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="개인정보"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"/>
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="계정관리"
+            style="@style/MainText"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_36dp"
+            android:onClick="account"
+            android:alpha=".5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="암호잠금"
+            style="@style/MainText"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="꺼짐"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/medium_turquoise"
+            android:id="@+id/lock"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_36dp"
+            android:onClick="pass"
+            android:alpha=".5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="알림/메시지"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"/>
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="알림설정"
+            style="@style/MainText"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_36dp"
+            android:onClick="alarm"
+            android:alpha=".5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="그룹별 알림"
+            style="@style/MainText"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_36dp"
+            android:onClick="groupAlarm"
+            android:alpha=".5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="고객지원"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"/>
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="도움말"
+            style="@style/MainText"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_36dp"
+            android:onClick="help"
+            android:alpha=".5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="고객센터"
+            style="@style/MainText"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_36dp"
+            android:onClick="support"
+            android:alpha=".5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="아노키 탈퇴"
+            style="@style/MainText"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_36dp"
+            android:onClick="leave"
+            android:alpha=".5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+
+</LinearLayout>

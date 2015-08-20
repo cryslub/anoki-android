@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.anoki.PassActivity"
+    android:orientation="vertical">
+
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="암호잠금"
+            style="@style/MainText"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/custom_drawable_switch"
+            android:layout_marginRight="25dp"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"
+/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="암호 잠금시 앱을 실행할 때마다 암호를 확인합니다."
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"
+        android:layout_marginTop="40dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="암호변경하기"
+            style="@style/MainText"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chevron_right_black_36dp"
+            android:onClick="pass"
+            android:alpha=".5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+
+</LinearLayout>

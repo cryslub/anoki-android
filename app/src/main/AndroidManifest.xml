@@ -228,6 +228,22 @@
             android:name=".FriendListActivity"
             android:label="@string/title_activity_friend_list" >
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".VersionActivity"
+            android:label="@string/title_activity_version" >
+        </activity>
+        <activity
+            android:name=".PassActivity"
+            android:label="@string/title_activity_pass" >
+        </activity>
+        <activity
+            android:name=".AlarmSettingActivity"
+            android:label="@string/title_activity_alaram_setting" >
+        </activity>
     </application>
 
 </manifest>

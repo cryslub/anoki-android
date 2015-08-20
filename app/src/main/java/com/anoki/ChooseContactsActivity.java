@@ -1,7 +1,6 @@
 package com.anoki;
 
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -15,13 +14,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -31,6 +27,8 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.anoki.common.AnokiDialog;
+import com.anoki.common.BillingDialog;
 import com.anoki.common.ContactManage;
 import com.anoki.common.DoneState;
 import com.anoki.common.FriendViewHolder;
@@ -38,22 +36,18 @@ import com.anoki.common.Global;
 import com.anoki.common.Initial;
 import com.anoki.common.RestService;
 import com.anoki.common.Util;
-import com.anoki.common.ViewHolderBase;
 import com.anoki.common.WriteActivityBase;
+import com.anoki.pojo.DialogData;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
-import com.anoki.pojo.Search;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public class ChooseContactsActivity extends WriteActivityBase {
@@ -270,69 +264,59 @@ public class ChooseContactsActivity extends WriteActivityBase {
         final int ex = total -Global.FREE_FRIENDS_COUNT;
 
 
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
-        dialog.setContentView(R.layout.layout_billing_dialog);
-
-        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-        lp.dimAmount = 0.7f;
-
-        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-
-        TextView title = (TextView)dialog.findViewById(R.id.title);
-        TextView text = (TextView)dialog.findViewById(R.id.text);
-        TextView yes = (TextView)dialog.findViewById(R.id.yes);
-        TextView no = (TextView)dialog.findViewById(R.id.no);
-        TextView exText = (TextView)dialog.findViewById(R.id.ex);
-        TextView amount = (TextView)dialog.findViewById(R.id.amount);
-
-        exText.setText(ex+"명");
-        amount.setText((ex * 10) + "원");
+        Dialog dialog = null;
+        DialogData data = new DialogData();
 
 
         switch (id){
-            case EX_DIALOG:
-                title.setText("결제");
-                text.setText("함께 기도하는 친구가 10명초과로 비용이 발생합니다");
-                yes.setOnClickListener(new View.OnClickListener() {
+            case EX_DIALOG: {
+
+                data.ex = ex;
+                data.text = "함께 기도하는 친구가 10명초과로 비용이 발생합니다";
+                data.onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
                         bill();
                     }
-                });
+                };
 
+
+                dialog = new BillingDialog(this,data);
+
+            }
                 break;
             case CHARGE_DIALOG:
-                title.setText("결제");
-                text.setText("충전된 금액이 부족합니다. 결재를 진행하시겠습니까?");
-                yes.setOnClickListener(new View.OnClickListener() {
+                data.ex = ex;
+                data.text = "충전된 금액이 부족합니다. 결재를 진행하시겠습니까?";
+                data.onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
                         charge();
                     }
-                });
+                };
+
+
+                dialog = new BillingDialog(this,data);
+
                 break;
             case BLOCK_DIALOG:
-                title.setText("차단");
-                text.setText("차단하시겠습니까? 차단하면 차단한 친구가 보내는 기도요청을 받을 수 없으며, 친구목록에서 삭제됩니다.\n(차단여부는 상대방이 알수 없습니다.)");
-                yes.setOnClickListener(new View.OnClickListener() {
+                data.title="차단";
+                data.text = "차단하시겠습니까? 차단하면 차단한 친구가 보내는 기도요청을 받을 수 없으며, 친구목록에서 삭제됩니다.\n" +
+                        "(차단여부는 상대방이 알수 없습니다.)";
+                data.onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
                         block();
                     }
-                });
+                };
+
+
+                dialog = new AnokiDialog(this,data);
+
                 break;
         }
 
 
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
 
         return dialog;
     }
