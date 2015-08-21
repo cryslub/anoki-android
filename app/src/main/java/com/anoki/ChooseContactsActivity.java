@@ -105,16 +105,12 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
         setTab();
 
-
-
-    }
-
-    protected void load(){
-
         setFriendList();
         setContactList();
 
+
     }
+
 
 
     private void setTab(){

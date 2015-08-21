@@ -68,6 +68,9 @@ public class BillingActivity extends SubActivityBase {
 
         prayer.dalant = ex *Global.DALANT_PER_PERSON;
 
+        RestService.makePrayer(prayer);
+        succeed();
+
 //        Intent intent = Util.inviteIntent(prayer);
 //        startActivityForResult(intent, Global.SMS);
 
