@@ -113,7 +113,7 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
 
         if(((PrayerAdapter.OnPrayListener) parentActivity).showPicture()){
             name.setText(prayer.userName);
-            Util.setPicture(prayer.userPicture, picture, parentActivity.getResources().getDrawable(R.drawable.ic_person_black_48dp));
+            Util.setPicture(prayer.userPicture, picture, parentActivity.getResources().getDrawable(R.drawable.profile_large));
         }else{
             name.setVisibility(View.GONE);
             pictureContainer.setVisibility(View.GONE);
