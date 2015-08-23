@@ -36,7 +36,6 @@ public class ChargeActivity extends SubActivityBase {
 
     IInAppBillingService mService;
     private Prayer prayer;
-    private int selected;
 
     private String caller;
 
@@ -74,77 +73,37 @@ public class ChargeActivity extends SubActivityBase {
         return true;
     }
 
-    public void onRadioButtonClicked(View view){
-        LinearLayout container = (LinearLayout) findViewById(R.id.container);
-
-        List<View> viewList = Util.getAllChildren(container);
-        for(View v : viewList){
-            if(v instanceof RadioButton){
-                RadioButton radioButton = (RadioButton) v;
-                radioButton.setChecked(false);
-            }
-
-            if (v instanceof TextView) {
-                TextView textView = (TextView) v;
-                textView.setTypeface(Typeface.DEFAULT);
-            }
-        }
-
-        RadioButton radioButton = (RadioButton) view;
-        radioButton.setChecked(true);
-        selected = view.getId();
-
-
-        ViewGroup row = (ViewGroup) view.getParent();
-        List<View> list  = Util.getAllChildren(row);
-        for(View v : list) {
-            if (v instanceof TextView) {
-                TextView textView = (TextView) v;
-                textView.setTypeface(Typeface.DEFAULT_BOLD);
-            }
-        }
-
-
-
-
-    }
 
     @OnClick(R.id.charge)
     public void charge(View view){
 
-
-        String productId;
         int dalant=200;
 
         switch (selected){
             case R.id.two_hundred:
-                productId = "two_hundred";
                 dalant = 200;
                 break;
             case R.id.one_thousand:
-                productId = "one_thousand";
                 dalant = 1000;
                 break;
 
             case R.id.two_thousand:
-                productId = "one_thousand";
                 dalant =2000;
                 break;
             case R.id.four_thousand:
-                productId = "one_thousand";
                 dalant = 4000;
                 break;
             case R.id.seven_thousand:
-                productId = "one_thousand";
                 dalant = 7000;
                 break;
             case R.id.ten_thousand:
-                productId = "one_thousand";
                 dalant = 10000;
                 break;
 
 
         }
+
+        String productId = Util.getProductId(dalant);
 
 
         User user = new User();

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anoki.common.CallBack;
+import com.anoki.common.CircleImageView;
 import com.anoki.common.Global;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
@@ -52,39 +53,21 @@ public class MyProfileActivity extends SubActivityBase {
     }
 
 
-    public void changeImage(View view){
-        // Log.v("setName","changeImage");
-
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, Global.PHOTO);
-
-    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        super.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
 
             switch (requestCode) {
-                case Global.PHOTO:
-                    String pictureId = Util.upload(data.getData(), getContentResolver(), new CallBack() {
-                        @Override
-                        public void success(String id) {
-                            ImageButton button = (ImageButton) findViewById(R.id.profile_image);
-                            Bitmap bmp = Util.fetchImage(id);
-                            button.setImageBitmap(bmp);
-                            button.setAlpha(1.0f);
-                        }
-                    });
-
+                case Global.PROFILE_PHOTO:
+                    String pictureId =  setProfilePicture(data);
                     Global.me.picture = Integer.parseInt(pictureId);
                     Util.rest("user", "PUT", Global.me, User.class);
                     break;
-
                 case Global.NAME:
                     reload();
                     break;
@@ -96,11 +79,6 @@ public class MyProfileActivity extends SubActivityBase {
         }
     }
 
-
-    public void changeName(View view){
-        Intent intent = new Intent(MyProfileActivity.this, ChangeNameActivity.class);
-        startActivityForResult(intent, Global.NAME);
-    }
 
     public void changeState(View view){
         Intent intent = new Intent(MyProfileActivity.this, ChangeStateActivity.class);

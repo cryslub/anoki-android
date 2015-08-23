@@ -1,6 +1,8 @@
 package com.anoki.common;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -8,7 +10,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.anoki.R;
@@ -22,9 +29,8 @@ import java.util.List;
  */
 public class SubActivityBase extends ActivityBase {
 
-    protected MenuItem doneMenu;
-    protected DoneState doneState = DoneState.CLEAR;
 
+    protected int selected;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +62,6 @@ public class SubActivityBase extends ActivityBase {
     }
 
 
-    protected void succeed(){
-        setResult(RESULT_OK, null);
-        finish();
-    }
 
     protected void setText(int id,String text){
         TextView name = (TextView) findViewById(id);
@@ -75,9 +77,6 @@ public class SubActivityBase extends ActivityBase {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK) {
-            succeed();
-        }
     }
 
     protected void setProfile(User user){
@@ -95,12 +94,49 @@ public class SubActivityBase extends ActivityBase {
     }
 
 
-    protected LinearLayoutManager  setRecyclerView  (RecyclerView recyclerView,RecyclerView.Adapter adapter){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+    public void onRadioButtonClicked(View view){
 
-        return layoutManager;
+        selected = view.getId();
+
+
+        setRadioButton(selected);
+
+
+    }
+
+    protected void setRadioButton(int selected){
+        LinearLayout container = (LinearLayout) findViewById(R.id.container);
+
+        List<View> viewList = Util.getAllChildren(container);
+        for(View v : viewList){
+            if(v instanceof RadioButton){
+                RadioButton radioButton = (RadioButton) v;
+                radioButton.setChecked(false);
+            }
+
+            if (v instanceof TextView) {
+                TextView textView = (TextView) v;
+                textView.setTypeface(Typeface.DEFAULT);
+            }
+        }
+
+        RadioButton view = (RadioButton) findViewById(selected);
+        view.setChecked(true);
+
+        ViewGroup row = (ViewGroup) view.getParent();
+        List<View> list  = Util.getAllChildren(row);
+        for(View v : list) {
+            if (v instanceof TextView) {
+                TextView textView = (TextView) v;
+                textView.setTypeface(Typeface.DEFAULT_BOLD);
+            }
+        }
+
+        afterRadio(selected);
+    }
+
+
+    protected void afterRadio(int selected){
 
     }
 }

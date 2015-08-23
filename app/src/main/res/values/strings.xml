@@ -56,4 +56,10 @@
     <string name="title_activity_version">버전정보</string>
     <string name="title_activity_pass">암호잠금</string>
     <string name="title_activity_alaram_setting">AlaramSettingActivity</string>
+    <string name="title_activity_new_team">그룹 만들기</string>
+    <string name="title_activity_team_type">그룹 타입 설정</string>
+    <string name="title_activity_team_limit">그룹 인원 설정</string>
+    <string name="title_activity_team_main">TeamMainActivity</string>
+    <string name="title_activity_team_charge">충전하기</string>
+    <string name="title_activity_team_billing">결제</string>
 </resources>

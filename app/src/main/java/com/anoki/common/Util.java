@@ -434,4 +434,67 @@ public class Util {
         activity.startActivity(intent);
     }
 
+    public static String getProductId(int dalant){
+        switch (dalant){
+            case 200:
+                return "two_hundred";
+            case 1000:
+                return "one_thousand";
+            case 2000:
+                return "two_thousand";
+            case 4000:
+                return "four_thousand";
+            case 6000:
+                return "six_thousand";
+            case 7000:
+                return "seven_thousand";
+            case 10000:
+                return "ten_thousand";
+            case 12000:
+                return "twelve_thousand";
+            case 20000:
+                return "twenty_thousand";
+            case 21000:
+                return "twenty_one_thousand";
+            case 24000:
+                return "twenty_four_thousand";
+            case 40000:
+                return "fourty_thousand";
+            case 42000:
+                return "fourty_two_thousand";
+            case 60000:
+                return "sixty_thousand";
+            case 70000:
+                return "seventy_thousand";
+            case 120000:
+                return "one_thundred_twenty_housand";
+            case 200000:
+                return "two_hundred_thousand";
+
+
+        }
+        return "";
+    }
+
+
+
+    public static int getLimit(int dalant){
+        switch (dalant){
+            case 0:
+                return 30;
+            case 2000:
+                return 50;
+            case 4000:
+                return 100;
+            case 7000:
+                return 500;
+            case 10000:
+                return 1000;
+            case 20000:
+                return -1;
+        }
+
+        return 0;
+    }
+
 }

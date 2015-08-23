@@ -55,7 +55,8 @@ public class ChooseContactsActivity extends WriteActivityBase {
     private Map<Integer,Friend> selectionMap = new HashMap<Integer,Friend>();
     private Map<String,Integer> contactSelectionMap = new HashMap<String,Integer>();
 
-    private TabHost myTabHost;
+    @Bind(R.id.tabHost)
+    TabHost myTabHost;
 
     private  ContentResolver contentResolver;
 
@@ -103,8 +104,9 @@ public class ChooseContactsActivity extends WriteActivityBase {
         prayer = (Prayer) intent.getSerializableExtra("prayer");
         caller = intent.getStringExtra("caller");
 
-        setTab();
+;
 
+        setTab(myTabHost, new String[]{"친구", "초대하기"}, new int[]{R.id.friend,R.id.contact});
         setFriendList();
         setContactList();
 
@@ -113,25 +115,6 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
 
 
-    private void setTab(){
-        myTabHost =(TabHost) findViewById(R.id.tabHost); // Before adding tabs, it is imperative to call the method setup()
-        myTabHost.setup(); // Adding tabs // tab1 settings
-        myTabHost.addTab(myTabHost.newTabSpec("tab_creation").setIndicator("친구").setContent(R.id.friend));
-        myTabHost.addTab(myTabHost.newTabSpec("tab_creation").setIndicator("초대하기").setContent(R.id.contact));
-
-        int height = Util.dpToPixel(getApplicationContext(), 40);
-
-        ((ImageView)((LinearLayout)myTabHost.getTabWidget().getChildTabViewAt(0)).getChildAt(0)).setMaxHeight(height);
-        ((ImageView)((LinearLayout)myTabHost.getTabWidget().getChildTabViewAt(1)).getChildAt(0)).setMaxHeight(height);
-        myTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = height;
-        myTabHost.getTabWidget().getChildAt(1).getLayoutParams().height = height;
-
-        TextView tv = (TextView) myTabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title); //Unselected Tabs
-        tv.setTextSize(18);
-
-        tv = (TextView) myTabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title); //Unselected Tabs
-        tv.setTextSize(18);
-    }
 
 
     private void setFriendList(){
@@ -639,7 +622,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
                     viewHolder.picture.setImageBitmap(bmp);
                     viewHolder.picture.setAlpha(1.0f);
                 }else{
-                    viewHolder.picture.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_black_36dp));
+                    viewHolder.picture.setImageDrawable(getResources().getDrawable(R.drawable.profile_large));
                     viewHolder.picture.setAlpha(.5f);
                 }
             }else if(obj instanceof  String){

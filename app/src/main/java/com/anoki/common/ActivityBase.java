@@ -2,6 +2,7 @@ package com.anoki.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -11,8 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.anoki.MessageActivity;
@@ -58,7 +62,7 @@ public class ActivityBase extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ExceptionHandler.register(this,"http://anoki.co.kr/anoki/error.jsp");
+        ExceptionHandler.register(this, "http://anoki.co.kr/anoki/error.jsp");
     }
 
 
@@ -183,6 +187,12 @@ public class ActivityBase extends ActionBarActivity {
 
     }
 
+
+    protected void succeed(){
+        setResult(RESULT_OK, null);
+        finish();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -193,8 +203,29 @@ public class ActivityBase extends ActionBarActivity {
                 case Global.MESSAGE:
                     message(null);
                     break;
+                case Global.PROFILE_PHOTO:
+                    setProfilePicture(data);
+                    break;
+                default:
+                    succeed();
             }
+
         }
+    }
+
+
+    public String setProfilePicture( Intent data){
+        return Util.upload(data.getData(), getContentResolver(), new CallBack() {
+            @Override
+            public void success(String id) {
+                CircleImageView button = (CircleImageView) findViewById(R.id.profile_image);
+                Bitmap bmp = Util.fetchImage(id);
+                button.setImageBitmap(bmp);
+                button.setAlpha(1.0f);
+            }
+        });
+
+
     }
 
     public void message(MenuItem item){
@@ -204,6 +235,42 @@ public class ActivityBase extends ActionBarActivity {
     }
 
     protected  void load(){
+
+    }
+
+
+    protected void setTab(TabHost mTabHost,String[] titles,int[] ids){
+
+
+        mTabHost.setup(); // Adding tabs // tab1 settings
+
+        int i=0;
+        for(String title : titles){
+            mTabHost.addTab(mTabHost.newTabSpec("tab_creation").setIndicator(title).setContent(ids[i++]));
+        }
+
+        Util.styleTab(getApplicationContext(),mTabHost);
+
+
+    }
+
+
+    protected LinearLayoutManager  setRecyclerView  (RecyclerView recyclerView,RecyclerView.Adapter adapter){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        return layoutManager;
+
+    }
+
+
+    public void changeImage(View view){
+        // Log.v("setName","changeImage");
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, Global.PROFILE_PHOTO);
 
     }
 }

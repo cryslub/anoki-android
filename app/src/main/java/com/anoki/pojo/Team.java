@@ -1,6 +1,8 @@
 package com.anoki.pojo;
 
-public class Team {
+import java.io.Serializable;
+
+public class Team implements Serializable {
 
 	public String picture;
 	public String name;
@@ -13,7 +15,7 @@ public class Team {
 	public String joinAck;
 	public int userId;
 	public String memberCount;
-	
+	public int dalant;
 	
 	public String profileAuth;
 	public String registerAuth;

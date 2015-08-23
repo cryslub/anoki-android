@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:id="@+id/two_hundred"
+                    android:id="@+id/one_month"
                     android:onClick="onRadioButtonClicked"
                     android:button="@drawable/custom_drawable_radio"/>
 
@@ -46,17 +46,19 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="200달란트"
+                        android:text="1달: 2,000달란트"
                         android:layout_marginLeft="20dp"
                         android:textStyle="bold"
-                        style="@style/MainText"/>
+                        style="@style/MainText"
+                        android:id="@+id/one_month_dalant"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="200원"
+                android:text="2,000원"
                 android:textStyle="bold"
-                style="@style/MainText"/>
+                style="@style/MainText"
+                android:id="@+id/one_month_won"/>
 
             </LinearLayout>
                 <View
@@ -74,7 +76,7 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/one_thousand"
+                        android:id="@+id/three_month"
                         android:onClick="onRadioButtonClicked"
                         android:button="@drawable/custom_drawable_radio"/>
 
@@ -82,15 +84,17 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="1,000달란트"
+                        android:text="3달: 6,000달란트"
                         android:layout_marginLeft="20dp"
-                        style="@style/MainText"/>
+                        style="@style/MainText"
+                        android:id="@+id/three_month_dalant"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1,000원"
-                        style="@style/MainText"/>
+                        android:text="6,000원"
+                        style="@style/MainText"
+                        android:id="@+id/three_month_won"/>
 
 
                 </LinearLayout>
@@ -109,7 +113,7 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/two_thousand"
+                        android:id="@+id/six_month"
                         android:onClick="onRadioButtonClicked"
                         android:button="@drawable/custom_drawable_radio"/>
 
@@ -117,15 +121,17 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="2,000달란트"
+                        android:text="6달: 12,000달란트"
                         android:layout_marginLeft="20dp"
-                        style="@style/MainText"/>
+                        style="@style/MainText"
+                        android:id="@+id/six_month_dalant"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2,000원"
-                        style="@style/MainText"/>
+                        android:text="12,000원"
+                        style="@style/MainText"
+                        android:id="@+id/six_month_won"/>
 
                 </LinearLayout>
 
@@ -143,7 +149,7 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/four_thousand"
+                        android:id="@+id/one_year"
                         android:onClick="onRadioButtonClicked"
                         android:button="@drawable/custom_drawable_radio"/>
 
@@ -151,87 +157,20 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="4,000달란트"
+                        android:text="1년 24,000달란트"
                         android:layout_marginLeft="20dp"
-                        style="@style/MainText"/>
+                        style="@style/MainText"
+                        android:id="@+id/one_year_dalant"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4,000원"
-                        style="@style/MainText"/>
+                        android:text="24,000원"
+                        style="@style/MainText"
+                        android:id="@+id/one_year_won"/>
 
                 </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="58dp"
-                android:background="#aaaaaa"
-                android:layout_marginRight="10dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/ChargeItem">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/seven_thousand"
-                        android:onClick="onRadioButtonClicked"
-                        android:button="@drawable/custom_drawable_radio"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="7,000달란트"
-                        android:layout_marginLeft="20dp"
-                        style="@style/MainText"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="7,000원"
-                        style="@style/MainText"/>
-
-                </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="58dp"
-                android:background="#aaaaaa"
-                android:layout_marginRight="10dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/ChargeItem">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ten_thousand"
-                        android:onClick="onRadioButtonClicked"
-                        android:button="@drawable/custom_drawable_radio"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="10,000달란트"
-                        android:layout_marginLeft="20dp"
-                        style="@style/MainText"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="10,000원"
-                        style="@style/MainText"/>
-
-                </LinearLayout>
         </LinearLayout>
 
 

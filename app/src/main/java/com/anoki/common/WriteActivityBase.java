@@ -17,6 +17,10 @@ public abstract class WriteActivityBase extends SubActivityBase implements Praye
 
     protected  String pictureId;
 
+
+    protected MenuItem doneMenu;
+    protected DoneState doneState = DoneState.CLEAR;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -24,11 +28,18 @@ public abstract class WriteActivityBase extends SubActivityBase implements Praye
 
         doneMenu = menu.findItem(R.id.action_done);
 
+        switch (doneState){
+            case NEXT:
+                doneMenu.setIcon(R.drawable.ic_arrow_forward_white_24dp);
+                break;
+            case DONE:
+                doneMenu.setIcon(R.drawable.ic_done_white_24dp);
+                break;
+        }
+
         return true;
     }
 
-
-    abstract protected void confirm();
 
     public void done(MenuItem menuItem) {
         switch (doneState){
@@ -37,6 +48,9 @@ public abstract class WriteActivityBase extends SubActivityBase implements Praye
                 break;
             case CLEAR:
                 finish();
+                break;
+            case NEXT:
+                next();
                 break;
         }
 
@@ -66,7 +80,7 @@ public abstract class WriteActivityBase extends SubActivityBase implements Praye
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-//        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
 
 
@@ -94,5 +108,14 @@ public abstract class WriteActivityBase extends SubActivityBase implements Praye
     @Override
     public void onDeleteFragment(String id) {
         pictureId = null;
+    }
+
+
+    protected void confirm(){
+
+    }
+
+    protected void next(){
+
     }
 }

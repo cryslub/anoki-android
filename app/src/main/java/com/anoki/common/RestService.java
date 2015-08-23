@@ -7,6 +7,7 @@ import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.Search;
+import com.anoki.pojo.Team;
 import com.anoki.pojo.User;
 import com.google.android.gms.games.Notifications;
 import com.google.gson.reflect.TypeToken;
@@ -74,6 +75,20 @@ public class RestService {
         search.searchKey = "A";
 
         return  Util.rest("friend/list", "POST", search, listType);
+
+    }
+
+    public static void makeTeam(Team team) {
+        team.apiKey =  Global.apiKey;
+        Response response = Util.rest("team", "POST", team, Response.class);
+    }
+
+    public static void charge(int dalant){
+
+        User user = new User();
+        user.dalant = dalant;
+        Response response = Util.rest("user/charge", "POST", user, Response.class);
+        Global.reloadMe();
 
     }
 }

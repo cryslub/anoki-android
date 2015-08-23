@@ -78,11 +78,13 @@ public class RecentActivity extends TabActivity {
         mTabHost.addTab(mTabHost.newTabSpec("최근").setIndicator("최근").setContent(new Intent(this, RecentTabActivity.class)));
         mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this, MeTabActivity.class)));
         mTabHost.addTab(mTabHost.newTabSpec("친구").setIndicator("친구").setContent(new Intent(this, FriendTabActivity.class)));
+        mTabHost.addTab(mTabHost.newTabSpec("그룹").setIndicator("그룹").setContent(new Intent(this, GroupTabActivity.class)));
         mTabHost.addTab(mTabHost.newTabSpec("더보기").setIndicator("더보기").setContent(new Intent(this, MoreTabActivity.class)));
 
 
         for(int index = 0 ;index < mTabHost.getTabWidget().getChildCount() ; index++) {
             mTabHost.getTabWidget().getChildAt(index).setBackgroundColor(getResources().getColor(R.color.baltic_sea));
+            mTabHost.getTabWidget().getChildAt(index).setPadding(0,0,0,0);
             TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(index).findViewById(android.R.id.title); //Unselected Tabs
             tv.setTextColor(Color.parseColor("#aaaaaa"));
             tv.setTextSize(18);

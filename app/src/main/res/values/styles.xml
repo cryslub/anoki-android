@@ -124,6 +124,14 @@
         <item name="android:layout_margin">18dp</item>
     </style>
 
+    <style name="TeamLimit">
+        <item name="android:layout_marginLeft">18dp</item>
+        <item name="android:layout_marginRight">18dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:gravity">center_vertical</item>
+
+    </style>
+
 
     <style name="Line">
         <item name="android:layout_height">0.5dp</item>

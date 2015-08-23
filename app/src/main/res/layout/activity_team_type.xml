@@ -1,0 +1,241 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.anoki.TeamTypeActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MainMessage"
+                android:text="그룹명"
+                android:id="@+id/name"
+                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="그룹 타입을 설정해 주세요"
+            android:layout_marginTop="5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/container">
+        <View
+            android:layout_width="match_parent"
+            style="@style/Line"
+            android:layout_marginTop="5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@android:color/white"
+            android:paddingLeft="25dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="비공개 그룹"
+                    style="@style/MainText"
+                    android:textColor="@color/strong"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="그룹의 기도글이 공개되지 않습니다.\n초대를 통해서만 가입할 수 있습니다. " />
+
+            </LinearLayout>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_drawable_radio"
+                android:layout_marginRight="10dp"
+                android:onClick="onRadioButtonClicked"
+                android:id="@+id/private_team"/>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            style="@style/Line"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@android:color/white"
+            android:paddingLeft="25dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="그룹명 공개"
+                    style="@style/MainText"
+                    android:textStyle="bold"
+                    android:textColor="@color/strong"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="누구든지 그룹을 검색해 찾을 수 있지만\n기도글은 그룹원만 볼 수 있습니다. "
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_drawable_radio"
+                android:layout_marginRight="10dp"
+                android:checked="true"
+                android:onClick="onRadioButtonClicked"
+                android:id="@+id/name_opened"/>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            style="@style/Line"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@android:color/white"
+            android:paddingLeft="25dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="공개 그룹"
+                    style="@style/MainText"
+                    android:textColor="@color/strong"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="누구든지 그룹을 검색해 찾을 수 있고,\n기도글을 볼 수 있습니다. " />
+
+            </LinearLayout>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_drawable_radio"
+                android:layout_marginRight="10dp"
+                android:onClick="onRadioButtonClicked"
+                android:id="@+id/public_team"/>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            style="@style/Line"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="그룹 설정 변경시 그룹원들에게 알림이 발송됩니다."
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/strong"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        style="@style/Line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="25dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="맴버 가입 승인"
+                style="@style/MainText"
+                android:textStyle="bold"
+                android:textColor="@color/strong"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="그룹 가입시 청지기의 승인이 필요합니다. " />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/custom_drawable_switch"
+            android:checked="true"
+            android:id="@+id/auth"
+            />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="설정 내용은 그룹 설정 메뉴에서 변경할 수 있습니다."
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/strong"/>
+
+</LinearLayout>

@@ -244,6 +244,34 @@
             android:name=".AlarmSettingActivity"
             android:label="@string/title_activity_alaram_setting" >
         </activity>
+        <activity
+            android:name=".GroupTabActivity"
+            android:label="@string/title_activity_group_tab" >
+        </activity>
+        <activity
+            android:name=".NewTeamActivity"
+            android:label="@string/title_activity_new_team" >
+        </activity>
+        <activity
+            android:name=".TeamTypeActivity"
+            android:label="@string/title_activity_team_type" >
+        </activity>
+        <activity
+            android:name=".TeamLimitActivity"
+            android:label="@string/title_activity_team_limit" >
+        </activity>
+        <activity
+            android:name=".TeamMainActivity"
+            android:label="@string/title_activity_team_main" >
+        </activity>
+        <activity
+            android:name=".TeamChargeActivity"
+            android:label="@string/title_activity_team_charge" >
+        </activity>
+        <activity
+            android:name=".TeamBillingActivity"
+            android:label="@string/title_activity_team_billing" >
+        </activity>
     </application>
 
 </manifest>

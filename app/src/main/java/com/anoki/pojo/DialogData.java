@@ -11,4 +11,8 @@ public class DialogData {
     public String text;
     public View.OnClickListener onClickListener;
     public int ex;
+    public int amount;
+    public int current;
+
+    public int dalant;
 }
