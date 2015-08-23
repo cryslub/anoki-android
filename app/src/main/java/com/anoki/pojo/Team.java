@@ -21,4 +21,5 @@ public class Team implements Serializable {
 	public String registerAuth;
 	public String inviteAuth;
 	public String leaveAuth;
+	public int multi;
 }

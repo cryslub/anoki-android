@@ -132,11 +132,11 @@ public class SubActivityBase extends ActivityBase {
             }
         }
 
-        afterRadio(selected);
+        afterRadio();
     }
 
 
-    protected void afterRadio(int selected){
+    protected void afterRadio(){
 
     }
 }

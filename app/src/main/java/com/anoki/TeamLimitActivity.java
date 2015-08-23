@@ -23,7 +23,6 @@ import butterknife.Bind;
 
 public class TeamLimitActivity extends WriteActivityBase {
 
-    private static final int EX_DIALOG = 100;
     private static final int BILL_DIALOG = 200;
     private Team team;
 
@@ -66,13 +65,9 @@ public class TeamLimitActivity extends WriteActivityBase {
             case R.id.unlimited:
                 team.dalant =20000;
                 break;
-
-
         }
 
-        if(team.dalant > Global.me.dalant){
-            showDialog(EX_DIALOG);
-        }else if(team.dalant > 0) {
+         if(team.dalant > 0) {
             showDialog(BILL_DIALOG);
         }else{
 
@@ -93,17 +88,7 @@ public class TeamLimitActivity extends WriteActivityBase {
         data.dalant = team.dalant;
 
         switch (id){
-            case EX_DIALOG:
-                data.text = "충전된 금액이 부족합니다. 결제를 진행하시겠습니까?";
-                data.onClickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(TeamLimitActivity.this, TeamChargeActivity.class);
-                        intent.putExtra("team",team);
-                        startActivity(intent);
-                    }
-                };
-                break;
+
             case BILL_DIALOG:
                 data.text = "유료 서비스를 선택하여 결제가 필요합니다.\n결제를 진행하시겠습니까?";
                 data.onClickListener = new View.OnClickListener() {

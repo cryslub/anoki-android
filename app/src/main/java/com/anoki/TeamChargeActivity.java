@@ -82,7 +82,7 @@ public class TeamChargeActivity extends SubActivityBase {
     public void charge(View view) {
 
 
-        int multi = 1;
+               int multi = 1;
 
 
         switch (selected){
