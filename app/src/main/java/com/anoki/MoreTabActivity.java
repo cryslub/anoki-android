@@ -81,6 +81,6 @@ public class MoreTabActivity extends TabActivityBase {
 
     public void settings(View view){
         Intent intent = new Intent(MoreTabActivity.this, SettingsActivity.class);
-        startActivity(intent);
+//        startActivity(intent);
     }
 }

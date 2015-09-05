@@ -129,7 +129,7 @@ public class InputPhoneNumberActivity extends FragmentActivity implements EditTe
         Country country = (Country) spinner.getSelectedItem();
 
         Phone phone = new Phone();
-        phone.number = editText.getText().toString();
+        phone.number = editText.getText().toString().replaceAll("-","");
         phone.country = country.getCountryCode()+"";
 
 

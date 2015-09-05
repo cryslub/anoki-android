@@ -143,8 +143,28 @@ public class Util {
     }
 
 
-    public static Bitmap fetchImage(String id) {
+    public static Bitmap fetchImage(String id){
+        return fetchImage(id,null);
+    }
+
+    public static Bitmap fetchImage(String id,ImageView view) {
         try {
+
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+
+            if(view != null) {
+                int photoWidth = bmOptions.outWidth;
+                int photoHeight = bmOptions.outHeight;
+
+                // Determine how much to scale down the image
+                int scaleFactor = Math.min(photoWidth / view.getLayoutParams().width, photoHeight / view.getLayoutParams().height);
+
+                bmOptions.inJustDecodeBounds = false;
+                bmOptions.inSampleSize = scaleFactor;
+                bmOptions.inPurgeable = true;
+            }
+
             URL url;
             url = new URL("http://anoki.co.kr/anoki/images/" + id);
 
@@ -249,7 +269,7 @@ public class Util {
 
     public static void setPicture(String picture, ImageView view, Drawable def) {
         if (!"null".equals(picture) && picture != null && !"0".equals(picture)) {
-            Bitmap bmp = Util.fetchImage(picture + "");
+            Bitmap bmp = Util.fetchImage(picture + "",view);
             new DownloadImageTask(view).execute(picture);
         } else {
             if (def != null) {
@@ -349,7 +369,7 @@ public class Util {
         ViewGroup flowLayout = (ViewGroup) activity.findViewById(R.id.media_list);
 
         ImageView imageView = new ImageView(activity);
-        Bitmap bmp = Util.fetchImage(id);
+        Bitmap bmp = Util.fetchImage(id,imageView);
         imageView.setImageBitmap(bmp);
 
 

@@ -57,7 +57,8 @@ public class ActivityBase extends ActionBarActivity {
     }
 
     protected void setFilter(){
-        prayerAdapter.setFilter(searchKey.getText().toString());
+        if(prayerAdapter != null && searchKey != null)
+            prayerAdapter.setFilter(searchKey.getText().toString());
     }
 
     protected void onCreate(Bundle savedInstanceState) {

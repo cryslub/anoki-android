@@ -3,9 +3,14 @@ package com.anoki;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.TabActivity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +18,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.anoki.common.ContactManage;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class RecentActivity extends TabActivity {
@@ -26,6 +37,28 @@ public class RecentActivity extends TabActivity {
         setContentView(R.layout.activity_recent);
 
         setTabHost();
+
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            ContactTask performBackgroundTask = new ContactTask(getContentResolver(),getApplicationContext());
+                            // PerformBackgroundTask this class is the class that extends AsynchTask
+                            performBackgroundTask.execute();
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask, 0, 600000); //execute in every 50000 ms
+
+
 
         //    mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this , MeTabActivity.class )));
 //        mTabHost.setCurrentTab(0);
@@ -71,6 +104,33 @@ public class RecentActivity extends TabActivity {
     }
 
 
+    private static class ContactTask extends AsyncTask<String, Void, String> {
+
+
+        private ImageView view;
+        private Bitmap bmp;
+        ContentResolver contentResolver;
+        Context applicationContext;
+
+        public ContactTask(ContentResolver contentResolver, Context applicationContext) {
+            this.contentResolver = contentResolver;
+            this.applicationContext = applicationContext;
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            ContactManage.checkContact(contentResolver,applicationContext);
+            return null;
+        }
+
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+
+        }
+    }
+
     private void setTabHost(){
 
         final TabHost mTabHost = getTabHost();
@@ -78,13 +138,13 @@ public class RecentActivity extends TabActivity {
         mTabHost.addTab(mTabHost.newTabSpec("최근").setIndicator("최근").setContent(new Intent(this, RecentTabActivity.class)));
         mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this, MeTabActivity.class)));
         mTabHost.addTab(mTabHost.newTabSpec("친구").setIndicator("친구").setContent(new Intent(this, FriendTabActivity.class)));
-        mTabHost.addTab(mTabHost.newTabSpec("그룹").setIndicator("그룹").setContent(new Intent(this, GroupTabActivity.class)));
+       // mTabHost.addTab(mTabHost.newTabSpec("그룹").setIndicator("그룹").setContent(new Intent(this, GroupTabActivity.class)));
         mTabHost.addTab(mTabHost.newTabSpec("더보기").setIndicator("더보기").setContent(new Intent(this, MoreTabActivity.class)));
 
 
         for(int index = 0 ;index < mTabHost.getTabWidget().getChildCount() ; index++) {
             mTabHost.getTabWidget().getChildAt(index).setBackgroundColor(getResources().getColor(R.color.baltic_sea));
-            mTabHost.getTabWidget().getChildAt(index).setPadding(0,0,0,0);
+            mTabHost.getTabWidget().getChildAt(index).setPadding(0, 0, 0, 0);
             TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(index).findViewById(android.R.id.title); //Unselected Tabs
             tv.setTextColor(Color.parseColor("#aaaaaa"));
             tv.setTextSize(18);
