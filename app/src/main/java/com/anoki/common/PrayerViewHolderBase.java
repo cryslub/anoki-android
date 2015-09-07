@@ -22,7 +22,7 @@ import butterknife.OnClick;
 
 public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
 
-    Prayer prayer;
+    protected Prayer prayer;
     View view;
 
     protected Activity parentActivity;
@@ -45,7 +45,8 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
     PrayerAdapter adapter;
 
 
-    @OnClick(R.id.container) void showDetail(){
+    @OnClick({R.id.container,R.id.text})
+    void showDetail(){
         Common.showPrayerDetail(parentActivity, prayer);
     }
 

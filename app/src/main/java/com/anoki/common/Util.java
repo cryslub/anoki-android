@@ -169,6 +169,14 @@ public class Util {
             url = new URL("http://anoki.co.kr/anoki/images/" + id);
 
             HttpURLConnection c = (HttpURLConnection) url.openConnection();
+
+
+            //   Value of stale indicates how old the cache content can be
+            //   before using it. Here the value is 1 hour(in secs)
+            c.addRequestProperty("Cache-Control", "max-stale=" + 60 * 60);
+
+            c.setUseCaches(true);
+
             c.setDoInput(true);
             c.connect();
             InputStream is = c.getInputStream();
@@ -187,7 +195,35 @@ public class Util {
         InputStream imageStream = null;
         try {
             imageStream = contentResolver.openInputStream(selectedImage);
-            Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+
+
+
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(imageStream, null,options);
+
+            // Only scale if we need to
+            // (16384 buffer for img processing)
+            Boolean scaleByHeight = Math.abs(options.outHeight - 100) >= Math.abs(options.outWidth - 100);
+            if(options.outHeight * options.outWidth * 2 >= 16384){
+                // Load, scaling to smallest power of 2 that'll get it <= desired dimensions
+                double sampleSize = scaleByHeight
+                        ? options.outHeight / 200
+                        : options.outWidth / 200;
+                options.inSampleSize =
+                        (int)Math.pow(2d, Math.floor(
+                                Math.log(sampleSize)/Math.log(2d)));
+            }
+
+            // Do the actual decoding
+            options.inJustDecodeBounds = false;
+            options.inTempStorage = new byte[512];
+            imageStream = contentResolver.openInputStream(selectedImage);
+
+            Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream,null, options);
+
+
             id = executeMultipartPost(yourSelectedImage);
             if (!"-1".equals(id)) {
                 callBack.success(id);
@@ -274,7 +310,7 @@ public class Util {
         } else {
             if (def != null) {
                 view.setImageDrawable(def);
-                view.setAlpha(.5f);
+//                view.setAlpha(.5f);
             }
         }
     }

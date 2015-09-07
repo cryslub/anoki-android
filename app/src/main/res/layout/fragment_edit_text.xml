@@ -13,6 +13,7 @@
         android:singleLine="true"
         android:background="@drawable/gray_border"
         android:padding="5dp"
+        android:imeOptions="actionDone"
         />
 
     <ImageButton

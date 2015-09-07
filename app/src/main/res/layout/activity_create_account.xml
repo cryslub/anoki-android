@@ -44,7 +44,8 @@
             android:maxLength="40"
             android:inputType="textPassword"
             style="@style/EditText"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:imeOptions="actionDone"/>
 
         <EditText
             android:layout_width="match_parent"

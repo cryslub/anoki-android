@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaExtractor;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.anoki.common.GeneralRecyclerViewAdapter;
@@ -56,6 +58,8 @@ class MessageViewHolder extends ViewHolderBase<Message> {
     @Bind(R.id.arrow)
     public ImageView arrow;
 
+    @Bind(R.id.more)
+    public ImageView more;
 
     @Bind(R.id.container)
     LinearLayout container;
@@ -65,6 +69,42 @@ class MessageViewHolder extends ViewHolderBase<Message> {
         Intent intent = new Intent(view.getContext(),MessageDetailActivity.class);
         intent.putExtra("message",message);
         view.getContext().startActivity(intent);
+    }
+
+    @OnClick(R.id.more)
+    void more(){
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), more);
+        //Inflating the Popup using xml file
+        popupMenu.getMenuInflater()
+                .inflate(R.menu.menu_message_popup, popupMenu.getMenu());
+
+        if(message.user == Global.me.id){
+            popupMenu.getMenu().findItem(R.id.reply).setVisible(false);
+        }
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.reply: {
+                        Intent intent = new Intent(view.getContext(), MessageActivity.class);
+                        Friend friend = new Friend();
+                        friend.name =  message.sender;
+                        friend.picture = message.userPicture;
+                        friend.friend = message.user;
+                        intent.putExtra("friend", friend);
+                        view.getContext().startActivity(intent);
+                    }
+                    break;
+                    case R.id.delete: {
+                    }
+                    break;
+
+                }
+                return true;
+            }
+        });
+
+        popupMenu.show();
     }
 
 

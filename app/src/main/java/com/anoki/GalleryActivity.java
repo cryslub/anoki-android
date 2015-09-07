@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
@@ -114,7 +115,6 @@ public class GalleryActivity extends WriteActivityBase {
                 loadVideos();
                 break;
         }
-
     }
 
     class VideoViewInfo {
@@ -228,42 +228,69 @@ public class GalleryActivity extends WriteActivityBase {
 
 
             for (int i = 0; i < cc.getCount(); i++) {
-                Bitmap bmp = decodeURI(mUrls[i].getPath());
-                //BitmapFactory.decodeFile(mUrls[position].getPath());
 
-
-
-
-
-                FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
-               layoutParams.setMargins(margin, margin, margin, margin);
-
-                LinearLayout rowLayout = new LinearLayout(GalleryActivity.this);
-
-                FragmentManager fragMan = getFragmentManager();
-                FragmentTransaction fragTransaction = fragMan.beginTransaction();
-
-                rowLayout.setId(i+1000);
-
-// add rowLayout to the root layout somewhere here
-
-                ImageFragment imageFragment = new ImageFragment();
-                imageFragment.setBmp(bmp);
-                imageFragment.setUri(mUrls[i]);
-                fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + i);
-                fragTransaction.commit();
-
-//                rowLayout
-                rowLayout.setOnClickListener(thumbNailClickListener);
-
-                add(rowLayout);
-                //               gridview.addView(imageView,layoutParams);
+                new LoadImageTask(i).execute();
             }
+
 
 
         }
     }
 
+
+
+      class LoadImageTask extends AsyncTask<String, Void, String> {
+
+           Bitmap bmp;
+          int id;
+
+          public LoadImageTask(int id) {
+              this.id= id;
+          }
+
+          @Override
+          protected String doInBackground(String... params) {
+              bmp = decodeURI(mUrls[id].getPath());
+              return null;
+          }
+
+          // onPostExecute displays the results of the AsyncTask.
+          @Override
+          protected void onPostExecute(String result) {
+
+              //BitmapFactory.decodeFile(mUrls[position].getPath());
+
+
+
+
+
+              FlowLayout.LayoutParams layoutParams = new FlowLayout.LayoutParams(size,size);
+              layoutParams.setMargins(margin, margin, margin, margin);
+
+              LinearLayout rowLayout = new LinearLayout(GalleryActivity.this);
+
+              FragmentManager fragMan = getFragmentManager();
+              FragmentTransaction fragTransaction = fragMan.beginTransaction();
+
+              rowLayout.setId(id+1000);
+
+// add rowLayout to the root layout somewhere here
+
+              ImageFragment imageFragment = new ImageFragment();
+              imageFragment.setBmp(bmp);
+              imageFragment.setUri(mUrls[id]);
+              fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + id);
+              fragTransaction.commit();
+
+//                rowLayout
+              rowLayout.setOnClickListener(thumbNailClickListener);
+
+              add(rowLayout);
+
+
+          }
+
+      }
 
     private void add(LinearLayout rowLayout){
         TableRow tableRow = null;

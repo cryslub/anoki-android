@@ -120,7 +120,7 @@ public class RecentActivity extends TabActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            ContactManage.checkContact(contentResolver,applicationContext);
+           // ContactManage.checkContact(contentResolver,applicationContext);
             return null;
         }
 

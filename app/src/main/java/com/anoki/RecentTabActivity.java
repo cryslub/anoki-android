@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class RecentTabActivity extends TabActivityBase {
 
@@ -91,6 +92,8 @@ public class RecentTabActivity extends TabActivityBase {
 
     class ViewHolder extends PrayerViewHolderBase {
 
+
+
         LinearLayout profile;
         ImageView picture;
         TextView name;
@@ -119,7 +122,7 @@ public class RecentTabActivity extends TabActivityBase {
         ImageButton viewPrayerList;
 
         public ViewHolder(DragSortAdapter adapter, View itemLayoutView,Activity parentActivity) {
-            super(adapter,itemLayoutView,parentActivity);
+            super(adapter, itemLayoutView, parentActivity);
 
             profile = (LinearLayout) itemLayoutView.findViewById(R.id.profile);
             picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
@@ -178,7 +181,13 @@ public class RecentTabActivity extends TabActivityBase {
                 profile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        myProfile(prayer);
+                        if (prayer.userId == Global.me.id) {
+                            myProfile(prayer);
+                        }else{
+                            Intent intent = new Intent(RecentTabActivity.this, UserPrayerListActivity.class);
+                            intent.putExtra("userId", prayer.userId);
+                            startActivity(intent);
+                        }
                     }
                 });
 
@@ -195,10 +204,7 @@ public class RecentTabActivity extends TabActivityBase {
                 reply.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
-                        intent.putExtra("prayerId", prayer.id);
-                        intent.putExtra("reply", true);
-                        startActivityForResult(intent, Global.PRAYER);
+
                     }
                 });
 
@@ -244,12 +250,20 @@ public class RecentTabActivity extends TabActivityBase {
 
                 media.setVisibility(View.GONE);
             }else{
-                MediaPagerAdapter mCustomPagerAdapter = new MediaPagerAdapter(RecentTabActivity.this,prayer.media);
+                MediaPagerAdapter mCustomPagerAdapter = new MediaPagerAdapter(RecentTabActivity.this,prayer);
                 media.setVisibility(View.VISIBLE);
                 media.setAdapter(mCustomPagerAdapter);
 
             }
 
+        }
+
+        @OnClick({R.id.reply_count,R.id.reply})
+        void reply(){
+            Intent intent = new Intent(RecentTabActivity.this, PrayerDetailActivity.class);
+            intent.putExtra("prayerId", prayer.id);
+            intent.putExtra("reply", true);
+            startActivityForResult(intent, Global.PRAYER);
         }
     }
 

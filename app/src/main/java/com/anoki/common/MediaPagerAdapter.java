@@ -14,9 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.VideoView;
 
+import com.anoki.PrayerDetailActivity;
 import com.anoki.R;
 import com.anoki.ZoomInActivity;
 import com.anoki.pojo.Media;
+import com.anoki.pojo.Prayer;
 
 import java.util.List;
 
@@ -29,17 +31,17 @@ public class MediaPagerAdapter extends PagerAdapter {
         LayoutInflater mLayoutInflater;
         Activity activity;
 
-        List<Media> mediaList;
+        Prayer prayer;
 
-        public MediaPagerAdapter(Activity activity,List<Media> media) {
+        public MediaPagerAdapter(Activity activity,Prayer prayer) {
             this.activity = activity;
             mLayoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            this.mediaList = media;
+            this.prayer = prayer;
         }
 
         @Override
         public int getCount() {
-            return mediaList.size();
+            return prayer.media.size();
         }
 
         @Override
@@ -48,17 +50,22 @@ public class MediaPagerAdapter extends PagerAdapter {
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
 
             View itemView = mLayoutInflater.inflate(R.layout.layout_prayer_image_page, container, false);
 
-            final Media media =mediaList.get(position);
+            final Media media =prayer.media.get(position);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Util.zoom(media,activity);
+
+                    Intent intent = new Intent(activity, PrayerDetailActivity.class);
+                    intent.putExtra("prayerId", prayer.id);
+                    intent.putExtra("position", position);
+                    activity.startActivityForResult(intent, Global.PRAYER);
+
                 }
             });
 

@@ -60,7 +60,7 @@ public class LoginActivity extends Activity {
             final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
             dbManager.setAccount(accountText,passText);
 
-            ContactManage.checkContact(getContentResolver(), getApplicationContext());
+//            ContactManage.checkContact(getContentResolver(), getApplicationContext());
 
             //최근 화면으로
             Intent intent = new Intent(LoginActivity.this, RecentActivity.class);

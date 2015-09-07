@@ -67,9 +67,12 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
     @Bind(R.id.media) LinearLayout mediaList;
 
+    @Bind(R.id.reply_text) EditText replyText;
+
+
     boolean reply;
 
-
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,34 +85,14 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
        // load();
         reply = intent.getBooleanExtra("reply", false);
+
+        position = intent.getIntExtra("position",-1);
+
       //  setMediaList();
     }
 
 
 
-    private void setMediaList(){
-
-        ViewPager media = (ViewPager) findViewById(R.id.media);
-        if(prayer.media==null|| prayer.media.size() == 0){
-            media.setVisibility(View.GONE);
-        }else{
-            MediaPagerAdapter mCustomPagerAdapter = new MediaPagerAdapter(PrayerDetailActivity.this,prayer.media);
-            media.setAdapter(mCustomPagerAdapter);
-        }
-
-
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
-                succeed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     private void refresh(){
 
@@ -164,8 +147,9 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         if(prayer.media != null) {
             mediaList.removeAllViews();
+            int i =0;
             for (Media media : prayer.media) {
-                addMedia(media);
+                addMedia(media,i++);
             }
         }
 
@@ -208,15 +192,22 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         if(reply){
 
             showReplyContainer(null);
-
+            replyText.requestFocus();
         }
 
+        if(position>=0){
+
+
+
+            position = -1;
+
+        }
 
     }
 
 
 
-    private void addMedia(final Media media){
+    private void addMedia(final Media media,int id){
 
 
 
@@ -234,7 +225,9 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         Util.setMediaView(itemView, media);
 
-
+        if(id == position){
+            itemView.requestFocus();
+        }
 
     }
 

@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.http.HttpResponseCache;
 import android.os.StrictMode;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -22,6 +23,7 @@ import com.anoki.common.Util;
 import com.anoki.pojo.Account;
 import com.anoki.pojo.Response;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        // Get the Default External Cache Directory
+        File httpCacheDir = getExternalCacheDir();
+
+        // Cache Size of 5MB
+        long httpCacheSize = 5 * 1024 * 1024;
+
+        try {
+            // Install the custom Cache Implementation
+            HttpResponseCache.install(httpCacheDir, httpCacheSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
