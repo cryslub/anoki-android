@@ -1,16 +1,12 @@
 package com.anoki.common;
 
-import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 
-import com.anoki.DBManager;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Invite;
-import com.anoki.pojo.Phone;
-import com.anoki.pojo.Response;
 
 import java.util.ArrayList;
 import java.util.List;

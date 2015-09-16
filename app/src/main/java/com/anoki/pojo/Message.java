@@ -15,6 +15,7 @@ public class Message implements Serializable {
 	public int id; //id
 	public String back; //배경색
 	public int user;
+	public int checked = 0;
 
 	public Message(){
 		this.apiKey = Global.apiKey;

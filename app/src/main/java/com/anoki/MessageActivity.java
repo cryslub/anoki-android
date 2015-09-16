@@ -1,6 +1,7 @@
 package com.anoki;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,9 +10,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anoki.common.DBManager;
 import com.anoki.common.DoneState;
 import com.anoki.common.Util;
 import com.anoki.common.WriteActivityBase;
+import com.anoki.common.Global;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Message;
 
@@ -62,6 +65,14 @@ public class MessageActivity extends WriteActivityBase {
         message.user = friend.friend;
         message.picture = pictureId;
         Util.rest("etc/send/message","POST",message);
+
+        message.sender = friend.name;
+        message.userPicture = friend.picture;
+        message.checked = 1;
+        final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
+
+        dbManager.insertMessage(message);
+
         succeed();
     }
 

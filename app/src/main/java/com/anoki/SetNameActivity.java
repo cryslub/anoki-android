@@ -12,12 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.anoki.common.CallBack;
 import com.anoki.common.CircleImageView;
-import com.anoki.common.ContactManage;
+import com.anoki.common.DBManager;
 import com.anoki.common.Global;
 import com.anoki.common.Util;
 import com.anoki.pojo.Response;

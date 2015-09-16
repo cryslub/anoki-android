@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.anoki.common.DBManager;
 import com.anoki.common.GeneralRecyclerViewAdapter;
 import com.anoki.common.Global;
 import com.anoki.common.SubActivityBase;
@@ -66,6 +67,11 @@ class MessageViewHolder extends ViewHolderBase<Message> {
 
     @OnClick(R.id.container)
     void detail(){
+
+        final DBManager dbManager = new DBManager(view.getContext(), "Anoki.db", null, 1);
+        message.checked = 1;
+        dbManager.updateMessage(message);
+
         Intent intent = new Intent(view.getContext(),MessageDetailActivity.class);
         intent.putExtra("message",message);
         view.getContext().startActivity(intent);
@@ -78,9 +84,11 @@ class MessageViewHolder extends ViewHolderBase<Message> {
         popupMenu.getMenuInflater()
                 .inflate(R.menu.menu_message_popup, popupMenu.getMenu());
 
-        if(message.user == Global.me.id){
+        if(message.user != Global.me.id){
+//            popupMenu.getMenu().findItem(R.id.reply).setEnabled(false);
             popupMenu.getMenu().findItem(R.id.reply).setVisible(false);
         }
+        final DBManager dbManager = new DBManager(view.getContext(), "Anoki.db", null, 1);
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
@@ -96,6 +104,11 @@ class MessageViewHolder extends ViewHolderBase<Message> {
                     }
                     break;
                     case R.id.delete: {
+                        dbManager.deleteMessage(message);
+                        RecyclerView recyclerView = (RecyclerView) view.getParent();
+                        GeneralRecyclerViewAdapter<Message,MessageViewHolder> recyclerviewAdapter =(GeneralRecyclerViewAdapter<Message,MessageViewHolder>) recyclerView.getAdapter();
+                        recyclerviewAdapter.updateList(dbManager.getMessage());
+                      //  view.setVisibility(View.GONE);
                     }
                     break;
 
@@ -125,12 +138,18 @@ class MessageViewHolder extends ViewHolderBase<Message> {
         date.setText(message.time);
         text.setText(message.text);
 
-        if(message.user == Global.me.id){
+        if(message.checked == 0){
             container.setBackgroundColor(Color.LTGRAY);
-            arrow.setImageResource(R.drawable.icn_arrow_left);
 
         }else{
             container.setBackgroundColor(Color.WHITE);
+
+        }
+
+        if(message.user == Global.me.id){
+            arrow.setImageResource(R.drawable.icn_arrow_left);
+
+        }else{
             arrow.setImageResource(R.drawable.icn_arrow_right);
 
         }
@@ -170,8 +189,14 @@ public class MessageListActivity extends SubActivityBase {
 
     private List<Message> getMessageList(){
         Type listType = new TypeToken<ArrayList<Message>>() {}.getType();
+        final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
 
-        return Util.rest("etc/message","POST",new Search(), listType);
+        List<Message> list =  Util.rest("etc/message","POST",new Search(), listType);
+        for(Message message : list) {
+            dbManager.insertMessage(message);
+        }
+
+        return dbManager.getMessage();
     }
 
     protected void load(){
@@ -179,7 +204,9 @@ public class MessageListActivity extends SubActivityBase {
         List<Message> list = getMessageList();
 
         GeneralRecyclerViewAdapter<Message,MessageViewHolder> responseAdapter = new  GeneralRecyclerViewAdapter<Message,MessageViewHolder> (list,R.layout.layout_message_row,MessageViewHolder.class);
+
         setRecyclerView(recyclerView, responseAdapter);
 
     }
+
 }
