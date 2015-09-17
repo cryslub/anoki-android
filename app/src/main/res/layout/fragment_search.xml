@@ -17,6 +17,7 @@
             android:textSize="15sp"
             android:id="@+id/search_key"
             android:background="@null"
-            android:paddingLeft="45dp"/>
+            android:paddingLeft="45dp"
+            android:imeOptions="actionDone"/>
 
 </FrameLayout>

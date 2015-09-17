@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.anoki.common.Util;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +81,9 @@ public class PrayerImageFragment extends Fragment {
 
         View view  = inflater.inflate(R.layout.fragment_prayer_image, container, false);
         final ImageView imageView = (ImageView) view.findViewById(R.id.image);
+
+        Bitmap bmp = Util.fetchImage(id, imageView);
+
         imageView.setImageBitmap(bmp);
 
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);

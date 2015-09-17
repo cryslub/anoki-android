@@ -17,6 +17,8 @@ import butterknife.Bind;
 
 public class MessageDetailActivity extends SubActivityBase {
 
+    @Bind(R.id.userPicture)
+    public ImageView userPicture;
     @Bind(R.id.picture)
     public ImageView picture;
     @Bind(R.id.name)
@@ -32,7 +34,9 @@ public class MessageDetailActivity extends SubActivityBase {
         Intent intent = getIntent();
         Message message = (Message) intent.getSerializableExtra("message");
 
-        Util.setPicture(message.userPicture, picture, null);
+        Util.setPicture(message.userPicture, userPicture, null);
+        Util.setPicture(message.picture, picture, null);
+
         if(message.user == Global.me.id) {
             name.setText(message.sender + "님으로 부터");
         }else{

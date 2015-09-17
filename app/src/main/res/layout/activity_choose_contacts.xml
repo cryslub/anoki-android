@@ -51,10 +51,12 @@
                                 android:hint="이름(초성), 전화번호 검색"
                                 />
 
-                            <ListView
+                            <GridView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/selected_list"></ListView>
+                                android:id="@+id/selected_list"
+                                android:background="@android:color/white"
+                                android:numColumns="auto_fit"></GridView>
 
                             <View
                                 android:layout_width="match_parent"

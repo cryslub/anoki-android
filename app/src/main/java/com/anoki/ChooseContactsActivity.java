@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -130,7 +131,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
         recyclerView.setAdapter(friendsAdapter);
 
 
-        ListView listView = (ListView) findViewById(R.id.selected_list);
+        GridView listView = (GridView) findViewById(R.id.selected_list);
         selectedAdapter = new SelectedAdapter(this, android.R.layout.simple_list_item_1, new ArrayList<Friend>());
         // 4. set adapter
         listView.setAdapter(selectedAdapter);

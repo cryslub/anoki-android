@@ -106,7 +106,8 @@ class MessageViewHolder extends ViewHolderBase<Message> {
                     case R.id.delete: {
                         dbManager.deleteMessage(message);
                         RecyclerView recyclerView = (RecyclerView) view.getParent();
-                        GeneralRecyclerViewAdapter<Message,MessageViewHolder> recyclerviewAdapter =(GeneralRecyclerViewAdapter<Message,MessageViewHolder>) recyclerView.getAdapter();
+                        GeneralRecyclerViewAdapter<Message,MessageViewHolder> recyclerviewAdapter
+                                = (GeneralRecyclerViewAdapter<Message,MessageViewHolder>) recyclerView.getAdapter();
                         recyclerviewAdapter.updateList(dbManager.getMessage());
                       //  view.setVisibility(View.GONE);
                     }

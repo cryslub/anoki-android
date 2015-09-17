@@ -153,7 +153,7 @@ public class Util {
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             bmOptions.inJustDecodeBounds = true;
 
-            if(view != null) {
+            if(view != null && view.getLayoutParams() !=null) {
                 int photoWidth = bmOptions.outWidth;
                 int photoHeight = bmOptions.outHeight;
 
@@ -404,9 +404,9 @@ public class Util {
     public static void addMedia(Activity activity, String id) {
         ViewGroup flowLayout = (ViewGroup) activity.findViewById(R.id.media_list);
 
-        ImageView imageView = new ImageView(activity);
-        Bitmap bmp = Util.fetchImage(id,imageView);
-        imageView.setImageBitmap(bmp);
+        //ImageView imageView = new ImageView(activity);
+        // / // Bitmap bmp = Util.fetchImage(id,imageView);
+      //  imageView.setImageBitmap(bmp);
 
 
         int size = Util.dpToPixel(activity, 80);
@@ -415,7 +415,7 @@ public class Util {
 //                    layoutParams.setMargins(margin, margin, margin, margin);
 
 //                            imageView.setLayoutParams(layoutParams);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
         //                  flowLayout.addView(imageView, layoutParams);
@@ -434,7 +434,7 @@ public class Util {
 // add rowLayout to the root layout somewhere here
 
         PrayerImageFragment imageFragment = new PrayerImageFragment();
-        imageFragment.setBmp(bmp);
+      //  imageFragment.setBmp(bmp);
         imageFragment.setId(id);
 //                    imageFragment.setUri(mUrls[i]);
         fragTransaction.add(rowLayout.getId(), imageFragment, "fragment" + id);
