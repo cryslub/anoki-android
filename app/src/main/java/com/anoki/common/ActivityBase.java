@@ -132,6 +132,48 @@ public class ActivityBase extends ActionBarActivity {
         popupMenu.show();
     }
 
+
+    protected void showMyPopupMenu(final Prayer prayer,View popup){
+        PopupMenu popupMenu = new PopupMenu(this, popup);
+        //Inflating the Popup using xml file
+        popupMenu.getMenuInflater()
+                .inflate(R.menu.menu_my_popup, popupMenu.getMenu());
+
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.edit: {
+                        Intent intent = new Intent(ActivityBase.this, MessageActivity.class);
+                        Friend friend = new Friend();
+                        friend.name = prayer.userName;
+                        friend.picture = prayer.userPicture;
+                        friend.friend = prayer.userId;
+                        intent.putExtra("friend", friend);
+                        startActivityForResult(intent, Global.MESSAGE);
+                    }
+                    break;
+                    case R.id.delete: {
+                        Intent intent = new Intent(ActivityBase.this, UserProfileActivity.class);
+                        intent.putExtra("userId", prayer.userId);
+                        startActivity(intent);
+                    }
+                    break;
+                    case R.id.request: {
+                        Intent intent = new Intent(ActivityBase.this, UserPrayerListActivity.class);
+                        intent.putExtra("userId", prayer.userId);
+                        startActivity(intent);
+                    }
+                    break;
+
+                }
+                return true;
+            }
+        });
+
+        popupMenu.show();
+    }
+
     protected User setPrayerListPage(int id) {
         return setPrayerListPage(id,false);
     }

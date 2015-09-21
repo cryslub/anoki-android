@@ -154,11 +154,11 @@ public class RecentTabActivity extends TabActivityBase {
             super.bind(prayer);
 
             if(prayer.userId == Global.me.id) {
-                friendFunction.setVisibility(View.INVISIBLE);
+//                friendFunction.setVisibility(View.INVISIBLE);
                 buttonContainer.removeView(scrap);
 
             }else {
-                friendFunction.setVisibility(View.VISIBLE);
+  //              friendFunction.setVisibility(View.VISIBLE);
 
 
                 popup.setOnClickListener(new View.OnClickListener() {
@@ -199,15 +199,6 @@ public class RecentTabActivity extends TabActivityBase {
 
                     }
                 });
-
-
-                reply.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-
 
 
                 if(prayer.scrapd != null){
@@ -264,6 +255,15 @@ public class RecentTabActivity extends TabActivityBase {
             intent.putExtra("prayerId", prayer.id);
             intent.putExtra("reply", true);
             startActivityForResult(intent, Global.PRAYER);
+        }
+
+        @OnClick(R.id.popup)
+        void popup() {
+            if (prayer.userId == Global.me.id) {
+                showMyPopupMenu(prayer,popup);
+            }else{
+                showPopupMenu(prayer,popup);
+            }
         }
     }
 

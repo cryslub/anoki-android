@@ -253,6 +253,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
                 data.ex = ex;
                 data.text = "함께 기도하는 친구가 10명초과로 비용이 발생합니다";
+
                 data.onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -266,8 +267,10 @@ public class ChooseContactsActivity extends WriteActivityBase {
             }
                 break;
             case CHARGE_DIALOG:
-                data.ex = ex;
-                data.text = "충전된 금액이 부족합니다. 결재를 진행하시겠습니까?";
+                data.title = "결제";
+                data.text = "충전된 금액이 부족합니다. 결제를 진행하시겠습니까?";
+
+
                 data.onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -276,7 +279,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
                 };
 
 
-                dialog = new BillingDialog(this,data);
+                dialog = new AnokiDialog(this,data);
 
                 break;
             case BLOCK_DIALOG:

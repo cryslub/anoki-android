@@ -15,4 +15,7 @@ public class DialogData {
     public int current;
 
     public int dalant;
+
+
+    public String amountString;
 }

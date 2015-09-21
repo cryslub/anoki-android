@@ -60,7 +60,7 @@ public class BillingDialog extends Dialog {
         text.setText(data.text);
 
         ex.setText(data.ex+"명");
-        amount.setText((data.ex * 10) + "원");
+        amount.setText((data.ex * 10) + "달란트");
 
     }
 }
