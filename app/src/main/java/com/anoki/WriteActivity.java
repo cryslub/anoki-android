@@ -55,7 +55,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
     Prayer prayer = new Prayer();
 
     Map<String,Media> mediaMap = new HashMap<String,Media>();
-
+    boolean edit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,8 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
             @Override
             public void afterTextChanged(Editable s) {
-                doneStateCheck();
+                if(doneMenu !=null)
+                   doneStateCheck();
             }
         };
 
@@ -88,6 +89,18 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
         getFragmentManager().beginTransaction().commitAllowingStateLoss();
 
+        Intent intent = getIntent();
+        Prayer prayer = (Prayer) intent.getSerializableExtra("prayer");
+        if(prayer !=null){
+            edit = true;
+            this.prayer = prayer;
+            back.setText(prayer.back);
+            text.setText(prayer.text);
+
+            for(Media media : prayer.media ){
+                addMedia(media.id);
+            }
+        }
 
     }
 
@@ -101,7 +114,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
             doneState = DoneState.CLEAR;
         }else{
             CheckBox pub = (CheckBox) findViewById(R.id.pub);
-            if(pub.isChecked()){
+            if(pub.isChecked() || edit){
                 doneMenu.setIcon(R.drawable.ic_done_white_24dp);
                 doneState = DoneState.DONE;
 
@@ -116,8 +129,13 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
     @Override
     protected void confirm() {
-        RestService.makePrayer(prayer);
+        if(edit) {
+            Util.rest("prayer","PUT",prayer);
+        }else{
+            RestService.makePrayer(prayer);
+        }
         succeed();
+
     }
 
     public void done(MenuItem item){
@@ -216,6 +234,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
 
 //        super.onActivityResult(requestCode, resultCode, data);
+        doneStateCheck();
 
         if(resultCode == RESULT_OK) {
             switch (requestCode) {
@@ -392,6 +411,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
     @Override
     public void onDeleteFragment(String id) {
         mediaMap.remove(id);
+        doneStateCheck();
     }
 
     @Override

@@ -62,6 +62,11 @@ public class RecentTabActivity extends TabActivityBase {
 
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        refresh();
+    }
+
+        @Override
     protected void onStart() {
         super.onStart();
 
@@ -80,7 +85,9 @@ public class RecentTabActivity extends TabActivityBase {
 
     }
 
-
+    protected  void load(){
+        refresh();
+    }
 
 
 
@@ -155,18 +162,9 @@ public class RecentTabActivity extends TabActivityBase {
 
             if(prayer.userId == Global.me.id) {
 //                friendFunction.setVisibility(View.INVISIBLE);
-                buttonContainer.removeView(scrap);
-
-            }else {
-  //              friendFunction.setVisibility(View.VISIBLE);
-
-
-                popup.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                       showPopupMenu(prayer,popup);
-                    }
-                });
+                scrap.setVisibility(View.GONE);
+            }else{
+                scrap.setVisibility(View.VISIBLE);
 
             }
                 if("".equals(prayer.back)){

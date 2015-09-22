@@ -19,12 +19,14 @@ import android.widget.PopupMenu;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.anoki.ChooseContactsActivity;
 import com.anoki.MessageActivity;
 import com.anoki.MessageListActivity;
 import com.anoki.MyProfileActivity;
 import com.anoki.R;
 import com.anoki.UserPrayerListActivity;
 import com.anoki.UserProfileActivity;
+import com.anoki.WriteActivity;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
@@ -139,29 +141,28 @@ public class ActivityBase extends ActionBarActivity {
         popupMenu.getMenuInflater()
                 .inflate(R.menu.menu_my_popup, popupMenu.getMenu());
 
+        if(prayer.friends == null || prayer.friends.size()==0 ){
+
+        }
+
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.edit: {
-                        Intent intent = new Intent(ActivityBase.this, MessageActivity.class);
-                        Friend friend = new Friend();
-                        friend.name = prayer.userName;
-                        friend.picture = prayer.userPicture;
-                        friend.friend = prayer.userId;
-                        intent.putExtra("friend", friend);
-                        startActivityForResult(intent, Global.MESSAGE);
-                    }
-                    break;
-                    case R.id.delete: {
-                        Intent intent = new Intent(ActivityBase.this, UserProfileActivity.class);
-                        intent.putExtra("userId", prayer.userId);
+                        Intent intent = new Intent(ActivityBase.this, WriteActivity.class);
+                        intent.putExtra("prayer", prayer);
                         startActivity(intent);
                     }
                     break;
+                    case R.id.delete: {
+                        Util.rest("prayer","DELETE",prayer);
+                        load();
+                    }
+                    break;
                     case R.id.request: {
-                        Intent intent = new Intent(ActivityBase.this, UserPrayerListActivity.class);
-                        intent.putExtra("userId", prayer.userId);
+                        Intent intent = new Intent(ActivityBase.this, ChooseContactsActivity.class);
+                        intent.putExtra("prayer", prayer);
                         startActivity(intent);
                     }
                     break;
