@@ -37,6 +37,10 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
     TextView prayCount;
     TextView replyCount;
 
+    @Bind(R.id.response_count)
+    TextView responseCount;
+
+
     @Bind(R.id.pray) protected ImageView pray;
     @Bind(R.id.scrap) protected  ImageView scrap;
 
@@ -86,6 +90,9 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
         date.setText(prayer.long_time);
         prayCount.setText(prayer.prayCount);
         replyCount.setText(prayer.replyCount);
+        responseCount.setText("응답 " + prayer.responseCount);
+
+
 
         if(prayer.checkPrayable()){
             pray.setImageResource(R.drawable.btn_pray_mint);

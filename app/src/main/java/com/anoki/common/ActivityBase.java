@@ -18,12 +18,15 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anoki.ChooseContactsActivity;
+import com.anoki.ChooseFriendActivity;
 import com.anoki.MessageActivity;
 import com.anoki.MessageListActivity;
 import com.anoki.MyProfileActivity;
 import com.anoki.R;
+import com.anoki.RequestListActivity;
 import com.anoki.UserPrayerListActivity;
 import com.anoki.UserProfileActivity;
 import com.anoki.WriteActivity;
@@ -142,7 +145,7 @@ public class ActivityBase extends ActionBarActivity {
                 .inflate(R.menu.menu_my_popup, popupMenu.getMenu());
 
         if(prayer.friends == null || prayer.friends.size()==0 ){
-
+            popupMenu.getMenu().findItem(R.id.request).setVisible(false);
         }
 
 
@@ -156,12 +159,12 @@ public class ActivityBase extends ActionBarActivity {
                     }
                     break;
                     case R.id.delete: {
-                        Util.rest("prayer","DELETE",prayer);
+                        Util.rest("prayer", "DELETE", prayer);
                         load();
                     }
                     break;
                     case R.id.request: {
-                        Intent intent = new Intent(ActivityBase.this, ChooseContactsActivity.class);
+                        Intent intent = new Intent(ActivityBase.this, RequestListActivity.class);
                         intent.putExtra("prayer", prayer);
                         startActivity(intent);
                     }
@@ -315,6 +318,14 @@ public class ActivityBase extends ActionBarActivity {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, Global.PROFILE_PHOTO);
+
+    }
+
+    protected void toast(String text){
+
+        Toast toast = Toast.makeText(getApplicationContext(),text, Toast.LENGTH_LONG);
+        //toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
 
     }
 }

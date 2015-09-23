@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.anoki.common.Common;
 import com.anoki.common.DBManager;
 import com.anoki.common.GeneralRecyclerViewAdapter;
 import com.anoki.common.Global;
@@ -94,13 +95,7 @@ class MessageViewHolder extends ViewHolderBase<Message> {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.reply: {
-                        Intent intent = new Intent(view.getContext(), MessageActivity.class);
-                        Friend friend = new Friend();
-                        friend.name =  message.sender;
-                        friend.picture = message.userPicture;
-                        friend.friend = message.user;
-                        intent.putExtra("friend", friend);
-                        view.getContext().startActivity(intent);
+                        Common.replyMessage(view.getContext(),message);
                     }
                     break;
                     case R.id.delete: {
@@ -193,8 +188,10 @@ public class MessageListActivity extends SubActivityBase {
         final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
 
         List<Message> list =  Util.rest("etc/message","POST",new Search(), listType);
-        for(Message message : list) {
-            dbManager.insertMessage(message);
+        if(list !=null) {
+            for (Message message : list) {
+                dbManager.insertMessage(message);
+            }
         }
 
         return dbManager.getMessage();

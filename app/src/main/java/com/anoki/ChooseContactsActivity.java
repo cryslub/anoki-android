@@ -42,6 +42,7 @@ import com.anoki.pojo.DialogData;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
+import com.anoki.pojo.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -208,8 +209,12 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
         }else {
 
-            prayer.friends = new ArrayList<Integer>();
-            prayer.friends.addAll(selectionMap.keySet());
+            prayer.friends = new ArrayList<Friend>();
+            for(Integer id : selectionMap.keySet()){
+                Friend friend = new Friend();
+                friend.friend = id;
+                prayer.friends.add(friend);
+            }
 
             prayer.phone = new ArrayList<String>();
             prayer.phone.addAll(contactSelectionMap.keySet());

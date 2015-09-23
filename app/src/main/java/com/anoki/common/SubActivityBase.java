@@ -18,7 +18,10 @@ import android.widget.RadioButton;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.anoki.MessageActivity;
 import com.anoki.R;
+import com.anoki.pojo.Friend;
+import com.anoki.pojo.Message;
 import com.anoki.pojo.Reply;
 import com.anoki.pojo.User;
 
@@ -139,4 +142,5 @@ public class SubActivityBase extends ActivityBase {
     protected void afterRadio(){
 
     }
+
 }

@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anoki.common.CallBack;
+import com.anoki.common.Common;
 import com.anoki.common.Global;
 import com.anoki.common.MediaPagerAdapter;
 import com.anoki.common.RestService;
@@ -68,6 +69,8 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     @Bind(R.id.media) LinearLayout mediaList;
 
     @Bind(R.id.reply_text) EditText replyText;
+    @Bind(R.id.scope) TextView scope;
+
 
 
     boolean reply;
@@ -110,6 +113,8 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
         setText(R.id.pray_count, "기도 " + prayer.prayCount);
         setText(R.id.reply_count, "댓글 " + prayer.replyCount);
+        setText(R.id.response_count, "응답 " + prayer.responseCount);
+
 
 
         if(prayer.userId != Global.me.id){
@@ -135,7 +140,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         //    buttonContainer.removeView(scrap);
         }
 
-        if(prayer.reply.size() > 0) {
+        if(prayer.reply != null && prayer.reply.size() > 0) {
 
             int i = 2000;
 
@@ -196,12 +201,10 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         }
 
         if(position>=0){
-
-
-
             position = -1;
-
         }
+
+        scope.setText(Common.pubKeyMap.get(prayer.pub));
 
     }
 
@@ -304,7 +307,11 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
 
 
     public void friendFunction(View view){
-        showPopupMenu(prayer, view);
+        if (prayer.userId == Global.me.id) {
+            showMyPopupMenu(prayer,view);
+        }else{
+            showPopupMenu(prayer,view);
+        }
     }
 
     public void responseList(View view){

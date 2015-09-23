@@ -44,6 +44,19 @@
             android:textSize="11sp"
             android:text="댓글 10"
             android:textColor="@android:color/white"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bullet_mint"
+        android:layout_marginLeft="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/response_count"
+        android:textSize="11sp"
+        android:text="응답 4"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>
 

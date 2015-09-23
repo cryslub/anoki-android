@@ -18,9 +18,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anoki.common.CallBack;
+import com.anoki.common.Common;
 import com.anoki.common.DoneState;
 import com.anoki.common.Global;
 import com.anoki.common.RestService;
@@ -39,6 +41,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.apmem.tools.layouts.FlowLayout;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,21 +51,50 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 public class WriteActivity extends WriteActivityBase implements PrayerImageFragment.OnFragmentInteractionListener {
 
+    class PubInfo{
+        String key;
+        String next;
+        String text;
 
+        PubInfo(String key,String next,String text){
+            this.key = key;
+            this.next = next;
+            this.text = text;
+        }
+    }
 
     Prayer prayer = new Prayer();
 
     Map<String,Media> mediaMap = new HashMap<String,Media>();
     boolean edit = false;
 
+    @Bind(R.id.pub)
+    TextView pub;
+
+    @Bind(R.id.text)
+    EditText text;
+
+
+    Map<String,PubInfo> pubMap = new HashMap<String,PubInfo>(){{
+        put("전체공개",new PubInfo("P","친구선택","내가 선택한 사람들에게만 기도가 보여집니다."));
+        put("친구선택",new PubInfo("F","나만보기","나만 볼 수 있습니다"));
+        put("나만보기",new PubInfo("S","전체공개","내 모든 친구들에게 내 기도가 보여집니다"));
+    }};
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
 
-        TextWatcher textWatcher = new TextWatcher() {
+        final TextWatcher textWatcher  = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -71,19 +103,37 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                String lineSep = System.getProperty("line.separator");
+
+                String str = text.getText().toString();
+                String arr[] = str.split(lineSep);
+                String merge = "";
+                int i = 1;
+                for(String line : arr){
+                    merge +=i+". "+line+lineSep;
+                    i++;
+                }
+
+                text.removeTextChangedListener(this);
+                int position = text.getSelectionStart();
+                text.setText(merge);
+                text.setSelection(position);
+                text.addTextChangedListener(this);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 if(doneMenu !=null)
-                   doneStateCheck();
+                    doneStateCheck();
             }
         };
 
-        EditText back = (EditText) findViewById(R.id.back);
-        back.addTextChangedListener(textWatcher);
 
-        EditText text = (EditText) findViewById(R.id.text);
+
+
+        EditText back = (EditText) findViewById(R.id.back);
+
         text.addTextChangedListener(textWatcher);
 
 
@@ -96,6 +146,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
             this.prayer = prayer;
             back.setText(prayer.back);
             text.setText(prayer.text);
+            pub.setText(Common.pubKeyMap.get(prayer.pub));
 
             for(Media media : prayer.media ){
                 addMedia(media.id);
@@ -104,6 +155,11 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
     }
 
+    @OnTextChanged(R.id.back)
+    void format(){
+        if(doneMenu !=null)
+            doneStateCheck();
+    }
 
     public void doneStateCheck(){
         EditText back = (EditText) findViewById(R.id.back);
@@ -113,8 +169,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
             doneMenu.setIcon(R.drawable.ic_clear_white_24dp);
             doneState = DoneState.CLEAR;
         }else{
-            CheckBox pub = (CheckBox) findViewById(R.id.pub);
-            if(pub.isChecked() || edit){
+            if("전체공개".equals(pub.getText().toString())|| "나만보기".equals(pub.getText().toString()) || edit){
                 doneMenu.setIcon(R.drawable.ic_done_white_24dp);
                 doneState = DoneState.DONE;
 
@@ -142,11 +197,11 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
         EditText back = (EditText) findViewById(R.id.back);
         EditText text = (EditText) findViewById(R.id.text);
-        CheckBox pub = (CheckBox) findViewById(R.id.pub);
 
         prayer.back = back.getText().toString();
         prayer.text = text.getText().toString();
-        prayer.pub = pub.isChecked()?"Y" : "N";
+
+        prayer.pub = pubMap.get(pub.getText().toString()).key;
 
 
         prayer.media = new ArrayList<Media>(mediaMap.values());
@@ -168,9 +223,15 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
         }
     }
 
-
+    @OnClick(R.id.pub)
     public void pub(View view){
+
+        pub.setText(pubMap.get(pub.getText().toString()).next);
+
+        toast(pubMap.get(pub.getText().toString()).text);
+
         doneStateCheck();
+
     }
 
 

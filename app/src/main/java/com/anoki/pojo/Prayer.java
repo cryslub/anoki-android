@@ -23,7 +23,7 @@ public class Prayer implements Serializable{
 	public int id;//id
 	public String lastPrayed;//마지막 기도시간
 	public int userId;//사용자 id
-	public List<Integer> friends;
+	public List<Friend> friends;
 	public List<String> phone;
 	public String scrapd;
 	public int responseCount;

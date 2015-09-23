@@ -46,12 +46,23 @@
                         android:id="@+id/name"
                         android:text="최영범"
                         android:textStyle="bold"/>
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#888888"
                         android:id="@+id/date"
+                        android:textColor="@color/week"
                         android:text="3월 13일"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/scope"
+                            android:textColor="@color/week"
+                            android:text="전체공개"
+                            android:layout_marginLeft="10dp"/>
+                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -68,10 +79,9 @@
                         android:src="@drawable/ic_more_horiz_black_36dp"
                         android:layout_gravity="right"
                         android:background="@android:color/transparent"
-                        android:alpha=".5"
+                        android:alpha=".3"
                         android:id="@+id/popup"
                         android:onClick="friendFunction"
-                        android:visibility="gone"
                         />
 
                 </LinearLayout>

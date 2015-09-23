@@ -8,9 +8,12 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anoki.common.Common;
+import com.anoki.common.DBManager;
 import com.anoki.common.Global;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
+import com.anoki.pojo.Friend;
 import com.anoki.pojo.Message;
 
 import butterknife.Bind;
@@ -26,13 +29,15 @@ public class MessageDetailActivity extends SubActivityBase {
     @Bind(R.id.text)
     public TextView text;
 
+    Message message;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_detail);
 
         Intent intent = getIntent();
-        Message message = (Message) intent.getSerializableExtra("message");
+        message = (Message) intent.getSerializableExtra("message");
 
         Util.setPicture(message.userPicture, userPicture, null);
         Util.setPicture(message.picture, picture, null);
@@ -46,4 +51,38 @@ public class MessageDetailActivity extends SubActivityBase {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_message_detail, menu);
+
+
+        return true;
+    }
+
+    public void reply(MenuItem item){
+        Common.replyMessage(this, message);
+    }
+
+    public void delete(MenuItem item){
+
+        final DBManager dbManager = new DBManager(this, "Anoki.db", null, 1);
+        dbManager.deleteMessage(message);
+
+        finish();
+
+    }
+
+    public void inform(MenuItem item){
+        //Util.rest("inform/message","POST",message);
+    }
+
+    public void block(MenuItem item){
+
+        Friend friend = new Friend();
+        friend.friend = message.senderId;
+        friend.state = "B";
+
+        Util.rest("friend","PUT",friend);
+    }
 }

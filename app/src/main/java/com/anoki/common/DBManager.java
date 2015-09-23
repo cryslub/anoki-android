@@ -36,7 +36,7 @@ public class DBManager  extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE TEAM_ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,TEAM INTEGER, ONOFF INTEGER, LEVEL INTEGER);");
         db.execSQL("CREATE TABLE ALARM(ONOFF INTEGER, LEVEL INTEGER, PREVIEW INTEGER, SOUND INTEGER, VIBE INTEGER);");
         db.execSQL("CREATE TABLE PASS(PASS TEXT);");
-        db.execSQL("CREATE TABLE MESSAGE(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,SENDER TEXT, MESSAGE TEXT,PICTURE INTEGER,USER_PICTURE INTEGER,CHECKED INTEGER);");
+        db.execSQL("CREATE TABLE MESSAGE(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,SENDER TEXT, SENDER_ID INTEGER, MESSAGE TEXT,PICTURE INTEGER,USER_PICTURE INTEGER,CHECKED INTEGER);");
 
     }
 
@@ -121,7 +121,7 @@ public class DBManager  extends SQLiteOpenHelper {
     public void insertMessage(Message message){
         SQLiteDatabase db = getReadableDatabase();
 
-        db.execSQL("INSERT INTO MESSAGE (USER,SENDER,MESSAGE,PICTURE,USER_PICTURE,CHECKED) VALUES(" + message.user + ",'" + message.sender + "','" + message.text + "'," + message.picture + "," + message.userPicture + "," + message.checked + ")");
+        db.execSQL("INSERT INTO MESSAGE (USER,SENDER,MESSAGE,PICTURE,USER_PICTURE,CHECKED,SENDER_ID) VALUES(" + message.user + ",'" + message.sender + "','" + message.text + "'," + message.picture + "," + message.userPicture + "," + message.checked + "," + message.senderId + ")");
         db.close();
     }
 
@@ -130,7 +130,7 @@ public class DBManager  extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         List<Message> list = new ArrayList<Message>();
-        Cursor cursor = db.rawQuery("SELECT USER,SENDER,MESSAGE,PICTURE,USER_PICTURE,CHECKED,_id FROM MESSAGE", null);
+        Cursor cursor = db.rawQuery("SELECT USER,SENDER,MESSAGE,PICTURE,USER_PICTURE,CHECKED,_id,SENDER_ID FROM MESSAGE", null);
         while (cursor.moveToNext()) {
             Message message = new Message();
             message.user = cursor.getInt(0);
@@ -140,6 +140,7 @@ public class DBManager  extends SQLiteOpenHelper {
             message.userPicture = cursor.getInt(4)+"";
             message.checked = cursor.getInt(5);
             message.id = cursor.getInt(6);
+            message.senderId = cursor.getInt(7);
 
             list.add(message);
         }
