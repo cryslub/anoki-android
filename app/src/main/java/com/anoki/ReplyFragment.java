@@ -1,6 +1,8 @@
 package com.anoki;
 
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -8,20 +10,26 @@ import android.app.Fragment;
 import android.provider.Settings;
 import android.text.Editable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.anoki.common.Common;
 import com.anoki.common.Util;
 import com.anoki.common.Global;
+import com.anoki.pojo.Friend;
+import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Reply;
 
 import org.w3c.dom.Text;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -32,6 +40,9 @@ public class ReplyFragment extends Fragment {
 
     @Bind(R.id.cover)
     ImageView cover;
+
+    @Bind(R.id.popup)
+    ImageView popup;
 
     private Reply reply;
 
@@ -115,7 +126,64 @@ public class ReplyFragment extends Fragment {
         return itemLayoutView;
     }
 
+    @OnClick(R.id.popup)
+    void popup(){
+        showPopupMenu();
+    }
+
     public interface OnFragmentInteractionListener{
         public void responseList(Reply reply);
     }
+
+
+
+    protected void showPopupMenu(){
+        PopupMenu popupMenu = new PopupMenu(getActivity(), popup);
+        //Inflating the Popup using xml file
+        popupMenu.getMenuInflater()
+                .inflate(R.menu.menu_reply_popup, popupMenu.getMenu());
+
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.message: {
+                        Intent intent = new Intent(getActivity(), MessageActivity.class);
+                        Friend friend = new Friend();
+                        friend.name = reply.name;
+                        friend.picture = reply.userPicture;
+                        friend.friend = reply.userId;
+                        intent.putExtra("friend", friend);
+                        startActivityForResult(intent, Global.MESSAGE);
+                    }
+                    break;
+                    case R.id.copy: {
+                        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                            clipboard.setText(reply.text);
+                        } else {
+                            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", reply.text);
+                            clipboard.setPrimaryClip(clip);
+                        }
+                    }
+                    break;
+                    case R.id.delete: {
+                        Util.rest("prayer/reply","DELETE",reply);
+                        getActivity().getFragmentManager().beginTransaction().remove(ReplyFragment.this).commit();
+                    }
+                    break;
+                    case R.id.inform: {
+
+                    }
+                    break;
+
+                }
+                return true;
+            }
+        });
+
+        popupMenu.show();
+    }
+
 }

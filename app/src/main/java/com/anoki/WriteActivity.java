@@ -89,6 +89,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,22 +104,6 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                String lineSep = System.getProperty("line.separator");
-
-                String str = text.getText().toString();
-                String arr[] = str.split(lineSep);
-                String merge = "";
-                int i = 1;
-                for(String line : arr){
-                    merge +=i+". "+line+lineSep;
-                    i++;
-                }
-
-                text.removeTextChangedListener(this);
-                int position = text.getSelectionStart();
-                text.setText(merge);
-                text.setSelection(position);
-                text.addTextChangedListener(this);
             }
 
             @Override
