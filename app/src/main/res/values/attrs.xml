@@ -3,6 +3,7 @@
     <declare-styleable name="EditTextFragment">
         <attr name="android:maxLength"/>
         <attr name="android:inputType"/>
+        <attr name="android:hint"/>
     </declare-styleable>
 
     <attr name="search_id" format="integer"/>

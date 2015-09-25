@@ -10,6 +10,7 @@ import com.anoki.R;
 import com.anoki.pojo.Friend;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2015-08-11.
@@ -26,6 +27,9 @@ public class FriendViewHolder extends ViewHolderBase<Friend> {
     public TextView name;
     @Nullable @Bind(R.id.choose)
     public CheckBox choose;
+    @Nullable @Bind(R.id.block)
+    public ImageView block;
+
 
     @Nullable
     @Bind(R.id.phone) public TextView phone;
@@ -45,4 +49,5 @@ public class FriendViewHolder extends ViewHolderBase<Friend> {
            Util.setPicture(friend.picture, picture);
         name.setText(friend.name);
     }
+
 }

@@ -3,6 +3,7 @@ package com.anoki.common;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.anoki.MessageActivity;
 import com.anoki.MyProfileActivity;
@@ -39,5 +40,11 @@ public class Common {
         friend.friend = message.user;
         intent.putExtra("friend", friend);
         context.startActivity(intent);
+    }
+
+    public static void toast(Context context, String text){
+        Toast toast = Toast.makeText(context,text, Toast.LENGTH_LONG);
+        //toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }

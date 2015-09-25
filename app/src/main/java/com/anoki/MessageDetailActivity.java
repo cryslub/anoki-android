@@ -15,6 +15,7 @@ import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Message;
+import com.anoki.pojo.Search;
 
 import butterknife.Bind;
 
@@ -74,7 +75,13 @@ public class MessageDetailActivity extends SubActivityBase {
     }
 
     public void inform(MenuItem item){
-        //Util.rest("inform/message","POST",message);
+
+        Search search = new Search();
+        search.searchKey = message.text;
+        search.searchId = message.senderId;
+        Util.rest("etc/inform","POST",search);
+
+        toast("신고되었습니다.");
     }
 
     public void block(MenuItem item){
@@ -83,6 +90,6 @@ public class MessageDetailActivity extends SubActivityBase {
         friend.friend = message.senderId;
         friend.state = "B";
 
-        Util.rest("friend","PUT",friend);
+        rest("friend","PUT",friend);
     }
 }

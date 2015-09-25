@@ -39,6 +39,14 @@
             android:id="@+id/choose"
             android:layout_marginRight="10dp"
             android:button="@drawable/custom_drawable_checkbox_red"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_block_black_24dp"
+            android:alpha=".3"
+            android:layout_marginRight="10dp"
+            android:id="@+id/block"
+            />
     </LinearLayout>
 
     <View

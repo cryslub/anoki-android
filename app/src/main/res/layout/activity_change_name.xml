@@ -18,6 +18,7 @@
         android:name="com.anoki.EditTextFragment"
         android:id="@+id/fragment"
         android:maxLength="20"
+        android:hint="이름을 입력해주세요."
         />
 
     <LinearLayout

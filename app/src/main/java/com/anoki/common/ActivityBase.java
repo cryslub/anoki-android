@@ -296,7 +296,7 @@ public class ActivityBase extends ActionBarActivity {
             mTabHost.addTab(mTabHost.newTabSpec("tab_creation").setIndicator(title).setContent(ids[i++]));
         }
 
-        Util.styleTab(getApplicationContext(),mTabHost);
+        Util.styleTab(getApplicationContext(), mTabHost);
 
 
     }
@@ -322,10 +322,21 @@ public class ActivityBase extends ActionBarActivity {
     }
 
     protected void toast(String text){
-
         Toast toast = Toast.makeText(getApplicationContext(),text, Toast.LENGTH_LONG);
         //toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+    }
 
+
+    protected <T> T rest(String path, String method, Object in, Class<T> classOfT) {
+        return Util.rest(path,method,in,classOfT);
+    }
+
+    protected <T> T rest(String path, String method, Object in, Type classOfT) {
+        return Util.rest(path,method,in,classOfT);
+    }
+
+    protected String rest(String path, String method, Object in) {
+        return Util.rest(path,method,in);
     }
 }

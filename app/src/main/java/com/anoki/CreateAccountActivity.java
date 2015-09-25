@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.anoki.common.Common;
 import com.anoki.common.Util;
 import com.anoki.pojo.Phone;
 import com.anoki.pojo.Response;
@@ -181,6 +182,12 @@ public class CreateAccountActivity extends ActionBarActivity implements EditText
             intent.putExtra("user",user);
             startActivity(intent);
 
+        }else if(!accountOk){
+            Common.toast(this, "사용할수 없는 계정입니다.");
+        }else if(!passOk){
+            Common.toast(this, "사용할수 없는 암호입니다.");
+        }else if(!confirmOk){
+            Common.toast(this, "암호와 암호확인이 동일하지 않습니다.");
         }
 
     }

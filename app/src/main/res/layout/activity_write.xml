@@ -111,7 +111,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전체공개"
+                android:text="친구선택"
                 android:id="@+id/pub"
                 android:onClick="pub"
                 android:layout_marginRight="10dp"

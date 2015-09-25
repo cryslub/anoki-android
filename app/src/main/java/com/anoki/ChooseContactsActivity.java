@@ -40,6 +40,7 @@ import com.anoki.common.Util;
 import com.anoki.common.WriteActivityBase;
 import com.anoki.pojo.DialogData;
 import com.anoki.pojo.Friend;
+import com.anoki.pojo.Invite;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.User;
@@ -106,13 +107,15 @@ public class ChooseContactsActivity extends WriteActivityBase {
         prayer = (Prayer) intent.getSerializableExtra("prayer");
         caller = intent.getStringExtra("caller");
 
-;
 
         setTab(myTabHost, new String[]{"친구", "초대하기"}, new int[]{R.id.friend,R.id.contact});
         setFriendList();
         setContactList();
 
 
+        if("MoreTabActivity".equals(caller)) {
+            getSupportActionBar().setTitle("친구정보");
+        }
     }
 
 
@@ -199,13 +202,18 @@ public class ChooseContactsActivity extends WriteActivityBase {
     protected void confirm() {
         if("MoreTabActivity".equals(caller)){
             String smsTo="";
+            Invite invite = new Invite();
+
             for(String contact : contactSelectionMap.keySet()){
-                smsTo+=contact+";";
+//                smsTo+=contact+";";
+                Friend friend = new Friend();
+                friend.phone = contact;
+                invite.phone.add(friend);
             }
 
-            Intent intentsms = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:"+smsTo));
-            intentsms.putExtra( "sms_body", Global.me.name+"님이 기도SNS 아노키로 중보기도를 요청하였습니다. 아래 링크를 눌러 들어오세요.\n anoki.co.kr/anoki/invite.jsp\nFrom "+ Global.me.name);
-            startActivity(intentsms);
+  //          invite.phone = addList;
+
+            Invite response = Util.rest("friend", "POST", invite, Invite.class);
 
         }else {
 
@@ -452,7 +460,7 @@ public class ChooseContactsActivity extends WriteActivityBase {
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(FriendViewHolder viewHolder, int position) {
+        public void onBindViewHolder(final FriendViewHolder viewHolder, int position) {
 
             // - get data from your itemsData at this position
             // - replace the contents of the view with that itemsData
@@ -462,17 +470,31 @@ public class ChooseContactsActivity extends WriteActivityBase {
             viewHolder.bind(friend);
 
             if("MoreTabActivity".equals(caller)){
-                viewHolder.view.setOnLongClickListener(new View.OnLongClickListener() {
+
+                viewHolder.block.setOnClickListener(new View.OnClickListener(){
+
                     @Override
-                    public boolean onLongClick(View v) {
+                    public void onClick(View v) {
                         blockId = friend.id;
                         showDialog(BLOCK_DIALOG);
-                        return false;
+                    }
+                });
+                viewHolder.view.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(viewHolder.view.getContext(), UserProfileActivity.class);
+                        intent.putExtra("userId", friend.friend);
+                        viewHolder.view.getContext().startActivity(intent);
                     }
                 });
                 viewHolder.choose.setVisibility(View.GONE);
+                viewHolder.block.setVisibility(View.VISIBLE);
+
             }else {
                 viewHolder.choose.setVisibility(View.VISIBLE);
+                viewHolder.block.setVisibility(View.GONE);
+
 
                 viewHolder.choose.setOnClickListener(new CheckBox.OnClickListener() {
                     @Override

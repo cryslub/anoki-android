@@ -82,9 +82,9 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
 
 
     Map<String,PubInfo> pubMap = new HashMap<String,PubInfo>(){{
-        put("전체공개",new PubInfo("P","친구선택","내가 선택한 사람들에게만 기도가 보여집니다."));
-        put("친구선택",new PubInfo("F","나만보기","나만 볼 수 있습니다"));
-        put("나만보기",new PubInfo("S","전체공개","내 모든 친구들에게 내 기도가 보여집니다"));
+        put("전체공개",new PubInfo("P","친구선택","내 모든 친구들에게 내 기도가 보여집니다."));
+        put("친구선택",new PubInfo("F","나만보기","내가 선택한 사람들에게만 기도가 보여집니다."));
+        put("나만보기",new PubInfo("S","전체공개","나만 볼 수 있습니다."));
     }};
 
 
