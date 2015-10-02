@@ -1,6 +1,7 @@
 package com.anoki;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.anoki.common.Common;
 import com.anoki.common.Util;
@@ -24,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class CreateAccountActivity extends ActionBarActivity implements EditTextFragment.OnFragmentInteractionListener{
+public class CreateAccountActivity  extends FragmentActivity implements EditTextFragment.OnFragmentInteractionListener{
 
     private static final String PASSWORD_PATTERN =
             "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-+=\\\\|/?.,<>]).{8,16})";
@@ -49,7 +51,7 @@ public class CreateAccountActivity extends ActionBarActivity implements EditText
 
         final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
 
-        final EditText editText = (EditText)findViewById(R.id.calc_txt_Prise);
+        final EditText editText = (EditText)findViewById(R.id.email);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -104,11 +106,11 @@ public class CreateAccountActivity extends ActionBarActivity implements EditText
 
                 String passText = pass.getText().toString();
                 if(passText.length()>=8 && passText.length()<=16){
-                    Matcher matcher = pattern.matcher(passText);
-                    if(matcher.matches()){
+//                    Matcher matcher = pattern.matcher(passText);
+  //                  if(matcher.matches()){
                         passOk = true;
                         return;
-                    }
+      //              }
 
                 }
 
@@ -142,6 +144,15 @@ public class CreateAccountActivity extends ActionBarActivity implements EditText
             }
         });
 
+
+        TextView login = (TextView) findViewById(R.id.login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -169,12 +180,16 @@ public class CreateAccountActivity extends ActionBarActivity implements EditText
     @OnClick(R.id.next)
     public void next(View view){
 
+        final EditText pass = (EditText)findViewById(R.id.pass);
+        final EditText confirm = (EditText)findViewById(R.id.confirm);
+
+        if(!pass.getText().toString().equals(confirm.getText().toString())) confirmOk = false;
+
         if(accountOk && passOk && confirmOk){
 
             Intent intent = new Intent(CreateAccountActivity.this, SetNameActivity.class);
 
-            final EditText editText = (EditText)findViewById(R.id.calc_txt_Prise);
-            final EditText pass = (EditText)findViewById(R.id.pass);
+            final EditText editText = (EditText)findViewById(R.id.email);
 
             user.account = editText.getText().toString();
             user.pass = pass.getText().toString();

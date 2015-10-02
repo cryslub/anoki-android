@@ -68,8 +68,6 @@ public class GroupTabActivity extends TabActivityBase {
     @Bind(R.id.my_list)
     RecyclerView myRecyclerView;
 
-    @Bind(R.id.other_list)
-    RecyclerView otherRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,22 +81,6 @@ public class GroupTabActivity extends TabActivityBase {
     }
 
 
-    protected void setFilter(){
-
-        Search search = new Search();
-        search.searchKey = searchKey.getText().toString();
-
-        if(search.searchKey.length()>0) {
-
-            List<Team> teamList = Util.rest("team/search", "POST", search, new TypeToken<ArrayList<Team>>() {
-            }.getType());
-
-            GeneralRecyclerViewAdapter<Team, TeamViewHolder> responseAdapter = new GeneralRecyclerViewAdapter<Team, TeamViewHolder>(teamList, R.layout.layout_team_row, TeamViewHolder.class);
-            LinearLayoutManager layoutManager = setRecyclerView(otherRecyclerView, responseAdapter);
-        }
-
-
-    }
 
     private void setMyList(){
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.anoki.common.Common;
 import com.anoki.common.DBManager;
 import com.anoki.common.RestService;
 import com.anoki.pojo.Response;
@@ -65,6 +66,8 @@ public class LoginActivity extends Activity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
+        }else{
+            Common.toast(this, "아이디나 패스워드가 올바르지 않습니다.");
         }
     }
 

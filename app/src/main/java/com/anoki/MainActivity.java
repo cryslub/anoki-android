@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         init();
-      // init2();
+      //init2();
     }
 
     private void init2(){

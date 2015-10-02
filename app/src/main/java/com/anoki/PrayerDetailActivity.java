@@ -438,4 +438,9 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         intent.putExtra("reply",reply);
         startActivity(intent);
     }
+
+    @Override
+    public Prayer getPrayer() {
+        return prayer;
+    }
 }

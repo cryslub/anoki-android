@@ -177,6 +177,18 @@ public class MessageListActivity extends SubActivityBase {
     }
 
 
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void add(MenuItem menuItem){
         Intent intent = new Intent(MessageListActivity.this, ChooseFriendActivity.class);
         startActivity(intent);

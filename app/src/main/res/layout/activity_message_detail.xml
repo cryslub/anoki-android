@@ -11,18 +11,23 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="30dp"
         android:orientation="vertical">
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/userPicture"
-            android:scaleType="fitCenter"
-            android:src="@drawable/profile_large"
-            android:alpha=".5"/>
+            android:layout_height="wrap_content"
+            android:background="@color/mine_shaft"
+            android:padding="10dp">
+
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                layout="@layout/include_profile_picture"
+                />
+
+        </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@color/baltic_sea"
+            android:background="@color/mine_shaft"
             android:textColor="@android:color/white"
             android:text="이지은님으로부터"
             android:paddingLeft="20dp"
@@ -44,7 +49,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/picture"
+                android:id="@+id/attached"
                 android:layout_marginBottom="10dp"/>
 
         </LinearLayout>

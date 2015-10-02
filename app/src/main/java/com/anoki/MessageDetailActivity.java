@@ -21,9 +21,9 @@ import butterknife.Bind;
 
 public class MessageDetailActivity extends SubActivityBase {
 
-    @Bind(R.id.userPicture)
-    public ImageView userPicture;
     @Bind(R.id.picture)
+    public ImageView userPicture;
+    @Bind(R.id.attached)
     public ImageView picture;
     @Bind(R.id.name)
     public TextView name;

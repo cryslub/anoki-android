@@ -276,6 +276,10 @@
             android:name=".RequestListActivity"
             android:label="@string/title_activity_request_list" >
         </activity>
+        <activity
+            android:name=".TeamSearchActivity"
+            android:label="@string/title_activity_team_search" >
+        </activity>
     </application>
 
 </manifest>

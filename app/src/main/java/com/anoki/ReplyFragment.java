@@ -24,6 +24,7 @@ import com.anoki.common.Global;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Reply;
+import com.anoki.pojo.Search;
 
 import org.w3c.dom.Text;
 
@@ -45,6 +46,13 @@ public class ReplyFragment extends Fragment {
     ImageView popup;
 
     private Reply reply;
+
+
+
+    public interface OnFragmentInteractionListener{
+        public void responseList(Reply reply);
+        public Prayer getPrayer();
+    }
 
     public ReplyFragment(){
     }
@@ -131,9 +139,6 @@ public class ReplyFragment extends Fragment {
         showPopupMenu();
     }
 
-    public interface OnFragmentInteractionListener{
-        public void responseList(Reply reply);
-    }
 
 
 
@@ -142,6 +147,18 @@ public class ReplyFragment extends Fragment {
         //Inflating the Popup using xml file
         popupMenu.getMenuInflater()
                 .inflate(R.menu.menu_reply_popup, popupMenu.getMenu());
+
+
+        Prayer prayer = ((OnFragmentInteractionListener) getActivity()).getPrayer();
+        if(reply.userId == Global.me.id){
+            popupMenu.getMenu().findItem(R.id.message).setVisible(false);
+            popupMenu.getMenu().findItem(R.id.inform).setVisible(false);
+        }else {
+            if (prayer.userId != Global.me.id ) {
+                popupMenu.getMenu().findItem(R.id.delete).setVisible(false);
+            }
+        }
+
 
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -171,9 +188,18 @@ public class ReplyFragment extends Fragment {
                     case R.id.delete: {
                         Util.rest("prayer/reply","DELETE",reply);
                         getActivity().getFragmentManager().beginTransaction().remove(ReplyFragment.this).commit();
+
+
                     }
                     break;
                     case R.id.inform: {
+
+                        Search search = new Search();
+                        search.searchKey = reply.text;
+                        search.searchId = reply.userId;
+                        Util.rest("etc/inform","POST",search);
+
+                        Common.toast(getActivity(),"신고되었습니다.");
 
                     }
                     break;

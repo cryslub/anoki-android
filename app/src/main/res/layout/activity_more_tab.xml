@@ -195,7 +195,7 @@
             android:gravity="center"
             android:background="@android:color/white"
             android:layout_marginRight="0.5dp"
-            android:onClick="request">
+            android:onClick="suggest">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -206,7 +206,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="기도요청"
+                android:text="아노키에 제안하기"
                 android:textColor="@android:color/black"
                 android:textSize="12sp"
                 android:layout_marginTop="10dp"/>

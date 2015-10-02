@@ -63,4 +63,5 @@
     <string name="title_activity_team_charge">충전하기</string>
     <string name="title_activity_team_billing">결제</string>
     <string name="title_activity_request_list">기도요청한 사람</string>
+    <string name="title_activity_team_search">TeamSearchActivity</string>
 </resources>

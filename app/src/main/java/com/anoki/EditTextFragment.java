@@ -26,6 +26,7 @@ public class EditTextFragment extends Fragment implements View.OnClickListener{
     private int inputType;
     private int maxLength;
     private EditTextFragment.OnFragmentInteractionListener mListener;
+    private String hint;
 
     public EditTextFragment() {
         // Required empty public constructor
@@ -51,6 +52,9 @@ public class EditTextFragment extends Fragment implements View.OnClickListener{
             fArray[0] = new InputFilter.LengthFilter(maxLength);
             editText.setFilters(fArray);
         }
+
+
+        editText.setHint(hint);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -93,6 +97,7 @@ public class EditTextFragment extends Fragment implements View.OnClickListener{
 
         this.inputType = a.getInt(R.styleable.EditTextFragment_android_inputType, -1);
         this.maxLength = a.getInt(R.styleable.EditTextFragment_android_maxLength, -1);
+        this.hint = a.getString(R.styleable.EditTextFragment_android_hint);
 
     }
 

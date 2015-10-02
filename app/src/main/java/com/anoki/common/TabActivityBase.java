@@ -63,4 +63,9 @@ public abstract  class TabActivityBase extends ActivityBase {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        load();
+    }
 }
