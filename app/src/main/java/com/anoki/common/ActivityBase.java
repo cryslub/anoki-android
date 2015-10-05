@@ -339,4 +339,8 @@ public class ActivityBase extends ActionBarActivity {
     protected String rest(String path, String method, Object in) {
         return Util.rest(path,method,in);
     }
+
+    public  void setPicture(String picture, ImageView view) {
+        Util.setPicture(picture, view, null);
+    }
 }

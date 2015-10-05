@@ -11,6 +11,7 @@
     <declare-styleable name="SearchFragment">
         <attr name="android:hint"/>
         <attr name="search_id" />
+        <attr name="android:imeOptions" />
     </declare-styleable>
 
     <declare-styleable name="CircleImageView">

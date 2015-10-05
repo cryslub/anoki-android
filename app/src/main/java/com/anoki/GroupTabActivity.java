@@ -43,6 +43,7 @@ class TeamViewHolder extends ViewHolderBase<Team> {
     @Bind(R.id.picture)
     public ImageView picture;
 
+    Team team;
 
     public TeamViewHolder(View itemView) {
         super(itemView);
@@ -56,14 +57,20 @@ class TeamViewHolder extends ViewHolderBase<Team> {
 
         Util.setPicture(team.picture, picture);
         name.setText(team.name);
+        this.team = team;
 
+    }
+
+    @OnClick(R.id.container)
+    public void detail(){
+        Intent intent = new Intent(view.getContext(),TeamDetailActivity.class);
+        intent.putExtra("teamId",team.id);
+        view.getContext().startActivity(intent);
     }
 }
 
-public class GroupTabActivity extends TabActivityBase {
+public class GroupTabActivity extends TabActivityBase implements  SearchFragment.OnFragmentInteractionListener{
 
-    @Bind(R.id.tabHost)
-    TabHost myTabHost;
 
     @Bind(R.id.my_list)
     RecyclerView myRecyclerView;
@@ -73,8 +80,6 @@ public class GroupTabActivity extends TabActivityBase {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_tab);
-
-        setTab(myTabHost, new String[]{"내그룹", "그룹검색"}, new int[]{R.id.my, R.id.other});
 
         setMyList();
 
@@ -96,4 +101,10 @@ public class GroupTabActivity extends TabActivityBase {
         startActivity(intent);
     }
 
+    @Override
+    public void onSearch(String key) {
+        Intent intent = new Intent(GroupTabActivity.this, TeamSearchActivity.class);
+        intent.putExtra("key",key);
+        startActivity(intent);
+    }
 }

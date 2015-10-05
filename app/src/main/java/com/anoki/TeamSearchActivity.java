@@ -1,5 +1,6 @@
 package com.anoki;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,17 +23,26 @@ public class TeamSearchActivity extends SubActivityBase {
     @Bind(R.id.other_list)
     RecyclerView otherRecyclerView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_search);
+
+        Intent intent = getIntent();
+        String key = intent.getStringExtra("key");
+        setFilter(key);
+
+
+        getSupportActionBar().setTitle(key);
+
     }
 
 
-    protected void setFilter(){
+    protected void setFilter(String key){
 
         Search search = new Search();
-        search.searchKey = searchKey.getText().toString();
+        search.searchKey = key;
 
         if(search.searchKey.length()>0) {
 

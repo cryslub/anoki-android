@@ -11,12 +11,15 @@
         android:name="com.anoki.SearchFragment"
         android:id="@+id/search"
         android:hint="검색할 그룹명을 입력해 주세요"
+        android:imeOptions="actionSearch"
+
         />
 
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:id="@+id/my_list">
         </android.support.v7.widget.RecyclerView>
 
