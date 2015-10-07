@@ -4,7 +4,7 @@
     android:layout_height="115dp"
     android:layout_margin="2dp"
 
-    tools:context="com.anoki.ImageFragment"
+    tools:context="com.anoki.fragment.ImageFragment"
     android:id="@+id/image_fragment">
 
 

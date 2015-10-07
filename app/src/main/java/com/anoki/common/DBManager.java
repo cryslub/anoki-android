@@ -22,6 +22,10 @@ import java.util.Map;
 public class DBManager  extends SQLiteOpenHelper {
 
 
+    public DBManager(Context context){
+        super(context, "Anoki.db", null, 1);
+    }
+
     public DBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
 
@@ -87,6 +91,22 @@ public class DBManager  extends SQLiteOpenHelper {
         db.close();
         return ret;
 
+    }
+
+    public void setPass(String pass){
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.execSQL("INSERT INTO PASS (PASS) VALUES('" + pass + "')");
+
+        db.close();
+    }
+
+    public void removePass(){
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.execSQL("DELETE FROM PASS");
+
+        db.close();
     }
 
     public void setAccount(String email, String pass){

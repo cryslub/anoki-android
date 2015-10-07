@@ -10,6 +10,7 @@ import com.anoki.common.DBManager;
 import com.anoki.common.RestService;
 import com.anoki.pojo.Account;
 import com.anoki.pojo.Response;
+import com.anoki.user.LoginActivity;
 
 import java.io.File;
 
@@ -39,8 +40,18 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        init();
-      //init2();
+        final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
+        String pass = dbManager.getPass();
+        if(pass == null) {
+//            init();
+            init2();
+
+        }else{
+            Intent intent = new Intent(MainActivity.this, CheckPassActivity.class);
+            intent.putExtra("type","start");
+            startActivity(intent);
+        }
+
     }
 
     private void init2(){
@@ -99,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, RecentActivity.class);
                 startActivity(intent);
             }
-
         }
     }
 }

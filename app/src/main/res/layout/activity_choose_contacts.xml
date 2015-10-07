@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.ChooseContactsActivity"
+    tools:context="com.anoki.etc.ChooseContactsActivity"
     android:orientation="vertical"
     >
 
@@ -46,7 +46,7 @@
                             <fragment
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:name="com.anoki.SearchFragment"
+                                android:name="com.anoki.fragment.SearchFragment"
                                 android:id="@+id/search"
                                 android:hint="이름(초성), 전화번호 검색"
                                 />
@@ -96,7 +96,7 @@
                             <fragment
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:name="com.anoki.SearchFragment"
+                                android:name="com.anoki.fragment.SearchFragment"
                                 android:id="@+id/search_contact"
                                 android:hint="연락처를 검색하거나, 직접 입력할 수 있어요"
                                 xmlns:anoki="http://schemas.android.com/apk/res-auto"

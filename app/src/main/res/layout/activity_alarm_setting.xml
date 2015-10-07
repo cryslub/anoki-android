@@ -1,194 +1,369 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.AlarmSettingActivity"
+    tools:context="com.anoki.etc.AlarmSettingActivity"
     android:orientation="vertical">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="새소식"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/strong"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="앱 내 새소식 메뉴를 통해 소식을 받을 수 있습니다."
-        android:layout_marginLeft="20dp"/>
-    <View
-        android:layout_width="match_parent"
-        style="@style/Line"
-        android:layout_marginTop="5dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="@android:color/white"
-        android:paddingLeft="25dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp">
-
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="높음"
-            style="@style/MainText"
-            android:textStyle="bold"
-            android:textColor="@color/strong"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="모든 새글,댓글 알림 받기" />
-
-        </LinearLayout>
-
-       <RadioButton
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:button="@drawable/custom_drawable_radio"
-           android:checked="true"
-           />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        style="@style/Line"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="@android:color/white"
-        android:paddingLeft="25dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/container">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="보통"
-                style="@style/MainText"
+                android:text="새소식"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/strong"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="새글, 참여댓글 알림만 받기" />
+                android:text="앱 내 새소식 메뉴를 통해 소식을 받을 수 있습니다."
+                android:layout_marginLeft="20dp"/>
+            <View
+                android:layout_width="match_parent"
+                style="@style/Line"
+                android:layout_marginTop="5dp" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@android:color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/custom_drawable_radio"
-            />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="높음"
+                        style="@style/MainText"
+                        android:textStyle="bold"
+                        android:textColor="@color/strong"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="모든 새글,댓글 알림 받기" />
+
+                </LinearLayout>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/custom_drawable_radio"
+                    android:onClick="onRadioButtonClicked"
+                    android:id="@+id/high"
+                    />
 
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        style="@style/Line"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="@android:color/white"
-        android:paddingLeft="25dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp">
+            <View
+                android:layout_width="match_parent"
+                style="@style/Line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@android:color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="보통"
+                        style="@style/MainText"
+                        android:textStyle="bold"
+                        android:textColor="@color/strong"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="기도요청, 응답, 댓글 알림받기" />
+
+                </LinearLayout>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/custom_drawable_radio"
+                    android:onClick="onRadioButtonClicked"
+                    android:id="@+id/normal"
+
+                    android:checked="true"
+                    />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                style="@style/Line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@android:color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="낮음"
+                        style="@style/MainText"
+                        android:textStyle="bold"
+                        android:textColor="@color/strong"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="기도요청, 응답 알림 받기" />
+
+                </LinearLayout>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/custom_drawable_radio"
+                    android:onClick="onRadioButtonClicked"
+                    android:id="@+id/low"
+
+                    />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                style="@style/Line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@android:color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="없음"
+                        style="@style/MainText"
+                        android:textStyle="bold"
+                        android:textColor="@color/strong"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="모든 알람 받지 않기" />
+
+                </LinearLayout>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/custom_drawable_radio"
+                    android:onClick="onRadioButtonClicked"
+                    android:id="@+id/none"
+                    />
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                style="@style/Line"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="낮음"
-                style="@style/MainText"
+                android:text="푸시알림 내용"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/strong"/>
-            <TextView
-                android:layout_width="wrap_content"
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                style="@style/Line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="새글, 나를 언급한 댓글 알림만 받기" />
+                android:gravity="center_vertical"
+                android:background="@android:color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="내용 미리보기"
+                        style="@style/MainText"
+                        android:textStyle="bold"
+                        android:textColor="@color/strong"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="글, 댓글, 응답 등의 메시지 내용 일부를 보여줍니다." />
+
+                </LinearLayout>
+
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/custom_drawable_switch"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/preview"
+                    android:onClick="lock"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                style="@style/Line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@android:color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="소리알림"
+                        style="@style/MainText"
+                        android:textStyle="bold"
+                        android:textColor="@color/strong"/>
+
+                </LinearLayout>
+
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/custom_drawable_switch"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/sound"
+                    android:onClick="lock"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                style="@style/Line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@android:color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="진동알림"
+                        style="@style/MainText"
+                        android:textStyle="bold"
+                        android:textColor="@color/strong"/>
+
+                </LinearLayout>
+
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/custom_drawable_switch"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/vibe"
+                    android:onClick="lock"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                style="@style/Line"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="앱 실행 중 새로운 알림이 오면 소리/진동으로 알려줍니다."
+                android:layout_marginLeft="20dp"/>
+
 
         </LinearLayout>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/custom_drawable_radio"
-            />
+    </ScrollView>
 
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        style="@style/Line"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="@android:color/white"
-        android:paddingLeft="25dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="최소"
-                style="@style/MainText"
-                android:textStyle="bold"
-                android:textColor="@color/strong"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="나를 언급한 새글, 댓글 알림만 받기" />
-
-        </LinearLayout>
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/custom_drawable_radio"
-            />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        style="@style/Line"/>
 </LinearLayout>

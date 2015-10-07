@@ -1,6 +1,5 @@
 package com.anoki.common;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,24 +11,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anoki.ChooseContactsActivity;
-import com.anoki.ChooseFriendActivity;
-import com.anoki.MessageActivity;
-import com.anoki.MessageListActivity;
-import com.anoki.MyProfileActivity;
+import com.anoki.etc.MessageActivity;
+import com.anoki.etc.MessageListActivity;
+import com.anoki.user.MyProfileActivity;
 import com.anoki.R;
-import com.anoki.RequestListActivity;
-import com.anoki.UserPrayerListActivity;
-import com.anoki.UserProfileActivity;
-import com.anoki.WriteActivity;
+import com.anoki.prayer.RequestListActivity;
+import com.anoki.user.UserPrayerListActivity;
+import com.anoki.user.UserProfileActivity;
+import com.anoki.prayer.WriteActivity;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;

@@ -1,13 +1,9 @@
 package com.anoki;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anoki.common.Global;
@@ -16,8 +12,8 @@ import com.anoki.common.TabActivityBase;
 import com.anoki.common.Util;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.User;
-
-import org.w3c.dom.Text;
+import com.anoki.user.BoxActivity;
+import com.anoki.user.MyProfileActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

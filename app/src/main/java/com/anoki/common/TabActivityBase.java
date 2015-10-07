@@ -1,19 +1,14 @@
 package com.anoki.common;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.anoki.AlarmListActivity;
-import com.anoki.MessageListActivity;
+import com.anoki.etc.AlarmListActivity;
 import com.anoki.R;
-import com.anoki.RecentActivity;
-import com.anoki.WriteActivity;
+import com.anoki.prayer.WriteActivity;
 
 /**
  * Created by Administrator on 2015-07-08.

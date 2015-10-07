@@ -2,6 +2,7 @@ package com.anoki.common;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
     TextView prayCount;
     TextView replyCount;
 
+    @Nullable
     @Bind(R.id.response_count)
     TextView responseCount;
 
@@ -90,7 +92,8 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
         date.setText(prayer.long_time);
         prayCount.setText(prayer.prayCount);
         replyCount.setText(prayer.replyCount);
-        responseCount.setText("응답 " + prayer.responseCount);
+        if(responseCount !=null)
+            responseCount.setText("응답 " + prayer.responseCount);
 
 
 

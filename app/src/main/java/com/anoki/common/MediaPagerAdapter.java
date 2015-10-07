@@ -3,24 +3,16 @@ package com.anoki.common;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.VideoView;
 
-import com.anoki.PrayerDetailActivity;
+import com.anoki.prayer.PrayerDetailActivity;
 import com.anoki.R;
-import com.anoki.ZoomInActivity;
 import com.anoki.pojo.Media;
 import com.anoki.pojo.Prayer;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2015-08-07.

@@ -2,10 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.TeamDetailActivity"
+    tools:context="com.anoki.team.TeamDetailActivity"
     android:orientation="vertical"
     android:background="@android:color/white">
 
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.anoki.fragment.SearchFragment"
+        android:id="@+id/search"
+        android:hint="검색할 사람/기도제목을 입력해주세요."
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,17 +35,29 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="17sp"
-                android:id="@+id/name"
-                android:text="여의도 순복음교회 (Yoido Full Gospel Church)"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"
+                    android:id="@+id/name"
+                    android:text="여의도 순복음교회 (Yoido Full Gospel Church)"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_settings_white_18dp"
+                    android:onClick="settings"/>
+
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
@@ -48,6 +68,67 @@
                 android:id="@+id/join"
                 android:textSize="14sp"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="승인대기"
+                android:id="@+id/wait"
+                android:textSize="14sp"
+                android:background="@drawable/box_gray"
+                android:gravity="center"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/details"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="그룹원"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3,728명"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="20dp"
+                        android:id="@+id/members"
+                        android:textSize="12sp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="청지기"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="김수진, 김서로"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="20dp"
+                        android:id="@+id/leaders"
+                        android:textSize="12sp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
@@ -60,5 +141,40 @@
         android:padding="20dp"
         android:background="@color/white_smoke"
         android:id="@+id/text"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:layout_margin="0dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="기도제목"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="11sp"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/prayer_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".UserPrayerListActivity"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -55,7 +55,7 @@
     <string name="title_activity_settings">설정</string>
     <string name="title_activity_version">버전정보</string>
     <string name="title_activity_pass">암호잠금</string>
-    <string name="title_activity_alaram_setting">AlaramSettingActivity</string>
+    <string name="title_activity_alaram_setting">알림 설정</string>
     <string name="title_activity_new_team">그룹 만들기</string>
     <string name="title_activity_team_type">그룹 타입 설정</string>
     <string name="title_activity_team_limit">그룹 인원 설정</string>
@@ -65,4 +65,9 @@
     <string name="title_activity_request_list">기도요청한 사람</string>
     <string name="title_activity_team_search">TeamSearchActivity</string>
     <string name="title_activity_team_detail">TeamDetailActivity</string>
+    <string name="title_activity_team_invite">TeamInviteActivity</string>
+    <string name="title_activity_blocked">차단친구 관리</string>
+    <string name="title_activity_set_pass">암호설정</string>
+    <string name="title_activity_check_pass">암호확인</string>
+    <string name="title_activity_team_settings">그룹 설정</string>
 </resources>

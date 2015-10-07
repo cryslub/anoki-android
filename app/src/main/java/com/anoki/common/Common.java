@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.anoki.MessageActivity;
-import com.anoki.MyProfileActivity;
-import com.anoki.PrayerDetailActivity;
+import com.anoki.etc.MessageActivity;
+import com.anoki.prayer.PrayerDetailActivity;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Message;
 import com.anoki.pojo.Prayer;

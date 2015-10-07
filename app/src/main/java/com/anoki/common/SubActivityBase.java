@@ -1,13 +1,9 @@
 package com.anoki.common;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,14 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.anoki.MessageActivity;
 import com.anoki.R;
-import com.anoki.pojo.Friend;
-import com.anoki.pojo.Message;
-import com.anoki.pojo.Reply;
 import com.anoki.pojo.User;
 
 import java.util.List;

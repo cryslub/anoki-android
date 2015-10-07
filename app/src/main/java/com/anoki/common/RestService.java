@@ -68,19 +68,24 @@ public class RestService {
 
 
     public static List<Friend> getFriendList(){
+        return getFriendList("A");
+    }
+
+
+    public static List<Friend> getFriendList(String searchKey){
         Type listType = new TypeToken<ArrayList<Friend>>() {}.getType();
 
         final Search search = new Search();
         search.apiKey = Global.apiKey;
-        search.searchKey = "A";
+        search.searchKey = searchKey;
 
         return  Util.rest("friend/list", "POST", search, listType);
 
     }
 
-    public static void makeTeam(Team team) {
+    public static Team makeTeam(Team team) {
         team.apiKey =  Global.apiKey;
-        Response response = Util.rest("team", "POST", team, Response.class);
+        return Util.rest("team", "POST", team, Team.class);
     }
 
     public static void charge(int dalant){

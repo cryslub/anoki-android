@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.anoki.PrayerImageFragment;
+import com.anoki.fragment.PrayerImageFragment;
 import com.anoki.R;
 
 /**

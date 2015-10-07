@@ -1,19 +1,20 @@
 package com.anoki;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.anoki.common.Global;
 import com.anoki.common.TabActivityBase;
 import com.anoki.common.Util;
+import com.anoki.etc.NoticeActivity;
+import com.anoki.etc.SettingsActivity;
 import com.anoki.pojo.User;
+import com.anoki.etc.ChooseContactsActivity;
+import com.anoki.user.BoxActivity;
+import com.anoki.user.DalantActivity;
+import com.anoki.user.MyProfileActivity;
 
 public class MoreTabActivity extends TabActivityBase {
 
@@ -68,7 +69,7 @@ public class MoreTabActivity extends TabActivityBase {
 
     public void friend(View view){
         Intent intent = new Intent(MoreTabActivity.this, ChooseContactsActivity.class);
-        intent.putExtra("caller","MoreTabActivity");
+        intent.putExtra("type","info");
         startActivity(intent);
 
     }

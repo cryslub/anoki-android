@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.InputPhoneNumberActivity"
+    tools:context="com.anoki.user.InputPhoneNumberActivity"
     android:orientation="vertical"
     android:background="@android:color/white">
 
@@ -38,7 +38,7 @@
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
-                class="com.anoki.EditTextFragment"
+                class="com.anoki.fragment.EditTextFragment"
                 android:id="@+id/fragment"
                 android:inputType="phone"
                 android:maxLength="11"/>

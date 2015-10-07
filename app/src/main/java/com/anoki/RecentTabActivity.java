@@ -14,9 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.anoki.common.Common;
 import com.anoki.common.MediaPagerAdapter;
-import com.anoki.common.PrayerAdapter;
 import com.anoki.common.PrayerViewHolderBase;
 import com.anoki.common.RestService;
 import com.anoki.common.TabActivityBase;
@@ -24,6 +22,8 @@ import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
 import com.anoki.common.Global;
 import com.anoki.common.Util;
+import com.anoki.prayer.PrayerDetailActivity;
+import com.anoki.user.UserPrayerListActivity;
 import com.google.gson.reflect.TypeToken;
 import com.makeramen.dragsortadapter.DragSortAdapter;
 
