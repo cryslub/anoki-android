@@ -304,6 +304,10 @@
             android:name=".TeamSettingsActivity"
             android:label="@string/title_activity_team_settings" >
         </activity>
+        <activity
+            android:name=".TeamMembersActivity"
+            android:label="@string/title_activity_team_members" >
+        </activity>
     </application>
 
 </manifest>

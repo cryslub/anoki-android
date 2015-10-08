@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.anoki.R;
 import com.anoki.TeamSettingsActivity;
+import com.anoki.common.Global;
 import com.anoki.fragment.SearchFragment;
 import com.anoki.common.PrayerAdapter;
 import com.anoki.common.SubActivityBase;
@@ -90,7 +91,7 @@ public class TeamDetailActivity extends SubActivityBase implements SearchFragmen
         name.setText(team.name);
         text.setText(team.text);
 
-        members.setText(team.memberCount);
+        members.setText(team.memberCount+"명");
         leaders.setText(team.leader);
 
         getSupportActionBar().setTitle(team.name);
@@ -174,7 +175,18 @@ public class TeamDetailActivity extends SubActivityBase implements SearchFragmen
 
     public void settings(View view){
         Intent intent = new Intent(TeamDetailActivity.this, TeamSettingsActivity.class);
-        intent.putExtra("team",team);
-        startActivity(intent);
+        intent.putExtra("teamId",team.id);
+        startActivityForResult(intent,100);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode == RESULT_OK) {
+
+            String leave = data.getStringExtra("leave");
+            if(leave != null){
+                finish();
+            }
+        }
     }
 }

@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anoki.R;
+import com.anoki.pojo.Friend;
 import com.anoki.pojo.Prayer;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +20,7 @@ import java.util.List;
 public class GeneralRecyclerViewAdapter<T,V extends ViewHolderBase<T>>  extends RecyclerView.Adapter<V >{
 
         private List<T> itemsData;
+       protected List<T> visibleObjects;
         private Class<V> clazz;
         private int id;
 
@@ -81,5 +84,12 @@ public class GeneralRecyclerViewAdapter<T,V extends ViewHolderBase<T>>  extends 
             return itemsData.size();
         }
 
+    public void setFilter(String queryText) {
+
+
+
+        notifyDataSetChanged();
+
+    }
 }
 

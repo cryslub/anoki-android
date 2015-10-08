@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
         String pass = dbManager.getPass();
         if(pass == null) {
-//            init();
-            init2();
+            init();
+ //           init2();
 
         }else{
             Intent intent = new Intent(MainActivity.this, CheckPassActivity.class);

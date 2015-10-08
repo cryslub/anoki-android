@@ -15,11 +15,20 @@ public class Team implements Serializable {
 	public String joinAck;
 	public int userId;
 	public String memberCount;
-	public int dalant;
-	
+
 	public String profileAuth;
 	public String registerAuth;
 	public String inviteAuth;
 	public String leaveAuth;
+
+
+	public int dalant;
+	public int payDay;
+	public int leaderId;
+	public int leaderDalant;
+
 	public int multi;
+	public int remain;
+
+	public int role;
 }

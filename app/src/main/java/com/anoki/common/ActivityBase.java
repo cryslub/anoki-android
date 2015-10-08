@@ -235,6 +235,11 @@ public class ActivityBase extends ActionBarActivity {
         finish();
     }
 
+    protected void succeed(Intent intent){
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 

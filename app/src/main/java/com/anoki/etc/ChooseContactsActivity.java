@@ -119,7 +119,7 @@ public class ChooseContactsActivity extends WriteActivityBase implements SearchF
 
         if("info".equals(type)) {
             getSupportActionBar().setTitle("친구정보");
-        }else if("team".equals(type)){
+        }else if("team".equals(type) || "invite".equals(type)){
             getSupportActionBar().setTitle("그룹원 초대");
             team = (Team) intent.getSerializableExtra("team");
             doneState = DoneState.DONE;
@@ -221,16 +221,28 @@ public class ChooseContactsActivity extends WriteActivityBase implements SearchF
     protected void confirm() {
         if("info".equals(type)){
             rest("friend", "POST", makeInvite(), Invite.class);
-        }else if("team".equals(type)){
+        }else if("team".equals(type) ){
 
             Invite invite = makeInvite();
             invite.team = team.id;
             invite.phone.addAll(selectionMap.values());
 
             rest("team/invite", "POST",invite , Invite.class);
+
             Intent intent = new Intent(ChooseContactsActivity.this, TeamDetailActivity.class);
             intent.putExtra("teamId",team.id);
             startActivity(intent);
+
+        }else if("invite".equals(type) ){
+
+            Invite invite = makeInvite();
+            invite.team = team.id;
+            invite.phone.addAll(selectionMap.values());
+
+            rest("team/invite", "POST",invite , Invite.class);
+
+            succeed();
+
         } else {
 
             prayer.friends = new ArrayList<Friend>();

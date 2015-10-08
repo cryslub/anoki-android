@@ -53,6 +53,7 @@ public class GroupTabActivity extends TabActivityBase implements  SearchFragment
     @OnClick(R.id.newTeam)
     void newTeam(){
         Intent intent = new Intent(GroupTabActivity.this,NewTeamActivity.class);
+        intent.putExtra("type","new");
         startActivity(intent);
     }
 

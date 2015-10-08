@@ -12,6 +12,9 @@ public class Member {
 	public String role;
 	public String state;
 
+	public String name;
+	public String picture;
+
 	public Member(){
 		this.apiKey = Global.apiKey;
 	}

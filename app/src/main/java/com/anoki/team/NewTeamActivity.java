@@ -1,8 +1,10 @@
 package com.anoki.team;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.anoki.R;
 import com.anoki.common.DoneState;
@@ -17,6 +19,11 @@ public class NewTeamActivity extends WriteActivityBase {
 
     private Team team;
 
+
+    @Bind(R.id.picture)
+    ImageView picture;
+
+
     @Bind(R.id.name)
     EditText name;
 
@@ -24,12 +31,28 @@ public class NewTeamActivity extends WriteActivityBase {
     EditText text;
 
 
+    String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_team);
 
         team = new Team();
+
+        Intent intent = getIntent();
+        type  = intent.getStringExtra("type");
+        if("edit".equals(type)){
+
+            team = (Team) intent.getSerializableExtra("team");
+            doneState = DoneState.DONE;
+
+            getSupportActionBar().setTitle("그룹 이름 및 커버 설정 ");
+
+            setPicture(team.picture, picture);
+            name.setText(team.name);
+            text.setText(team.text);
+        }
     }
 
 
@@ -59,6 +82,17 @@ public class NewTeamActivity extends WriteActivityBase {
             }
 
         }
+    }
+
+
+    @Override
+    protected void confirm(){
+        team.name = name.getText().toString();
+        team.text = text.getText().toString();
+
+        rest("team","PUT",team);
+
+        succeed();
     }
 
     @Override
