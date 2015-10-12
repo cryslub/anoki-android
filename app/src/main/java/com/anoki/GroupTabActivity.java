@@ -36,11 +36,13 @@ public class GroupTabActivity extends TabActivityBase implements  SearchFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_tab);
 
-        setMyList();
-
     }
 
 
+    public void load(){
+
+        setMyList();
+    }
 
     private void setMyList(){
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.anoki.R;
@@ -23,6 +24,18 @@ public class TeamTypeActivity extends WriteActivityBase {
     @Bind(R.id.auth)
     CheckBox auth;
 
+    @Bind(R.id.private_team)
+    RadioButton privateTeam;
+
+    @Bind(R.id.name_opened)
+    RadioButton nameOpened;
+
+    @Bind(R.id.public_team)
+    RadioButton publicTeam;
+
+
+    String type;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +47,61 @@ public class TeamTypeActivity extends WriteActivityBase {
 
         name.setText(team.name);
 
-        team.scope ="N";
+
+        type  = intent.getStringExtra("type");
+        if("edit".equals(type)){
+
+            doneState = DoneState.DONE;
+
+           // getSupportActionBar().setTitle("그룹 이름 및 커버 설정 ");
+            switch (team.scope){
+                case "S":
+                    onRadioButtonClicked(privateTeam);
+                    break;
+                case "M":
+                    onRadioButtonClicked(nameOpened);
+                    break;
+                case "P":
+                    onRadioButtonClicked(publicTeam);
+                    break;
+
+            }
+
+            auth.setChecked("Y".equals(team.joinAck));
+
+        }else{
+            team.scope ="N";
+            doneState = DoneState.NEXT;
+        }
 
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_write, menu);
 
-        doneMenu = menu.findItem(R.id.action_done);
+    private void extract(){
+        switch (selected){
+            case R.id.private_team:
+                team.scope ="S";
+                break;
+            case R.id.name_opened:
+                team.scope ="N";
+                break;
+            case R.id.public_team:
+                team.scope ="P";
+                break;
 
+        }
 
-        doneMenu.setIcon(R.drawable.ic_arrow_forward_white_24dp);
-        doneState = DoneState.NEXT;
+        team.joinAck = auth.isChecked()?"Y":"N";
+    }
 
+    protected void confirm(){
 
-        return true;
+        extract();
+
+        rest("team","PUT",team);
+
+        succeed();
     }
 
     @Override

@@ -1,37 +1,23 @@
-package com.anoki;
+package com.anoki.team;
 
 import android.app.Dialog;
 import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Activity;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.anoki.R;
 import com.anoki.common.AnokiDialog;
 import com.anoki.common.BillingDialog;
 import com.anoki.common.ContactManage;
-import com.anoki.common.DoneState;
-import com.anoki.common.FriendViewHolder;
 import com.anoki.common.GeneralRecyclerViewAdapter;
 import com.anoki.common.Global;
 import com.anoki.common.Initial;
@@ -39,7 +25,6 @@ import com.anoki.common.RestService;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
 import com.anoki.common.ViewHolderBase;
-import com.anoki.common.WriteActivityBase;
 import com.anoki.etc.BillingActivity;
 import com.anoki.etc.ChargeActivity;
 import com.anoki.fragment.SearchFragment;
@@ -47,13 +32,10 @@ import com.anoki.pojo.DialogData;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Invite;
 import com.anoki.pojo.Member;
-import com.anoki.pojo.Message;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.Search;
 import com.anoki.pojo.Team;
-import com.anoki.team.TeamDetailActivity;
-import com.anoki.user.UserProfileActivity;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -228,6 +210,7 @@ public class TeamMembersActivity extends SubActivityBase implements SearchFragme
         Search search = new Search();
         search.searchId = teamId;
         search.searchKey = "J";
+
         List<Member> memberList = rest("team/members","POST",search,listType);
 
 

@@ -301,12 +301,24 @@
             android:label="@string/title_activity_check_pass" >
         </activity>
         <activity
-            android:name=".TeamSettingsActivity"
+            android:name=".team.TeamSettingsActivity"
             android:label="@string/title_activity_team_settings" >
         </activity>
         <activity
-            android:name=".TeamMembersActivity"
+            android:name=".team.TeamMembersActivity"
             android:label="@string/title_activity_team_members" >
+        </activity>
+        <activity
+            android:name=".team.TeamAuthActivity"
+            android:label="@string/title_activity_team_auth" >
+        </activity>
+        <activity
+            android:name=".team.TeamLeaderActivity"
+            android:label="@string/title_activity_team_leader" >
+        </activity>
+        <activity
+            android:name=".team.SetLeadersActivity"
+            android:label="@string/title_activity_set_leaders" >
         </activity>
     </application>
 

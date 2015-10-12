@@ -1,28 +1,19 @@
-package com.anoki;
+package com.anoki.team;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anoki.R;
 import com.anoki.common.Global;
 import com.anoki.common.SubActivityBase;
-import com.anoki.common.Util;
 import com.anoki.etc.ChooseContactsActivity;
 import com.anoki.pojo.Member;
-import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
 import com.anoki.pojo.Team;
-import com.anoki.team.NewTeamActivity;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 
@@ -133,26 +124,45 @@ public class TeamSettingsActivity extends SubActivityBase {
 
     public void title(View view){
         Intent intent = new Intent(TeamSettingsActivity.this, NewTeamActivity.class);
-        intent.putExtra("teamId",team.id);
+        intent.putExtra("team",team);
         intent.putExtra("type","edit");
         startActivity(intent);
 
     }
 
     public void type(View view){
+        Intent intent = new Intent(TeamSettingsActivity.this, TeamTypeActivity.class);
+        intent.putExtra("team",team);
+        intent.putExtra("type","edit");
+        startActivity(intent);
 
     }
+
     public void limit(View view){
-
+        Intent intent = new Intent(TeamSettingsActivity.this, TeamLimitActivity.class);
+        intent.putExtra("team",team);
+        intent.putExtra("type","edit");
+        startActivity(intent);
     }
+
     public void delete(View view){
+        rest("team","DELETE",team);
 
+        getIntent().putExtra("leave", "leave");
+
+        succeed(getIntent());
     }
-    public void auth(View view){
 
+    public void auth(View view){
+        Intent intent = new Intent(TeamSettingsActivity.this, TeamAuthActivity.class);
+        intent.putExtra("team",team);
+        startActivity(intent);
     }
 
     public void leaders(View view){
+        Intent intent = new Intent(TeamSettingsActivity.this, TeamLeaderActivity.class);
+        intent.putExtra("team",team);
+        startActivity(intent);
 
     }
 

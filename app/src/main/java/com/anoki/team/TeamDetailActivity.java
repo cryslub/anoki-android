@@ -2,6 +2,8 @@ package com.anoki.team;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -9,8 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anoki.R;
-import com.anoki.TeamSettingsActivity;
-import com.anoki.common.Global;
 import com.anoki.fragment.SearchFragment;
 import com.anoki.common.PrayerAdapter;
 import com.anoki.common.SubActivityBase;
@@ -68,6 +68,8 @@ public class TeamDetailActivity extends SubActivityBase implements SearchFragmen
 
     int teamId;
 
+    private Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,26 @@ public class TeamDetailActivity extends SubActivityBase implements SearchFragmen
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_team_main, menu);
+        this.menu = menu;
+
+        MenuItem write = menu.findItem(R.id.action_write);
+        if("J".equals(team.joined)){
+            write.setVisible(true);
+        }else{
+            write.setVisible(false);
+        }
+
+        return true;
+    }
+
+    public void write(MenuItem menuItem){
+
+    }
 
     protected void load(){
 
@@ -109,6 +131,7 @@ public class TeamDetailActivity extends SubActivityBase implements SearchFragmen
 
         }
 
+
         if(team.joined == null){
             join.setVisibility(View.VISIBLE);
         }else{
@@ -123,11 +146,6 @@ public class TeamDetailActivity extends SubActivityBase implements SearchFragmen
         }
 
 
-        if("J".equals(team.joined)){
-            details.setVisibility(View.VISIBLE);
-        }else{
-            details.setVisibility(View.GONE);
-        }
 
         Type listType = new TypeToken<ArrayList<Prayer>>() {}.getType();
 
@@ -148,9 +166,9 @@ public class TeamDetailActivity extends SubActivityBase implements SearchFragmen
             member.state ="J";
         }
 
-        rest("team/member/join","POST",member);
-       // load();
-        reload();
+        rest("team/member/join", "POST", member);
+        load();
+       // reload();
     }
 
     @Override

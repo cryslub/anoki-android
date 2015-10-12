@@ -20,7 +20,7 @@ public class NewTeamActivity extends WriteActivityBase {
     private Team team;
 
 
-    @Bind(R.id.picture)
+    @Bind(R.id.profile_image)
     ImageView picture;
 
 
@@ -50,6 +50,7 @@ public class NewTeamActivity extends WriteActivityBase {
             getSupportActionBar().setTitle("그룹 이름 및 커버 설정 ");
 
             setPicture(team.picture, picture);
+
             name.setText(team.name);
             text.setText(team.text);
         }
@@ -60,9 +61,14 @@ public class NewTeamActivity extends WriteActivityBase {
     @OnTextChanged(R.id.name)
     public void doneStateCheck(){
 
+        if(doneMenu ==null) return;
         if(name.getText().length() == 0){
             doneMenu.setIcon(R.drawable.ic_clear_white_24dp);
             doneState = DoneState.CLEAR;
+        }else if("edit".equals(type)) {
+            doneMenu.setIcon(R.drawable.ic_done_white_24dp);
+            doneState = DoneState.DONE;
+
         }else{
 
             doneMenu.setIcon(R.drawable.ic_arrow_forward_white_24dp);

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.anoki.R;
@@ -27,6 +28,30 @@ public class TeamLimitActivity extends WriteActivityBase {
     @Bind(R.id.name)
     TextView name;
 
+
+
+    @Bind(R.id.thirty)
+    RadioButton thirty;
+
+    @Bind(R.id.fifty)
+    RadioButton fifty;
+
+    @Bind(R.id.hundred)
+    RadioButton hundred;
+
+
+    @Bind(R.id.five_hundred)
+    RadioButton fiveHundred;
+
+    @Bind(R.id.thousand)
+    RadioButton thousand;
+
+    @Bind(R.id.unlimited)
+    RadioButton unlimited;
+
+
+    String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +63,31 @@ public class TeamLimitActivity extends WriteActivityBase {
         team = (Team) intent.getSerializableExtra("team");
 
         name.setText(team.name);
+
+        type  = intent.getStringExtra("type");
+        if("edit".equals(type)) {
+            switch (team.dalant){
+                case 0:
+                    onRadioButtonClicked(thirty);
+                    break;
+                case 2000:
+                    onRadioButtonClicked(fifty);
+                    break;
+                case 4000:
+                    onRadioButtonClicked(hundred);
+                    break;
+                case 7000:
+                    onRadioButtonClicked(fiveHundred);
+                    break;
+                case 10000:
+                    onRadioButtonClicked(thousand);
+                    break;
+                case 20000:
+                    onRadioButtonClicked(unlimited);
+                    break;
+
+            }
+        }
 
     }
 
@@ -65,17 +115,25 @@ public class TeamLimitActivity extends WriteActivityBase {
                 break;
         }
 
-         if(team.dalant > 0) {
-            showDialog(BILL_DIALOG);
-        }else{
-             team = RestService.makeTeam(team);
-             Global.reloadMe();
 
-             Intent intent = new Intent(TeamLimitActivity.this, ChooseContactsActivity.class);
-             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-             intent.putExtra("type","team");
-             intent.putExtra("team", team);
-             startActivity(intent);
+        if("edit".equals(type)){
+            rest("team","PUT",team);
+            succeed();
+        }else {
+
+
+            if (team.dalant > 0) {
+                showDialog(BILL_DIALOG);
+            } else {
+                team = RestService.makeTeam(team);
+                Global.reloadMe();
+
+                Intent intent = new Intent(TeamLimitActivity.this, ChooseContactsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("type", "team");
+                intent.putExtra("team", team);
+                startActivity(intent);
+            }
         }
     }
 

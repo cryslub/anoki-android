@@ -1,5 +1,6 @@
 package com.anoki.common;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -13,5 +14,9 @@ public abstract class ViewHolderBase<T> extends RecyclerView.ViewHolder implemen
     public ViewHolderBase(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
+    }
+
+    public void attach(Activity activity){
+
     }
 }

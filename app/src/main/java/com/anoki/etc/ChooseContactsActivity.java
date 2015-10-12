@@ -35,6 +35,7 @@ import com.anoki.common.FriendViewHolder;
 import com.anoki.common.Global;
 import com.anoki.common.Initial;
 import com.anoki.common.RestService;
+import com.anoki.common.SelectedAdapter;
 import com.anoki.common.Util;
 import com.anoki.common.WriteActivityBase;
 import com.anoki.fragment.SearchFragment;
@@ -727,66 +728,6 @@ public class ChooseContactsActivity extends WriteActivityBase implements SearchF
 
     }
 
-
-    private class SelectedAdapter extends ArrayAdapter<Friend> {
-        protected List<Friend> visibleObjects;
-        protected List<Friend> allObjects;
-
-        private final Context context;
-
-        public SelectedAdapter(Context context, int resource, List<Friend> objects) {
-            super(context, resource, objects);
-            this.allObjects = objects;
-            this.visibleObjects = objects;
-            this.context = context;
-
-        }
-
-
-        public void updateList(List<Friend> itemsData){
-            clear();
-            addAll(itemsData);
-            this.allObjects = itemsData;
-            flushFilter();
-        }
-
-        public void flushFilter(){
-            visibleObjects=new ArrayList<>();
-            visibleObjects.addAll(allObjects);
-
-            notifyDataSetChanged();
-        }
-
-        public void setFilter(String queryText) {
-
-            visibleObjects = new ArrayList<>();
-            for (Friend item: allObjects) {
-                if(item.name.contains(queryText) || item.phone.contains(queryText))
-                    visibleObjects.add(item);
-            }
-            notifyDataSetChanged();
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View rowView = inflater.inflate(R.layout.layout_selected_friend_row, parent, false);
-
-
-            TextView name = (TextView) rowView.findViewById(R.id.name);
-            ImageView picture = (ImageView) rowView.findViewById(R.id.picture);
-
-
-            final Friend friend = visibleObjects.get(position);
-
-            Util.setPicture(friend.picture,picture);
-            name.setText(visibleObjects.get(position).name);
-
-
-            return rowView;
-        }
-
-    }
 
 
 }

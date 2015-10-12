@@ -1,5 +1,6 @@
 package com.anoki.common;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class GeneralRecyclerViewAdapter<T,V extends ViewHolderBase<T>>  extends 
        protected List<T> visibleObjects;
         private Class<V> clazz;
         private int id;
+        private Activity activity;
 
         public GeneralRecyclerViewAdapter(List<T> itemsData,int id,Class<V> clazz) {
             this.itemsData = itemsData;
@@ -30,7 +32,15 @@ public class GeneralRecyclerViewAdapter<T,V extends ViewHolderBase<T>>  extends 
             this.clazz = clazz;
         }
 
-        public void updateList(List<T> itemsData){
+        public GeneralRecyclerViewAdapter(List<T> itemsData,int id,Class<V> clazz,Activity activity) {
+            this.itemsData = itemsData;
+            this.id = id;
+            this.clazz = clazz;
+            this.activity = activity;
+        }
+
+
+    public void updateList(List<T> itemsData){
             this.itemsData = itemsData;
             notifyDataSetChanged();
         }
@@ -73,7 +83,9 @@ public class GeneralRecyclerViewAdapter<T,V extends ViewHolderBase<T>>  extends 
 
             viewHolder.bind(t);
 
-
+            if(activity != null){
+                viewHolder.attach(activity);
+            }
         }
 
 

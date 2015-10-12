@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.anoki.R;
+import com.anoki.fragment.SearchFragment;
 import com.anoki.pojo.User;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015-07-10.
  */
-public class SubActivityBase extends ActivityBase {
+public class SubActivityBase extends ActivityBase implements SearchFragment.OnFragmentInteractionListener{
 
 
     protected int selected;
@@ -134,4 +135,8 @@ public class SubActivityBase extends ActivityBase {
 
     }
 
+    @Override
+    public void onSearch(String key) {
+
+    }
 }
