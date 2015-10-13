@@ -2,6 +2,7 @@ package com.anoki.team;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.RequiresPermission;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.anoki.pojo.Member;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
 import com.anoki.pojo.Team;
+import com.anoki.prayer.WriteActivity;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -99,10 +101,13 @@ public class TeamDetailActivity extends SubActivityBase implements SearchFragmen
     }
 
     public void write(MenuItem menuItem){
-
+        Intent intent = new Intent(this, WriteActivity.class);
+        intent.putExtra("teamId",team.id);
+        intent.putExtra("type","team");
+        startActivity(intent);
     }
 
-    protected void load(){
+    public void load(){
 
         Search search = new Search();
         search.searchId = teamId;

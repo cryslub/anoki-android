@@ -45,6 +45,10 @@ public class TeamSettingsActivity extends SubActivityBase {
     @Bind(R.id.remain_container)
     LinearLayout remainContainer;
 
+    @Bind(R.id.super_auth)
+    LinearLayout superAuth;
+
+
     Team team;
 
 
@@ -63,7 +67,7 @@ public class TeamSettingsActivity extends SubActivityBase {
     }
 
 
-    protected void load(){
+    public void load(){
 
         Search search = new Search();
         search.searchId = teamId;
@@ -93,6 +97,12 @@ public class TeamSettingsActivity extends SubActivityBase {
             remainContainer.setVisibility(View.VISIBLE);
         }
 
+        if(team.role == 3){
+            superAuth.setVisibility(View.VISIBLE);
+        }else{
+            superAuth.setVisibility(View.GONE);
+        }
+
 
     }
 
@@ -100,7 +110,7 @@ public class TeamSettingsActivity extends SubActivityBase {
         Member member = new Member();
         member.user = Global.me.id;
         member.team = team.id;
-        rest("team/member","DELETE",member);
+        rest("team/member", "DELETE", member);
 
         getIntent().putExtra("leave", "leave");
 
@@ -109,8 +119,8 @@ public class TeamSettingsActivity extends SubActivityBase {
 
     public void invite(View view){
         Intent intent = new Intent(TeamSettingsActivity.this, ChooseContactsActivity.class);
-        intent.putExtra("type","invite");
-        intent.putExtra("team",team);
+        intent.putExtra("type", "invite");
+        intent.putExtra("team", team);
 
         startActivity(intent);
     }
@@ -146,7 +156,7 @@ public class TeamSettingsActivity extends SubActivityBase {
     }
 
     public void delete(View view){
-        rest("team","DELETE",team);
+        rest("team", "DELETE", team);
 
         getIntent().putExtra("leave", "leave");
 
@@ -155,7 +165,7 @@ public class TeamSettingsActivity extends SubActivityBase {
 
     public void auth(View view){
         Intent intent = new Intent(TeamSettingsActivity.this, TeamAuthActivity.class);
-        intent.putExtra("team",team);
+        intent.putExtra("team", team);
         startActivity(intent);
     }
 
@@ -163,9 +173,13 @@ public class TeamSettingsActivity extends SubActivityBase {
         Intent intent = new Intent(TeamSettingsActivity.this, TeamLeaderActivity.class);
         intent.putExtra("team",team);
         startActivity(intent);
-
     }
 
-
+    public void charge(View view){
+        Intent intent = new Intent(this,TeamBillingActivity.class);
+        intent.putExtra("team", team);
+        intent.putExtra("type","charge");
+        startActivity(intent);
+    }
 
 }

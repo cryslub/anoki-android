@@ -81,6 +81,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
     @Bind(R.id.text)
     EditText text;
 
+    int teamId;
 
     Map<String,PubInfo> pubMap = new HashMap<String,PubInfo>(){{
         put("전체공개",new PubInfo("P","친구선택","내 모든 친구들에게 내 기도가 보여집니다."));
@@ -126,6 +127,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
         getFragmentManager().beginTransaction().commitAllowingStateLoss();
 
         Intent intent = getIntent();
+        teamId = intent.getIntExtra("teamId",-1);
         Prayer prayer = (Prayer) intent.getSerializableExtra("prayer");
         if(prayer !=null){
             edit = true;
@@ -138,6 +140,8 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
                 addMedia(media.id);
             }
         }
+
+
 
     }
 
@@ -155,7 +159,7 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
             doneMenu.setIcon(R.drawable.ic_clear_white_24dp);
             doneState = DoneState.CLEAR;
         }else{
-            if("전체공개".equals(pub.getText().toString())|| "나만보기".equals(pub.getText().toString()) || edit){
+            if("전체공개".equals(pub.getText().toString())|| "나만보기".equals(pub.getText().toString()) || edit || teamId != -1){
                 doneMenu.setIcon(R.drawable.ic_done_white_24dp);
                 doneState = DoneState.DONE;
 
@@ -188,7 +192,9 @@ public class WriteActivity extends WriteActivityBase implements PrayerImageFragm
         prayer.text = text.getText().toString();
 
         prayer.pub = pubMap.get(pub.getText().toString()).key;
-
+        if(teamId != -1){
+            prayer.team = teamId;
+        }
 
         prayer.media = new ArrayList<Media>(mediaMap.values());
 

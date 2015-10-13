@@ -47,8 +47,6 @@ public class CheckPassActivity extends WriteActivityBase {
 
     }
 
-    protected void load(){
-    }
 
     @Override
     protected void confirm(){

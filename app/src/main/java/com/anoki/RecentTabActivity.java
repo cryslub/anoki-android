@@ -81,7 +81,7 @@ public class RecentTabActivity extends TabActivityBase {
 
     }
 
-    protected  void load(){
+    public  void load(){
         refresh();
     }
 

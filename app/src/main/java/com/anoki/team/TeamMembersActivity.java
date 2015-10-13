@@ -1,5 +1,6 @@
 package com.anoki.team;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -65,10 +66,12 @@ class MemberViewHolder extends ViewHolderBase<Member> {
     public ImageView block;
 
 
+
     @Nullable
     @Bind(R.id.phone) public TextView phone;
 
     Member member;
+    Activity activity;
 
     public MemberViewHolder(View itemView) {
         super(itemView);
@@ -85,6 +88,10 @@ class MemberViewHolder extends ViewHolderBase<Member> {
         name.setText(member.name);
 
         this.member = member;
+    }
+
+    public void attach(Activity activity){
+        this.activity = activity;
     }
 
     @Nullable @OnClick(R.id.block)
@@ -112,19 +119,8 @@ class MemberViewHolder extends ViewHolderBase<Member> {
         member.state = "J";
         Util.rest("team/member","PUT",member);
 
-        RecyclerView recyclerView = (RecyclerView) view.getParent();
-        GeneralRecyclerViewAdapter<Member,MemberViewHolder> recyclerviewAdapter
-                = (GeneralRecyclerViewAdapter<Member,MemberViewHolder>) recyclerView.getAdapter();
+        ((TeamMembersActivity) activity).load();
 
-
-        Type listType = new TypeToken<ArrayList<Member>>() {}.getType();
-
-        Search search = new Search();
-        search.searchId = member.team;
-        search.searchKey = "R";
-        List<Member> memberList = Util.rest("team/members", "POST", search, listType);
-
-        recyclerviewAdapter.updateList(memberList);
     }
 
 }
@@ -196,12 +192,15 @@ public class TeamMembersActivity extends SubActivityBase implements SearchFragme
 
 
         setTab(myTabHost, new String[]{"그룹원", "가입요청"}, new int[]{R.id.member, R.id.request});
-        setMemberList();
-        setRequestList();
 
 
     }
 
+
+    public void load(){
+        setMemberList();
+        setRequestList();
+    }
 
     private void setMemberList(){
 
@@ -230,7 +229,7 @@ public class TeamMembersActivity extends SubActivityBase implements SearchFragme
         search.searchKey = "R";
         List<Member> memberList = rest("team/members","POST",search,listType);
 
-        requestAdapter = new  GeneralRecyclerViewAdapter<Member,MemberViewHolder> (memberList,R.layout.layout_request_row,MemberViewHolder.class);
+        requestAdapter = new  GeneralRecyclerViewAdapter<Member,MemberViewHolder> (memberList,R.layout.layout_request_row, MemberViewHolder.class,this);
 
         setRecyclerView(this.requestList, requestAdapter);
 
@@ -374,7 +373,7 @@ public class TeamMembersActivity extends SubActivityBase implements SearchFragme
     private void block(){
         Friend friend = new Friend();
         friend.id = blockId;
-        friend.state="B";
+        friend.state = "B";
         Util.rest("friend", "PUT", friend, Response.class);
 
         load();
@@ -408,7 +407,6 @@ public class TeamMembersActivity extends SubActivityBase implements SearchFragme
     public void onSearch(String key) {
 
     }
-
 
 
 }

@@ -93,7 +93,7 @@ public class DalantActivity extends SubActivityBase {
 
     }
 
-    protected  void load(){
+    public  void load(){
 
         Global.reloadMe();
 

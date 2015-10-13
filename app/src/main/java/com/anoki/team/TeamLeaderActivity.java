@@ -41,12 +41,10 @@ class LeaderViewHolder extends ViewHolderBase<Member> {
     public TextView name;
     @Bind(R.id.role)
     public TextView role;
+    @Bind(R.id.action)
+    public ImageView action;
 
 
-
-
-    @Nullable
-    @Bind(R.id.phone) public TextView phone;
 
     Member member;
 
@@ -67,16 +65,28 @@ class LeaderViewHolder extends ViewHolderBase<Member> {
         this.member = member;
 
         switch (member.role){
-            case "3":
+            case 3:
                 role.setText("책임청지기");
                 break;
-            case "2":
+            case 2:
                 role.setText("청지기");
                 break;
 
         }
     }
 
+    @OnClick(R.id.action)
+    void action(){
+        if(member.role == 3){
+
+        }else{
+            member.role = 1;
+            Util.rest("team/member","PUT",member);
+
+            activity.load();
+
+        }
+    }
 
 }
 
@@ -115,11 +125,12 @@ public class TeamLeaderActivity extends SubActivityBase {
         Search search = new Search();
         search.searchId = team.id;
         search.searchKey = "J";
+        search.searchType ="leaders";
 
-        List<Member> leaderList = rest("team/leaders", "POST", search, listType);
+        List<Member> leaderList = rest("team/members", "POST", search, listType);
 
 
-        leaderAdapter = new GeneralRecyclerViewAdapter<Member,LeaderViewHolder>(leaderList,R.layout.layout_leader_row,LeaderViewHolder.class);
+        leaderAdapter = new GeneralRecyclerViewAdapter<Member,LeaderViewHolder>(leaderList,R.layout.layout_leader_row,LeaderViewHolder.class,this);
 
         setRecyclerView(this.recyclerView, leaderAdapter);
 
@@ -128,7 +139,7 @@ public class TeamLeaderActivity extends SubActivityBase {
     @OnClick(R.id.leader)
     void leader(){
         Intent intent = new Intent(this, SetLeadersActivity.class);
-        intent.putExtra("team",team);
+        intent.putExtra("team", team);
         startActivity(intent);
     }
 

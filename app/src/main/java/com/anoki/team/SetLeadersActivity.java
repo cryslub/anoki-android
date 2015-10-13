@@ -117,6 +117,7 @@ public class SetLeadersActivity extends WriteActivityBase {
         Search search = new Search();
         search.searchId = team.id;
         search.searchKey = "J";
+        search.searchType = "setLeader";
 
         List<Member> memberList = rest("team/members","POST",search,listType);
 

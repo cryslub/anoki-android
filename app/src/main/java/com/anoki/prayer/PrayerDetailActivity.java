@@ -83,7 +83,7 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
         load();
     }
 
-    protected void load(){
+    public void load(){
         LinearLayout replyList = (LinearLayout) findViewById(R.id.reply_list);
         replyList.removeAllViews();
 

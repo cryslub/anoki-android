@@ -46,7 +46,7 @@ public class FriendTabActivity extends TabActivityBase implements SearchFragment
 
 
 
-    protected void load(){
+    public void load(){
         setScrapedList();
         setRequestList();
 

@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/btn_release"
             android:layout_marginRight="10dp"
-            android:id="@+id/block"
+            android:id="@+id/action"
             />
     </LinearLayout>
 

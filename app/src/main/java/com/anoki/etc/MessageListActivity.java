@@ -201,7 +201,7 @@ public class MessageListActivity extends SubActivityBase {
         return dbManager.getMessage();
     }
 
-    protected void load(){
+    public void load(){
 
         List<Message> list = getMessageList();
 

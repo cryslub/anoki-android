@@ -61,10 +61,10 @@ public class TeamAuthActivity extends SubActivityBase {
     private void setAuthText(String prop, TextView textView){
         switch(prop){
             case "3":
-                textView.setText("청지기");
+                textView.setText("책임 청지기");
                 break;
             case "2":
-                textView.setText("청지기와 공동청지기");
+                textView.setText("모든 청지기");
                 break;
             case "1":
                 textView.setText("모든 멤버");

@@ -11,12 +11,15 @@ import butterknife.ButterKnife;
  */
 public abstract class ViewHolderBase<T> extends RecyclerView.ViewHolder implements Bindable<T> {
 
+
+    protected ActivityBase activity;
+
     public ViewHolderBase(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
 
-    public void attach(Activity activity){
-
+    public void attach(ActivityBase activity){
+        this.activity = activity;
     }
 }

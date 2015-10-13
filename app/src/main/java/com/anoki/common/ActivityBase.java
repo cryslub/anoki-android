@@ -281,7 +281,7 @@ public class ActivityBase extends ActionBarActivity {
 
     }
 
-    protected  void load(){
+    public  void load(){
 
     }
 

@@ -80,7 +80,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/btn_charge"
-                                android:layout_marginLeft="5dp"/>
+                                android:layout_marginLeft="5dp"
+                                android:onClick="charge"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -357,79 +358,87 @@
                     android:layout_width="match_parent"
                     style="@style/Line"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="멤버 관리"
-                    android:textSize="12sp"
-                    android:layout_marginLeft="10dp"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    style="@style/Line"
-                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:background="@android:color/white"
-                    android:onClick="auth"
-                    >
-
+                    android:orientation="vertical"
+                    android:id="@+id/super_auth">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="그룹원 권한 설정"
-                        />
+                        android:text="멤버 관리"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="10dp"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_chevron_right_black_24dp"
-                        android:alpha=".3"
+                    <View
+                        android:layout_width="match_parent"
+                        style="@style/Line"
                         />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:background="@android:color/white"
+                        android:onClick="auth"
+                        >
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="그룹원 권한 설정"
+                            />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:alpha=".3"
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        style="@style/Line"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:background="@android:color/white"
+                        android:onClick="leaders"
+                        >
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="청지기 관리"
+                            />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:alpha=".3"
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        style="@style/Line"/>
 
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    style="@style/Line"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:background="@android:color/white"
-                    android:onClick="leaders"
-                    >
-
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="청지기 관리"
-                        />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_chevron_right_black_24dp"
-                        android:alpha=".3"
-                        />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    style="@style/Line"/>
             </LinearLayout>
 
 

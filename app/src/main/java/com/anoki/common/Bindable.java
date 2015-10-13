@@ -8,5 +8,5 @@ import android.app.Activity;
 public interface Bindable<T> {
 
     public void bind(T t);
-    public void attach(Activity activity);
+    public void attach(ActivityBase activity);
 }

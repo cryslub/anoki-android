@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="청지기 설정"
+            android:text="청지기 임명"
             style="@style/ColorButton"
             android:id="@+id/leader"
             android:layout_margin="10dp"

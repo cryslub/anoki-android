@@ -66,6 +66,7 @@ public class TeamBillingActivity extends SubActivityBase {
     @Bind(R.id.price)
     TextView price;
 
+    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,9 @@ public class TeamBillingActivity extends SubActivityBase {
 
         Intent intent = getIntent();
         team = (Team) intent.getSerializableExtra("team");
+        type = intent.getStringExtra("type");
+
+        team.remain = 30;
 
 
         DecimalFormat df = new DecimalFormat("#,###");
@@ -101,6 +105,9 @@ public class TeamBillingActivity extends SubActivityBase {
 
         price.setText(df.format(team.dalant)+ " 달란트");
 
+
+        selected = R.id.one_month;
+
     }
 
 
@@ -113,15 +120,19 @@ public class TeamBillingActivity extends SubActivityBase {
 
         switch (selected){
             case R.id.one_month:
+                team.remain = 30;
                 multi = 1;
                 break;
             case R.id.three_month:
+                team.remain = 90;
                 multi = 3;
                 break;
             case R.id.six_month:
+                team.remain = 180;
                 multi = 6;
                 break;
             case R.id.one_year:
+                team.remain = 365;
                 multi = 10;
                 break;
         }
@@ -143,13 +154,20 @@ public class TeamBillingActivity extends SubActivityBase {
         if(team.dalant*multi > Global.me.dalant){
             showDialog(EX_DIALOG);
         }else{
-            team.multi = multi;
-            RestService.makeTeam(team);
-            Global.reloadMe();
+            if("charge".equals(type)){
+                team.apiKey = Global.apiKey;
+                rest("team/charge","POST",team);
+                finish();
+            }else {
+                team.multi = multi;
+                RestService.makeTeam(team);
+                Global.reloadMe();
 
-            Intent intent = new Intent(TeamBillingActivity.this, TeamMainActivity.class);
-            intent.putExtra("team", team);
-            startActivity(intent);
+
+                Intent intent = new Intent(TeamBillingActivity.this, TeamDetailActivity.class);
+                intent.putExtra("team", team);
+                startActivity(intent);
+            }
         }
     }
 
