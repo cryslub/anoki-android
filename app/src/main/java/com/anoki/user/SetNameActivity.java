@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.anoki.common.Global;
 import com.anoki.common.Util;
 import com.anoki.pojo.Response;
 import com.anoki.pojo.User;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -108,6 +110,9 @@ public class SetNameActivity extends Activity {
                 Global.me = user;
                 Global.apiKey = response.apiKey;
                 Global.me.apiKey = response.apiKey;
+
+
+                Util.setRegId(user,getApplicationContext());
 
                 //DB에 계정정보 저장
                 final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);

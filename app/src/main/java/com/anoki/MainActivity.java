@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.net.http.HttpResponseCache;
 import android.os.StrictMode;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 
+import com.anoki.common.Global;
 import com.anoki.common.DBManager;
 import com.anoki.common.RestService;
+import com.anoki.common.Util;
 import com.anoki.pojo.Account;
 import com.anoki.pojo.Response;
+import com.anoki.pojo.User;
 import com.anoki.user.LoginActivity;
 
 import java.io.File;
@@ -104,8 +108,9 @@ public class MainActivity extends AppCompatActivity {
             Response response = RestService.log(account.email, account.pass);
             if("0".equals(response.result)){
 
-
-
+                if(Global.me.regid == null){
+                    Util.setRegId(Global.me, getApplicationContext());
+                }
 
                 Intent intent = new Intent(this, RecentActivity.class);
                 startActivity(intent);

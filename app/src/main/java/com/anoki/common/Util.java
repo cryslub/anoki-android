@@ -25,9 +25,11 @@ import android.widget.VideoView;
 
 import com.anoki.fragment.PrayerImageFragment;
 import com.anoki.R;
+import com.anoki.pojo.User;
 import com.anoki.prayer.ZoomInActivity;
 import com.anoki.pojo.Media;
 import com.anoki.pojo.Prayer;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 
 import org.apache.http.HttpResponse;
@@ -538,6 +540,32 @@ public class Util {
         }
 
         return 0;
+    }
+
+    public static void setRegId(final User user,final Context context){
+        final String PROJECT_NUMBER = "100224718871";
+
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(context);
+
+                    user.regid = gcm.register(PROJECT_NUMBER);
+
+                    Util.rest("user","PUT",user);
+
+                } catch (IOException ex) {
+                    Log.i("GCM",ex.getMessage());
+                    ex.printStackTrace();
+                }
+
+                return user.regid;
+
+
+            }
+        }.execute(null, null, null);
     }
 
 }

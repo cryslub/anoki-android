@@ -18,6 +18,8 @@ public class User implements Serializable{
 	public String phone;
 	public int dalant;
 
+	public String regid;
+
 	public User(){
 		this.apiKey = Global.apiKey;
 	}

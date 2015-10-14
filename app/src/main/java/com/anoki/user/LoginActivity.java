@@ -13,7 +13,9 @@ import com.anoki.RecentActivity;
 import com.anoki.common.Common;
 import com.anoki.common.DBManager;
 import com.anoki.common.RestService;
+import com.anoki.common.Util;
 import com.anoki.pojo.Response;
+import com.anoki.pojo.User;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,6 +60,11 @@ public class LoginActivity extends Activity {
 
         Response response = RestService.log(account.getText().toString(), pass.getText().toString());
         if("0".equals(response.result)){
+
+            User user = new User();
+            Util.setRegId(user,getApplicationContext());
+
+
             final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
             dbManager.setAccount(accountText,passText);
 
