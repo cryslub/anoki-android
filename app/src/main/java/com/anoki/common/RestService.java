@@ -26,6 +26,7 @@ public class RestService {
     public static void makePrayer(Prayer prayer){
 
         prayer.apiKey =  Global.apiKey;
+        prayer.userName = Global.me.name;
         Response response = Util.rest("prayer", "POST", prayer, Response.class);
 
     }

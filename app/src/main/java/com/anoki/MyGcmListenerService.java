@@ -30,6 +30,7 @@ public class MyGcmListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
+        String type = data.getString("type");
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
 
@@ -51,7 +52,12 @@ public class MyGcmListenerService extends GcmListenerService {
          * In some cases it may be useful to show a notification indicating to the user
          * that a message was received.
          */
-        sendNotification(message);
+
+        String output="";
+        if("Q".equals(type)){
+             output=  message + "님이 기도요청을 하였습니다.";
+        }
+        sendNotification(output);
         // [END_EXCLUDE]
     }
     // [END receive_message]

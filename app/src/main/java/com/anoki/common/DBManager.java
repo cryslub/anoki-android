@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.anoki.pojo.Account;
+import com.anoki.pojo.Alarm;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Message;
 import com.anoki.pojo.Phone;
@@ -38,10 +39,10 @@ public class DBManager  extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE ACCOUNT(EMAIL TEXT, PASS TEXT,PHONE TEXT, COUNTRY TEXT);");
         db.execSQL("CREATE TABLE CONTACT(_id INTEGER PRIMARY KEY AUTOINCREMENT, COUNTRY TEXT, PHONE TEXT);");
         db.execSQL("CREATE TABLE TEAM_ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,TEAM INTEGER, ONOFF INTEGER, LEVEL INTEGER);");
-        db.execSQL("CREATE TABLE ALARM(ONOFF INTEGER, LEVEL INTEGER, PREVIEW INTEGER, SOUND INTEGER, VIBE INTEGER);");
+        db.execSQL("CREATE TABLE ALARM_SETTING(ONOFF INTEGER, LEVEL INTEGER, PREVIEW INTEGER, SOUND INTEGER, VIBE INTEGER);");
         db.execSQL("CREATE TABLE PASS(PASS TEXT);");
         db.execSQL("CREATE TABLE MESSAGE(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,SENDER TEXT, SENDER_ID INTEGER, MESSAGE TEXT,PICTURE INTEGER,USER_PICTURE INTEGER,CHECKED INTEGER);");
-
+        db.execSQL("CREATE TABLE ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,TYPE TEXT, NAME1 TEXT,NAME2 TEXT, TIME TEXT,PICTURE INTEGER);");
     }
 
     @Override
@@ -182,8 +183,38 @@ public class DBManager  extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
 
-        db.execSQL("DELETE FROM MESSAGE  WHERE _id="+message.id);
+        db.execSQL("DELETE FROM MESSAGE  WHERE _id=" + message.id);
         db.close();
     }
 
+    public void insertAlarm(Alarm alarm){
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.execSQL("INSERT INTO ALARM (USER,TYPE,NAME1,NAME2,TIME,PICTURE,GID) VALUES(" + alarm.user + ",'" + alarm.type + "','" + alarm.name1 + "'," + alarm.name2 + "," + alarm.time + "," + alarm.picture + "," + alarm.gId + ")");
+        db.close();
+    }
+
+
+    public List<Alarm> getAlarm() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        List<Alarm> list = new ArrayList<Alarm>();
+        Cursor cursor = db.rawQuery("SELECT USER,TYPE,NAME1,NAME2,TIME,PICTURE,GID FROM ALARM", null);
+        while (cursor.moveToNext()) {
+            Alarm alarm = new Alarm();
+            alarm.user = cursor.getInt(0);
+            alarm.type = cursor.getString(1);
+            alarm.name1 = cursor.getString(2);
+            alarm.name2 = cursor.getString(3);
+            alarm.time = cursor.getString(4);
+            alarm.picture = cursor.getInt(5);
+            alarm.gId = cursor.getInt(6);
+
+            list.add(alarm);
+        }
+
+        cursor.close();
+        db.close();
+        return list;
+    }
 }
