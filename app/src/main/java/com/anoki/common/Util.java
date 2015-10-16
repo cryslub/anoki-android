@@ -575,7 +575,7 @@ public class Util {
                 text = "짝짝짝, " + name1 + "님과 친구가 되었습니다.";
                 break;
             case"R":
-                text =  name1 + "님이 기도응답글을 올렸습니다. 확인해보세요.";
+                text =  name2 + "님이 기도응답글을 올렸습니다. 확인해보세요.";
                 break;
             case"Q":
                 text =  name1 + "님이 기도를 요청하였습니다.";
