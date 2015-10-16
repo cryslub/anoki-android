@@ -568,4 +568,28 @@ public class Util {
         }.execute(null, null, null);
     }
 
+    public static String alarmText(String type, String name1, String name2){
+        String text = "";
+        switch (type){
+            case"F":
+                text = "짝짝짝, " + name1 + "님과 친구가 되었습니다.";
+                break;
+            case"R":
+                text =  name1 + "님이 기도응답글을 올렸습니다. 확인해보세요.";
+                break;
+            case"Q":
+                text =  name1 + "님이 기도를 요청하였습니다.";
+                break;
+            case"S":
+                text = name1 + "님의 기도글에 " + name2 + "님이 댓글을 남겼습니다. 확인해보세요.";
+                break;
+            case"G":
+                text =  name1 + "에 새 글이 업데이트 되었습니다. 확인해보세요.";
+                break;
+
+        }
+
+        return text;
+    }
+
 }

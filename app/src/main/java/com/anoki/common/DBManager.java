@@ -4,9 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.anoki.pojo.Account;
 import com.anoki.pojo.Alarm;
+import com.anoki.pojo.AlarmSetting;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Message;
 import com.anoki.pojo.Phone;
@@ -42,10 +44,11 @@ public class DBManager  extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE ALARM_SETTING(ONOFF INTEGER, LEVEL INTEGER, PREVIEW INTEGER, SOUND INTEGER, VIBE INTEGER);");
         db.execSQL("CREATE TABLE PASS(PASS TEXT);");
         db.execSQL("CREATE TABLE MESSAGE(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,SENDER TEXT, SENDER_ID INTEGER, MESSAGE TEXT,PICTURE INTEGER,USER_PICTURE INTEGER,CHECKED INTEGER);");
-        db.execSQL("CREATE TABLE ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,TYPE TEXT, NAME1 TEXT,NAME2 TEXT, TIME TEXT,PICTURE INTEGER);");
+        db.execSQL("CREATE TABLE ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,TYPE TEXT, NAME1 TEXT,NAME2 TEXT, TIME TEXT,PICTURE INTEGER, GID INTEGER);");
+
+        db.execSQL("INSERT INTO ALARM_SETTING (LEVEL,PREVIEW,SOUND,VIBE) VALUES ('N',1,1,0)");
     }
 
-    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
@@ -190,7 +193,7 @@ public class DBManager  extends SQLiteOpenHelper {
     public void insertAlarm(Alarm alarm){
         SQLiteDatabase db = getReadableDatabase();
 
-        db.execSQL("INSERT INTO ALARM (USER,TYPE,NAME1,NAME2,TIME,PICTURE,GID) VALUES(" + alarm.user + ",'" + alarm.type + "','" + alarm.name1 + "'," + alarm.name2 + "," + alarm.time + "," + alarm.picture + "," + alarm.gId + ")");
+        db.execSQL("INSERT INTO ALARM (USER,TYPE,NAME1,NAME2,TIME,PICTURE,GID) VALUES(" + alarm.user + ",'" + alarm.type + "','" + alarm.name1 + "','" + alarm.name2 + "','" + alarm.time + "'," + alarm.picture + "," + alarm.gId + ")");
         db.close();
     }
 
@@ -216,5 +219,36 @@ public class DBManager  extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return list;
+    }
+
+
+    public AlarmSetting getAlarmSetting() {
+        SQLiteDatabase db = getReadableDatabase();
+
+
+        AlarmSetting ret = new AlarmSetting();
+
+        Cursor cursor = db.rawQuery("SELECT LEVEL, PREVIEW, SOUND, VIBE FROM ALARM_SETTING", null);
+        while (cursor.moveToNext()) {
+            ret.level = cursor.getInt(0);
+            ret.preview = cursor.getInt(1);
+            ret.sound = cursor.getInt(2);
+            ret.vibe = cursor.getInt(3);
+
+        }
+
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+
+    public void updateAlarmSetting(AlarmSetting setting){
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "UPDATE ALARM_SETTING SET LEVEL = " + setting.level + " , PREVIEW = " + setting.preview + ", SOUND = " + setting.sound + ", VIBE = " + setting.vibe;
+        Log.i("sql", sql);
+
+        db.execSQL(sql);
+        db.close();
     }
 }

@@ -121,27 +121,8 @@ class AlarmViewHolder extends ViewHolderBase<Alarm> {
 
         Util.setPicture(alarm.picture+"",picture);
 
-        String text ="";
-        switch (alarm.type){
-            case"F":
-                text = "짝짝짝, " + alarm.name1 + "님과 친구가 되었습니다.";
-                break;
-            case"R":
-                text =  alarm.name1 + "님이 기도응답글을 올렸습니다. 확인해보세요.";
-                break;
-            case"Q":
-                text =  alarm.name1 + "님이 기도를 요청하였습니다.";
-                break;
-            case"S":
-                text =  alarm.name1 + "님의 기도글에 " + alarm.name2 + "님이 댓글을 남겼습니다. 확인해보세요.";
-                break;
-            case"G":
-                text =  alarm.name1 + "에 새 글이 업데이트 되었습니다. 확인해보세요.";
-                break;
 
-        }
-
-        this.text.setText(text);
+        this.text.setText(Util.alarmText(alarm.type,alarm.name1,alarm.name2));
 
         if("Q".equals(alarm.type)){
             scrap.setVisibility(View.VISIBLE);

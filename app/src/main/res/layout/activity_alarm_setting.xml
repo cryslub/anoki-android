@@ -261,7 +261,7 @@
                     android:button="@drawable/custom_drawable_switch"
                     android:layout_marginLeft="10dp"
                     android:id="@+id/preview"
-                    android:onClick="lock"/>
+                    android:onClick="update"/>
 
 
             </LinearLayout>
@@ -303,7 +303,7 @@
                     android:button="@drawable/custom_drawable_switch"
                     android:layout_marginLeft="10dp"
                     android:id="@+id/sound"
-                    android:onClick="lock"/>
+                    android:onClick="update"/>
 
 
             </LinearLayout>
@@ -346,7 +346,7 @@
                     android:button="@drawable/custom_drawable_switch"
                     android:layout_marginLeft="10dp"
                     android:id="@+id/vibe"
-                    android:onClick="lock"/>
+                    android:onClick="update"/>
 
 
             </LinearLayout>
