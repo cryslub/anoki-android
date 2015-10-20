@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.anoki.R;
 import com.anoki.common.DoneState;
 import com.anoki.common.GeneralRecyclerViewAdapter;
+import com.anoki.common.MemberViewHolderBase;
 import com.anoki.common.RestService;
 import com.anoki.common.SelectedAdapter;
 import com.anoki.common.SubActivityBase;
@@ -38,39 +39,10 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-class SetLeaderViewHolder extends ViewHolderBase<Member> {
-
-    public View view;
-
-    @Nullable
-    @Bind(R.id.picture)
-    public ImageView picture;
-    @Bind(R.id.name)
-    public TextView name;
-
-    Member member;
-    Activity activity;
+class SetLeaderViewHolder extends MemberViewHolderBase {
 
     public SetLeaderViewHolder(View itemView) {
         super(itemView);
-
-        view = itemView;
-    }
-
-
-    @Override
-    public void bind(Member member) {
-
-        if(picture !=null)
-            Util.setPicture(member.picture, picture);
-        name.setText(member.name);
-
-        this.member = member;
-    }
-
-
-    public void attach(Activity activity){
-        this.activity = activity;
     }
 
     @OnClick(R.id.choose)

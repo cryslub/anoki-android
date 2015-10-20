@@ -21,7 +21,6 @@
             android:id="@+id/picture"
             android:scaleType="centerCrop"
             android:src="@drawable/profile_large"
-            android:alpha=".5"
             />
 
         <TextView

@@ -81,11 +81,13 @@ public class GeneralRecyclerViewAdapter<T,V extends ViewHolderBase<T>>  extends 
 
             final T t = itemsData.get(position);
 
-            viewHolder.bind(t);
-
             if(activity != null){
                 viewHolder.attach(activity);
             }
+
+            viewHolder.bind(t);
+
+
         }
 
 

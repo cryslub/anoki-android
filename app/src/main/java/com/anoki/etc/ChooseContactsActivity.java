@@ -238,7 +238,11 @@ public class ChooseContactsActivity extends WriteActivityBase implements SearchF
 
             Invite invite = makeInvite();
             invite.team = team.id;
-            invite.phone.addAll(selectionMap.values());
+            invite.friends = new ArrayList<Integer> ();
+            for(Friend friend: selectionMap.values()){
+                invite.friends.add(friend.friend);
+            }
+//            invite.phone.addAll(selectionMap.values());
 
             rest("team/invite", "POST",invite , Invite.class);
 

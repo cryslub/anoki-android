@@ -38,7 +38,8 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/container"
@@ -67,6 +68,13 @@
                     style="@style/MainText"/>
 
             </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_arrangement"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/move"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

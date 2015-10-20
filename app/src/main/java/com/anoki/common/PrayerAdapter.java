@@ -52,6 +52,9 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
     @Bind(R.id.picture_container)
     RelativeLayout pictureContainer;
 
+    @Bind(R.id.move)
+    ImageView move;
+
     @OnClick(R.id.pray) void pray(){
         if (RestService.pray(prayer)) {
             ((PrayerAdapter.OnPrayListener) parentActivity).onPray();
@@ -65,6 +68,12 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
     }
 
 
+    @OnClick(R.id.move)
+    void move(){
+        if(adapter.editable) {
+            startDrag();
+        }
+    }
 
     public PrayerViewHolder(PrayerAdapter adapter, View itemLayoutView,Activity parentActivity) {
         super(adapter, itemLayoutView,parentActivity);
@@ -119,8 +128,13 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
             pictureContainer.setVisibility(View.GONE);
         }
 
-
+        if(prayer.edit){
+            move.setVisibility(View.VISIBLE);
+        }else{
+            move.setVisibility(View.GONE);
+        }
     }
+
 
     @Override
     public boolean onLongClick(@NonNull View v) {
@@ -134,7 +148,7 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
 public class PrayerAdapter extends DragSortAdapter<PrayerViewHolder> {
 
     public List<Prayer> visibleObjects;
-    protected List<Prayer> allObjects;
+    public List<Prayer> allObjects;
     public Activity parentActivity;
     public boolean editable = false;
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.anoki.team.TeamTransferActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="한동대학교 기도모임"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:background="@android:color/white"/>
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.anoki.fragment.SearchFragment"
+        android:id="@+id/search"
+        android:hint="이름(초성), 전화번호 검색"
+        />
+
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="청지기"
+        android:textSize="9sp"
+        android:background="@android:color/white"
+        android:paddingLeft="5dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/leader_list">
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

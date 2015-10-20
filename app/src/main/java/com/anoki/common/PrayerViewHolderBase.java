@@ -46,6 +46,10 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
     @Bind(R.id.pray) protected ImageView pray;
     @Bind(R.id.scrap) protected  ImageView scrap;
 
+    @Nullable @Bind(R.id.friend_count) TextView friendCount;
+    @Nullable @Bind(R.id.scope) TextView scope;
+    @Nullable @Bind(R.id.scope_image) ImageView scopeImage;
+
 
     LinearLayout container;
     PrayerAdapter adapter;
@@ -72,13 +76,9 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
 
         this.parentActivity = parentActivity;
 
-
-
     }
 
     public void bind(final Prayer prayer){
-
-
 
 
         this.prayer = prayer;
@@ -106,6 +106,26 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
         if(!(prayer.userId != Global.me.id) ||! ("null".equals(prayer.scrapd) || prayer.scrapd == null)){
 
             scrap.setVisibility(View.GONE);
+        }
+
+        if(scope != null) {
+            switch (prayer.pub) {
+                case "P":
+                    scope.setText("전체공개");
+                    friendCount.setText("All");
+                    scopeImage.setImageResource(R.drawable.ic_friend);
+                    break;
+                case "F":
+                    scope.setText("친구공개");
+                    friendCount.setText("+" + prayer.friends.size());
+                    scopeImage.setImageResource(R.drawable.ic_friend);
+                    break;
+                case "S":
+                    scope.setText("나만보기");
+                    friendCount.setText("");
+                    scopeImage.setImageResource(R.drawable.ic_lock);
+                    break;
+            }
         }
 
     }

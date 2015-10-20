@@ -63,7 +63,14 @@ public class MeTabActivity extends TabActivityBase implements PrayerAdapter.OnPr
 
     public void edit(View view){
 
+
         if(prayerAdapter.editable) {
+
+            for(Prayer prayer: prayerAdapter.allObjects){
+                prayer.edit = false;
+            }
+
+            prayerAdapter.updateList(prayerAdapter.allObjects);
             prayerAdapter.editable = false;
             edit.setText("편집");
 
@@ -75,6 +82,12 @@ public class MeTabActivity extends TabActivityBase implements PrayerAdapter.OnPr
             }
 
         }else{
+            for(Prayer prayer: prayerAdapter.allObjects){
+                prayer.edit = true;
+            }
+
+            prayerAdapter.updateList(prayerAdapter.allObjects);
+
             prayerAdapter.editable = true;
             edit.setText("완료");
         }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anoki.R;
+import com.anoki.TeamTransferActivity;
 import com.anoki.common.GeneralRecyclerViewAdapter;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
@@ -67,9 +68,11 @@ class LeaderViewHolder extends ViewHolderBase<Member> {
         switch (member.role){
             case 3:
                 role.setText("책임청지기");
+                action.setImageResource(R.drawable.btn_transfer);
                 break;
             case 2:
                 role.setText("청지기");
+                action.setImageResource(R.drawable.btn_release);
                 break;
 
         }
@@ -78,7 +81,9 @@ class LeaderViewHolder extends ViewHolderBase<Member> {
     @OnClick(R.id.action)
     void action(){
         if(member.role == 3){
-
+            Intent intent = new Intent(activity, TeamTransferActivity.class);
+            intent.putExtra("teamId",member.team);
+            view.getContext().startActivity(intent);
         }else{
             member.role = 1;
             Util.rest("team/member","PUT",member);

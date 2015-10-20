@@ -101,12 +101,12 @@ public class RecentTabActivity extends TabActivityBase {
         ImageView picture;
         TextView name;
         TextView date;
-        TextView response;
 
         TextView text;
         ViewPager media;
 
         @Bind(R.id.reply) ImageView reply;
+
 
 
         LinearLayout mediaContainer;
@@ -131,7 +131,6 @@ public class RecentTabActivity extends TabActivityBase {
             picture = (ImageView) itemLayoutView.findViewById(R.id.picture);
             name = (TextView) itemLayoutView.findViewById(R.id.name);
             date = (TextView) itemLayoutView.findViewById(R.id.date);
-            response = (TextView) itemLayoutView.findViewById(R.id.response);
 
             text = (TextView) itemLayoutView.findViewById(R.id.text);
             media = (ViewPager) itemLayoutView.findViewById(R.id.media);
@@ -213,20 +212,17 @@ public class RecentTabActivity extends TabActivityBase {
             System.out.println("userName - " + prayer.userName);
 
             name.setText(prayer.userName);
-                date.setText(prayer.time);
+            date.setText(prayer.time);
 
 
-                prayCount.setText("기도 " + prayer.prayCount);
-                replyCount.setText("댓글 "+prayer.replyCount);
+            prayCount.setText("기도 " + prayer.prayCount);
+            replyCount.setText("댓글 "+prayer.replyCount);
+
+
 
 
             setMedia(prayer);
 
-            if(prayer.responseCount == 0){
-                response.setVisibility(View.GONE);
-            }else{
-                response.setVisibility(View.VISIBLE);
-            }
 
         }
 

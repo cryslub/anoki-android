@@ -50,9 +50,11 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
     @Bind(R.id.media) LinearLayout mediaList;
 
     @Bind(R.id.reply_text) EditText replyText;
+
+
+    @Bind(R.id.friend_count) TextView friendCount;
     @Bind(R.id.scope) TextView scope;
-
-
+    @Bind(R.id.scope_image) ImageView scopeImage;
 
     boolean reply;
 
@@ -185,7 +187,23 @@ public class PrayerDetailActivity extends SubActivityBase implements PrayerImage
             position = -1;
         }
 
-        scope.setText(Common.pubKeyMap.get(prayer.pub));
+        switch (prayer.pub){
+            case "P":
+                scope.setText("전체공개");
+                friendCount.setText("All");
+                scopeImage.setImageResource(R.drawable.ic_friend);
+                break;
+            case "F":
+                scope.setText("친구공개");
+                friendCount.setText("+"+prayer.friends.size());
+                scopeImage.setImageResource(R.drawable.ic_friend);
+                break;
+            case "S":
+                scope.setText("나만보기");
+                friendCount.setText("");
+                scopeImage.setImageResource(R.drawable.ic_lock);
+                break;
+        }
 
     }
 

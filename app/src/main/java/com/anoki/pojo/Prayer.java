@@ -36,6 +36,8 @@ public class Prayer implements Serializable{
 	public String requestId;
 	public int idx;
 
+	public boolean edit;
+
 	public Prayer(){
 		apiKey = Global.apiKey;
 	}

@@ -34,7 +34,7 @@ public class ChooseFriendActivity extends SubActivityBase {
 
         List<Friend> friendList = RestService.getFriendList();
 
-        GeneralRecyclerViewAdapter<Friend,SimpleFriendViewHolder> responseAdapter = new  GeneralRecyclerViewAdapter<Friend,SimpleFriendViewHolder> (friendList,R.layout.layout_friend_row,SimpleFriendViewHolder.class);
+        GeneralRecyclerViewAdapter<Friend,SimpleFriendViewHolder> responseAdapter = new  GeneralRecyclerViewAdapter<Friend,SimpleFriendViewHolder> (friendList,R.layout.layout_simple_friend_row,SimpleFriendViewHolder.class);
         LinearLayoutManager layoutManager = setRecyclerView(recyclerView,responseAdapter);
 
 
