@@ -68,6 +68,8 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
     }
 
 
+
+
     @OnClick(R.id.move)
     void move(){
         if(adapter.editable) {
