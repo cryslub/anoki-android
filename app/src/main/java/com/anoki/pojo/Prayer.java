@@ -35,6 +35,7 @@ public class Prayer implements Serializable{
 	public String long_time;
 	public String requestId;
 	public int idx;
+	public int checked = -1;
 
 	public boolean edit;
 

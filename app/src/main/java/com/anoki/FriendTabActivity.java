@@ -3,11 +3,14 @@ package com.anoki;
 import android.os.Bundle;
 import android.widget.TabHost;
 
+import com.anoki.common.Common;
+import com.anoki.common.DBManager;
 import com.anoki.common.Global;
 import com.anoki.common.PrayerAdapter;
 import com.anoki.common.TabActivityBase;
 import com.anoki.common.Util;
 import com.anoki.fragment.SearchFragment;
+import com.anoki.pojo.Alarm;
 import com.anoki.pojo.Prayer;
 import com.anoki.pojo.Search;
 import com.google.gson.reflect.TypeToken;
@@ -70,16 +73,27 @@ public class FriendTabActivity extends TabActivityBase implements SearchFragment
 
 
     private void setRequestList(){
-        Type listType = new TypeToken<ArrayList<Prayer>>() {}.getType();
+
+        Common.getRequestList(getApplicationContext());
+
+        List<Prayer> prayerList = new ArrayList<Prayer> ();
 
 
-        final Search search = new Search();
-        search.apiKey = Global.apiKey;
+        final DBManager dbManager = new DBManager(getApplicationContext());
+        List<Prayer> list = dbManager.getRequest();
 
-        List<Prayer> prayerList = Util.rest("prayer/request", "POST", search, listType);
+        Search search = new Search();
+        for(Prayer p : list){
+            search.id = p.id;
+            Prayer prayer = (Prayer)rest("prayer/detail","POST",search,Prayer.class);
+            prayer.checked = p.checked;
+            prayerList.add(prayer);
+        }
+
 
         setPrayerView(R.id.request_list, prayerList);
 
+        dbManager.checkRequest();
 
     }
 

@@ -3,6 +3,7 @@ package com.anoki.common;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,9 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
     @Bind(R.id.move)
     ImageView move;
 
+    @Bind(R.id.new_icon)
+    RelativeLayout newIcon;
+
     @OnClick(R.id.pray) void pray(){
         if (RestService.pray(prayer)) {
             ((PrayerAdapter.OnPrayListener) parentActivity).onPray();
@@ -68,14 +72,6 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
     }
 
 
-
-
-    @OnClick(R.id.move)
-    void move(){
-        if(adapter.editable) {
-            startDrag();
-        }
-    }
 
     public PrayerViewHolder(PrayerAdapter adapter, View itemLayoutView,Activity parentActivity) {
         super(adapter, itemLayoutView,parentActivity);
@@ -134,6 +130,19 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
             move.setVisibility(View.VISIBLE);
         }else{
             move.setVisibility(View.GONE);
+        }
+
+        move.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                return false;
+            }
+        });
+
+        if(prayer.checked == 0){
+            newIcon.setVisibility(View.VISIBLE);
+        }else{
+            newIcon.setVisibility(View.GONE);
         }
     }
 

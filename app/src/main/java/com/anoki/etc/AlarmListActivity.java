@@ -168,6 +168,9 @@ public class AlarmListActivity extends SubActivityBase {
 
         setRecyclerView(recyclerView, responseAdapter);
 
+        final DBManager dbManager = new DBManager(getApplicationContext());
+        dbManager.checkAlarm();;
+
     }
 
 

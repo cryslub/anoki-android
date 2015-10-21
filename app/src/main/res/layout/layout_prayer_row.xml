@@ -44,15 +44,38 @@
                 android:orientation="vertical"
                 android:id="@+id/container"
                 android:layout_marginLeft="10dp">
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/name"
-                    android:textColor="@color/java"
-                    android:text="최영범"
-                    android:textStyle="bold"
-                    android:textSize="15sp" />
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/name"
+                        android:textColor="@color/java"
+                        android:text="최영범"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/new_icon">
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/circle_red"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="N"
+                            android:textColor="@android:color/white"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="10sp"/>
 
+                    </RelativeLayout>
+                </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

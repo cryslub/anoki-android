@@ -12,6 +12,7 @@ import com.anoki.pojo.AlarmSetting;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Message;
 import com.anoki.pojo.Phone;
+import com.anoki.pojo.Prayer;
 import com.anoki.pojo.User;
 
 import java.util.ArrayList;
@@ -44,7 +45,8 @@ public class DBManager  extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE ALARM_SETTING(ONOFF INTEGER, LEVEL INTEGER, PREVIEW INTEGER, SOUND INTEGER, VIBE INTEGER);");
         db.execSQL("CREATE TABLE PASS(PASS TEXT);");
         db.execSQL("CREATE TABLE MESSAGE(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,SENDER TEXT, SENDER_ID INTEGER, MESSAGE TEXT,PICTURE INTEGER,USER_PICTURE INTEGER,CHECKED INTEGER);");
-        db.execSQL("CREATE TABLE ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,TYPE TEXT, NAME1 TEXT,NAME2 TEXT, TIME TEXT,PICTURE INTEGER, GID INTEGER);");
+        db.execSQL("CREATE TABLE ALARM(_id INTEGER PRIMARY KEY AUTOINCREMENT,USER INTEGER,TYPE TEXT, NAME1 TEXT,NAME2 TEXT, TIME TEXT,PICTURE INTEGER, GID INTEGER, CHECKED INTEGER);");
+        db.execSQL("CREATE TABLE REQUEST(_id INTEGER PRIMARY KEY AUTOINCREMENT,PRAYER INTEGER, CHECKED INTEGER);");
 
         db.execSQL("INSERT INTO ALARM_SETTING (LEVEL,PREVIEW,SOUND,VIBE) VALUES ('N',1,1,0)");
     }
@@ -190,6 +192,20 @@ public class DBManager  extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    public int getNewMessageCount() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        List<Message> list = new ArrayList<Message>();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM MESSAGE WHERE CHECKED = 0", null);
+        while (cursor.moveToNext()) {
+            return cursor.getInt(0);
+        }
+
+        return 0;
+    }
+
+
     public void insertAlarm(Alarm alarm){
         SQLiteDatabase db = getReadableDatabase();
 
@@ -222,6 +238,29 @@ public class DBManager  extends SQLiteOpenHelper {
     }
 
 
+    public void checkAlarm(){
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.execSQL("UPDATE ALARM SET CHECKED = 1");
+        db.close();
+    }
+
+
+
+    public int getNewAlarmCount() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        List<Message> list = new ArrayList<Message>();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM ALARM WHERE CHECKED = 0", null);
+        while (cursor.moveToNext()) {
+            return cursor.getInt(0);
+        }
+        db.close();
+        return 0;
+    }
+
+
+
     public AlarmSetting getAlarmSetting() {
         SQLiteDatabase db = getReadableDatabase();
 
@@ -251,4 +290,56 @@ public class DBManager  extends SQLiteOpenHelper {
         db.execSQL(sql);
         db.close();
     }
+
+
+
+    public void insertRequest(Prayer prayer){
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.execSQL("INSERT INTO REQUEST (PRAYER) VALUES(" + prayer.id + ")");
+        db.close();
+    }
+
+
+    public List<Prayer> getRequest() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        List<Prayer> list = new ArrayList<Prayer>();
+        Cursor cursor = db.rawQuery("SELECT PRAYER,CHECKED FROM REQUEST", null);
+        while (cursor.moveToNext()) {
+            Prayer prayer = new Prayer();
+            prayer.id = cursor.getInt(0);
+            prayer.checked = cursor.getInt(1);
+            list.add( prayer);
+
+        }
+
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+
+    public void checkRequest(){
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.execSQL("UPDATE REQUEST SET CHECKED = 1");
+        db.close();
+    }
+
+
+
+    public int getNewRequestCount() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        List<Message> list = new ArrayList<Message>();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM REQUEST WHERE CHECKED = 0", null);
+        while (cursor.moveToNext()) {
+            return cursor.getInt(0);
+        }
+        db.close();
+        return 0;
+    }
+
+
 }

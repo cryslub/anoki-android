@@ -6,12 +6,18 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.anoki.etc.MessageActivity;
+import com.anoki.pojo.Alarm;
+import com.anoki.pojo.Search;
 import com.anoki.prayer.PrayerDetailActivity;
 import com.anoki.pojo.Friend;
 import com.anoki.pojo.Message;
 import com.anoki.pojo.Prayer;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,4 +52,51 @@ public class Common {
         //toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
+
+    public static  List<Message> getMessageList(Context context){
+        Type listType = new TypeToken<ArrayList<Message>>() {}.getType();
+        final DBManager dbManager = new DBManager(context, "Anoki.db", null, 1);
+
+        List<Message> list =  Util.rest("etc/message","POST",new Search(), listType);
+        if(list !=null) {
+            for (Message message : list) {
+                dbManager.insertMessage(message);
+            }
+        }
+
+        return dbManager.getMessage();
+    }
+
+
+
+    public static List<Alarm> getAlarmList(Context context){
+        Type listType = new TypeToken<ArrayList<Alarm>>() {}.getType();
+        final DBManager dbManager = new DBManager(context, "Anoki.db", null, 1);
+
+        List<Alarm> list =  Util.rest("etc/alarm","POST",new Search(), listType);
+        if(list !=null) {
+            for (Alarm alarm : list) {
+                dbManager.insertAlarm(alarm);
+            }
+        }
+
+        return dbManager.getAlarm();
+    }
+
+
+    public static List<Alarm> getRequestList(Context context){
+        Type listType = new TypeToken<ArrayList<Prayer>>() {}.getType();
+        final DBManager dbManager = new DBManager(context);
+
+        List<Prayer> list =  Util.rest("prayer/request","POST",new Search(), listType);
+        if(list !=null) {
+            for (Prayer prayer : list) {
+                dbManager.insertRequest(prayer);
+            }
+        }
+
+        return dbManager.getAlarm();
+    }
+
+
 }

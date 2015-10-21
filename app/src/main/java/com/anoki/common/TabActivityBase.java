@@ -1,9 +1,12 @@
 package com.anoki.common;
 
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anoki.etc.AlarmListActivity;
@@ -21,7 +24,50 @@ public abstract  class TabActivityBase extends ActivityBase {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_recent, menu);
-        return true;
+
+        setMessage(menu);
+        setAlarm(menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    private void setMessage(Menu menu){
+        MenuItem item = menu.findItem(R.id.action_message);
+        MenuItemCompat.setActionView(item, R.layout.layout_message);
+        RelativeLayout notifCount = (RelativeLayout) MenuItemCompat.getActionView(item);
+
+
+        Common.getMessageList(getApplicationContext());
+        final DBManager dbManager = new DBManager(getApplicationContext());
+
+        int count = dbManager.getNewMessageCount();
+        if(count ==0){
+            RelativeLayout layout = (RelativeLayout) notifCount.findViewById(R.id.container);
+            layout.setVisibility(View.GONE);
+        }else {
+            TextView tv = (TextView) notifCount.findViewById(R.id.actionbar_notifcation_textview);
+            tv.setText(count + "");
+        }
+    }
+
+    private void setAlarm(Menu menu){
+        MenuItem item = menu.findItem(R.id.action_alarm);
+        MenuItemCompat.setActionView(item, R.layout.layout_alarm);
+        RelativeLayout notifCount = (RelativeLayout) MenuItemCompat.getActionView(item);
+
+
+        Common.getAlarmList(getApplicationContext());
+        final DBManager dbManager = new DBManager(getApplicationContext());
+
+        int count = dbManager.getNewAlarmCount();
+        if(count ==0){
+            RelativeLayout layout = (RelativeLayout) notifCount.findViewById(R.id.container);
+            layout.setVisibility(View.GONE);
+        }else {
+            TextView tv = (TextView) notifCount.findViewById(R.id.actionbar_notifcation_textview);
+            tv.setText(count + "");
+        }
     }
 
     @Override

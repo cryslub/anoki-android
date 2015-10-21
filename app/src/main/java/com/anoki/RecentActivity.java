@@ -18,12 +18,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.anoki.common.Common;
 import com.anoki.common.ContactManage;
+import com.anoki.common.DBManager;
+import com.anoki.common.Util;
+import com.anoki.pojo.Prayer;
+import com.anoki.pojo.Search;
+import com.google.gson.reflect.TypeToken;
+import com.readystatesoftware.viewbadger.BadgeView;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,6 +48,7 @@ public class RecentActivity extends TabActivity {
         setContentView(R.layout.activity_recent);
 
         setTabHost();
+        friendBadge();
 
         final Handler handler = new Handler();
         Timer timer = new Timer();
@@ -131,9 +143,43 @@ public class RecentActivity extends TabActivity {
         }
     }
 
+    private void friendBadge(){
+
+
+        Common.getRequestList(getApplicationContext());
+
+        final DBManager dbManager = new DBManager(getApplicationContext());
+
+        int count = dbManager.getNewRequestCount();
+
+        if(count > 0) {
+
+            final TabHost mTabHost = getTabHost();
+
+            TextView t = (TextView) mTabHost.getTabWidget().getChildAt(2).findViewById(android.R.id.title); //Unselected Tabs
+            t.setPadding(0, 0, 70, 0);
+            BadgeView badge1 = new BadgeView(this, t);
+            badge1.setText(count+"");
+            badge1.setTextSize(11);
+            badge1.setBadgeBackgroundColor(getApplicationContext().getResources().getColor(R.color.cinnabar));
+            // badge1.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+            badge1.setTextColor(Color.WHITE);
+
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) badge1.getLayoutParams();
+            p.setMargins(30, 0, 0, 30);
+            badge1.setLayoutParams(p);
+
+            badge1.toggle();
+        }
+    }
+
     private void setTabHost(){
 
         final TabHost mTabHost = getTabHost();
+
+        ImageView iv = new ImageView(this);
+        iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mTabHost.addTab(mTabHost.newTabSpec("최근").setIndicator("최근").setContent(new Intent(this, RecentTabActivity.class)));
         mTabHost.addTab(mTabHost.newTabSpec("나").setIndicator("나").setContent(new Intent(this, MeTabActivity.class)));
@@ -142,13 +188,25 @@ public class RecentActivity extends TabActivity {
         mTabHost.addTab(mTabHost.newTabSpec("더보기").setIndicator("더보기").setContent(new Intent(this, MoreTabActivity.class)));
 
 
+
+
         for(int index = 0 ;index < mTabHost.getTabWidget().getChildCount() ; index++) {
+
+
+
             mTabHost.getTabWidget().getChildAt(index).setBackgroundColor(getResources().getColor(R.color.baltic_sea));
             mTabHost.getTabWidget().getChildAt(index).setPadding(0, 0, 0, 0);
             TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(index).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(Color.parseColor("#aaaaaa"));
-            tv.setTextSize(18);
+
+
+
+            if(tv != null) {
+                tv.setTextColor(Color.parseColor("#aaaaaa"));
+                tv.setTextSize(18);
+            }
         }
+
+
 
         TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab()).findViewById(android.R.id.title); //Unselected Tabs
         tv.setTextColor(Color.WHITE);
@@ -156,12 +214,12 @@ public class RecentActivity extends TabActivity {
 
         mTabHost.getTabWidget().setDividerDrawable(null);
 
-        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener(){
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
 
             @Override
             public void onTabChanged(String tabId) {
 
-                for(int index = 0 ;index < mTabHost.getTabWidget().getChildCount() ; index++) {
+                for (int index = 0; index < mTabHost.getTabWidget().getChildCount(); index++) {
                     TextView tv = (TextView) mTabHost.getTabWidget().getChildAt(index).findViewById(android.R.id.title); //Unselected Tabs
                     tv.setTextColor(Color.parseColor("#aaaaaa"));
                 }
