@@ -198,11 +198,15 @@ public class DBManager  extends SQLiteOpenHelper {
 
         List<Message> list = new ArrayList<Message>();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM MESSAGE WHERE CHECKED = 0", null);
+        int ret = 0;
         while (cursor.moveToNext()) {
-            return cursor.getInt(0);
+            ret =  cursor.getInt(0);
         }
 
-        return 0;
+        cursor.close();
+        db.close();
+
+        return ret;
     }
 
 
@@ -252,11 +256,13 @@ public class DBManager  extends SQLiteOpenHelper {
 
         List<Message> list = new ArrayList<Message>();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM ALARM WHERE CHECKED = 0", null);
+        int ret = 0;
         while (cursor.moveToNext()) {
-            return cursor.getInt(0);
+            ret = cursor.getInt(0);
         }
+        cursor.close();
         db.close();
-        return 0;
+        return ret;
     }
 
 
@@ -334,11 +340,13 @@ public class DBManager  extends SQLiteOpenHelper {
 
         List<Message> list = new ArrayList<Message>();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM REQUEST WHERE CHECKED = 0", null);
+        int ret = 0;
         while (cursor.moveToNext()) {
-            return cursor.getInt(0);
+            ret = cursor.getInt(0);
         }
+        cursor.close();
         db.close();
-        return 0;
+        return ret;
     }
 
 
