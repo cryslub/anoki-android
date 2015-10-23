@@ -481,8 +481,6 @@ public class Util {
 
     public static String getProductId(int dalant){
         switch (dalant){
-            case 200:
-                return "com.anoki.two.hundred";
             case 1000:
                 return "com.anoki.one.thousand";
             case 2000:
@@ -512,7 +510,7 @@ public class Util {
             case 70000:
                 return "com.anoki.seventy.thousand";
             case 120000:
-                return "com.anoki.one.hundred.twenty.housand";
+                return "com.anoki.one.hundred.twenty.thousand";
             case 200000:
                 return "com.anoki.two.hundred.thousand";
 

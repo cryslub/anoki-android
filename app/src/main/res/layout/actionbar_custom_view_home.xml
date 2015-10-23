@@ -11,6 +11,6 @@
         android:clickable="false"
         android:focusable="false"
         android:longClickable="false"
-        android:src="@drawable/logo_white_small" />
+        android:src="@drawable/logo_small" />
 
 </LinearLayout>

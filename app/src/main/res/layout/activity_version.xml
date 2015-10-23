@@ -3,13 +3,37 @@
     android:layout_height="match_parent"
     tools:context="com.anoki.etc.VersionActivity"
     android:background="@color/medium_turquoise"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_white_small"/>
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:src="@drawable/logo_main"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/Line"
+        android:background="@android:color/white"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="100dp" />
+
+    <TextView android:text="현재버전 1.0.0" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"/>
+
+    <TextView android:text="현재 최신버전입니다." android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="8dp"
+        android:background="@color/baltic_sea"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp" />
 
 </LinearLayout>

@@ -28,43 +28,7 @@
             android:id="@+id/container"
             android:paddingRight="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/ChargeItem">
 
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:id="@+id/two_hundred"
-                    android:onClick="onRadioButtonClicked"
-                    android:button="@drawable/custom_drawable_radio"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="200달란트"
-                        android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
-                        style="@style/MainText"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="200원"
-                android:textStyle="bold"
-                style="@style/MainText"/>
-
-            </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginLeft="58dp"
-                    android:background="#aaaaaa"
-                    android:layout_marginRight="10dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,7 +40,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/one_thousand"
                         android:onClick="onRadioButtonClicked"
-                        android:button="@drawable/custom_drawable_radio"/>
+                        android:button="@drawable/custom_drawable_radio"
+                        android:checked="true"/>
 
                     <TextView
                         android:layout_width="0dp"

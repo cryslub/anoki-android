@@ -113,17 +113,17 @@ public class PrayerViewHolderBase extends  DragSortAdapter.ViewHolder {
                 case "P":
                     scope.setText("전체공개");
                     friendCount.setText("All");
-                    scopeImage.setImageResource(R.drawable.ic_friend);
+                    scopeImage.setImageResource(R.drawable.ic_publish_friend);
                     break;
                 case "F":
                     scope.setText("친구공개");
                     friendCount.setText("+" + prayer.friends.size());
-                    scopeImage.setImageResource(R.drawable.ic_friend);
+                    scopeImage.setImageResource(R.drawable.ic_publish_friend);
                     break;
                 case "S":
                     scope.setText("나만보기");
                     friendCount.setText("");
-                    scopeImage.setImageResource(R.drawable.ic_lock);
+                    scopeImage.setImageResource(R.drawable.ic_publish_lock);
                     break;
             }
         }

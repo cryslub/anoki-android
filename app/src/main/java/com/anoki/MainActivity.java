@@ -1,7 +1,9 @@
 package com.anoki;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.http.HttpResponseCache;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -18,7 +20,7 @@ import com.anoki.user.LoginActivity;
 
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +46,26 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
-        String pass = dbManager.getPass();
-        if(pass == null) {
-            init();
- //           init2();
 
-        }else{
-            Intent intent = new Intent(MainActivity.this, CheckPassActivity.class);
-            intent.putExtra("type","start");
-            startActivity(intent);
-        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+
+                final DBManager dbManager = new DBManager(getApplicationContext(), "Anoki.db", null, 1);
+                String pass = dbManager.getPass();
+                if(pass == null) {
+                    init();
+                    //           init2();
+
+                }else{
+                    Intent intent = new Intent(MainActivity.this, CheckPassActivity.class);
+                    intent.putExtra("type","start");
+                    startActivity(intent);
+                }
+
+            }
+        }, 2000);
+
 
     }
 

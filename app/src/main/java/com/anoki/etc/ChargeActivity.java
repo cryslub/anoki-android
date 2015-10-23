@@ -150,12 +150,9 @@ public class ChargeActivity extends SubActivityBase {
     @OnClick(R.id.charge)
     public void charge(View view){
 
-        dalant=200;
+        dalant=1000;
 
         switch (selected){
-            case R.id.two_hundred:
-                dalant = 200;
-                break;
             case R.id.one_thousand:
                 dalant = 1000;
                 break;
