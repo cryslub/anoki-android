@@ -3,8 +3,10 @@ package com.anoki.common;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -74,7 +76,7 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
 
 
     public PrayerViewHolder(PrayerAdapter adapter, View itemLayoutView,Activity parentActivity) {
-        super(adapter, itemLayoutView,parentActivity);
+        super(adapter, itemLayoutView, parentActivity);
 
         ButterKnife.bind(this, itemLayoutView);
 
@@ -132,12 +134,26 @@ class PrayerViewHolder extends  PrayerViewHolderBase implements View.OnLongClick
             move.setVisibility(View.GONE);
         }
 
-        move.setOnDragListener(new View.OnDragListener() {
+        move.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onDrag(View v, DragEvent event) {
+            public boolean onTouch(View v, MotionEvent event) {
+                if(adapter.editable) {
+                    startDrag();
+                }
                 return false;
             }
         });
+/*        move.setOnDragListener(new View.OnDragListener() {
+
+
+
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                startDrag();
+                return false;
+            }
+        });
+        */
 
         if(prayer.checked == 0){
             newIcon.setVisibility(View.VISIBLE);
@@ -233,7 +249,11 @@ public class PrayerAdapter extends DragSortAdapter<PrayerViewHolder> {
 
         PrayerViewHolder viewHolder = new PrayerViewHolder(this,itemLayoutView,parentActivity);
         itemLayoutView.setOnLongClickListener(viewHolder);
+
+     //   Log.i("onCreateViewHolder","onCreateViewHolder");
+
         return viewHolder;
+
     }
 
     // Replace the contents of a view (invoked by the layout manager)

@@ -12,7 +12,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_friend"
+                android:src="@drawable/ic_publish_friend"
                 android:id="@+id/scope_image"
                 />
             <TextView

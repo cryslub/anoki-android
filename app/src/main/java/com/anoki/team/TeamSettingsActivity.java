@@ -48,6 +48,22 @@ public class TeamSettingsActivity extends SubActivityBase {
     @Bind(R.id.super_auth)
     LinearLayout superAuth;
 
+    @Bind(R.id.auth)
+    LinearLayout auth;
+
+
+    @Bind(R.id.invite)
+    LinearLayout invite;
+
+
+    @Bind(R.id.manage)
+    LinearLayout manage;
+
+
+    @Bind(R.id.title)
+    LinearLayout title;
+
+
 
     Team team;
 
@@ -96,6 +112,33 @@ public class TeamSettingsActivity extends SubActivityBase {
         }else{
             remainContainer.setVisibility(View.VISIBLE);
         }
+
+        if(team.role >= team.inviteAuth){
+            invite.setVisibility(View.VISIBLE);
+        }else{
+            invite.setVisibility(View.GONE);
+        }
+
+        if(team.role >= team.leaveAuth){
+            manage.setVisibility(View.VISIBLE);
+        }else{
+            manage.setVisibility(View.GONE);
+        }
+
+
+        if(team.role >= team.profileAuth){
+            title.setVisibility(View.VISIBLE);
+        }else{
+            title.setVisibility(View.GONE);
+        }
+
+
+        if(team.role >= 2){
+            auth.setVisibility(View.VISIBLE);
+        }else{
+            auth.setVisibility(View.GONE);
+        }
+
 
         if(team.role == 3){
             superAuth.setVisibility(View.VISIBLE);

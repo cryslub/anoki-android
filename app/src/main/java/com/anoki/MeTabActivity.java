@@ -66,6 +66,14 @@ public class MeTabActivity extends TabActivityBase implements PrayerAdapter.OnPr
 
         if(prayerAdapter.editable) {
 
+            int i  =prayerAdapter.visibleObjects.size();
+            for(Prayer prayer : prayerAdapter.visibleObjects){
+                prayer.idx = i;
+                Util.rest("prayer","PUT",prayer);
+                i--;
+            }
+
+
             for(Prayer prayer: prayerAdapter.allObjects){
                 prayer.edit = false;
             }
@@ -74,13 +82,9 @@ public class MeTabActivity extends TabActivityBase implements PrayerAdapter.OnPr
             prayerAdapter.editable = false;
             edit.setText("편집");
 
-            int i  =prayerAdapter.visibleObjects.size();
-            for(Prayer prayer : prayerAdapter.visibleObjects){
-                prayer.idx = i;
-                Util.rest("prayer","PUT",prayer);
-                i--;
-            }
 
+
+            load();
         }else{
             for(Prayer prayer: prayerAdapter.allObjects){
                 prayer.edit = true;

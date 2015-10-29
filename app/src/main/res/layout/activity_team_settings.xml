@@ -156,37 +156,51 @@
                 <View
                     android:layout_width="match_parent"
                     style="@style/Line"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:background="@android:color/white"
-                    android:onClick="invite"
-                    >
-
-
-                    <TextView
-                        android:layout_width="0dp"
+                    android:id="@+id/invite"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="그룹원 초대"
-                        />
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:background="@android:color/white"
+                        android:onClick="invite"
+                        >
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_chevron_right_black_24dp"
-                        android:alpha=".3"
-                        />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="그룹원 초대"
+                            />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_chevron_right_black_24dp"
+                            android:alpha=".3"
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        style="@style/Line"/>
 
                 </LinearLayout>
 
-                <View
+                <LinearLayout
                     android:layout_width="match_parent"
-                    style="@style/Line"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/manage"
+                    android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -220,6 +234,7 @@
                     android:layout_width="match_parent"
                     style="@style/Line"/>
 
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -232,6 +247,13 @@
                     android:layout_width="match_parent"
                     style="@style/Line"
                     />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title"
+                    android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -260,9 +282,21 @@
 
                 </LinearLayout>
 
+
+
                 <View
                     android:layout_width="match_parent"
                     style="@style/Line"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/auth"
+                    android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -322,9 +356,20 @@
 
                 </LinearLayout>
 
+
+
                 <View
                     android:layout_width="match_parent"
                     style="@style/Line"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/super_auth">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -358,11 +403,6 @@
                     android:layout_width="match_parent"
                     style="@style/Line"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/super_auth">
 
                     <TextView
                         android:layout_width="match_parent"

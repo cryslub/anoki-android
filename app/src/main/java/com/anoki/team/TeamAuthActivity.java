@@ -58,15 +58,15 @@ public class TeamAuthActivity extends SubActivityBase {
 
     }
 
-    private void setAuthText(String prop, TextView textView){
+    private void setAuthText(int prop, TextView textView){
         switch(prop){
-            case "3":
+            case 3:
                 textView.setText("책임 청지기");
                 break;
-            case "2":
+            case 2:
                 textView.setText("모든 청지기");
                 break;
-            case "1":
+            case 1:
                 textView.setText("모든 멤버");
                 break;
 
@@ -110,25 +110,25 @@ public class TeamAuthActivity extends SubActivityBase {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
 
-                String value = null;
+                int value = 0;
 
                 switch (item.getItemId()) {
                     case R.id.all: {
-                        value = "1";
+                        value = 1;
                     }
                     break;
                     case R.id.vice: {
-                        value = "2";
+                        value = 2;
                     }
                     break;
                     case R.id.leader: {
-                        value = "3";
+                        value = 3;
                     }
                     break;
 
                 }
 
-                if (value != null) {
+                if (value != 0) {
                     switch (selected) {
                         case R.id.title:
                             team.profileAuth = value;
