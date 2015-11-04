@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.anoki.BlockedActivity;
 import com.anoki.CheckPassActivity;
 import com.anoki.R;
 import com.anoki.common.AnokiDialog;

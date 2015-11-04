@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.anoki.RecentActivity">
 
     <item android:id="@+id/action_alarm"
-        android:icon="@drawable/ic_flag"
         android:title="알림"
         app:showAsAction="always"
         android:actionLayout="@layout/layout_alarm"
         android:onClick="alarm"/>
 
     <item android:id="@+id/action_message"
-        android:icon="@drawable/ic_note"
         android:title="쪽지"
         app:showAsAction="always"
         android:actionLayout="@layout/layout_message"

@@ -28,6 +28,23 @@ public abstract  class TabActivityBase extends ActivityBase {
         setMessage(menu);
         setAlarm(menu);
 
+        final MenuItem alarm = menu.findItem(R.id.action_alarm);
+        alarm.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alarm(null);
+            }
+        });
+
+        final MenuItem message = menu.findItem(R.id.action_message);
+        message.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                message(null);
+            }
+        });
+
+
         return super.onCreateOptionsMenu(menu);
     }
 

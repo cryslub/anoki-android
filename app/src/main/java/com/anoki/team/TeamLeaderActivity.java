@@ -2,16 +2,13 @@ package com.anoki.team;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anoki.R;
-import com.anoki.TeamTransferActivity;
 import com.anoki.common.GeneralRecyclerViewAdapter;
 import com.anoki.common.SubActivityBase;
 import com.anoki.common.Util;
@@ -19,7 +16,6 @@ import com.anoki.common.ViewHolderBase;
 import com.anoki.pojo.Member;
 import com.anoki.pojo.Search;
 import com.anoki.pojo.Team;
-import com.anoki.team.TeamAuthActivity;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

@@ -324,7 +324,7 @@
             android:label="@string/title_activity_team_invite" >
         </activity>
         <activity
-            android:name=".BlockedActivity"
+            android:name=".etc.BlockedActivity"
             android:label="@string/title_activity_blocked" >
         </activity>
         <activity
@@ -356,8 +356,12 @@
             android:label="@string/title_activity_set_leaders" >
         </activity>
         <activity
-            android:name=".TeamTransferActivity"
+            android:name=".team.TeamTransferActivity"
             android:label="@string/title_activity_team_transfer" >
+        </activity>
+        <activity
+            android:name=".TeamAlarmActivity"
+            android:label="@string/title_activity_team_alarm" >
         </activity>
     </application>
 

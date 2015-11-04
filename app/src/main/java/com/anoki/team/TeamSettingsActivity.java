@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anoki.R;
+import com.anoki.TeamAlarmActivity;
 import com.anoki.common.Global;
 import com.anoki.common.SubActivityBase;
 import com.anoki.etc.ChooseContactsActivity;
@@ -158,6 +159,12 @@ public class TeamSettingsActivity extends SubActivityBase {
         getIntent().putExtra("leave", "leave");
 
         succeed(getIntent());
+    }
+
+    public void alarm(View view){
+        Intent intent = new Intent(TeamSettingsActivity.this, TeamAlarmActivity.class);
+        intent.putExtra("teamId",team.id);
+        startActivity(intent);
     }
 
     public void invite(View view){
