@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anoki"
-    android:versionCode="1"
+    android:versionCode="2"
     android:versionName="0.0.1" >
 
     <!-- To access Google+ APIs: -->
@@ -360,7 +360,7 @@
             android:label="@string/title_activity_team_transfer" >
         </activity>
         <activity
-            android:name=".TeamAlarmActivity"
+            android:name=".team.TeamAlarmActivity"
             android:label="@string/title_activity_team_alarm" >
         </activity>
     </application>

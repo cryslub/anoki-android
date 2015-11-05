@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anoki.R;
-import com.anoki.TeamAlarmActivity;
 import com.anoki.common.Global;
 import com.anoki.common.SubActivityBase;
 import com.anoki.etc.ChooseContactsActivity;

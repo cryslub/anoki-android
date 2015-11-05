@@ -350,4 +350,27 @@ public class DBManager  extends SQLiteOpenHelper {
     }
 
 
+    public int getTeamAlarm(int teamId){
+        SQLiteDatabase db = getReadableDatabase();
+
+        List<Message> list = new ArrayList<Message>();
+        Cursor cursor = db.rawQuery("SELECT LEVEL FROM TEAM_ALARM WHERE TEAM = "+teamId, null);
+        int ret = -1;
+        if(cursor.moveToNext()) {
+            ret = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+        return ret;
+    }
+
+    public void setTeamAlarm(int teamId,int level){
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.execSQL("DELETE FROM TEAM_ALARM WHERE TEAM = " +teamId);
+        db.execSQL("INSERT INTO TEAM_ALARM (TEAM,LEVEL) VALUES ("+teamId+","+level+")  ");
+
+        db.close();
+
+    }
 }
