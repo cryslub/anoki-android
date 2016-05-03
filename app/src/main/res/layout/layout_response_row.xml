@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/week"
         android:textSize="11sp"
-        android:text="3월 14일"
+        android:text=""
         android:id="@+id/date"
         android:layout_margin="10dp"
 />
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/text"
-        android:text="기도응답"
+        android:text=""
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
 

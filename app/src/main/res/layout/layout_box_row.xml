@@ -31,14 +31,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/time"
-            android:text="2015.06.01"
+            android:text=""
             android:textColor="@color/week"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/text"
-            android:text="기도제목"
+            android:text=""
             android:textColor="@color/strong"
             android:textSize="16sp"/>
     </LinearLayout>

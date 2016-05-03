@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/profile_cover"
         android:id="@+id/imageView" />
-    <com.anoki.common.CircleImageView
+    <com.anoki1.common.CircleImageView
         android:layout_width="57dp"
         android:layout_height="57dp"
         android:id="@+id/picture"

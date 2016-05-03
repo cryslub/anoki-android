@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.user.UserProfileActivity"
+    tools:context="com.anoki1.user.UserProfileActivity"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -20,7 +20,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginBottom="10dp">
 
-            <com.anoki.common.CircleImageView
+            <com.anoki1.common.CircleImageView
                 android:id="@+id/profile_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="01012345678"
+            android:text=""
             android:gravity="center"
             android:id="@+id/phone"
             android:layout_marginBottom="30dp"
@@ -73,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="김수진"
+                android:text=""
                 android:textColor="@android:color/black"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/name"/>
@@ -104,7 +104,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="행복은 가까이"
+                android:text=""
                 android:textColor="@android:color/black"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/state"/>
@@ -153,7 +153,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="someone@somewhere.com"
+            android:text=""
             android:id="@+id/account"/>
 
 

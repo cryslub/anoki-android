@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/date"
-                    android:text="3월 14일 오전 11:00"
+                    android:text=""
                     android:textSize="10sp"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/week"/>
@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/text"
-                    android:text="3,000 달란트"
+                    android:text=""
                     style="@style/MainText"
                     android:layout_marginTop="5dp" />
 
@@ -48,7 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3,000원"
+                android:text=""
                 android:textColor="@color/medium_turquoise"
                 android:textStyle="bold"
                 android:textSize="18sp"

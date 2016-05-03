@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="wrap_content" tools:context="com.anoki.fragment.PrayReplyFragment"
+    android:layout_height="wrap_content" tools:context="com.anoki1.fragment.PrayReplyFragment"
     >
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_marginLeft="5dp"
             android:id="@+id/pray_count"
             android:textSize="9sp"
-            android:text="기도 20"
+            android:text=""
             android:textColor="@android:color/white"/>
         <ImageView
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_marginLeft="5dp"
             android:id="@+id/reply_count"
             android:textSize="9sp"
-            android:text="댓글 3"
+            android:text=""
             android:textColor="@android:color/white"/>
 
     </LinearLayout>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.etc.BlockedActivity"
+    tools:context="com.anoki1.etc.BlockedActivity"
     android:orientation="vertical">
 
 
@@ -10,7 +10,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.anoki.fragment.SearchFragment"
+        android:name="com.anoki1.fragment.SearchFragment"
         android:id="@+id/search"
         android:hint="이름(초성), 전화번호 검색"
         />

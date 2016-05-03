@@ -43,14 +43,14 @@
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:id="@+id/name"
-                        android:text="최영범"
+                        android:text=""
                         android:textStyle="bold"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/date"
                         android:textColor="@color/week"
-                        android:text="3월 13일"/>
+                        android:text=""/>
 
                 </LinearLayout>
 
@@ -90,7 +90,7 @@
                 android:textColor="@color/strong"
                 android:id="@+id/text"
                 android:layout_margin="10dp"
-                android:text="기도제목"
+                android:text=""
                 android:textSize="18sp"/>
 
 
@@ -224,7 +224,7 @@
                             android:layout_height="wrap_content"
                             android:text="2건"
                             android:textColor="@color/golden_yellow"
-                            android:id="@+id/response_count"
+                            android:id="@+id/bar_response_count"
                             android:layout_margin="1dp"
                             android:textStyle="bold"/>
 
@@ -276,7 +276,7 @@
                             android:src="@drawable/profile_cover_gray_small"
                             android:id="@+id/cover"
                             />
-                        <com.anoki.common.CircleImageView
+                        <com.anoki1.common.CircleImageView
                             android:layout_width="42dp"
                             android:layout_height="42dp"
                             android:id="@+id/my_picture"
@@ -335,9 +335,8 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_done_black_24dp"
+                                android:src="@drawable/btn_done_red"
                                 android:layout_gravity="center_vertical"
-                                android:alpha=".5"
                                 android:id="@+id/done"
                                 android:onClick="done"
                                 android:layout_marginBottom="5dp"

@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.user.InputAuthCodeActivity"
+    tools:context="com.anoki1.user.InputAuthCodeActivity"
     android:orientation="vertical"
     android:background="@android:color/white">
 
@@ -18,7 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/phone_number"
-                android:text="+82-10-9486-6033로 전송받은 4자리 인증번호를 입력해주세요."
+                android:text=""
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="10dp"/>
 
@@ -33,7 +33,7 @@
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_weight="1"
-                    class="com.anoki.fragment.EditTextFragment"
+                    class="com.anoki1.fragment.EditTextFragment"
                     android:id="@+id/fragment"
                     android:inputType="numberSigned"
                     android:maxLength="4"/>

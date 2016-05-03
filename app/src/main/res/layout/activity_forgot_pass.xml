@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:padding="20dp"
-    tools:context="com.anoki.user.ForgotPassActivity"
+    tools:context="com.anoki1.user.ForgotPassActivity"
     android:orientation="vertical">
 
 
@@ -17,9 +17,9 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.anoki.fragment.EditTextFragment"
+        android:name="com.anoki1.fragment.EditTextFragment"
         android:id="@+id/fragment"
-        android:maxLength="20"
+        android:maxLength="100"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         />

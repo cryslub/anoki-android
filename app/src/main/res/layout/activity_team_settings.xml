@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.team.TeamSettingsActivity"
+    tools:context="com.anoki1.team.TeamSettingsActivity"
     android:orientation="vertical">
 
 
@@ -44,7 +44,7 @@
                             android:textColor="@android:color/black"
                             android:textSize="17sp"
                             android:id="@+id/name"
-                            android:text="여의도 순복음교회 (Yoido Full Gospel Church)"
+                            android:text=""
                             android:textStyle="bold"
                             android:layout_marginLeft="10dp"
                             />
@@ -71,7 +71,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="241일"
+                                android:text=""
                                 android:layout_marginLeft="20dp"
                                 android:id="@+id/remain"
                                 android:textSize="12sp"
@@ -97,7 +97,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="3,728명"
+                                android:text=""
                                 android:layout_marginLeft="20dp"
                                 android:id="@+id/members"
                                 android:textSize="12sp"
@@ -115,7 +115,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="김수진, 김서로"
+                                android:text=""
                                 android:layout_marginLeft="20dp"
                                 android:id="@+id/leaders"
                                 android:textSize="12sp"
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/strong"
                 android:gravity="center_horizontal"
-                android:text="오순절 성령운동을 전 세계에 펼치는\n 여기는 여의도 순복음 교회입니다."
+                android:text=""
                 android:padding="20dp"
                 android:id="@+id/text"
                 android:background="@android:color/white"/>

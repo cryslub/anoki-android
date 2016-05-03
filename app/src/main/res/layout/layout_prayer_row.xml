@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white">
@@ -26,7 +26,7 @@
                     android:src="@drawable/profile_cover_gray_small"
                     android:id="@+id/cover"
                     />
-                <com.anoki.common.CircleImageView
+                <com.anoki1.common.CircleImageView
                     android:layout_width="42dp"
                     android:layout_height="42dp"
                     android:id="@+id/picture"
@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/name"
                         android:textColor="@color/java"
-                        android:text="최영범"
+                        android:text=""
                         android:textStyle="bold"
                         android:textSize="15sp" />
                     <RelativeLayout
@@ -80,13 +80,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/date"
-                    android:text="3월 14일 오전 11:00"
+                    android:text=""
                     android:textSize="11sp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/text"
-                    android:text="기도제목"
+                    android:text=""
                     android:layout_marginTop="5dp"
                     style="@style/MainText"/>
 
@@ -124,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:id="@+id/pray_count"
-                    android:text="20"
+                    android:text=""
                     android:textSize="9sp"
                     android:textColor="@color/week"/>
                 <ImageView
@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:id="@+id/reply_count"
-                    android:text="3"
+                    android:text=""
                     android:textSize="9sp"
                     android:textColor="@color/week"/>
             </LinearLayout>

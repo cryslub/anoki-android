@@ -31,7 +31,7 @@
             android:id="@+id/actionbar_notifcation_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="99"
+            android:text="0"
             android:textColor="@android:color/white"
             android:textSize="10sp"
             android:layout_centerVertical="true"

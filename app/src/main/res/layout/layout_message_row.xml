@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="60dp"
             android:layout_height="60dp">
-        <com.anoki.common.CircleImageView
+        <com.anoki1.common.CircleImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="10dp"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/name"
                 android:textColor="@color/java"
-                android:text="최영범"
+                android:text=""
                 android:textStyle="bold"/>
 
 
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/text"
-                android:text="기도제목"
+                android:text=""
                 android:textColor="@color/strong"
                 android:layout_marginTop="5dp" />
 
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
-                android:text="3월 14일 오전 11:00"
+                android:text=""
                 android:textSize="10sp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/week"/>

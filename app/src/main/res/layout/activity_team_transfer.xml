@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.team.TeamTransferActivity"
+    tools:context="com.anoki1.team.TeamTransferActivity"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="한동대학교 기도모임"
+        android:text=""
         android:gravity="center"
         android:textColor="@android:color/black"
         android:padding="10dp"
@@ -18,7 +18,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.anoki.fragment.SearchFragment"
+        android:name="com.anoki1.fragment.SearchFragment"
         android:id="@+id/search"
         android:hint="이름(초성), 전화번호 검색"
         />

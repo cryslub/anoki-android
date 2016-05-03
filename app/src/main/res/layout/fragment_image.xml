@@ -4,7 +4,7 @@
     android:layout_height="115dp"
     android:layout_margin="2dp"
 
-    tools:context="com.anoki.fragment.ImageFragment"
+    tools:context="com.anoki1.fragment.ImageFragment"
     android:id="@+id/image_fragment">
 
 
@@ -20,7 +20,7 @@
         android:src="@drawable/border"
         android:id="@+id/overlay"
         android:alpha=".5"
-        android:visibility="gone"/>
+/>
 
     <TextView
         android:layout_width="wrap_content"

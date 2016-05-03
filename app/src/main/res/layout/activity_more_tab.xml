@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.MoreTabActivity"
+    tools:context="com.anoki1.MoreTabActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -35,7 +35,7 @@
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:id="@+id/name"
-                    android:text="최영범"
+                    android:text=""
                     android:textStyle="bold" />
 
                 <ImageView
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#888888"
                     android:id="@+id/account"
-                    android:text="prettykim@gmail.com"
+                    android:text=""
                     android:textSize="13sp"/>
 
             </LinearLayout>
@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#888888"
                     android:id="@+id/text"
-                    android:text="행복은 가까이에"
+                    android:text=""
                     android:textSize="13sp"/>
 
                 </LinearLayout>

@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/profile">
 
-        <com.anoki.common.CircleImageView
+        <com.anoki1.common.CircleImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="10dp"

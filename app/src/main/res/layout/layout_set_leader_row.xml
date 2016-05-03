@@ -11,7 +11,7 @@
         android:id="@+id/container"
         android:gravity="center_vertical">
 
-        <com.anoki.common.CircleImageView
+        <com.anoki1.common.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
@@ -31,7 +31,7 @@
             android:id="@+id/name"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="강경옥"/>
+            android:text=""/>
 
         <CheckBox
             android:layout_width="wrap_content"

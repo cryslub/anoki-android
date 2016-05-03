@@ -12,7 +12,7 @@
         android:gravity="center_vertical"
         android:padding="5dp">
 
-        <com.anoki.common.CircleImageView
+        <com.anoki1.common.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
@@ -32,7 +32,7 @@
             android:id="@+id/name"
             android:layout_marginLeft="30dp"
             android:gravity="center_vertical"
-            android:text="강경옥"
+            android:text=""
             style="@style/MainText"/>
 
     </LinearLayout>

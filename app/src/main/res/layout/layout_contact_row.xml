@@ -12,7 +12,7 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
 
-        <com.anoki.common.CircleImageView
+        <com.anoki1.common.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
@@ -36,12 +36,12 @@
                 android:id="@+id/name"
 
                 android:gravity="center_vertical"
-                android:text="가나다택시"/>
+                android:text=""/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/phone"
-                android:text="02-565-7878"/>
+                android:text=""/>
         </LinearLayout>
         <CheckBox
             android:layout_width="wrap_content"

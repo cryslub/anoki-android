@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.user.DalantActivity"
+    tools:context="com.anoki1.user.DalantActivity"
     android:orientation="vertical">
 
 
@@ -58,7 +58,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1,000"
+                            android:text=""
                             android:layout_marginTop="10dp"
                             android:textColor="@color/medium_turquoise"
                             android:background="@drawable/box_white_mymoney"

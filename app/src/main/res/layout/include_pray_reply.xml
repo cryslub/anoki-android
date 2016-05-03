@@ -29,7 +29,7 @@
             android:layout_marginLeft="5dp"
             android:id="@+id/pray_count"
             android:textSize="11sp"
-            android:text="기도 20"
+            android:text=""
             android:textColor="@android:color/white"/>
         <ImageView
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             android:layout_marginLeft="5dp"
             android:id="@+id/reply_count"
             android:textSize="11sp"
-            android:text="댓글 10"
+            android:text=""
             android:textColor="@android:color/white"/>
     <ImageView
         android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
         android:layout_marginLeft="5dp"
         android:id="@+id/response_count"
         android:textSize="11sp"
-        android:text="응답 4"
+        android:text=""
         android:textColor="@android:color/white"/>
 
 </LinearLayout>

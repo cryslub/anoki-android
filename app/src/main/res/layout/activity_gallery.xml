@@ -1,26 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:padding="8dp"
-    tools:context="com.anoki.prayer.GalleryActivity"
+    tools:context="com.anoki1.prayer.GalleryActivity"
     android:background="#222222">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        >
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/grid_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:numColumns="auto_fit"
+        android:columnWidth="90dp"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth" >
 
+    </GridView>
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:stretchColumns="*"
-            android:id="@+id/media_list"
-            >
-            </TableLayout>
-
-    </ScrollView>
 
 </LinearLayout>

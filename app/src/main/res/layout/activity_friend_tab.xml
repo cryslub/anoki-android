@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.FriendTabActivity">
+    tools:context="com.anoki1.FriendTabActivity">
 
 
     <TabHost
@@ -45,7 +45,7 @@
                         <fragment
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:name="com.anoki.fragment.SearchFragment"
+                            android:name="com.anoki1.fragment.SearchFragment"
                             android:id="@+id/search"
                             android:hint="검색할 사람/기도제목을 입력해주세요."
                             />

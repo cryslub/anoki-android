@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anoki.user.UserPrayerListActivity"
+    tools:context="com.anoki1.user.UserPrayerListActivity"
     android:orientation="vertical">
 
 
@@ -31,7 +31,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 android:id="@+id/name"
-                android:text="최영범"
+                android:text=""
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 />
